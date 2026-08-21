@@ -7,6 +7,7 @@ _One day One Problem_
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 
 </div>
 
@@ -40,5 +41,5 @@ _One day One Problem_
             └── Main.java (또는 Solution.java)
 ```
 
-- 표준입출력 채점(BOJ, Codeforces, SWEA, Softeer) → `Main.{java,cpp}`
-- 메서드 시그니처 채점(Programmers, LeetCode) → `Solution.{java,cpp}`
+- 표준입출력 채점(BOJ, Codeforces, SWEA, Softeer) → `Main.{java,cpp,py}`
+- 메서드 시그니처 채점(Programmers, LeetCode) → `Solution.{java,cpp,py}`
