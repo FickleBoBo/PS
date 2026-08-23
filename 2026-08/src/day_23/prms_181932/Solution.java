@@ -1,7 +1,5 @@
 package day_23.prms_181932;
 
-import java.util.*;
-
 class Solution {
     public String solution(String code) {
         StringBuilder ret = new StringBuilder();
