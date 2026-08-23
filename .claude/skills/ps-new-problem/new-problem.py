@@ -71,7 +71,10 @@ def fetch_template(problem_id: str, language: str) -> tuple[str | None, str | No
 
 
 def build_java(package: str, code: str) -> str:
-    return f"package {package};\n\nimport java.util.*;\n\n{code}\n"
+    return f"package {package};\n\n{code}\n"
+
+
+MAIN_VOID_RE = re.compile(r"^(\s*)int main\(\s*void\s*\)\s*\{\s*$", re.M)
 
 
 def build_cpp(code: str) -> str:
@@ -86,11 +89,25 @@ def build_cpp(code: str) -> str:
             continue
         skipping_leading_blank = False
         body.append(line)
-    return "#include <bits/stdc++.h>\nusing namespace std;\n\n" + "\n".join(body).rstrip("\n") + "\n"
+
+    body_text = "\n".join(body).rstrip("\n")
+
+    # main()으로 stdin/stdout 입출력을 직접 처리하는 스타일이면 (void) 인자를 빼고
+    # 표준 입출력 동기화 해제 두 줄을 넣어준다.
+    m = MAIN_VOID_RE.search(body_text)
+    if m:
+        indent = m.group(1)
+        replacement = f"{indent}int main() {{\n{indent}    ios::sync_with_stdio(0);\n{indent}    cin.tie(0);\n"
+        body_text = MAIN_VOID_RE.sub(replacement, body_text, count=1)
+
+    return "#include <bits/stdc++.h>\nusing namespace std;\n\n" + body_text + "\n"
 
 
-def build_python(code: str) -> str:
-    return code.rstrip("\n") + "\n"
+def build_python(code: str, is_io_style: bool) -> str:
+    body = code.rstrip("\n") + "\n"
+    if is_io_style:
+        return "import sys\n\ninput = sys.stdin.readline\n\n" + body
+    return body
 
 
 def resolve_day_num(src_dir: pathlib.Path) -> int:
@@ -169,9 +186,12 @@ def main() -> None:
         day_dir.mkdir(parents=True, exist_ok=True)  # 실제로 뭔가 만들 때만 생성 (실패만 하면 빈 day 폴더 안 남김)
         pkg_dir.mkdir(parents=True)
         package = f"{day_name}.prms_{pid}"
+        # main()으로 stdin/stdout 입출력을 직접 처리하는 스타일의 문제인지는 자바 스켈레톤의
+        # main 유무로 판단한다 (solution() 함수 스타일 문제는 main이 없음).
+        is_io_style = "static void main(" in codes["java"]
         (pkg_dir / "Solution.java").write_text(build_java(package, codes["java"]))
         (pkg_dir / "Solution.cpp").write_text(build_cpp(codes["cpp"]))
-        (pkg_dir / "Solution.py").write_text(build_python(codes["py"]))
+        (pkg_dir / "Solution.py").write_text(build_python(codes["py"], is_io_style))
         created.append((pid, title))
 
     print(f"day: {day_name}")

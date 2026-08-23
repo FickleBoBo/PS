@@ -23,9 +23,9 @@ description: PS 알고리즘 문제풀이 레포에서 프로그래머스 문제
 ## 생성되는 파일
 
 `{year}-{month}/src/day_XX/prms_{id}/`에:
-- `Solution.java` — `package day_XX.prms_{id};` + `import java.util.*;` + 프로그래머스 공식 Java 스켈레톤
-- `Solution.cpp` — `#include <bits/stdc++.h>` / `using namespace std;` 고정 헤더 + 프로그래머스 공식 C++ 스켈레톤 본문(원래 있던 `#include`/`using namespace std;` 줄은 제거하고 교체)
-- `Solution.py` — 프로그래머스 공식 Python3 스켈레톤 그대로
+- `Solution.java` — `package day_XX.prms_{id};` + 프로그래머스 공식 Java 스켈레톤
+- `Solution.cpp` — `#include <bits/stdc++.h>` / `using namespace std;` 고정 헤더 + 프로그래머스 공식 C++ 스켈레톤 본문(원래 있던 `#include`/`using namespace std;` 줄은 제거하고 교체). `main()`으로 stdin/stdout 입출력을 직접 처리하는 스타일(공식 스켈레톤이 `int main(void) {`)이면 `int main() {`로 바꾸고 그 아래에 `ios::sync_with_stdio(0);` / `cin.tie(0);` 두 줄을 넣어준다.
+- `Solution.py` — 프로그래머스 공식 Python3 스켈레톤. `main()`으로 stdin/stdout 입출력을 직접 처리하는 스타일(자바 스켈레톤에 `main`이 있는 문제)이면 앞에 `import sys` + `input = sys.stdin.readline`을 붙여준다. `solution()` 함수 스타일 문제는 그대로 둠.
 
 세 파일 모두 로그인 없이 받아온 프로그래머스의 **기본** 스켈레톤이라, 과거에 그 문제를 풀어놨어도 항상 깨끗한 상태로 생성된다. 프로그래머스 원본이 CRLF라도 전부 LF로 정규화해서 저장한다.
 
