@@ -6,4 +6,5 @@ def solution(num_list):
             odd = odd * 10 + x
         else:
             even = even * 10 + x
+
     return odd + even
