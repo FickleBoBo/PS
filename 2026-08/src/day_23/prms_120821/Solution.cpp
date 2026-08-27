@@ -2,5 +2,6 @@
 using namespace std;
 
 vector<int> solution(vector<int> num_list) {
-    return vector<int>(num_list.rbegin(), num_list.rend());
+    reverse(num_list.begin(), num_list.end());
+    return num_list;
 }
