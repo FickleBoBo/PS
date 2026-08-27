@@ -36,9 +36,9 @@ _One day One Problem_
 ```
 {year}-{month}/
 └── src/
-    └── day_XX/
+    └── day_XX/                  # XX = 그 달의 일자 (문제 푼 날)
         └── {출처}_{문제번호}/
-            └── Main.java (또는 Solution.java)
+            └── Main.* / Solution.*
 ```
 
 - 표준입출력 채점(BOJ, Codeforces, SWEA, Softeer) → `Main.{java,cpp,py}`
