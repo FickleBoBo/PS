@@ -1,13 +1,13 @@
 def solution(numLog):
-    ans = []
+    lst = []
     for prv, cur in zip(numLog, numLog[1:]):
         if prv + 1 == cur:
-            ans.append("w")
+            lst.append("w")
         elif prv - 1 == cur:
-            ans.append("s")
+            lst.append("s")
         elif prv + 10 == cur:
-            ans.append("d")
+            lst.append("d")
         else:
-            ans.append("a")
+            lst.append("a")
 
-    return "".join(ans)
+    return "".join(lst)
