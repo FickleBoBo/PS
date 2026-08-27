@@ -6,9 +6,9 @@
 
 git add/commit은 하지 않는다 (실제로 풀고 나서 커밋하는 워크플로와 분리).
 """
+
 import datetime
 import html
-import json
 import pathlib
 import re
 import subprocess
@@ -18,13 +18,12 @@ import urllib.request
 
 LANGS = [("java", "java"), ("cpp", "cpp"), ("python3", "py")]
 TITLE_RE = re.compile(r"<title>코딩테스트 연습 - (.+?) \| 프로그래머스 스쿨</title>")
-CODE_RE = re.compile(r'<textarea hidden id="code" name="code">(.*?)</textarea>', re.S)
-TAB_URL_RE = re.compile(r"https://school\.programmers\.co\.kr/learn/courses/30/lessons/(\d+)")
-
-# 오늘 마지막으로 쓴 day 번호를 기록해두는 상태 파일. 디렉터리 mtime은 git
-# checkout/pull/worktree 등으로 리셋될 수 있어 신뢰할 수 없어서, 이 스킬 자신이
-# 직접 상태를 관리한다.
-STATE_FILE = pathlib.Path(__file__).resolve().parent / ".day-state.json"
+CODE_RE = re.compile(
+    r'<textarea hidden id="code" name="code">(.*?)</textarea>', re.DOTALL
+)
+TAB_URL_RE = re.compile(
+    r"https://school\.programmers\.co\.kr/learn/courses/30/lessons/(\d+)"
+)
 
 
 def repo_root() -> pathlib.Path:
@@ -33,7 +32,13 @@ def repo_root() -> pathlib.Path:
 
 
 def chrome_problem_ids() -> list[str]:
-    script = 'tell application "Google Chrome" to get URL of every tab of every window'
+    # `is running` 가드가 없으면 Chrome이 꺼져 있을 때 osascript가 Chrome을 띄운다.
+    # 안 켜져 있으면 빈 출력 -> "탭 없음"으로 조용히 끝나게 한다.
+    script = (
+        'if application "Google Chrome" is running then\n'
+        '  tell application "Google Chrome" to get URL of every tab of every window\n'
+        "end if"
+    )
     try:
         out = subprocess.check_output(
             ["osascript", "-e", script], text=True, stderr=subprocess.DEVNULL
@@ -74,7 +79,7 @@ def build_java(package: str, code: str) -> str:
     return f"package {package};\n\n{code}\n"
 
 
-MAIN_VOID_RE = re.compile(r"^(\s*)int main\(\s*void\s*\)\s*\{\s*$", re.M)
+MAIN_VOID_RE = re.compile(r"^(\s*)int main\(\s*void\s*\)\s*\{\s*$", re.MULTILINE)
 
 
 def build_cpp(code: str) -> str:
@@ -110,37 +115,14 @@ def build_python(code: str, is_io_style: bool) -> str:
     return body
 
 
-def resolve_day_num(src_dir: pathlib.Path) -> int:
-    """오늘 쓸 day 번호를 정한다. 상태 파일에 오늘 날짜로 기록된 값이 있으면 재사용,
-    없으면(날짜가 바뀌었거나 최초 실행이면) 기존 day_XX 중 최댓값+1로 새로 만든다."""
-    today = datetime.date.today().isoformat()
-
-    state = None
-    if STATE_FILE.exists():
-        try:
-            state = json.loads(STATE_FILE.read_text())
-        except (json.JSONDecodeError, OSError):
-            state = None
-
-    if state and state.get("date") == today and isinstance(state.get("day"), int):
-        day_num = state["day"]
-    else:
-        day_nums = [
-            int(m.group(1))
-            for d in src_dir.iterdir()
-            if d.is_dir() and (m := re.match(r"^day_(\d+)$", d.name))
-        ]
-        day_num = max(day_nums, default=0) + 1
-
-    STATE_FILE.write_text(json.dumps({"date": today, "day": day_num}))
-    return day_num
-
-
 def main() -> None:
     args = sys.argv[1:]
     problem_ids = args if args else chrome_problem_ids()
     if not problem_ids:
-        print("error: 처리할 문제 번호가 없음 (Chrome에 열린 프로그래머스 문제 탭 없음)", file=sys.stderr)
+        print(
+            "error: 처리할 문제 번호가 없음 (Chrome에 열린 프로그래머스 문제 탭 없음)",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     for pid in problem_ids:
@@ -153,10 +135,15 @@ def main() -> None:
     year_month = today.strftime("%Y-%m")
     src_dir = root / year_month / "src"
     if not src_dir.is_dir():
-        print(f"error: {year_month} 모듈이 없음 — ps-new-month 먼저 실행 필요", file=sys.stderr)
+        print(
+            f"error: {year_month} 모듈이 없음 — ps-new-month 먼저 실행 필요",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
-    day_name = f"day_{resolve_day_num(src_dir):02d}"
+    # day 번호 = 스킬을 실행한 시각의 '일'. 같은 날 다시 실행하면 같은 폴더에 누적되고,
+    # 안 푼 날은 자연히 건너뛴다. (달이 바뀌면 {year}-{month} 모듈이 새로 갈리므로 리셋됨)
+    day_name = f"day_{today.day:02d}"
     day_dir = src_dir / day_name
 
     created: list[tuple[str, str | None]] = []
@@ -183,7 +170,9 @@ def main() -> None:
             failed.append(pid)
             continue
 
-        day_dir.mkdir(parents=True, exist_ok=True)  # 실제로 뭔가 만들 때만 생성 (실패만 하면 빈 day 폴더 안 남김)
+        day_dir.mkdir(
+            parents=True, exist_ok=True
+        )  # 실제로 뭔가 만들 때만 생성 (실패만 하면 빈 day 폴더 안 남김)
         pkg_dir.mkdir(parents=True)
         package = f"{day_name}.prms_{pid}"
         # main()으로 stdin/stdout 입출력을 직접 처리하는 스타일의 문제인지는 자바 스켈레톤의
@@ -203,7 +192,9 @@ def main() -> None:
     for pid in failed:
         print(f"  failed (fetch error): prms_{pid}", file=sys.stderr)
 
-    if failed:
+    # 하나라도 성공했으면 정상 종료 — 부분 실패는 stderr의 failed 목록으로 전달한다.
+    # 전부 실패했을 때만 비정상 종료.
+    if failed and not created:
         sys.exit(1)
 
 

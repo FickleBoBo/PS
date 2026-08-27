@@ -16,21 +16,20 @@ description: PS 알고리즘 문제풀이 레포에서 프로그래머스 문제
 - **인자 없이 호출**(기본, 사용자가 보통 이렇게 부름): 현재 열려있는 Chrome 탭들을 스캔해서 `https://school.programmers.co.kr/learn/courses/30/lessons/{id}` 패턴에 매칭되는 문제 번호를 전부 추출해 한번에 처리한다(다른 사이트 URL은 무시).
 - **문제 번호를 인자로 주면**: 사용자가 "42578 템플릿 만들어줘"처럼 특정 문제를 콕 집었을 때만 그 번호(들)를 인자로 넘긴다. 여러 개면 공백으로 구분해서 나열.
 - 이번 달(`{year}-{month}`) 모듈이 아직 없으면 스크립트가 에러로 종료한다 — 이 경우 `ps-new-month` 스킬을 먼저 실행하라고 사용자에게 안내하고 끝낸다.
-- day_XX 번호는 스크립트가 자동으로 결정한다: 오늘 날짜에 이미 만들어진 day_XX가 있으면 그 안에 계속 추가하고, 없으면 새 번호로 만든다. Claude가 따로 계산할 필요 없음. (판단 기준은 디렉터리 mtime이 아니라 스킬 자신이 관리하는 상태 파일 `.day-state.json`이다 — git checkout/pull 등으로 mtime이 바뀌어도 영향받지 않음. 이 파일은 `.gitignore` 대상이라 커밋에 안 잡힌다.)
-- 이미 존재하는 `prms_{id}/` 폴더는 건너뛴다(skipped로 보고) — **단, 오늘 쓰는 day_XX 안에서만** 검사한다. 예전 day에 같은 문제를 이미 만들어놨어도 오늘 다시 지정하면 새로 만들어진다(다른 날 재도전하는 워크플로를 막지 않기 위한 의도적 동작).
+- day_XX 번호 = **스킬을 실행한 시각의 '일'**(`date.today().day`, zero-pad). 예: 8월 28일에 실행하면 `day_28`. 같은 날 다시 실행하면 같은 `day_XX` 폴더에 문제가 누적되고, 안 푼 날은 폴더가 안 생겨 자연히 건너뛴다. 달이 바뀌면 `{year}-{month}` 모듈이 새로 갈리므로 번호도 리셋된다. Claude가 따로 계산할 필요 없음.
+- 이미 존재하는 `prms_{id}/` 폴더는 건너뛴다(skipped로 보고) — **단, 오늘 day_XX 안에서만** 검사한다. 예전 day에 같은 문제를 이미 만들어놨어도 오늘 다시 지정하면 새로 만들어진다(다른 날 재도전하는 워크플로를 막지 않기 위한 의도적 동작).
 - **git add/commit은 하지 않는다** — 스캐폴딩만 하고 끝. 실제로 문제를 풀고 나서 커밋하는 건 별도(기존 커밋 컨벤션: `feat: [Programmers] #{id} - {제목} [Java][C++][Python]`).
 
 ## 생성되는 파일
 
 `{year}-{month}/src/day_XX/prms_{id}/`에:
-- `Solution.java` — `package day_XX.prms_{id};` + 프로그래머스 공식 Java 스켈레톤
-- `Solution.cpp` — `#include <bits/stdc++.h>` / `using namespace std;` 고정 헤더 + 프로그래머스 공식 C++ 스켈레톤 본문(원래 있던 `#include`/`using namespace std;` 줄은 제거하고 교체). `main()`으로 stdin/stdout 입출력을 직접 처리하는 스타일(공식 스켈레톤이 `int main(void) {`)이면 `int main() {`로 바꾸고 그 아래에 `ios::sync_with_stdio(0);` / `cin.tie(0);` 두 줄을 넣어준다.
-- `Solution.py` — 프로그래머스 공식 Python3 스켈레톤. `main()`으로 stdin/stdout 입출력을 직접 처리하는 스타일(자바 스켈레톤에 `main`이 있는 문제)이면 앞에 `import sys` + `input = sys.stdin.readline`을 붙여준다. `solution()` 함수 스타일 문제는 그대로 둠.
+
+- `Solution.java` / `Solution.cpp` / `Solution.py` — 프로그래머스 공식 스켈레톤 기반. Java엔 `package day_XX.prms_{id};`, cpp는 `#include`/`using` 줄을 `bits/stdc++.h` 고정 헤더로 교체, 표준입출력(`main`) 스타일 문제면 cpp/py 각각에 입출력 보정 헤더를 자동으로 덧붙인다. (구체적 변환 규칙은 `new-problem.py`의 `build_*` 함수 주석 참고 — Claude가 직접 할 일은 없음)
 
 세 파일 모두 로그인 없이 받아온 프로그래머스의 **기본** 스켈레톤이라, 과거에 그 문제를 풀어놨어도 항상 깨끗한 상태로 생성된다. 프로그래머스 원본이 CRLF라도 전부 LF로 정규화해서 저장한다.
 
 ## 실패 시
 
 - Chrome에 열린 문제 탭이 하나도 없으면 에러 메시지 그대로 사용자에게 보고.
-- 특정 문제의 fetch가 실패하면(네트워크 오류, 존재하지 않는 문제 번호 등) 그 문제만 failed로 보고하고 나머지는 정상 처리한다. 재시도는 하지 않는다.
+- 특정 문제의 fetch가 실패하면(네트워크 오류, 존재하지 않는 문제 번호 등) 그 문제만 failed로 보고하고 나머지는 정상 처리한다. 재시도는 하지 않는다. 종료 코드는 **전부 실패했을 때만** 1이고, 일부라도 생성됐으면 0 — 성공/실패 판단은 stdout의 `created:` 목록과 stderr의 `failed:` 목록을 보고 한다.
 - day_XX 디렉터리는 실제로 뭔가 하나라도 생성에 성공했을 때만 만들어진다 — 전달받은 문제가 전부 실패하면 빈 day 폴더가 남지 않는다.
