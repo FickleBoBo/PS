@@ -1,5 +1,5 @@
 def solution(code):
-    ret = ""
+    ret = []
     mode = 0
 
     for i, c in enumerate(code):
@@ -8,8 +8,8 @@ def solution(code):
             continue
 
         if i % 2 == mode:
-            ret += c
+            ret.append(c)
 
     if ret:
-        return ret
+        return "".join(ret)
     return "EMPTY"
