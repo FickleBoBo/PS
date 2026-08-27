@@ -2,5 +2,6 @@
 using namespace std;
 
 string solution(string my_string) {
-    return string(my_string.rbegin(), my_string.rend());
+    reverse(my_string.begin(), my_string.end());
+    return my_string;
 }
