@@ -1,5 +1,7 @@
 package day_24.prms_181918;
 
+import java.util.*;
+
 class Solution {
     public int[] solution(int[] arr) {
         int[] stk = new int[arr.length];
@@ -14,8 +16,6 @@ class Solution {
             }
         }
 
-        int[] ans = new int[idx];
-        System.arraycopy(stk, 0, ans, 0, idx);
-        return ans;
+        return Arrays.copyOf(stk, idx);
     }
 }
