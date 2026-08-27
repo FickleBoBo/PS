@@ -3,7 +3,7 @@ using namespace std;
 
 string solution(int age) {
     string s;
-    while (age > 0) {
+    while (age) {
         s += (char)(age % 10 + 'a');
         age /= 10;
     }
