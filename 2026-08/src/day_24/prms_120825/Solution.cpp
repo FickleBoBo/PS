@@ -4,7 +4,7 @@ using namespace std;
 string solution(string my_string, int n) {
     string s;
     for (char c : my_string) {
-        s += string(n, c);
+        s.append(n, c);
     }
 
     return s;
