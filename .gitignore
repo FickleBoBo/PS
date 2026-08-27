@@ -11,10 +11,11 @@ out/
 ### C++ ###
 *.o
 *.out
-a.out
 
-### Mac OS ###
+### Python ###
+__pycache__/
+*.py[cod]
+.ruff_cache/
+
+### macOS ###
 .DS_Store
-
-### Claude skills (로컬 실행 상태) ###
-.claude/skills/ps-new-problem/.day-state.json

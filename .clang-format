@@ -5,16 +5,11 @@ TabWidth: 4
 UseTab: Never
 ColumnLimit: 120
 
-AllowShortIfStatementsOnASingleLine: true
-AllowShortLoopsOnASingleLine: true
-# AllowShortFunctionsOnASingleLine: true
-
 DerivePointerAlignment: false
 PointerAlignment: Left
 
-BreakBeforeBraces: Attach
-SpaceBeforeParens: ControlStatements
-
-AllowShortLambdasOnASingleLine: None
-AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
 AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
+AllowShortLambdasOnASingleLine: None
