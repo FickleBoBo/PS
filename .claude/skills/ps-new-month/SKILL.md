@@ -25,11 +25,11 @@ description: PS 알고리즘 문제풀이 레포에서 새 달이 시작될 때 
 - 모델명은 **항상 호출자가 채운다** — 이 스킬을 실행하는 시점의 실제 모델명("Claude " 접두사 포함, 예: `"Claude Sonnet 5"`)을 넣는다. 과거 세션 기록이나 다른 곳에서 본 값을 베끼지 말고, 지금 이 스킬을 실행하는 자기 자신의 모델명을 쓴다. 모델명을 모르면 인자 없이 호출해도 됨(스크립트가 "Claude Code"로 대체).
 - 이미 해당 `{year}-{month}/` 디렉터리가 존재하면 스크립트가 아무것도 하지 않고 비정상 종료(exit 1)한다 — 이 경우 이미 존재한다고 사용자에게 보고하고 끝낸다.
 - 스크립트가 하는 일: `{year}-{month}/src/` 생성 → `{year}-{month}.iml` 생성(다른 달과 바이트 단위로 동일한 템플릿) → `.idea/modules.xml`에 등록 → `git add`+`git commit -m "chore: {year}-{month} 모듈 세팅"`(co-author 트레일러 포함).
-- `.idea/modules.xml`은 `.gitignore` 대상이라(IDE 로컬 설정) 여기 등록은 **로컬에만 반영되고 git 이력에는 안 남는다** — 실제로 커밋되는 건 `.iml` 파일 하나뿐이다.
+- `.idea/modules.xml`은 `.gitignore` 대상이라(IDE 로컬 설정) 여기 등록은 **로컬에만 반영되고 git 이력에는 안 남는다** — 커밋은 `git commit -- {year}-{month}/{year}-{month}.iml`로 경로를 못박아 `.iml` 하나만 담는다(인덱스에 있던 다른 변경은 안 건드림).
 - push는 하지 않는다 — push는 사용자가 직접 한다.
 
 ## 실패 시
 
 스크립트가 0이 아닌 코드로 종료하면 재시도 없이 stderr 메시지를 그대로 사용자에게 보고한다.
 
-- **`git commit` 단계에서 실패한 경우**(pre-commit hook 거부 등)는 그 시점에 이미 디렉터리 생성·`.iml` 생성·`git add`까지는 끝난 상태로 남는다. 재시도하면 "already exists"로 막히므로, 이 경우는 재시도하지 말고 `git commit`을 직접 마무리하거나(스테이징된 내용은 정상) 완전히 되돌리려면 생성된 디렉터리를 지우고 `.idea/modules.xml`의 등록 줄도 수동으로 제거해야 한다고 안내한다.
+- **`git commit` 단계에서 실패한 경우**(pre-commit hook 거부 등)는 그 시점에 이미 디렉터리·`.iml` 생성과 `modules.xml` 등록까지는 끝난 상태로 남는다. 재시도하면 "already exists"로 막히므로, 이 경우는 재시도하지 말고 `git commit -- {year}-{month}/{year}-{month}.iml`을 직접 마무리하거나, 완전히 되돌리려면 생성된 디렉터리를 지우고 `.idea/modules.xml`의 등록 줄도 수동으로 제거해야 한다고 안내한다.

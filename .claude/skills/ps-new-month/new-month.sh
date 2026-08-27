@@ -54,9 +54,11 @@ else
 fi
 
 cd "$REPO_ROOT"
-git add "$TARGET/$TARGET.iml"
-if ! git commit -m "$(printf 'chore: %s 모듈 세팅\n\nCo-Authored-By: %s <noreply@anthropic.com>' "$TARGET" "$CO_AUTHOR")"; then
-  echo "error: git commit 실패 — $MODULE_DIR/, .iml, git add는 이미 완료된 상태로 남아있음." >&2
+# 경로를 명시해서 .iml만 커밋한다 — 호출 시점에 인덱스에 있던 다른 staged 변경이
+# "chore: 모듈 세팅" 커밋에 섞이지 않도록.
+COMMIT_MSG="$(printf 'chore: %s 모듈 세팅\n\nCo-Authored-By: %s <noreply@anthropic.com>' "$TARGET" "$CO_AUTHOR")"
+if ! git commit -m "$COMMIT_MSG" -- "$TARGET/$TARGET.iml"; then
+  echo "error: git commit 실패 — $MODULE_DIR/ 와 .iml 은 이미 생성된 상태로 남아있음." >&2
   echo "        (재시도해도 already-exists로 막힘 — 'git commit' 직접 마무리하거나, 완전히 되돌리려면 디렉터리를 지우고 modules.xml에서 등록도 제거할 것)" >&2
   exit 1
 fi
