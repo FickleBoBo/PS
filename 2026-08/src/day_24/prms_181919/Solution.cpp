@@ -11,7 +11,7 @@ vector<int> solution(int n) {
             n /= 2;
         }
     }
-    v.push_back(n);
+    v.push_back(1);
 
     return v;
 }

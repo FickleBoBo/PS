@@ -13,7 +13,7 @@ class Solution {
                 n /= 2;
             }
         }
-        list.add(n);
+        list.add(1);
 
         return list.stream().mapToInt(Integer::intValue).toArray();
     }
