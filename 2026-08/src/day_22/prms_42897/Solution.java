@@ -14,7 +14,7 @@ class Solution {
         int[] dp = new int[1 + n];
 
         for (int i = start; i <= end; i++) {
-            dp[i] = Math.max(dp[i - 1], dp[(i - 2 + n) % n] + money[i - 1]);
+            dp[i] = Math.max(dp[i - 1], dp[Math.max(i - 2, 0)] + money[i - 1]);
         }
 
         return dp[end];

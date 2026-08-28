@@ -6,7 +6,7 @@ int func(vector<int>& money, int start, int end) {
     vector<int> dp(1 + n);
 
     for (int i = start; i <= end; i++) {
-        dp[i] = max(dp[i - 1], dp[(i - 2 + n) % n] + money[i - 1]);
+        dp[i] = max(dp[i - 1], dp[max(i - 2, 0)] + money[i - 1]);
     }
 
     return dp[end];
