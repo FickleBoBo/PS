@@ -1,6 +1,9 @@
+from itertools import pairwise
+
+
 def solution(numLog):
     lst = []
-    for prv, cur in zip(numLog, numLog[1:]):
+    for prv, cur in pairwise(numLog):
         if prv + 1 == cur:
             lst.append("w")
         elif prv - 1 == cur:
