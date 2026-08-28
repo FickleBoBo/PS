@@ -9,10 +9,6 @@ int main() {
     cin >> s;
 
     for (char c : s) {
-        if ('A' <= c && c <= 'Z') {
-            cout << (char)(c - 'A' + 'a');
-        } else {
-            cout << (char)(c - 'a' + 'A');
-        }
+        cout << (char)(c ^ 32);
     }
 }

@@ -9,10 +9,10 @@ int main() {
     cin >> s;
 
     for (char c : s) {
-        if ('A' <= c && c <= 'Z') {
-            cout << (char)(c - 'A' + 'a');
+        if (isupper(c)) {
+            cout << (char)tolower(c);
         } else {
-            cout << (char)(c - 'a' + 'A');
+            cout << (char)toupper(c);
         }
     }
 }
