@@ -1,8 +1,2 @@
 def solution(age):
-    lst = []
-    while age > 0:
-        lst.append(chr(age % 10 + ord("a")))
-        age //= 10
-    lst.reverse()
-
-    return "".join(lst)
+    return "".join(chr(int(d) + ord("a")) for d in str(age))
