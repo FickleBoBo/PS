@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int INF = 1'000'001;
+const int INF = 1'000'001;
 
 vector<int> solution(vector<int> arr, vector<vector<int>> queries) {
     vector<int> ans(queries.size(), INF);
@@ -12,7 +12,7 @@ vector<int> solution(vector<int> arr, vector<vector<int>> queries) {
         int k = queries[i][2];
 
         for (int j = s; j <= e; j++) {
-            if (arr[j] > k && arr[j] < ans[i]) ans[i] = arr[j];
+            if (k < arr[j] && arr[j] < ans[i]) ans[i] = arr[j];
         }
 
         if (ans[i] == INF) ans[i] = -1;
