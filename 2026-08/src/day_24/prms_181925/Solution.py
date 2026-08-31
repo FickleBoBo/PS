@@ -2,15 +2,15 @@ from itertools import pairwise
 
 
 def solution(numLog):
-    lst = []
+    res = []
     for prv, cur in pairwise(numLog):
         if prv + 1 == cur:
-            lst.append("w")
+            res.append("w")
         elif prv - 1 == cur:
-            lst.append("s")
+            res.append("s")
         elif prv + 10 == cur:
-            lst.append("d")
+            res.append("d")
         else:
-            lst.append("a")
+            res.append("a")
 
-    return "".join(lst)
+    return "".join(res)
