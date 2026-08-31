@@ -4,17 +4,17 @@ import java.util.*;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Integer> cnt = new HashMap<>();
 
         for (String p : participant) {
-            map.put(p, map.getOrDefault(p, 0) + 1);
+            cnt.put(p, cnt.getOrDefault(p, 0) + 1);
         }
 
         for (String c : completion) {
-            map.put(c, map.getOrDefault(c, 0) - 1);
+            cnt.put(c, cnt.getOrDefault(c, 0) - 1);
         }
 
-        for (Map.Entry<String, Integer> e : map.entrySet()) {
+        for (Map.Entry<String, Integer> e : cnt.entrySet()) {
             if (e.getValue() == 1) return e.getKey();
         }
 
