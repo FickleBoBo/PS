@@ -1,6 +1,6 @@
 def solution(my_string, indices):
-    lst = list(my_string)
+    s = list(my_string)
     for i in indices:
-        lst[i] = "\0"
+        s[i] = "\0"
 
-    return "".join(c for c in lst if c != "\0")
+    return "".join(c for c in s if c != "\0")
