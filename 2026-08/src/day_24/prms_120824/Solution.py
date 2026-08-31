@@ -1,4 +1,4 @@
 def solution(num_list):
-    odd = sum(1 for x in num_list if x % 2 == 1)
+    odd = sum(x % 2 for x in num_list)
     even = len(num_list) - odd
     return [even, odd]
