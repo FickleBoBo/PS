@@ -8,8 +8,8 @@ string solution(string letter) {
         {"---", 'o'},  {".--.", 'p'}, {"--.-", 'q'}, {".-.", 'r'},  {"...", 's'},  {"-", 't'},    {"..-", 'u'},
         {"...-", 'v'}, {".--", 'w'},  {"-..-", 'x'}, {"-.--", 'y'}, {"--..", 'z'}};
 
-    string ans;
     stringstream ss(letter);
+    string ans;
     string code;
     while (ss >> code) {
         ans += morse[code];

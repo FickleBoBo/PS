@@ -28,4 +28,4 @@ def solution(letter):
         "--..": "z",
     }
 
-    return "".join(morse[code] for code in letter.split(" "))
+    return "".join(morse[code] for code in letter.split())
