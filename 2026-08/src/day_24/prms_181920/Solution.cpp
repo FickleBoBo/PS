@@ -2,10 +2,7 @@
 using namespace std;
 
 vector<int> solution(int start_num, int end_num) {
-    vector<int> v;
-    for (int i = start_num; i <= end_num; i++) {
-        v.push_back(i);
-    }
-
+    vector<int> v(end_num - start_num + 1);
+    iota(v.begin(), v.end(), start_num);
     return v;
 }
