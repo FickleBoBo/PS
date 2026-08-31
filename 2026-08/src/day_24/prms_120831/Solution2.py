@@ -1,2 +1,3 @@
 def solution(n):
-    return (2 + n // 2 * 2) * (n // 2) // 2
+    k = n // 2
+    return k * (k + 1)
