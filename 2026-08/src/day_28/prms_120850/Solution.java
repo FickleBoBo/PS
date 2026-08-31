@@ -9,6 +9,6 @@ class Solution {
             if (Character.isDigit(c)) list.add(c - '0');
         }
 
-        return list.stream().sorted().mapToInt(Integer::intValue).toArray();
+        return list.stream().mapToInt(Integer::intValue).sorted().toArray();
     }
 }
