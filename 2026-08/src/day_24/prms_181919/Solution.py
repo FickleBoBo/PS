@@ -1,11 +1,11 @@
 def solution(n):
-    lst = []
+    ans = []
     while n > 1:
-        lst.append(n)
-        if n % 2 == 1:
+        ans.append(n)
+        if n % 2:
             n = 3 * n + 1
         else:
             n //= 2
-    lst.append(1)
+    ans.append(1)
 
-    return lst
+    return ans
