@@ -10,13 +10,13 @@ class Solution {
         return new String(arr);
     }
 
-    static void reverse(char[] arr, int s, int e) {
-        while (s < e) {
-            char tmp = arr[s];
-            arr[s] = arr[e];
-            arr[e] = tmp;
-            s++;
-            e--;
+    static void reverse(char[] arr, int l, int r) {
+        while (l < r) {
+            char tmp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = tmp;
+            l++;
+            r--;
         }
     }
 }

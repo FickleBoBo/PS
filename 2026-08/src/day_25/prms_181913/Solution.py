@@ -1,6 +1,6 @@
 def solution(my_string, queries):
-    lst = list(my_string)
-    for a, b in queries:
-        lst[a : b + 1] = lst[a : b + 1][::-1]
+    s = list(my_string)
+    for l, r in queries:
+        s[l : r + 1] = s[l : r + 1][::-1]
 
-    return "".join(lst)
+    return "".join(s)
