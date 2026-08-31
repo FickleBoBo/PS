@@ -4,11 +4,11 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> seen = new HashSet<>();
         for (int x : nums) {
-            set.add(x);
+            seen.add(x);
         }
 
-        return Math.min(set.size(), nums.length / 2);
+        return Math.min(seen.size(), nums.length / 2);
     }
 }
