@@ -1,4 +1,4 @@
 def solution(my_string, num1, num2):
-    lst = list(my_string)
-    lst[num1], lst[num2] = lst[num2], lst[num1]
-    return "".join(lst)
+    s = list(my_string)
+    s[num1], s[num2] = s[num2], s[num1]
+    return "".join(s)
