@@ -3,12 +3,12 @@ using namespace std;
 
 string solution(string my_string) {
     string s;
-    set<char> st;
+    set<char> seen;
 
     for (char c : my_string) {
-        if (st.count(c)) continue;
+        if (seen.contains(c)) continue;
         s += c;
-        st.insert(c);
+        seen.insert(c);
     }
 
     return s;
