@@ -2,7 +2,7 @@ package day_22.prms_42898;
 
 class Solution {
 
-    static int MOD = 1_000_000_007;
+    static final int MOD = 1_000_000_007;
 
     public int solution(int m, int n, int[][] puddles) {
         boolean[][] chk = new boolean[1 + n][1 + m];
