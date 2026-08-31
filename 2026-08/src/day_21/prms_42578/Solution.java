@@ -4,13 +4,13 @@ import java.util.*;
 
 class Solution {
     public int solution(String[][] clothes) {
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Integer> cnt = new HashMap<>();
         for (String[] c : clothes) {
-            map.put(c[1], map.getOrDefault(c[1], 0) + 1);
+            cnt.put(c[1], cnt.getOrDefault(c[1], 0) + 1);
         }
 
         int ans = 1;
-        for (int v : map.values()) {
+        for (int v : cnt.values()) {
             ans *= v + 1;
         }
 
