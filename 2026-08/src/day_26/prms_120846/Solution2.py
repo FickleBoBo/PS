@@ -14,4 +14,4 @@ def sieve(n):
 
 def solution(n):
     is_prime = sieve(n)
-    return sum(1 for i in range(2, n + 1) if not is_prime[i])
+    return is_prime[2:].count(False)
