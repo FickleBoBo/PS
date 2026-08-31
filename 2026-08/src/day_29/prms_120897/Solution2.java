@@ -11,8 +11,7 @@ class Solution2 {
                 if (i != n / i) list.add(n / i);
             }
         }
-        list.sort(Comparator.naturalOrder());
 
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return list.stream().mapToInt(Integer::intValue).sorted().toArray();
     }
 }

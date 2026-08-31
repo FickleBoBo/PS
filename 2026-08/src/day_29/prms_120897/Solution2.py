@@ -1,11 +1,12 @@
+import math
+
+
 def solution(n):
-    st = set()
-    i = 1
+    seen = set()
 
-    while i * i <= n:
+    for i in range(1, math.isqrt(n) + 1):
         if n % i == 0:
-            st.add(i)
-            st.add(n // i)
-        i += 1
+            seen.add(i)
+            seen.add(n // i)
 
-    return sorted(st)
+    return sorted(seen)
