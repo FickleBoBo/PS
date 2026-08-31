@@ -18,12 +18,8 @@ import urllib.request
 
 LANGS = [("java", "java"), ("cpp", "cpp"), ("python3", "py")]
 TITLE_RE = re.compile(r"<title>코딩테스트 연습 - (.+?) \| 프로그래머스 스쿨</title>")
-CODE_RE = re.compile(
-    r'<textarea hidden id="code" name="code">(.*?)</textarea>', re.DOTALL
-)
-TAB_URL_RE = re.compile(
-    r"https://school\.programmers\.co\.kr/learn/courses/30/lessons/(\d+)"
-)
+CODE_RE = re.compile(r'<textarea hidden id="code" name="code">(.*?)</textarea>', re.DOTALL)
+TAB_URL_RE = re.compile(r"https://school\.programmers\.co\.kr/learn/courses/30/lessons/(\d+)")
 
 
 def repo_root() -> pathlib.Path:
@@ -40,9 +36,7 @@ def chrome_problem_ids() -> list[str]:
         "end if"
     )
     try:
-        out = subprocess.check_output(
-            ["osascript", "-e", script], text=True, stderr=subprocess.DEVNULL
-        )
+        out = subprocess.check_output(["osascript", "-e", script], text=True, stderr=subprocess.DEVNULL)
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         print(f"error: Chrome 탭을 읽는 데 실패함 ({e})", file=sys.stderr)
         sys.exit(1)
@@ -170,9 +164,7 @@ def main() -> None:
             failed.append(pid)
             continue
 
-        day_dir.mkdir(
-            parents=True, exist_ok=True
-        )  # 실제로 뭔가 만들 때만 생성 (실패만 하면 빈 day 폴더 안 남김)
+        day_dir.mkdir(parents=True, exist_ok=True)  # 실제로 뭔가 만들 때만 생성 (실패만 하면 빈 day 폴더 안 남김)
         pkg_dir.mkdir(parents=True)
         package = f"{day_name}.prms_{pid}"
         # main()으로 stdin/stdout 입출력을 직접 처리하는 스타일의 문제인지는 자바 스켈레톤의
