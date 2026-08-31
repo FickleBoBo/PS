@@ -1,7 +1,7 @@
 def solution(arr):
-    lst = []
+    res = []
     for x in arr:
-        if not lst or lst[-1] != x:
-            lst.append(x)
+        if not res or res[-1] != x:
+            res.append(x)
 
-    return lst
+    return res
