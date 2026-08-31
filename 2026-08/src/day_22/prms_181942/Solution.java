@@ -3,11 +3,8 @@ package day_22.prms_181942;
 class Solution {
     public String solution(String str1, String str2) {
         StringBuilder sb = new StringBuilder();
-        int idx = 0;
-
-        while (idx < str1.length()) {
-            sb.append(str1.charAt(idx)).append(str2.charAt(idx));
-            idx++;
+        for (int i = 0; i < str1.length(); i++) {
+            sb.append(str1.charAt(i)).append(str2.charAt(i));
         }
 
         return sb.toString();

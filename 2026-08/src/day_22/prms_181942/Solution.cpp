@@ -3,12 +3,9 @@ using namespace std;
 
 string solution(string str1, string str2) {
     string s;
-    int idx = 0;
-
-    while (idx < str1.size()) {
-        s += str1[idx];
-        s += str2[idx];
-        idx++;
+    for (int i = 0; i < str1.size(); i++) {
+        s += str1[i];
+        s += str2[i];
     }
 
     return s;
