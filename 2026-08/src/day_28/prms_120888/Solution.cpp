@@ -6,9 +6,7 @@ string solution(string my_string) {
     unordered_set<char> seen;
 
     for (char c : my_string) {
-        if (seen.contains(c)) continue;
-        s += c;
-        seen.insert(c);
+        if (seen.insert(c).second) s += c;
     }
 
     return s;
