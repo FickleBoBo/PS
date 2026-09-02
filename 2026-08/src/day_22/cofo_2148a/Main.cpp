@@ -4,12 +4,7 @@ using namespace std;
 void solve() {
     int x, n;
     cin >> x >> n;
-
-    if (n % 2) {
-        cout << x << '\n';
-    } else {
-        cout << 0 << '\n';
-    }
+    cout << (n % 2 ? x : 0) << '\n';
 }
 
 int main() {
@@ -18,6 +13,5 @@ int main() {
 
     int t;
     cin >> t;
-
     while (t--) solve();
 }
