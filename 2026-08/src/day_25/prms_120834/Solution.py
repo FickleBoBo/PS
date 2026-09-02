@@ -1,2 +1,2 @@
 def solution(age):
-    return "".join(chr(int(d) + ord("a")) for d in str(age))
+    return str(age).translate(str.maketrans("0123456789", "abcdefghij"))
