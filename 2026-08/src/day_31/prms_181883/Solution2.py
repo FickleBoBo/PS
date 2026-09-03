@@ -7,4 +7,4 @@ def solution(arr, queries):
         diff[s] += 1
         diff[e + 1] -= 1
 
-    return [a + d for a, d in zip(arr, accumulate(diff))]
+    return [x + d for x, d in zip(arr, accumulate(diff))]
