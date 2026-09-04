@@ -1,15 +1,7 @@
-INF = 1_000_001
-
-
 def solution(arr, queries):
-    ans = [INF] * len(queries)
-
-    for i, (s, e, k) in enumerate(queries):
-        for j in range(s, e + 1):
-            if k < arr[j] < ans[i]:
-                ans[i] = arr[j]
-
-        if ans[i] == INF:
-            ans[i] = -1
+    ans = []
+    for s, e, k in queries:
+        window = [x for x in arr[s : e + 1] if x > k]
+        ans.append(min(window) if window else -1)
 
     return ans
