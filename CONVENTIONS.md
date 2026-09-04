@@ -85,43 +85,44 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ### 3.1 표준 이름 `[합의]`
 
-| 역할                                          | 이름                                 |
-| --------------------------------------------- | ------------------------------------ |
-| 크기·개수                                     | `n` `m` `k` `t`(테스트 수)           |
-| 개수 세기 (스칼라·카운팅 배열·카운팅 맵 전부) | `cnt`                                |
-| 길이                                          | `len`                                |
-| 루프 인덱스                                   | `i` `j` `k`                          |
-| 임의 인덱스/포인터                            | `idx`(기본) · `pos`                  |
-| 최종 답                                       | `ans`                                |
-| 만들어 나가는 결과·누적                       | `res`                                |
-| 수치 합계 (누적 스칼라)                       | C++·Java `sum` / Python `total`      |
-| dedup / membership 집합                       | `seen` (세 언어 공통)                |
-| 그래프 방문 체크                              | `vis` (또는 `visited`)               |
-| 출력 버퍼                                     | `out`                                |
-| 이전 / 다음 / 현재                            | `prv` / `nxt` / `cur`                |
-| 롤링 DP                                       | `prv2` / `prv1` / `cur`              |
-| 구간 양끝                                     | `l` / `r` (반개구간 `[l, r)`)        |
-| 이분탐색                                      | `lo` / `hi` / `mid`                  |
-| 시작 / 끝 (지문 어휘면)                       | `s` / `e`                            |
-| 최소 / 최대 값                                | C++ `mn` / `mx` · Java `min` / `max` |
-| 자릿수                                        | `d`                                  |
-| 정점                                          | `u` `v`                              |
-| 인접 리스트 / 그래프                          | `adj` `g`                            |
-| 간선 / 가중치 / 차수                          | `e` / `w` / `deg` (진입차수 `indeg`) |
-| 거리 배열                                     | `dist` (짧게 `d`)                    |
-| 부모 (union-find)                             | `p` (또는 `par`)                     |
-| BFS 큐                                        | `q`                                  |
-| 그리드 방향 델타                              | `dx` / `dy` (또는 `dr` / `dc`)       |
-| 그리드 다음 좌표                              | `nx` / `ny` (또는 `nr` / `nc`)       |
-| 행 / 열                                       | `r` / `c`                            |
-| DP 테이블 / 메모                              | `dp` / `memo`                        |
-| 장애물 격자 (bool)                            | `wall` (도메인명 `puddle` 등 우선)   |
-| 잡 bool 마커 (더 나은 단어 없을 때)           | `chk`                                |
-| 범용 해시맵                                   | Java `map` / C++ `mp`                |
-| 무한대 / 모듈러 / 배열 상한                   | `INF` / `MOD` / `MAX`·`MAXN`         |
-| 좌표 페어 스크래치                            | `x` / `y` (혼동 없을 때만)           |
-| 분수                                          | `p` / `q`                            |
-| 지문이 "ret 반환"이라 하면                    | `ret` (지문 어휘 매칭)               |
+| 역할                                          | 이름                                           |
+| --------------------------------------------- | ---------------------------------------------- |
+| 크기·개수                                     | `n` `m` `k` `t`(테스트 수)                     |
+| 개수 세기 (스칼라·카운팅 배열·카운팅 맵 전부) | `cnt`                                          |
+| 길이                                          | `len`                                          |
+| 루프 인덱스                                   | `i` `j` `k`                                    |
+| 임의 인덱스/포인터                            | `idx`(기본) · `pos`                            |
+| 최종 답                                       | `ans`                                          |
+| 만들어 나가는 결과·누적                       | `res`                                          |
+| 수치 합계 (누적 스칼라)                       | C++·Java `sum` / Python `total`                |
+| dedup / membership 집합                       | `seen` (세 언어 공통)                          |
+| 그래프 방문 체크                              | `vis` (또는 `visited`)                         |
+| 출력 버퍼                                     | `out`                                          |
+| 이전 / 다음 / 현재                            | `prv` / `nxt` / `cur`                          |
+| 롤링 DP                                       | `prv2` / `prv1` / `cur`                        |
+| 구간 양끝                                     | `l` / `r` (반개구간 `[l, r)`)                  |
+| 이분탐색                                      | `lo` / `hi` / `mid`                            |
+| 시작 / 끝 (지문 어휘면)                       | `s` / `e`                                      |
+| 최소 / 최대 값                                | C++ `mn` / `mx` · Java `min` / `max`           |
+| 자릿수                                        | `d`                                            |
+| 정점                                          | `u` `v`                                        |
+| 인접 리스트 / 그래프                          | `adj` `g`                                      |
+| 간선 / 가중치 / 차수                          | `e` / `w` / `deg` (진입차수 `indeg`)           |
+| 거리 배열                                     | `dist` (짧게 `d`)                              |
+| 부모 (union-find)                             | `p` (또는 `par`)                               |
+| BFS 큐                                        | `q`                                            |
+| 그리드 방향 델타                              | `dx` / `dy` (또는 `dr` / `dc`)                 |
+| 그리드 다음 좌표                              | `nx` / `ny` (또는 `nr` / `nc`)                 |
+| 행 / 열                                       | `r` / `c`                                      |
+| DP 테이블 / 메모                              | `dp` / `memo`                                  |
+| 장애물 격자 (bool)                            | `wall` (도메인명 우선, 단순 차단은 `chk` — n7) |
+| 잡 bool 마커 (더 나은 단어 없을 때)           | `chk`                                          |
+| 범용 해시맵                                   | Java `map` / C++ `mp`                          |
+| 무한대 / 모듈러 / 배열 상한                   | `INF` / `MOD` / `MAX`·`MAXN`                   |
+| 좌표 페어 스크래치                            | `x` / `y` (혼동 없을 때만)                     |
+| 분수                                          | `p` / `q`                                      |
+| gcd 결과                                      | `g`                                            |
+| 지문이 "ret 반환"이라 하면                    | `ret` (지문 어휘 매칭)                         |
 
 ### 3.2 표 노트
 
@@ -130,8 +131,8 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 3. **`sum` / `total`** — Python `sum`은 빌트인 섀도잉 → `total`(또는 `acc`). `sum(...)` 제너레이터로 누산기 자체 제거가 1순위.
 4. **`seen`** — "이미 본 원소인가". 타입 기반 이름(§3.3)에 C++·Python이 마찰해서 세 언어 다 `seen`. Java `set`(타입 `Set`)은 제네릭 폴백 허용, C++ `st`는 스택, Python `set`은 섀도잉이라 못 씀. 그래프 방문은 `vis`, 미리 만든 상수 집합은 도메인명.
 5. **`mn` / `mx` vs `min` / `max`** — C++는 `using namespace std`로 `std::min`/`max` 섀도잉 → 축약. Java는 `Math.max`가 정규화돼 충돌 없음 → 풀네임. `st`/`stack`·`mp`/`map`과 같은 부록 A 케이스. ↔ 금지: "언어 간 맞춰라".
-6. **`d`** — 자릿수. 한 글자 그대로. ↔ 금지: `r`·`digit`로 바꾸기.
-7. **`chk`** — 데이터(bool 배열) 이름으로만. 헬퍼 함수명은 `check`(§3.4). 그래프 방문이면 `vis`, 뚜렷한 장애물 격자면 `wall`.
+6. **`d`** — 자릿수. 한 글자 그대로. ↔ 금지: `r`·`digit`로 바꾸기. gcd 결과는 `d` 아님 → `g`(§3.1, `d`=자릿수와 충돌).
+7. **`chk`** — 데이터(bool 배열) 이름으로만. 헬퍼 함수명은 `check`(§3.4). 그래프 방문이면 `vis`. 장애물 격자는 도메인이 뚜렷하면 도메인명/`wall`, 단순 차단 체크 격자는 `chk` 허용.
 8. **`idx` > `pos`** — 찾은 위치 변수 기본은 `idx`.
 9. **`INF`** — Java `0x3f3f3f3f`(더해도 안 넘침), C++ `long long`엔 `1e18`, Python `10**18`. `float('inf')`/`Float.MAX` 지양. **`MOD`** = `1'000'000'007`.
 
@@ -150,7 +151,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - 그래프/DSU: `bfs` / `dfs` / `find` / `union`(C++은 키워드 → `unite`) (§7)
 - 원소별 변환: `transform`(Python) / `step`(Java·C++) (§7)
 - **`func` 금지** (재발 습관). `flag` 금지 (→ 의미 있는 이름).
-- 비교자 람다 파라미터 — Java `(o1, o2)` 고정(`Comparator.compare` 시그니처 매칭). C++ 값 비교 `a, b` / 인덱스 정렬 `i, j`. Python은 2-인자 비교 람다 거의 안 씀(`key=lambda x:` 단일).
+- 비교자 람다 파라미터 — Java `(o1, o2)` 고정(`Comparator.compare` 시그니처 매칭). C++ `a, b` (값 비교·인덱스 정렬 공통). Python은 2-인자 비교 람다 거의 안 씀(`key=lambda x:` 단일).
 
 ### 3.5 네이밍 안티패턴 (지적 대상)
 
@@ -164,7 +165,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 **리뷰 시 특히 볼 습관 (A-리스트)**:
 
-- **A1** — 관례 이름(분수 `p`/`q`, 자릿수 `d`)이 있는데 버리고 `x`/`y`/`r` 스크래치로. _좌표 혼동 없는 순수 스크래치 2개는 OK_; 관례 이름을 버릴 때만 지적.
+- **A1** — 관례 이름(분수 `p`/`q`, 자릿수 `d`, gcd 결과 `g`)이 있는데 버리고 `x`/`y`/`r` 스크래치로. _좌표 혼동 없는 순수 스크래치 2개는 OK_; 관례 이름을 버릴 때만 지적.
 - **A2** — 자리표시자 이름(`flag`, `func`, borderline `chk`).
 - **A3** — 위 C++ `std::` 충돌 비일관 회피.
 
@@ -173,13 +174,15 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 ## 4. 문법·표현 `[확정 — 이대로면 지적 X]`
 
 - **홀짝** `[합의]` — `% 2`. C++/Python truthy (`if (n % 2)`, `if n % 2:`), **Java만 `n % 2 != 0`** (NOT `== 1`, NOT `& 1`). `& 1`은 저난도에 도입 안 함.
-  - **truthy는 홀짝 전용.** 배열/맵 값을 bool처럼 쓰는 가드 체크는 **명시 비교** `== 0` / `!= 0`, 옆 조건과 대칭으로: `if (maps[nr][nc] == 0 || dist[nr][nc] != 0) continue;` (NOT `|| !dist[nr][nc]`).
+  - **truthy/falsy 일반 원칙** `[합의]` — C++/Python 은 값이 참거짓 의미를 직접 담을 때(엣지 존재, 남은 자릿수 등) truthy 를 **적극 활용**, Java 는 항상 명시. 명시가 의도를 더 드러내면 그때그때 명시 — 한 파일 안에서 갈려도 지적 X(개별 판단).
+  - **음성 가드는 명시 비교 유지** — 배열/맵 값을 스킵 조건으로 쓸 때 `== 0` / `!= 0`, 옆 조건과 대칭으로: `if (maps[nr][nc] == 0 || dist[nr][nc] != 0) continue;` (NOT `|| !dist[nr][nc]`). 카운트다운 루프 조건 `while (x > 0)` / `while (x)` 은 C++/Python 재량.
 - **삼항 극성** `[합의]` — 찾음/성공/양성 케이스를 **먼저**: `idx != -1 ? idx + 1 : -1` (NOT `idx == -1 ? -1 : idx + 1`). 세 언어 공통.
+- **불리언 결과를 0/1 로 반환** `[통용]` — "조건이면 1, 아니면 0/-1" 류: C++ `return cond;` (묵시적 bool→int) · Java `return cond ? 1 : 0;` · Python `return int(cond)`. 언어별로 갈리는 게 정상(부록 A).
 - **중괄호** `[합의]` —
   - `if` + `continue`/`return`/`break` 단독(guard) = 항상 한 줄, 중괄호 X.
   - Java 반복문 = 항상 중괄호.
   - C++ 반복문 = 재량("진짜 짧으면" 생략). 소프트 — 한 파일 안에서 대놓고 엇갈리거나 긴 body를 중괄호 없이 둘 때만 지적.
-- **가드 클로즈 vs 대칭 분할 if/else** `[합의]` — 엣지 먼저 걸러 빠져나오면 guard. 분기가 대등한 N-way 분류(홀/짝, 2×2, "전부같음/둘같음/다다름", 각도 임계값)면 `if/else if/else`로 대칭 구조를 코드 모양에 비추는 게 정당. **"return 뒤 redundant else" 지적 X.** (Python도 대칭 분기엔 `else:` 능동적으로 유지 — §7.5.)
+- **가드 클로즈 vs 대칭 분할 if/else** `[합의]` — 엣지 먼저 걸러 빠져나오면 guard. 분기가 대등한 N-way 분류(홀/짝, 2×2, "전부같음/둘같음/다다름", 각도 임계값)는 `if/else if/else` 대칭 구조도, 각 분기가 `return`이면 early-return 래더도 둘 다 정당 — **어느 쪽도 강제하지 않는다.** **"return 뒤 redundant else" 지적 X.** (Python도 대칭 분기에 `else:` 유지 정당 — §7.5.)
 - **`const` / `final`** `[합의]` — 전역 상수에만 (C++ `const int`/`constexpr int`, Java `static final int`). 로컬 X, `for (const auto&)` X.
   - 읽기 전용 전역 룩업 테이블 배열(`string words[10]`)은 **non-const 소문자 유지 OK** — `const` 붙이면 대문자 네이밍이 따라와 과함. ↔ 금지: `const` 강제.
 - **`auto` (C++)** `[합의]` — 산술 타입(특히 `long long` — 오버플로 가시성)·단순 컨테이너는 명시. 이터레이터·구조분해·pair/tuple 반환·맵 lookup은 `auto`.
@@ -193,7 +196,9 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - **`1 + n` 사이징 표기** `[취향]` — "n은 제약, +1은 1-인덱싱" 의도. 유지.
 - **지문 / 템플릿 어휘 유지** `[합의]` — 프로그래머스가 준 파라미터명은 `std` 충돌·빌트인 섀도잉이 있어도 안 바꿈 (`slice`, `flag`, "ret 반환").
 - **`solution` 시그니처는 fetch된 템플릿 그대로** `[통용]` — 구형(12xxx대)은 `public` 없이, 신형(120xxx·181xxx대)은 `public` 붙어 내려옴. 파일마다 갈려도 지적 X.
-- **`.find()` 결과 비교 (C++)** `[통용]` — `!= string::npos`와 `!= -1` 둘 다 (KR PS는 `-1`이 흔함). `int pos`로 받아도 문자열 길이 제약이 작으면 OK — 코인 플립, 지적 X.
+- **`.find()` 결과 비교 (C++)** `[합의]` — `!= -1` 이 기본. 사용자 상용 트릭이고 KR PS 관용. `string::npos == (string::size_type)-1` 이라 정확. ↔ 금지: `!= string::npos` 로 바꾸라고 강요.
+  - `str.find(x) != -1` 을 **반환값에 직접** 비교하면 `-Wsign-compare` (unsigned `size_type` vs `int`) — 동작은 정확, 경고만. 감사 컴파일 단계(`-Wextra`)에서 뜨는 이 경고는 **결함으로 취급 X**.
+  - 스윕/컴파일 경고를 0으로 두고 싶으면 `int pos = str.find(x); pos != -1` 로 받는다 (이것도 KR PS 관용, 경고 없음). 직접 비교 vs `int pos` 수령은 취향 — 둘 다 지적 X.
 
 ---
 
@@ -218,7 +223,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ### 5.2 Java `[합의]`
 
-- **토큰화는 `StringTokenizer`** — stdin이 아니어도. `"3 + 5 - 1"` 파싱에 `split(" ")` + `arr[i]` 인덱스 산술 대신 `new StringTokenizer(s)` + `nextToken()`.
+- **토큰화는 보통 `StringTokenizer`** — stdin이 아니어도. `"3 + 5 - 1"` 파싱 기본은 `new StringTokenizer(s)` + `nextToken()`. 단 고정 포맷을 `split(" ")` 후 곧장 순회/위치 접근하는 게 확연히 깔끔하면 `split` 도 쓴다 — `arr[i-1]` 되돌아보며 **재파싱**하는 패턴만 피한다(직전 값을 `prv` 로).
 - **스트림은 IO 경계에서만** — 입력 파싱, 최종 리덕션/변환. `IntStream.rangeClosed`류 생성 스트림도 "로직성"으로 보고 수동 루프 선호.
 - `List<Integer>` → 즉시 `.stream().mapToInt(Integer::intValue).toArray()`. 정렬이 끼면 `.mapToInt(...).sorted().toArray()` — **`.sorted()`는 `mapToInt` 뒤**(primitive 정렬). 별도 `list.sort(...)` 선행 금지.
 - 리덕션도 C++처럼 명시 루프 (스트림 `.sum()`은 IO 경계 변환일 때만).
@@ -250,19 +255,21 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ### 5.4 연산별 3언어 대조 (참고 — §5.1~5.3·§3에서 파생, 정본 아님)
 
-| 연산               | C++                              | Java                              | Python                                    |
-| ------------------ | -------------------------------- | --------------------------------- | ----------------------------------------- |
-| 뒤집기             | `std::reverse`                   | 수동 swap 루프                    | `[::-1]`                                  |
-| 합 / 곱 리덕션     | 명시 `for` 루프 (`accumulate` X) | 명시 `for` 루프                   | `sum()` / `math.prod()` / `accumulate`    |
-| "첫 초과 누적합"   | 명시 조기반환 루프               | 명시 조기반환 루프                | `next(s for s in accumulate(a) if s > k)` |
-| gcd                | `std::gcd`                       | 손수 재귀 2줄                     | `math.gcd`                                |
-| 자릿수 순회        | `% 10` 루프                      | `% 10` 루프                       | `str(x)`                                  |
-| 조합 `C(n, k)`     | 곱셈식                           | 곱셈식                            | `math.comb`                               |
-| `char` 산술 캐스트 | 생략 (`s += i + 'a'`)            | `(char)` 필수 (`append` 오버로드) | N/A                                       |
-| dedup 집합         | `seen`                           | `seen`                            | `seen`                                    |
-| union-find `find`  | 재귀 2줄                         | 재귀 2줄                          | 반복 절반압축                             |
-| 재귀 헬퍼 위치     | 자유 함수(전역 참조)             | `static` 메서드(파라미터)         | 중첩 클로저(캡처)                         |
-| 누적합 / 차분 복원 | 명시 `for` 루프                  | 명시 `for` 루프                   | `itertools.accumulate`                    |
+| 연산               | C++                                     | Java                                             | Python                                    |
+| ------------------ | --------------------------------------- | ------------------------------------------------ | ----------------------------------------- |
+| 뒤집기             | `std::reverse`                          | 수동 swap 루프                                   | `[::-1]`                                  |
+| 합 / 곱 리덕션     | 명시 `for` 루프 (`accumulate` X)        | 명시 `for` 루프                                  | `sum()` / `math.prod()` / `accumulate`    |
+| "첫 초과 누적합"   | 명시 조기반환 루프                      | 명시 조기반환 루프                               | `next(s for s in accumulate(a) if s > k)` |
+| gcd                | `std::gcd`                              | 손수 재귀 2줄                                    | `math.gcd`                                |
+| 자릿수 순회        | `% 10` 루프                             | `% 10` 루프                                      | `str(x)`                                  |
+| 조합 `C(n, k)`     | 곱셈식                                  | 곱셈식                                           | `math.comb`                               |
+| `char` 산술 캐스트 | 생략 (`s += i + 'a'`)                   | `(char)` 필수 (`append` 오버로드)                | N/A                                       |
+| dedup 집합         | `seen`                                  | `seen`                                           | `seen`                                    |
+| union-find `find`  | 재귀 2줄                                | 재귀 2줄                                         | 반복 절반압축                             |
+| 재귀 헬퍼 위치     | 자유 함수(전역 참조)                    | `static` 메서드(파라미터)                        | 중첩 클로저(캡처)                         |
+| 누적합 / 차분 복원 | 명시 `for` 루프                         | 명시 `for` 루프                                  | `itertools.accumulate`                    |
+| 부분배열 추출      | `vector<int>(v.begin()+l, v.begin()+r)` | `Arrays.copyOfRange(a, l, r)` (List면 `subList`) | `a[l:r]`                                  |
+| 불리언 → 0/1 반환  | `return cond;`                          | `return cond ? 1 : 0;`                           | `return int(cond)`                        |
 
 ---
 
@@ -273,7 +280,8 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 ### 6.1 C++
 
 - `#include <bits/stdc++.h>` + `using namespace std;`
-- 표준입출력 문제면 `ios::sync_with_stdio(false); cin.tie(nullptr);` + 출력 `'\n'` (**`endl` 금지** — 인터랙티브 제외, 10배 저하).
+- 표준입출력 문제면 `ios::sync_with_stdio(0); cin.tie(0);` + 출력 `'\n'` (**`endl` 금지** — 인터랙티브 제외, 10배 저하). `0` 은 사용자 고정 컨벤션 — `false`/`nullptr` 과 동작 동일, 타이핑 절약. ↔ 금지: `false`/`nullptr` 로 바꾸기.
+- **Codeforces 멀티테스트** `[합의]` — 로직을 `void solve()` 로 분리, `int main()` 은 `ios::sync_with_stdio(0); cin.tie(0); int t; cin >> t; while (t--) solve();`. 폴더명 `cofo_{contest}{x}` (문제 letter 소문자). 프로그래머스는 `solution()` 직접 호출이라 해당 없음.
 - **전역 고정 배열 OK** (`bool vis[MAX]`, `int p[MAX]`), 매직넘버 상한(`vis[200]`, n ≤ 200)도 CP 표준. `main` 안 지역 `vector`도 fluent (멀티테스트 초기화 버그 회피) — **둘 다 OK** `[통용]`.
 - **순수 membership 집합은 `unordered_set`** (`set` 아님) `[합의]` — 프로그래머스는 해시 해킹 없음. 정렬을 실제로 쓰면 `set`. `set<char>`처럼 알파벳 유계면 어느 쪽이든 무의미하나 기본은 `unordered_set`. `unordered_map`도 동일(CF는 지양, 프로그래머스 허용).
 - `emplace_back` (> `push_back(make_pair(...))`), digit separator (`1'000'001`).
@@ -285,11 +293,10 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - 프로그래머스 포맷 `class Solution` 고정. 헬퍼는 `static` 메서드. **전역 배열 안 씀** — `static` 필드 또는 파라미터 전달.
 - 표준입출력 문제면 `public static void main(...) throws IOException` (**try-catch로 감싸면 초보 티**), 입력 `BufferedReader` + `StringTokenizer`, 출력 `StringBuilder` 모아서 `System.out.print(sb)`. **`Scanner` 금지** (14배 느림).
 - **배열 우선 / 오토박싱 회피가 핵심 유창성 마커** `[합의]`:
-  - `Deque<Integer>` 대신 `int[]` + `idx` 포인터 스택
   - `Arrays.copyOf`(리사이즈 복사) / `System.arraycopy`(목적지·시프트 제어)
   - `Map<Integer, Integer>` 카운팅 → `int[]`
-  - 예외: 출력 길이가 데이터 의존(상한만 알려짐)이면 `List`+stream vs `int[]` 오버할당 + `Arrays.copyOf(res, idx)`는 케바케 — 지적 X. 배열 우선 강제는 길이가 _사전에 정확히_ 계산될 때(`num_list.length / n` 등).
-- 스택·큐는 `ArrayDeque`로 일원화. `Stack<Integer>` / `Queue q = new LinkedList<>()`는 "학교에서 배운 대로" 마커.
+  - 결과를 루프로 채울 때: 길이가 사전에 정확히 계산되더라도 `list.stream().mapToInt(Integer::intValue).toArray()` 가 깔끔하면 그대로 둔다. `int[]` 선할당은 성능 차이가 실측으로 체감될 때(프로그래머스에선 드묾)나 오버할당 + `Arrays.copyOf(res, idx)` 가 자연스러울 때. 케바케 — 지적 X.
+- 스택·큐는 `ArrayDeque`(`Deque` 인터페이스)로 일원화. `Stack<Integer>` / `Queue q = new LinkedList<>()`는 "학교에서 배운 대로" 마커. `int[]` + `idx` 포인터 스택은 지문이 배열을 요구하거나("배열 `stk` 를 만든다") 박싱이 성능에 실측으로 걸릴 때만 — 프로그래머스는 대개 `ArrayDeque`.
 - **Map 값이 단일 문자면 `Map<String, String>`** (1글자 문자열) `[합의]` — `Map<String, Character>`는 `sb.append(map.get(k))`가 `append(Object)`로 바인딩돼 박싱+`toString`. `String` 값이면 `append(String)` 직결, Python `dict` 구조와도 일치.
 - `Arrays.fill(dp, -1)`.
 - **`StringBuilder`에 단일문자 리터럴 String append** (`sb.append("\n")`, `append(" ")`, `append("5")`) = 굳은 습관, **지적 X** (리터럴은 할당 없음). 단 `String.valueOf(c).repeat(n)`·`sb.append("a" + x)`는 별개로 지적. i글자 반복은 `sb.repeat("*", i)` (JDK 21+).
@@ -297,7 +304,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ### 6.3 Python
 
-- 프로그래머스/LeetCode는 `input = sys.stdin.readline` 같은 IO 셋업이 **아예 없음** (있으면 백준 템플릿 무지성 복붙 티).
+- 프로그래머스/LeetCode의 **`solution()` 함수형** 문제는 `input = sys.stdin.readline` 같은 IO 셋업이 **아예 없음** (있으면 백준 템플릿 무지성 복붙 티). **예외** — 프로그래머스 "입출력" 트레이닝처럼 `main`/stdin 으로 직접 읽는 유형은 Python 도 **항상** `import sys` + `input = sys.stdin.readline` (Java `BufferedReader`, C++ `cin.tie` 와 평행, §8).
 - **헬퍼(DFS·BFS·find)는 `solution` 안 중첩 클로저**로, 입력(`numbers`, `graph`, `n`)을 **캡처**한다 — 매 재귀 호출에 파라미터로 스레딩하지 말 것. 재귀 인자는 실제로 변하는 것만(`cur`, `depth`). 모듈 레벨 `def`는 입력에 안 걸리는 순수 유틸(`gcd`류)만 예외. **`global` 재대입으로 Java `static` 필드 흉내내지 말 것.**
 - **재귀 풀이 = `import sys` + `sys.setrecursionlimit(10**6)`를 보일러플레이트로 넣는다** `[합의]`— 위치 자유, 값`10**6` 고정. **재귀 깊이가 기본 1000 미만이어도 지적하지 말 것\*\* — 런타임 환경 세팅이지 §4 "제약상 불가능 케이스 방어 코드"가 아니다(그 규칙은 로직 레벨 과방어 — bounds 체크·불가능 null 가드·`(int)` 캐스트 — 에만).
 - `for i in range(len(x))` 안 씀 → §5.3.
@@ -311,8 +318,9 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - `vis` 방문 배열, `cur` 현재 정점, `nxt` 후보 정점, `cnt` 컴포넌트 수.
 - guard `continue`로 스킵: `if (computers[cur][nxt] == 0 || vis[nxt]) continue;`
 - 방문 배열 위치 — **C++** 전역 `bool vis[MAXN]` / **Java** `boolean[] vis` 파라미터 or `static` 필드 / **Python** `vis = [False] * n`을 `solution` 안에서 클로저 캡처.
+- **C++ 그래프 헬퍼 입력** — `vis` 뿐 아니라 인접구조·`n` 도 파일 스코프 전역으로 두는 걸 선호(헬퍼 시그니처는 변하는 인자만: `bfs(int cur)`). 애매하면 ref 파라미터로 넘겨도 됨. **LeetCode 는 전역 배열 지양**(멀티 인스턴스), 프로그래머스/CF 는 프로세스 독립이라 무해.
 - 큐 — **C++** `queue<int>` (`front`/`pop`) / **Java** `ArrayDeque` (`offer`/`poll`) / **Python** `deque` (`append`/`popleft`).
-- BFS 레벨 순회: `int sz = q.size(); while (sz-- > 0) { ... }` (Python `for _ in range(len(q)):`).
+- BFS 레벨 순회 — **C++** `int sz = q.size(); while (sz--) { ... }` · **Java** `int sz = q.size(); while (sz-- > 0) { ... }` · **Python** `for _ in range(len(q)):`. (C++ `sz` 는 `int` 라 `while (sz--)` 안전 — §4 truthy.)
 - **enqueue 후 mark 순서** `[합의]` — `q.push(nxt); vis[nxt] = true;` (또는 `dist[nxt] = dist[cur] + 1;`). mark 먼저 아님. 세 언어·모든 BFS 파일 공통.
 - **격자(2D) BFS** `[합의]` — 거리 배열은 **C++** 전역 `int dist[MAXN][MAXN]` (`MAXN` = 제약 상한 정확값, 지역 `vector<vector<int>>` 아님) / **Java** `int[][] dist = new int[n][m]` 지역 / **Python** `dist = [[0] * m for _ in range(n)]` 지역. 방향 순회 — **C++/Java** `dr`/`dc` 크기 명시 배열(C++는 전역) + `for (int d = 0; d < 4; d++)` / **Python** `for dr, dc in ((-1, 0), (0, 1), (1, 0), (0, -1)):` 델타 튜플 순회 후 `nr, nc = r + dr, c + dc` — 이웃 좌표 직접 튜플(`for nr, nc in ((r - 1, c), ...)`)이나 `dx`/`dy` 리스트 + `range(4)`(C 전사, §5.3) 아님. 시작칸 `dist = 1`로 두고 "칸 수" 세면 미방문 = `dist[..] == 0`. 큐 enqueue는 `q.push({r, c})` (`emplace` 아님) `[취향]`.
 - Dijkstra는 lazy deletion (`if (d > dist[u]) continue;`) — 없으면 decrease-key 잘못 흉내낸 초보 신호.
@@ -342,7 +350,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ### 7.5 원소별 변환 (조건부 배열 변환 / 변환 반복-until-stable) `[합의]`
 
-- **Python**: 원소 하나 받는 헬퍼 `transform(x)` (가드 리턴, §4) + `[transform(x) for x in arr]` 컴프리헨션. 전체 배열 받는 `step` 아님. 반복형이면 `while True: cur = [transform(x) for x in prv]; if prv == cur: return x; prv = cur; x += 1`.
+- **Python**: 원소 하나 받는 헬퍼 `transform(x)` (가드 리턴, §4) + `[transform(x) for x in arr]` 컴프리헨션. 전체 배열 받는 `step` 아님. 반복형이면 `cnt = 0; while True: cur = [transform(x) for x in prv]; if cur == prv: return cnt; prv = cur; cnt += 1` (카운터 `cnt`, §3.1).
 - **Java**: `static int[] step(int[] arr)` — `int[] res = arr.clone();` 후 인덱스 루프로 `res[i]` 변형, `return res`.
 - **C++**: 자유 함수 `vector<int> step(vector<int> v)` — 값 전달(암묵 복사), `for (int& x : v)` 변형, `return v`.
 - 1회성 변환(반복 아님)이면 Python은 위 그대로, C++/Java는 입력 배열 제자리 변형 후 반환.
