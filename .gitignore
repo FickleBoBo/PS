@@ -11,6 +11,7 @@ out/
 ### C++ ###
 *.o
 *.out
+*.dSYM/
 
 ### Python ###
 __pycache__/
@@ -20,4 +21,5 @@ __pycache__/
 ### macOS ###
 .DS_Store
 
+### Claude Code ###
 .claude/settings.local.json
