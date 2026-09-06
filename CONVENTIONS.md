@@ -148,7 +148,8 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ### 3.4 헬퍼 함수 `[합의]`
 
-- 불리언 술어: `ok` / `check` / `valid`
+- 불리언 술어(bool 반환) — 도메인 개념이 뚜렷하면 `is<X>` / `has<X>` (`isAnagram`, `isPrime`, `hasCycle`). 마땅한 도메인어가 없을 때만 제네릭 `ok` / `check` / `valid`.
+- 산출물을 만드는 함수(배열·리스트·값 반환)는 기법 명사 OK — `sieve`, `dijkstra`, `bfs`, `gcd`. (명사 = 만드는 것 / 술어 = 묻는 것.)
 - 재귀·부분문제 풀이: `solve`
 - 그래프/DSU: `bfs` / `dfs` / `find` / `union`(C++은 키워드 → `unite`) (§7)
 - 원소별 변환: `transform`(Python) / `step`(Java·C++) (§7)
@@ -307,12 +308,17 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - **Map 값이 단일 문자면 `Map<String, String>`** (1글자 문자열) `[합의]` — `Map<String, Character>`는 `sb.append(map.get(k))`가 `append(Object)`로 바인딩돼 박싱+`toString`. `String` 값이면 `append(String)` 직결, Python `dict` 구조와도 일치.
 - `Arrays.fill(dp, -1)`.
 - **`StringBuilder`에 단일문자 리터럴 String append** (`sb.append("\n")`, `append(" ")`, `append("5")`) = 굳은 습관, **지적 X** (리터럴은 할당 없음). 단 `String.valueOf(c).repeat(n)`·`sb.append("a" + x)`는 별개로 지적. i글자 반복은 `sb.repeat("*", i)` (JDK 21+).
+- **`return "" + n` / 삼항 `String`↔`int` 결합으로 int→String 형변환** — 사용자 선택, 지적 X. `String.valueOf(n)` 가 정석이나(C++ `to_string` 과 대칭) 강제 아님. `↔ 금지: 재감사 때 재지적.` (prms_120863 에서 종결.)
 - 안티패턴: `String +=` 누적(O(n²)), 루프 안 `System.out.println`(30배), `List<Integer>`로 인덱스 접근, 데이터 클래스에 getter/`toString`.
 
 ### 6.3 Python
 
 - 프로그래머스/LeetCode의 **`solution()` 함수형** 문제는 `input = sys.stdin.readline` 같은 IO 셋업이 **아예 없음** (있으면 백준 템플릿 무지성 복붙 티). **예외** — 프로그래머스 "입출력" 트레이닝처럼 `main`/stdin 으로 직접 읽는 유형은 Python 도 **항상** `import sys` + `input = sys.stdin.readline` (Java `BufferedReader`, C++ `cin.tie` 와 평행, §8).
-- **헬퍼(DFS·BFS·find)는 `solution` 안 중첩 클로저**로, 입력(`numbers`, `graph`, `n`)을 **캡처**한다 — 매 재귀 호출에 파라미터로 스레딩하지 말 것. 재귀 인자는 실제로 변하는 것만(`cur`, `depth`). 모듈 레벨 `def`는 입력에 안 걸리는 순수 유틸(`gcd`류)만 예외. **`global` 재대입으로 Java `static` 필드 흉내내지 말 것.**
+- **헬퍼 위치** — 기준은 "그 헬퍼가 문제별 상태(`graph`·입력 배열·`n`·`memo`)에 걸리냐" 하나. `global` 재대입으로 Java `static` 필드 흉내내지 말 것.
+  - **상태 무는 헬퍼(DFS·BFS·find)** → `solution`/메서드 안 **중첩 클로저**로 입력을 **캡처**. 매 재귀 호출에 파라미터로 스레딩하지 말 것 — 재귀 인자는 실제로 변하는 것만(`cur`, `depth`).
+  - **범용 유틸(`gcd`·`binarySearch`·소수판정 — 자기 인자만 받고 다른 문제에 그대로 복붙됨)** → 프로그래머스(`def solution()`, 클래스 없음)는 **모듈 레벨 `def`**(파일 최상단).
+  - **LeetCode 예외** — `class Solution`이 주어지므로 범용 유틸도 **메서드 안 중첩**으로 통일. 클래스 밖 모듈 함수는 붕 떠 보이고, 인스턴스 재사용 시 클래스/인스턴스 속성으로 상태가 샐 수 있음(§7.1). 한 파일은 전부 중첩.
+  - 한 문제가 상태 헬퍼 + 범용 유틸을 둘 다 쓰면 위치가 갈려도 정상(프로그래머스). 통일하려고 억지로 맞추지 말 것.
 - **재귀 풀이 = `import sys` + `sys.setrecursionlimit(10**6)`를 보일러플레이트로 넣는다** `[합의]`— 위치 자유, 값`10**6` 고정. **재귀 깊이가 기본 1000 미만이어도 지적하지 말 것\*\* — 런타임 환경 세팅이지 §4 "제약상 불가능 케이스 방어 코드"가 아니다(그 규칙은 로직 레벨 과방어 — bounds 체크·불가능 null 가드·`(int)` 캐스트 — 에만).
 - `for i in range(len(x))` 안 씀 → §5.3.
 
