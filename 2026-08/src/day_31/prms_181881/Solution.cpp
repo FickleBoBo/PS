@@ -15,13 +15,13 @@ vector<int> step(vector<int> v) {
 
 int solution(vector<int> arr) {
     vector<int> prv = arr;
-    int x = 0;
+    int cnt = 0;
 
     while (true) {
         vector<int> cur = step(prv);
 
-        if (prv == cur) return x;
+        if (prv == cur) return cnt;
         prv = cur;
-        x++;
+        cnt++;
     }
 }

@@ -5,14 +5,14 @@ import java.util.*;
 class Solution {
     public int solution(int[] arr) {
         int[] prv = arr;
-        int x = 0;
+        int cnt = 0;
 
         while (true) {
             int[] cur = step(prv);
 
-            if (Arrays.equals(prv, cur)) return x;
+            if (Arrays.equals(prv, cur)) return cnt;
             prv = cur;
-            x++;
+            cnt++;
         }
     }
 

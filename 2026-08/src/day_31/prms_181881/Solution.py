@@ -1,18 +1,18 @@
+def transform(x):
+    if x >= 50 and x % 2 == 0:
+        return x // 2
+    if x < 50 and x % 2:
+        return x * 2 + 1
+    return x
+
+
 def solution(arr):
-
-    def transform(num):
-        if num >= 50 and num % 2 == 0:
-            return num // 2
-        if num < 50 and num % 2:
-            return num * 2 + 1
-        return num
-
     prv = arr
-    x = 0
+    cnt = 0
 
     while True:
-        cur = [transform(num) for num in prv]
+        cur = [transform(x) for x in prv]
         if prv == cur:
-            return x
+            return cnt
         prv = cur
-        x += 1
+        cnt += 1
