@@ -281,7 +281,9 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 - `#include <bits/stdc++.h>` + `using namespace std;`
 - 표준입출력 문제면 `ios::sync_with_stdio(0); cin.tie(0);` + 출력 `'\n'` (**`endl` 금지** — 인터랙티브 제외, 10배 저하). `0` 은 사용자 고정 컨벤션 — `false`/`nullptr` 과 동작 동일, 타이핑 절약. ↔ 금지: `false`/`nullptr` 로 바꾸기.
-- **Codeforces 멀티테스트** `[합의]` — 로직을 `void solve()` 로 분리, `int main()` 은 `ios::sync_with_stdio(0); cin.tie(0); int t; cin >> t; while (t--) solve();`. 폴더명 `cofo_{contest}{x}` (문제 letter 소문자). 프로그래머스는 `solution()` 직접 호출이라 해당 없음.
+- **Codeforces 멀티테스트** `[합의]` — 로직을 `void solve()` 로 분리, `int main()` 은 `ios::sync_with_stdio(0); cin.tie(0); int t; cin >> t; while (t--) solve();`. 프로그래머스는 `solution()` 직접 호출이라 해당 없음.
+- **대회 문제 폴더명** — 대회 실전 풀이는 `live_{contest}{x}`, 나중 업솔빙·복기는 `cofo_{contest}{x}` (둘 다 문제 letter 소문자). `contest` 는 대회 시작 시점에 URL 로 바로 아는 숫자 ID (CF `codeforces.com/contest/2259` → `live_2259a`). `cofo_`·`prms_`·`leet_` 만 블로그 레포 자동 포스팅에 걸리므로 실전분은 그와 안 겹치는 `live_` 를 씀. `live_` 는 CF 외 다른 대회 플랫폼(AtCoder·백준 등)에도 같은 접두어로 재사용.
+  - **`live_` 는 대회 종료 순간의 코드를 그대로 박제** — 이후 수정·리팩터 안 함, `ps-audit` 대상도 아님(§0 필터 이전에 스코프에서 제외). 실제 학습·재구현·스타일 정리는 `cofo_` 폴더에서 백지부터.
 - **전역 고정 배열 OK** (`bool vis[MAX]`, `int p[MAX]`), 매직넘버 상한(`vis[200]`, n ≤ 200)도 CP 표준. `main` 안 지역 `vector`도 fluent (멀티테스트 초기화 버그 회피) — **둘 다 OK** `[통용]`.
 - **순수 membership 집합은 `unordered_set`** (`set` 아님) `[합의]` — 프로그래머스는 해시 해킹 없음. 정렬을 실제로 쓰면 `set`. `set<char>`처럼 알파벳 유계면 어느 쪽이든 무의미하나 기본은 `unordered_set`. `unordered_map`도 동일(CF는 지양, 프로그래머스 허용).
 - `emplace_back` (> `push_back(make_pair(...))`), digit separator (`1'000'001`).
