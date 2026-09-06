@@ -101,7 +101,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 | 이전 / 다음 / 현재                            | `prv` / `nxt` / `cur`                          |
 | 롤링 DP                                       | `prv2` / `prv1` / `cur`                        |
 | 구간 양끝                                     | `l` / `r` (반개구간 `[l, r)`)                  |
-| 이분탐색                                      | `lo` / `hi` / `mid`                            |
+| 이분탐색                                      | `lo` / `hi` / `mid` (닫힌·반개 공통 — n10)     |
 | 시작 / 끝 (지문 어휘면)                       | `s` / `e`                                      |
 | 최소 / 최대 값                                | C++ `mn` / `mx` · Java `min` / `max`           |
 | 자릿수                                        | `d`                                            |
@@ -135,6 +135,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 7. **`chk`** — 데이터(bool 배열) 이름으로만. 헬퍼 함수명은 `check`(§3.4). 그래프 방문이면 `vis`. 장애물 격자는 도메인이 뚜렷하면 도메인명/`wall`, 단순 차단 체크 격자는 `chk` 허용.
 8. **`idx` > `pos`** — 찾은 위치 변수 기본은 `idx`.
 9. **`INF`** — Java `0x3f3f3f3f`(더해도 안 넘침), C++ `long long`엔 `1e18`, Python `10**18`. `float('inf')`/`Float.MAX` 지양. **`MOD`** = `1'000'000'007`.
+10. **이분탐색 `lo` / `hi` / `mid`** — `while (lo <= hi)` 닫힌구간이든 `while (lo < hi)` 반개구간이든 이분탐색은 `lo`/`hi`/`mid`. 위 "구간 양끝 `l`/`r`"은 투포인터·슬라이딩 윈도우·반개구간 인덱스 전용 — 이분탐색엔 `l`/`r` 안 씀. Python `bisect(lo, hi)` 파라미터명·USACO Guide·TopCoder 표준과 정렬(단, `l`/`r`도 대회 코드에 흔해 외부 국룰은 아님 — 이 레포 선택). ↔ 금지: 이분탐색을 `l`/`r`로 되돌리기. leet_704 에서 확립.
 
 ### 3.3 언어별 컨테이너 이름
 
@@ -375,6 +376,21 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - **C++/Java**: 복원은 명시 `for` 루프 (`partial_sum`/`accumulate` X — §5.1 리덕션 규칙). 값 누적이 int 넘치면 `long`/`long long`.
 - **Python**: 복원은 `itertools.accumulate` — `list(accumulate(diff))[:n]` 또는 `[b + d for b, d in zip(base, accumulate(diff))]` (`zip`이 `base` 길이에서 잘라줌). `range(len)` 수동 누적 X.
 - **2D**: 네 꼭짓점 이벤트 `diff[r1][c1] += v` · `diff[r1][c2+1] -= v` · `diff[r2+1][c1] -= v` · `diff[r2+1][c2+1] += v` + 2D 누적합. 크기 `(n+2) × (m+2)`.
+
+### 7.7 이분탐색 `[합의]`
+
+- **먼저 표준 라이브러리** — "존재하냐 / 어디 있냐"면 손으로 안 짬: C++ `binary_search` / `lower_bound` / `upper_bound`, Java `Arrays.binarySearch`, Python `bisect_left` / `bisect_right`. 손구현은 (1) 문제가 이분탐색 구현 자체를 요구하거나(leet_704), (2) 파라메트릭 서치(정답 위 단조 술어)일 때.
+- **이름**: `lo` / `hi` / `mid` (§3.1, §3.2 n10). `l` / `r` 안 씀 — 그건 투포인터·슬라이딩 윈도우 전용.
+- **exact-match (정렬 배열에서 값의 위치, 없으면 -1)** — 닫힌구간 `[lo, hi]`:
+  - `lo = 0`, `hi = n - 1`, `while (lo <= hi)`
+  - `mid = (lo + hi) / 2` — `lo + hi` 가 int 넘칠 크기면 `lo + (hi - lo) / 2` (이 레포 제약 n ≤ 1e5 급이면 무관)
+  - `v[mid] < target` → `lo = mid + 1` / `v[mid] > target` → `hi = mid - 1` / else → `return mid`
+  - 루프 탈출 = 못 찾음 → `return -1`
+  - 헬퍼 위치: C++ 멤버 or 자유 함수(`v`/`nums` 인자), Java `static`(`arr` 인자), Python 은 §6.3 (LeetCode 는 메서드 안 중첩, 프로그래머스는 모듈 레벨)
+- **파라메트릭 서치 (정답에 대한 이분)** — 반개구간 `[lo, hi)`:
+  - `while (lo < hi)`, `mid = (lo + hi) / 2`, `ok(mid)` 면 `hi = mid` 아니면 `lo = mid + 1`, 끝나면 `return lo` (첫 true)
+  - 술어 헬퍼는 `ok` / `check` (§3.4), 상태 캡처는 §6.3/§7.1 과 동일
+  - (레포 실측 전 — 실제로 나오면 3언어 예시 채운다.)
 
 ---
 
