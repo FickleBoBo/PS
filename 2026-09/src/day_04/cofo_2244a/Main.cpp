@@ -6,11 +6,15 @@ void solve() {
     string s;
     cin >> n >> s;
 
-    stringstream ss(s);
-    string token;
-    int mx = 0;
-    while (getline(ss, token, '*')) {
-        mx = max(mx, ((int)token.size() + 1) / 2);
+    int mx = 0, cnt = 0;
+    for (char c : s) {
+        if (c == '#') {
+            cnt++;
+        } else {
+            cnt = 0;
+        }
+
+        mx = max(mx, (cnt + 1) / 2);
     }
 
     cout << mx << '\n';
