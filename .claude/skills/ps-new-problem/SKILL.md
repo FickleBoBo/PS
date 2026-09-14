@@ -21,7 +21,7 @@ description: PS 알고리즘 문제풀이 레포에서 프로그래머스·LeetC
 - 이번 달(`{year}-{month}`) 모듈이 없으면 에러 종료 — `ps-new-month` 먼저 실행하라고 안내.
 - day_XX 번호 = **스킬 실행 시각의 '일'**(`date.today().day`, zero-pad). 같은 날 재실행하면 같은 `day_XX`에 누적되고, 안 푼 날은 폴더가 안 생겨 자연히 건너뛴다. 달이 바뀌면 모듈이 갈리므로 리셋. Claude가 계산할 필요 없음.
 - 이미 존재하는 `{judge}_{id}/` 폴더는 건너뛴다(skipped 보고) — **오늘 day_XX 안에서만** 검사. 예전 day에 같은 문제가 있어도 오늘 다시 지정하면 새로 만든다(다른 날 재도전 워크플로 허용).
-- **git add/commit은 하지 않는다** — 스캐폴딩만. 풀이 커밋은 블로그 레포 담당([[ps-blog-pipeline]], `PS/CLAUDE.md` 작업 범위 참조).
+- **git add/commit은 하지 않는다** — 스캐폴딩만. 풀이 커밋은 블로그 레포 담당([[ps_blog_pipeline]], `PS/CLAUDE.md` 작업 범위 참조).
 
 ## 저지별 동작
 
