@@ -155,6 +155,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - 그래프/DSU: `bfs` / `dfs` / `find` / `union`(C++은 키워드 → `unite`) (§7)
 - 원소별 변환: `transform`(Python) / `step`(Java·C++) (§7)
 - **`func` 금지** (재발 습관). `flag` 금지 (→ 의미 있는 이름).
+- `computeIfAbsent` 람다 파라미터 — Java `k -> new ArrayList<>()` 고정 (§6.2).
 - 비교자 람다 파라미터 — Java `(o1, o2)` 고정(`Comparator.compare` 시그니처 매칭). C++ `a, b` (값 비교·인덱스 정렬 공통). Python은 2-인자 비교 람다 거의 안 씀(`key=lambda x:` 단일).
 
 ### 3.5 네이밍 안티패턴 (지적 대상)
@@ -182,6 +183,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
   - **음성 가드는 명시 비교 유지** — 배열/맵 값을 스킵 조건으로 쓸 때 `== 0` / `!= 0`, 옆 조건과 대칭으로: `if (maps[nr][nc] == 0 || dist[nr][nc] != 0) continue;` (NOT `|| !dist[nr][nc]`). 카운트다운 루프 조건 `while (x > 0)` / `while (x)` 은 C++/Python 재량.
 - **삼항 극성** `[합의]` — 찾음/성공/양성 케이스를 **먼저**: `idx != -1 ? idx + 1 : -1` (NOT `idx == -1 ? -1 : idx + 1`). 세 언어 공통.
 - **불리언 결과를 0/1 로 반환** `[통용]` — "조건이면 1, 아니면 0/-1" 류: C++ `return cond;` (묵시적 bool→int) · Java `return cond ? 1 : 0;` · Python `return int(cond)`. 언어별로 갈리는 게 정상(부록 A).
+- **3-way 비교(-1/0/1) 반환** `[통용]` — 순위·정렬 비교에서 기준이 여러 겹이면 비교 가능한 값(또는 튜플)로 만들어 `(a > b) - (a < b)`로 부호만 뽑는다. C++ 스칼라 직접(`(sum1 > sum2) - (sum1 < sum2)`), Python은 튜플이 사전식 비교라 다중 기준을 그대로 튜플로 묶어 같은 식(`(len(arr), sum(arr))`). 단일 스칼라 비교면 그냥 `if`/삼항이 더 읽기 쉬울 수도 있음 — 케바케. (`prms_181856`에서 확립, 2026-09-21.)
 - **중괄호** `[합의]` —
   - `if` 단문(짧은 단일 문장 하나) = 한 줄, 중괄호 X. `continue`/`return`/`break` guard 뿐 아니라 `cnt++`류 일반 단문도 포함 — Java 도 마찬가지(prms_181871 `if (...) cnt++;`, 2026-09-11 확인). 몸통이 여러 문장이거나 길어지면 중괄호.
   - Java 반복문 = 항상 중괄호.
@@ -218,6 +220,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 - **변환·탐색·생성 알고리즘은 stdlib** — "C++11식 수동 말고 그레이더 C++20 도구":
   - `iota(v.begin(), v.end(), 0)` — 0,1,2… 채우기 (`<numeric>`)
+  - `rotate(v.begin(), 시작지점, v.end())` — 컨테이너 회전 (`<algorithm>`). 레포 전체 실측 4회(day_03·day_26·day_29·`prms_120921`) — 이미 굳은 관용인데 문서 누락돼 있었음, 2026-09-22 보강.
   - `v.erase(unique(v.begin(), v.end()), v.end())` — 연속 중복 제거
   - `std::erase(cont, val)` / `std::erase_if` — 값 제거 (C++20)
   - `s.starts_with(p)` / `s.ends_with(p)` (C++20)
@@ -241,9 +244,9 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 **대전제: CP-pythonic = 성능.** 내장함수가 C레벨이라 빠름. 프로그래머스는 시간 널널 → 가독성 우선.
 
-- **적극 활용**: `Counter`/`deque`/`defaultdict`, `heapq`(튜플 정렬키 `(dist, node)`), `bisect`, `itertools`(`accumulate`/`combinations`/`permutations`/`product`/`pairwise`/`groupby`), `math`(`isqrt`/`comb`/`prod`/`gcd`), 슬라이싱(`s[::-1]`, `s[a:b]`), `string.ascii_*`.
+- **적극 활용**: `Counter`/`deque`/`defaultdict`, `heapq`(튜플 정렬키 `(dist, node)`), `bisect`, `itertools`(`accumulate`/`combinations`/`permutations`/`product`/`pairwise`/`groupby`/`chain.from_iterable` — 중첩 리스트 평탄화, `reversed()`와 조합해 역순 평탄화), `math`(`isqrt`/`comb`/`prod`/`gcd`), 슬라이싱(`s[::-1]`, `s[a:b]`), `string.ascii_*`.
 - **리덕션도 적극** — `sum()` / `math.prod()` / `accumulate` + `next()`. (C++/Java와 반대, 부록 A.)
-- **인덱스 순회 안 함** — `for i in range(len(arr))` 지양. `enumerate`/`zip`/`reversed`/직접 순회. 슬라이스에 쓸 인덱스가 진짜 필요할 때만 `range(len)`. **파이썬 고수 단일 최강 지표.**
+- **인덱스 순회 안 함** — `for i in range(len(arr))` 지양. `enumerate`/`zip`/`reversed`/직접 순회. 슬라이스에 쓸 인덱스가 진짜 필요하거나, **인덱스 자체가 반환값**(회전 횟수·경과 스텝 등)일 때만 `range(len)`. **파이썬 고수 단일 최강 지표.** (`prms_120921` — 문자열 회전 시도 횟수를 그대로 반환하는 경우, 2026-09-22 카브아웃 명문화.)
 - **C 전사 안 함**:
   - `while i*i <= n` + `i += 1` → `math.isqrt` + `for i in range(1, isqrt(n) + 1)` (`int(n**0.5)`는 float 오차)
   - if/elif 문자 치환 루프 → `str.translate(str.maketrans(a, b))`
@@ -311,6 +314,8 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
   - **예외 — 지문이 "배열"로 프레이밍하면 `List`(+ JDK21 `removeLast()`/`addLast()`)도 정당**: 끝에서 추가/제거하는 동작 자체는 같아도, 문제가 스택 알고리즘(짝 제거·매칭 등)이 아니라 "배열에 원소를 더하고 뺀다"는 지문이면 `List<Integer>`가 더 자연스럽다. (`181860` "빈 배열에 추가, 삭제하기" vs `181859` "배열 만들기 6"=지문이 `stk`란 이름까지 준 진짜 스택 문제 — 같은 끝-조작이어도 문제 프레이밍에 따라 자료구조가 갈리는 게 정상, 2026-09-12.)
 - **Map 값이 단일 문자면 `Map<String, String>`** (1글자 문자열) `[합의]` — `Map<String, Character>`는 `sb.append(map.get(k))`가 `append(Object)`로 바인딩돼 박싱+`toString`. `String` 값이면 `append(String)` 직결, Python `dict` 구조와도 일치.
 - `Arrays.fill(dp, -1)`.
+- **값이 컬렉션인 맵의 그룹핑은 `computeIfAbsent`** `[합의]` — `map.computeIfAbsent(key, k -> new ArrayList<>()).add(v)`. `containsKey`/`get`/`put` 분기로 풀지 않는다. 람다 파라미터는 `k` 고정(자바 국룰 관용 — §3.1 `k`=크기와 겹치나 키라는 뜻이 뚜렷해 예외). (leet_49 에서 확립, 2026-09-21.)
+- **제네릭 배열 `List<Integer>[] adj = new ArrayList[n]`은 그냥 쓴다** `[합의]` — 인접 리스트·버킷 배열의 PS 관용. `-Xlint`의 rawtypes/unchecked 경고는 결함으로 취급 X, `@SuppressWarnings`도 안 붙임. `List<List<Integer>>`로 바꾸라고 강요 X. ↔ 금지: 경고를 근거로 재지적. (leet_347 `Solution2` 에서 확립, 2026-09-21.)
 - **`StringBuilder`에 단일문자 리터럴 String append** (`sb.append("\n")`, `append(" ")`, `append("5")`) = 굳은 습관, **지적 X** (리터럴은 할당 없음). 단 `String.valueOf(c).repeat(n)`·`sb.append("a" + x)`는 별개로 지적. i글자 반복은 `sb.repeat("*", i)` (JDK 21+).
 - **`return "" + n` / 삼항 `String`↔`int` 결합으로 int→String 형변환** — 사용자 선택, 지적 X. `String.valueOf(n)` 가 정석이나(C++ `to_string` 과 대칭) 강제 아님. `↔ 금지: 재감사 때 재지적.` (prms_120863 에서 종결.)
 - 안티패턴: `String +=` 누적(O(n²)), 루프 안 `System.out.println`(30배), `List<Integer>`로 인덱스 접근, 데이터 클래스에 getter/`toString`.
