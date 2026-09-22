@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PS 문제 스캐폴딩: day_XX/{judge}_{id}/ 폴더 + Java/C++/Python 보일러플레이트 생성.
+"""PS 문제 스캐폴딩: day_XX/{judge}_{id}/ 폴더 + Java/C++/Python 보일러플레이트 생성(프로그래머스 SQL 은 .sql 하나).
 
 지원 저지
   프로그래머스  school.programmers.co.kr/learn/courses/30/lessons/{id}  -> prms_{id}/Solution.*
@@ -10,6 +10,7 @@
 인자 없이 실행 -> 열려있는 Chrome 탭에서 위 URL 을 전부 추출해 한번에 처리.
 인자를 주면 그 문제만 -> URL 그대로, 또는 `42578` / `two-sum` / `2148a` / `prms:..` `leet:..` `cofo:..`.
 
+프로그래머스 SQL 문제(언어 목록에 mysql)는 Solution.sql 하나만 만든다.
 프로그래머스·LeetCode 는 로그인 없이 공식 시작 코드를 받아온다.
 Codeforces 는 시작 코드가 없어 네트워크 없이 고정 보일러플레이트를 찍는다.
 
@@ -36,6 +37,7 @@ COFO_PSET_RE = re.compile(r"codeforces\.com/problemset/problem/(\d+)/([A-Za-z]\d
 
 PRMS_TITLE_RE = re.compile(r"<title>코딩테스트 연습 - (.+?) \| 프로그래머스 스쿨</title>")
 PRMS_CODE_RE = re.compile(r'<textarea hidden id="code" name="code">(.*?)</textarea>', re.DOTALL)
+PRMS_SQL_RE = re.compile(r'language=mysql"')  # SQL 문제만 언어 목록에 mysql(+oracle) 이 뜬다
 
 
 # --- 공통 ------------------------------------------------------------------
@@ -126,6 +128,21 @@ def fetch_programmers(pid: str, lang: str) -> tuple[str | None, str | None]:
     code = html.unescape(m.group(1)).replace("\r\n", "\n")
     tm = PRMS_TITLE_RE.search(body)
     return code, (tm.group(1) if tm else None)
+
+
+def fetch_programmers_sql(pid: str) -> tuple[bool, str | None, str | None]:
+    """(is_sql, code, title). SQL 문제는 언어 목록이 mysql(/oracle) 뿐이라 java/cpp/python3 로
+    받아도 SQL 템플릿이 그대로 내려온다 — 언어 루프 전에 먼저 가려내야 한다.
+    fetch 실패나 비SQL 이면 is_sql=False."""
+    body = http_get(f"https://school.programmers.co.kr/learn/courses/30/lessons/{pid}?language=mysql")
+    if body is None or not PRMS_SQL_RE.search(body):
+        return False, None, None
+    m = PRMS_CODE_RE.search(body)
+    if not m:
+        return False, None, None
+    code = html.unescape(m.group(1)).replace("\r\n", "\n")
+    tm = PRMS_TITLE_RE.search(body)
+    return True, code, (tm.group(1) if tm else None)
 
 
 def prms_lang_ok(lang: str, code: str) -> bool:
@@ -259,6 +276,9 @@ def process(spec: tuple, day_name: str, day_dir: pathlib.Path) -> tuple:
         folder = f"prms_{key}"
         if (day_dir / folder).exists():
             return ("skip", folder, None, None)
+        is_sql, sql_code, sql_title = fetch_programmers_sql(key)
+        if is_sql:
+            return ("ok", folder, f"{sql_title} — SQL", {"Solution.sql": sql_code.rstrip("\n") + "\n"})
         codes: dict[str, str] = {}
         title: str | None = None
         for lang in LANGS:

@@ -1,6 +1,6 @@
 ---
 name: ps-new-problem
-description: PS 알고리즘 문제풀이 레포에서 프로그래머스·LeetCode·Codeforces 문제의 day_XX/{judge}_{id}/ 폴더와 언어별 보일러플레이트를 만든다(프로그래머스·LeetCode 는 Java/C++/Python, Codeforces 는 C++). 인자 없이 호출되면 현재 Chrome에 열려있는 문제 탭들을 자동으로 스캔해서 한번에 세팅한다. "새 문제 만들어줘", "문제 세팅해줘", "스캐폴드해줘" 같은 요청, 또는 특정 문제로 템플릿 요청 시 사용.
+description: PS 알고리즘 문제풀이 레포에서 프로그래머스·LeetCode·Codeforces 문제의 day_XX/{judge}_{id}/ 폴더와 언어별 보일러플레이트를 만든다(프로그래머스·LeetCode 는 Java/C++/Python, 프로그래머스 SQL 문제는 `.sql` 하나, Codeforces 는 C++). 인자 없이 호출되면 현재 Chrome에 열려있는 문제 탭들을 자동으로 스캔해서 한번에 세팅한다. "새 문제 만들어줘", "문제 세팅해줘", "스캐폴드해줘" 같은 요청, 또는 특정 문제로 템플릿 요청 시 사용.
 ---
 
 # PS 문제 스캐폴딩 (프로그래머스 · LeetCode · Codeforces)
@@ -34,6 +34,7 @@ description: PS 알고리즘 문제풀이 레포에서 프로그래머스·LeetC
 ### 생성되는 파일 상세
 
 - **프로그래머스**: Java엔 `package day_XX.prms_{id};`, cpp는 `#include`/`using` 줄을 `bits/stdc++.h` 고정 헤더로 교체. 표준입출력(`main`) 스타일 문제면 cpp `main()` 동기화 해제 + py `input = sys.stdin.readline`을 덧붙인다.
+- **프로그래머스 SQL**: 문제 페이지 언어 목록에 `mysql` 이 있으면 SQL 문제로 보고 `Solution.sql` 하나만 만든다(Java/C++/Python 안 만듦). 내용은 페이지가 주는 기본 템플릿 그대로 — 구형은 `-- 코드를 입력하세요\nSELECT`, 신형은 `-- 코드를 작성해주세요` 만. 판별은 `?language=mysql` 요청 1회로 하고, 일반 문제면 기존 3언어 흐름으로 넘어간다. SQL 은 감사·`CONVENTIONS.md` 대상이 아니다(그때그때 점검). 언어 목록을 안 가르면 java/cpp/python3 어느 쪽으로 받아도 SQL 템플릿이 내려와 `prms_lang_ok` 가 python 을 오통과시켜 `Solution.py` 에 SQL 이 들어간다.
 - **LeetCode**: 항상 `class Solution` 시그니처 스타일. Java는 `package` + (시그니처가 `java.util` 타입을 참조하면) `import java.util.*;`, cpp는 `bits/stdc++.h` 헤더 프리펜드, py는 스니펫을 그대로(typing import 안 붙임 — 구형 `List[..]` 표기는 저장 시 에디터 포매팅이 정리).
 - **Codeforces**: `Main.cpp` 하나만 — `#include <bits/stdc++.h>` + `ios::sync_with_stdio(0); cin.tie(0);` 가 들어간 `int main()`. (Java/Python 은 안 만든다 — 사용자 방침)
 - 원본이 CRLF여도 전부 LF로 정규화. 로그인 없이 받는 **기본** 스켈레톤이라 과거에 풀어놨어도 항상 깨끗하게 생성된다.
