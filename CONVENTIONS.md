@@ -415,7 +415,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ## 9. 파일 컨벤션
 
-- 한 문제 폴더: `Solution.{java,cpp,py}` + 대체 접근이면 `SolutionN.{ext}`.
+- 한 문제 폴더: `Solution.{java,cpp,py}` + 대체 접근이면 `SolutionN.{ext}`. (프로그래머스 SQL 문제만 `Solution.sql` 하나 — SQL 은 컨벤션·감사 대상 아님.)
 - `SolutionN`의 **끝자리가 같으면 같은 풀이 원리** (Solution = 루프, Solution2 = 폐형식 등).
 - 어떤 언어에서 관용적으로 안 되는 접근은 스킵 → 파일 갭은 의도적 (예: Python `Solution2`/`Solution4`만).
 - **소스 포맷은 사용자가 직접** — 배치 포맷·포맷 훅·Java 포매터 먼저 제안 금지. `.clang-format`(Google 베이스, indent 4, col 120)은 커밋돼 있고 유지 — CP 통상보다 보수적으로 세로로 펼치는 건 **의도적**(아카이브 가독성). `AllowShortLambdas/Functions/Blocks` 비활성도 의도.

@@ -11,7 +11,7 @@ PS(Problem Solving) 알고리즘 문제풀이 레포. 이 파일은 **이 레포
 - 문서 — `README.md`, `CONVENTIONS.md`, `SKILL.md`, 이 파일
 - 월별 모듈 세팅 (`{year}-{month}/` + `.iml`)
 
-**풀이 소스(`day_XX/` 이하 `.java` / `.cpp` / `.py`)는 이 레포에서 커밋하지 않는다.** 풀이 커밋은 블로그 레포(`FickleBoBo.github.io`) 쪽에서 담당한다. 이 레포 세션에서 풀이 파일을 스캐폴드하는 것(예: `ps-new-problem` 스킬)은 괜찮지만, 커밋은 하지 않고 사용자에게 넘긴다.
+**풀이 소스(`day_XX/` 이하 `.java` / `.cpp` / `.py` / `.sql`)는 이 레포에서 커밋하지 않는다.** 풀이 커밋은 블로그 레포(`FickleBoBo.github.io`) 쪽에서 담당한다. 이 레포 세션에서 풀이 파일을 스캐폴드하는 것(예: `ps-new-problem` 스킬 — 프로그래머스 SQL 문제는 `Solution.sql` 하나만)은 괜찮지만, 커밋은 하지 않고 사용자에게 넘긴다.
 
 ## 커밋 컨벤션
 
