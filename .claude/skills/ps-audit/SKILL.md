@@ -64,6 +64,8 @@ description: PS 알고리즘 레포에서 날짜별(day_XX) 풀이를 각 언어
 
 `CONVENTIONS.md` §2. **모든 문제의 제약을 실제로 fetch**한다 — "저난도라 자명"으로 건너뛰지 말 것(과거 재발 지점).
 
+- **LeetCode는 반드시 GraphQL로 fetch**(`https://leetcode.com/graphql`, `question(titleSlug){ ... }`, 로그인 불요) — WebSearch·기억 기반 요약 금지. 지문·constraints가 리저지되는 저지라 3rd-party 블로그·미러가 개정 전 옛 버전을 최신인 것처럼 박제해둔 경우가 있음(`leet_191`, 2026-09-13, 재발 2회 후 확정). 다음에 이 문제 다시 보면 재검색 없이 이 사실부터 확인.
+
 ### 4. 네이밍 사전 라인별 대조
 
 `CONVENTIONS.md` §3 표·노트와 한 줄씩. 표준에서 벗어난 이름 전부, 아무리 사소해도.
