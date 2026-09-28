@@ -42,6 +42,7 @@ _One day One Problem_
             └── Main.* / Solution.*
 ```
 
-- 표준입출력 채점(BOJ, Codeforces, SWEA, Softeer) → `Main.{java,cpp,py}`
+- 표준입출력 채점(BOJ, SWEA, Softeer) → `Main.{java,cpp,py}`
+- Codeforces → `Main.cpp` (C++ 단일)
 - 메서드 시그니처 채점(Programmers, LeetCode) → `Solution.{java,cpp,py}`
 - SQL(Programmers, MySQL) → `Solution.sql`
