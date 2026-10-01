@@ -295,7 +295,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 - `#include <bits/stdc++.h>` + `using namespace std;`
 - 표준입출력 문제면 `ios::sync_with_stdio(0); cin.tie(0);` + 출력 `'\n'` (**`endl` 금지** — 인터랙티브 제외, 10배 저하). `0` 은 사용자 고정 컨벤션 — `false`/`nullptr` 과 동작 동일, 타이핑 절약. ↔ 금지: `false`/`nullptr` 로 바꾸기.
 - **Codeforces 멀티테스트** `[합의]` — 로직을 `void solve()` 로 분리, `int main()` 은 `ios::sync_with_stdio(0); cin.tie(0); int t; cin >> t; while (t--) solve();`. 테스트가 하나뿐인 문제면 `t` 루프만 생략. 프로그래머스는 `solution()` 직접 호출이라 해당 없음. `ps-new-problem` 스킬의 CF 보일러플레이트가 이 형태.
-- **대회 문제 폴더명** — 대회 실전 풀이는 `live_{contest}{x}`, 나중 업솔빙·복기는 `cofo_{contest}{x}` (둘 다 문제 letter 소문자). `contest` 는 대회 시작 시점에 URL 로 바로 아는 숫자 ID (CF `codeforces.com/contest/2259` → `live_2259a`). `cofo_`·`prms_`·`leet_` 만 블로그 레포 자동 포스팅에 걸리므로 실전분은 그와 안 겹치는 `live_` 를 씀. `live_` 는 CF 외 다른 대회 플랫폼(AtCoder·백준 등)에도 같은 접두어로 재사용.
+- **대회 문제 폴더명** — 대회 실전 풀이는 `live_{contest}{x}`, 그 외 모든 Codeforces 풀이(일반 풀이·나중 업솔빙·복기)는 `cofo_{contest}{x}` (둘 다 문제 letter 소문자). `contest` 는 대회 시작 시점에 URL 로 바로 아는 숫자 ID (CF `codeforces.com/contest/2259` → `live_2259a`). `cofo_`·`prms_`·`leet_` 만 블로그 레포 자동 포스팅에 걸리므로 실전분은 그와 안 겹치는 `live_` 를 씀. `live_` 는 CF 외 다른 대회 플랫폼(AtCoder·백준 등)에도 같은 접두어로 재사용.
   - **`live_` 는 대회 종료 순간의 코드를 그대로 박제** — 이후 수정·리팩터 안 함, `ps-audit` 대상도 아님(§0 필터 이전에 스코프에서 제외). 실제 학습·재구현·스타일 정리는 `cofo_` 폴더에서 백지부터.
 - **전역 고정 배열 OK** (`bool vis[MAX]`, `int p[MAX]`), 매직넘버 상한(`vis[200]`, n ≤ 200)도 CP 표준. `main` 안 지역 `vector`도 fluent (멀티테스트 초기화 버그 회피) — **둘 다 OK** `[통용]`.
 - **순수 membership 집합은 `unordered_set`** (`set` 아님) `[합의]` — 프로그래머스는 해시 해킹 없음. 정렬을 실제로 쓰면 `set`. `set<char>`처럼 알파벳 유계면 어느 쪽이든 무의미하나 기본은 `unordered_set`. `unordered_map`도 동일(CF는 지양, 프로그래머스 허용).
@@ -329,7 +329,7 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
   - **범용 유틸(`gcd`·`binarySearch`·소수판정 — 자기 인자만 받고 다른 문제에 그대로 복붙됨)** → 프로그래머스(`def solution()`, 클래스 없음)는 **모듈 레벨 `def`**(파일 최상단).
   - **LeetCode 예외** — `class Solution`이 주어지므로 범용 유틸도 **메서드 안 중첩**으로 통일. 클래스 밖 모듈 함수는 붕 떠 보이고, 인스턴스 재사용 시 클래스/인스턴스 속성으로 상태가 샐 수 있음(§7.1). 한 파일은 전부 중첩.
   - 한 문제가 상태 헬퍼 + 범용 유틸을 둘 다 쓰면 위치가 갈려도 정상(프로그래머스). 통일하려고 억지로 맞추지 말 것.
-- **재귀 풀이 = `import sys` + `sys.setrecursionlimit(10**6)`를 보일러플레이트로 넣는다** `[합의]`— 위치 자유, 값`10**6` 고정. **재귀 깊이가 기본 1000 미만이어도 지적하지 말 것** — 런타임 환경 세팅이지 §4 "제약상 불가능 케이스 방어 코드"가 아니다(그 규칙은 로직 레벨 과방어 — bounds 체크·불가능 null 가드·`(int)` 캐스트 — 에만).
+- **재귀 풀이 = `import sys` + `sys.setrecursionlimit(10**6)`를 보일러플레이트로 넣는다** `[합의]`— 위치 자유, 값`10**6` 고정. **재귀 깊이가 기본 1000 미만이어도 지적하지 말 것\*\* — 런타임 환경 세팅이지 §4 "제약상 불가능 케이스 방어 코드"가 아니다(그 규칙은 로직 레벨 과방어 — bounds 체크·불가능 null 가드·`(int)` 캐스트 — 에만).
 - `for i in range(len(x))` 안 씀 → §5.3.
 - **`seen`(값 기반 dedup/membership) 자료구조는 항상 `set()`** — 값이 우연히 `0..n` 같은 밀집 범위라 배열 인덱싱이 가능해 보여도 `[False] * n` 리스트로 흉내내지 않는다. C++ `vector<bool>`/Java `boolean[]`가 이 경우 정석인 이유(오토박싱 회피·해시 오버헤드 회피)가 Python엔 적용 안 됨 — 리스트도 결국 `PyObject*` 배열이라 `set` 대비 이득이 없고, 오히려 자바를 그대로 옮긴 티가 남. `vis`(그래프/격자 방문, §7.1)는 예외 없이 배열 유지 — 이건 값 존재확인이 아니라 좌표/정점 슬롯이라 다른 카테고리. (2026-09-13 `leet_268` 감사에서 실측 — 자바 `boolean[] seen`을 그대로 옮긴 게 유일한 예외였고 레포의 다른 모든 `seen`은 이미 `set`.)
 
