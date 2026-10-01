@@ -253,18 +253,25 @@ def build_leet_python(code: str) -> str:
 
 # --- Codeforces --------------------------------------------------------------
 # Codeforces 는 C++ 만 만든다(사용자 방침). 시작 코드 개념이 없어 고정 보일러플레이트.
+# CONVENTIONS.md §6.1 멀티테스트 형태 — 로직은 solve(), main 은 t 루프. 단일 테스트 문제면 t 루프만 지운다.
+# 문제 이름을 가볍게 조회할 공개 엔드포인트가 없다(standings 는 8MB, 문제 페이지는 403).
+# 이름은 cosmetic 이라 조회하지 않고 폴더명(cofo_{c}{x})만 쓴다.
 COFO_CPP_TMPL = """#include <bits/stdc++.h>
 using namespace std;
+
+void solve() {
+
+}
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
+    int t;
+    cin >> t;
+    while (t--) solve();
 }
 """
-
-# 문제 이름을 가볍게 조회할 공개 엔드포인트가 없다(standings 는 8MB, 문제 페이지는 403).
-# 이름은 cosmetic 이라 조회하지 않고 폴더명(cofo_{c}{x})만 쓴다.
 
 
 # --- 스펙 처리 ---------------------------------------------------------------
