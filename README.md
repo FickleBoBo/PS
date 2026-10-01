@@ -10,6 +10,14 @@ _One day One Problem_
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 
+[![BOJ](https://img.shields.io/badge/BOJ-0076C0?style=flat-square)](https://solved.ac/qwera1997/)
+[![Programmers](https://img.shields.io/badge/Programmers-202B3D?style=flat-square)](https://school.programmers.co.kr/)
+[![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=flat-square&logo=leetcode&logoColor=white)](https://leetcode.com/FickleBoBo/)
+[![Codeforces](https://img.shields.io/badge/Codeforces-1F8ACB?style=flat-square&logo=codeforces&logoColor=white)](https://codeforces.com/profile/FickleBoBo)
+[![SWEA](https://img.shields.io/badge/SWEA-386BC4?style=flat-square)](https://swexpertacademy.com/)
+![Softeer](https://img.shields.io/badge/Softeer-002C5E?style=flat-square)
+[![Blog](https://img.shields.io/badge/Blog-ficklebobo.dev-1F8ACB?style=flat-square)](https://ficklebobo.dev)
+
 </div>
 
 ---
@@ -24,11 +32,11 @@ _One day One Problem_
 
 <div align="center">
 
-[![Solved.ac Profile](https://mazassumnida.wtf/api/v2/generate_badge?boj=qwera1997)](https://solved.ac/qwera1997/)
+<a href="https://solved.ac/qwera1997/"><img src="https://mazassumnida.wtf/api/v2/generate_badge?boj=qwera1997" width="400" alt="Solved.ac Profile"></a>
 
-[![LeetCode](https://leetcard.jacoblin.cool/FickleBoBo?theme=dark&font=Nunito&ext=heatmap)](https://leetcode.com/FickleBoBo/)
+<a href="https://leetcode.com/FickleBoBo/"><img src="https://leetcard.jacoblin.cool/FickleBoBo?theme=dark&amp;font=Nunito&amp;ext=heatmap" width="400" alt="LeetCode"></a>
 
-[![Codeforces](https://codeforces-readme-stats.vercel.app/api/card?username=FickleBoBo)](https://codeforces.com/profile/FickleBoBo)
+<a href="https://codeforces.com/profile/FickleBoBo"><img src="https://codeforces-readme-stats.vercel.app/api/card?username=FickleBoBo" width="400" alt="Codeforces"></a>
 
 </div>
 
@@ -42,7 +50,38 @@ _One day One Problem_
             └── Main.* / Solution.*
 ```
 
-- 표준입출력 채점(BOJ, SWEA, Softeer) → `Main.{java,cpp,py}`
-- Codeforces → `Main.cpp` (C++ 단일)
-- 메서드 시그니처 채점(Programmers, LeetCode) → `Solution.{java,cpp,py}`
-- SQL(Programmers, MySQL) → `Solution.sql`
+예시 — `2026-10/src/day_01/`
+
+```
+├── prms_42628/Solution.{java,cpp,py}
+├── leet_1143/Solution.{java,cpp,py}
+└── cofo_2130b/Main.cpp
+```
+
+| 접두사     | 출처                                   | 파일                                            |
+| ---------- | -------------------------------------- | ----------------------------------------------- |
+| `boj_`     | BOJ                                    | `Main.{java,cpp}`                               |
+| `prms_`    | Programmers                            | `Solution.{java,cpp,py}` (SQL은 `Solution.sql`) |
+| `leet_`    | LeetCode                               | `Solution.{java,cpp,py}`                        |
+| `cofo_`    | Codeforces 문제 풀이                   | `Main.cpp`                                      |
+| `live_`    | 대회 실전 풀이 (종료 시점 그대로 보존) | `Main.cpp`                                      |
+| `swea_`    | SWEA                                   | `Solution.java`                                 |
+| `softeer_` | Softeer                                | `Main.java`                                     |
+
+같은 문제의 다른 접근은 `Solution2`, `Solution3` … 처럼 숫자를 붙인다.
+
+## 🛠️ Skills
+
+이 레포의 반복 작업은 Claude Code 스킬로 자동화해 뒀다. (`.claude/skills/`)
+
+| 스킬             | 역할                                                                                                     |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `ps-new-month`   | 새 달이 시작되면 `{year}-{month}/` 모듈 폴더와 `.iml`을 만들고 IDE 모듈에 등록, 세팅 커밋까지            |
+| `ps-new-problem` | 열려 있는 Chrome 탭의 문제 URL(Programmers·LeetCode·Codeforces)로 `day_XX/` 폴더와 언어별 시작 코드 생성 |
+| `ps-audit`       | 날짜별(`day_XX`) 풀이를 `CONVENTIONS.md` 기준으로 점검 — 정답성·복잡도·네이밍·관용구, 🔴🟡🟢 등급        |
+
+## 📖 Conventions
+
+풀이 스타일(네이밍, 언어별 관용구, 채점기 baseline)은 [`CONVENTIONS.md`](CONVENTIONS.md)에 정리한다.
+
+---
