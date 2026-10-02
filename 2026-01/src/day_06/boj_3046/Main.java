@@ -10,7 +10,6 @@ public class Main {
 
         int r1 = Integer.parseInt(st.nextToken());
         int s = Integer.parseInt(st.nextToken());
-
         System.out.println(2 * s - r1);
     }
 }
