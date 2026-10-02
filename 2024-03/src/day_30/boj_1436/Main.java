@@ -8,14 +8,14 @@ public class Main {
         int N = sc.nextInt();
 
         int num = 0;
-        while(N!=0){
-            if((num+"").contains("666")){
+        while (N != 0) {
+            if ((num + "").contains("666")) {
                 N--;
             }
             num++;
         }
 
-        System.out.println(num-1);
+        System.out.println(num - 1);
 
         sc.close();
     }

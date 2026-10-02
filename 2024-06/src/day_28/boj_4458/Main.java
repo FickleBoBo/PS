@@ -9,10 +9,10 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             String[] input = br.readLine().split("");
             input[0] = input[0].toUpperCase();
-            for(int j=0 ; j<input.length ; j++){
+            for (int j = 0; j < input.length; j++) {
                 System.out.print(input[j]);
             }
             System.out.println();

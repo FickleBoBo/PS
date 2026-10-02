@@ -23,11 +23,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int M = sc.nextInt();
-        List<Node>[] nodes = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        List<Node>[] nodes = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             nodes[i] = new ArrayList<>();
         }
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             int x = sc.nextInt();
             int y = sc.nextInt();
             int v = sc.nextInt();
@@ -38,32 +38,32 @@ public class Main {
         List<Node> ans = Dijkstra(N, nodes, 1);
 
         System.out.println(ans.size());
-        for(Node node : ans){
+        for (Node node : ans) {
             System.out.println(node.st + " " + node.ed);
         }
         sc.close();
     }
 
-    private static List<Node> Dijkstra(int N, List<Node>[] nodes, int start){
+    private static List<Node> Dijkstra(int N, List<Node>[] nodes, int start) {
         List<Node> ans = new LinkedList<>();
 
-        int[] dist = new int[1+N];
+        int[] dist = new int[1 + N];
         Arrays.fill(dist, Integer.MAX_VALUE);
 
         PriorityQueue<Node> pq = new PriorityQueue<>();
         dist[start] = 0;
         pq.addAll(nodes[start]);
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
-            if(dist[node.ed] < node.v) continue;
+            if (dist[node.ed] < node.v) continue;
 
             ans.add(node);
             dist[node.ed] = node.v;
 
-            for(Node next : nodes[node.ed]){
-                if(dist[node.ed]+node.v < dist[next.ed]){
-                    pq.offer(new Node(next.st, next.ed, dist[node.ed]+node.v));
+            for (Node next : nodes[node.ed]) {
+                if (dist[node.ed] + node.v < dist[next.ed]) {
+                    pq.offer(new Node(next.st, next.ed, dist[node.ed] + node.v));
                 }
             }
         }

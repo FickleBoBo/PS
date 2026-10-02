@@ -11,16 +11,16 @@ public class Main {
 
         int sum = 0;
 
-        while(st2.hasMoreTokens()){
+        while (st2.hasMoreTokens()) {
             sum += Integer.parseInt(st2.nextToken());
         }
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             st2 = new StringTokenizer(st.nextToken(), "+");
 
             int tmp = 0;
 
-            while(st2.hasMoreTokens()){
+            while (st2.hasMoreTokens()) {
                 tmp += Integer.parseInt(st2.nextToken());
             }
 

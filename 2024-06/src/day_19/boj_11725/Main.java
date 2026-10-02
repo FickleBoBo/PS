@@ -18,14 +18,14 @@ public class Main {
 
         N = Integer.parseInt(br.readLine());
 
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
-        visited = new boolean[1+N];
-        p = new int[1+N];
+        visited = new boolean[1 + N];
+        p = new int[1 + N];
 
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -35,27 +35,27 @@ public class Main {
         }
 
         BFS(1);
-        for(int i=2 ; i<=N ; i++){
+        for (int i = 2; i <= N; i++) {
             sb.append(p[i]).append("\n");
         }
-        
+
         bw.write(sb.toString());
         bw.flush();
         bw.close();
     }
 
-    private static void BFS(int start){
+    private static void BFS(int start) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(start);
 
-        visited = new boolean[1+N];
+        visited = new boolean[1 + N];
         visited[start] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int node = q.poll();
 
-            for(int next : adj[node]){
-                if(!visited[next]){
+            for (int next : adj[node]) {
+                if (!visited[next]) {
                     q.offer(next);
                     visited[next] = true;
                     p[next] = node;    // node와 연결된 next들의 부모 초기화

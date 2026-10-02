@@ -7,13 +7,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             int N = sc.nextInt();
             int[] C = new int[N];
             double[] G = new double[N];
             int CSUM = 0;
             double CG = 0;
-            for(int i=0 ; i<N ; i++){
+            for (int i = 0; i < N; i++) {
                 C[i] = sc.nextInt();
                 G[i] = sc.nextDouble();
                 CSUM += C[i];

@@ -11,17 +11,17 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int T = Integer.parseInt(br.readLine());
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             PriorityQueue<Long> pq = new PriorityQueue<>();
 
             int K = Integer.parseInt(br.readLine());
             StringTokenizer st = new StringTokenizer(br.readLine());
-            while(st.hasMoreTokens()){
+            while (st.hasMoreTokens()) {
                 pq.offer(Long.parseLong(st.nextToken()));
             }
 
             long ans = 0;
-            while(pq.size() > 1){
+            while (pq.size() > 1) {
                 long A = pq.poll();
                 long B = pq.poll();
                 ans += A + B;

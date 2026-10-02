@@ -9,11 +9,11 @@ public class Main {
         int m = sc.nextInt();
 
         List<ArrayList<Integer>> adj = new ArrayList<>();
-        for(int i=0 ; i<=n ; i++){
+        for (int i = 0; i <= n; i++) {
             adj.add(new ArrayList<>());
         }
 
-        for(int i=0 ; i<m ; i++){
+        for (int i = 0; i < m; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
             adj.get(a).add(b);
@@ -23,21 +23,21 @@ public class Main {
         System.out.println(BFS(n, adj));
     }
 
-    private static int BFS(int N, List<ArrayList<Integer>> adj){
+    private static int BFS(int N, List<ArrayList<Integer>> adj) {
         Queue<Integer> q = new LinkedList<>();
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
 
         q.offer(1);
         visited[1] = true;
         int ans = 0;
 
         int maxLen = 0;
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int item = q.poll();
-                for(int j : adj.get(item)){
-                    if(!visited[j]){
+                for (int j : adj.get(item)) {
+                    if (!visited[j]) {
                         q.offer(j);
                         visited[j] = true;
                         ans++;
@@ -46,7 +46,7 @@ public class Main {
             }
 
             maxLen++;
-            if(maxLen == 2) break;
+            if (maxLen == 2) break;
         }
 
         return ans;

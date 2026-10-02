@@ -23,14 +23,14 @@ public class Main {
         double sum1 = 0;
         double sum2 = 0;
 
-        for(int i=0 ; i<20 ; i++){
+        for (int i = 0; i < 20; i++) {
             st = new StringTokenizer(br.readLine());
             st.nextToken();
 
             double credit = Double.parseDouble(st.nextToken());
             double grade = gradeMap.get(st.nextToken());
 
-            if(grade != 5.0){
+            if (grade != 5.0) {
                 sum1 += credit * grade;
                 sum2 += credit;
             }

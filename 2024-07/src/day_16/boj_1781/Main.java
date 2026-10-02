@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Node{
+    static class Node {
         int deadLine;
         int cnt;
 
@@ -22,7 +22,7 @@ public class Main {
         PriorityQueue<Node> deadLinePQ = new PriorityQueue<>(((o1, o2) -> Integer.compare(o2.deadLine, o1.deadLine)));
         int N = Integer.parseInt(br.readLine());
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int deadLine = Integer.parseInt(st.nextToken());
@@ -35,12 +35,12 @@ public class Main {
         int sum = 0;
         int date = deadLinePQ.peek().deadLine;
 
-        while(date > 0){
-            while(!deadLinePQ.isEmpty() && deadLinePQ.peek().deadLine >= date){
+        while (date > 0) {
+            while (!deadLinePQ.isEmpty() && deadLinePQ.peek().deadLine >= date) {
                 cntPQ.offer(deadLinePQ.poll());
             }
 
-            if(!cntPQ.isEmpty()){
+            if (!cntPQ.isEmpty()) {
                 sum += cntPQ.poll().cnt;
             }
 

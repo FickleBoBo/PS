@@ -20,25 +20,23 @@ public class Main {
         pq1.offer(Integer.parseInt(br.readLine()));
         sb.append(pq1.peek()).append("\n");
 
-        for(int i=1 ; i<N ; i++){
+        for (int i = 1; i < N; i++) {
             int num = Integer.parseInt(br.readLine());
 
             // 크기가 같으면 pq1에 추가하는게 기본
-            if(pq1.size() == pq2.size()){
-                if(pq2.peek() < num){
+            if (pq1.size() == pq2.size()) {
+                if (pq2.peek() < num) {
                     pq1.offer(pq2.poll());
                     pq2.offer(num);
-                }
-                else{
+                } else {
                     pq1.offer(num);
                 }
             }
             // 크기가 다르면 pq2에 추가하는게 기본
-            else{
-                if(pq1.peek() < num){
+            else {
+                if (pq1.peek() < num) {
                     pq2.offer(num);
-                }
-                else{
+                } else {
                     pq2.offer(pq1.poll());
                     pq1.offer(num);
                 }

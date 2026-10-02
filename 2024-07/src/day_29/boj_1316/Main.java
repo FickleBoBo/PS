@@ -11,23 +11,21 @@ public class Main {
         int cnt = 0;
 
         out:
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int[] checkArr = new int[26];
             Arrays.fill(checkArr, -1);
 
             String input = br.readLine();
 
-            for(int j=0 ; j<input.length() ; j++){
+            for (int j = 0; j < input.length(); j++) {
                 char c = input.charAt(j);
 
-                if(checkArr[c - 'a'] == -1){
+                if (checkArr[c - 'a'] == -1) {
                     checkArr[c - 'a'] = j;
-                }
-                else{
-                    if(checkArr[c - 'a'] == j - 1){
+                } else {
+                    if (checkArr[c - 'a'] == j - 1) {
                         checkArr[c - 'a'] = j;
-                    }
-                    else{
+                    } else {
                         continue out;
                     }
                 }

@@ -8,27 +8,26 @@ public class Main {
         int N = sc.nextInt();
 
         int[][] map = new int[N][N];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
 
         long[][] dp = new long[N][N];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
-                if(i==0 && j==0){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (i == 0 && j == 0) {
                     dp[i][j] = 1;
-                }
-                else{
+                } else {
                     long ans = 0;
-                    for(int a=0 ; a<i ; a++){
-                        if(dp[a][j] != 0 && map[a][j]==i-a){
+                    for (int a = 0; a < i; a++) {
+                        if (dp[a][j] != 0 && map[a][j] == i - a) {
                             ans += dp[a][j];
                         }
                     }
-                    for(int b=0 ; b<j ; b++){
-                        if(dp[i][b] != 0 && map[i][b]==j-b){
+                    for (int b = 0; b < j; b++) {
+                        if (dp[i][b] != 0 && map[i][b] == j - b) {
                             ans += dp[i][b];
                         }
                     }
@@ -44,7 +43,7 @@ public class Main {
 //            System.out.println();
 //        }
 
-        System.out.println(dp[N-1][N-1]);
+        System.out.println(dp[N - 1][N - 1]);
 
         sc.close();
     }

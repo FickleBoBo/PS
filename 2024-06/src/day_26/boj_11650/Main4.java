@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main4 {
 
-    static class Item implements Comparable<Item>{
+    static class Item implements Comparable<Item> {
         int x;
         int y;
 
@@ -16,7 +16,7 @@ public class Main4 {
 
         @Override
         public int compareTo(Item o) {
-            if(this.x != o.x){
+            if (this.x != o.x) {
                 return Integer.compare(this.x, o.x);
             }
             return Integer.compare(this.y, o.y);
@@ -34,7 +34,7 @@ public class Main4 {
         // Comparable
         PriorityQueue<Item> pq = new PriorityQueue<>();
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int x = Integer.parseInt(st.nextToken());
@@ -43,7 +43,7 @@ public class Main4 {
             pq.offer(new Item(x, y));
         }
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Item item = pq.poll();
             sb.append(item.x).append(" ").append(item.y).append("\n");
         }

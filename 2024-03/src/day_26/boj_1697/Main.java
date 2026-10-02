@@ -20,28 +20,28 @@ public class Main {
         int time = 0;
         int cnt = 1;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int item = q.poll();
             cnt--;
 
-            if(item == K){
+            if (item == K) {
                 break;
             }
 
-            if((item+1<=100000) && (!visited[item+1])){
-                q.offer(item+1);
-                visited[item+1] = true;
+            if ((item + 1 <= 100000) && (!visited[item + 1])) {
+                q.offer(item + 1);
+                visited[item + 1] = true;
             }
-            if((item-1>=0) && (!visited[item-1])){
-                q.offer(item-1);
-                visited[item-1] = true;
+            if ((item - 1 >= 0) && (!visited[item - 1])) {
+                q.offer(item - 1);
+                visited[item - 1] = true;
             }
-            if((item*2<=100000) && (!visited[item*2])){
-                q.offer(item*2);
-                visited[item*2] = true;
+            if ((item * 2 <= 100000) && (!visited[item * 2])) {
+                q.offer(item * 2);
+                visited[item * 2] = true;
             }
 
-            if(cnt == 0){
+            if (cnt == 0) {
                 cnt = q.size();
                 time++;
             }

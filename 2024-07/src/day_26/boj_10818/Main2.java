@@ -14,11 +14,11 @@ public class Main2 {
         int[] arr = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++) arr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < N; i++) arr[i] = Integer.parseInt(st.nextToken());
 
         Arrays.sort(arr);
 
-        sb.append(arr[0]).append(" ").append(arr[N-1]);
+        sb.append(arr[0]).append(" ").append(arr[N - 1]);
 
         bw.write(sb.toString());
         bw.flush();

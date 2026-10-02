@@ -10,37 +10,36 @@ public class Main {
         int K = sc.nextInt();
 
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
 
         int cnt = 0;
         int start = 0;
         int end = 1;
-        if(arr[start] % 2 == 1){
+        if (arr[start] % 2 == 1) {
             cnt--;
         }
 
-        while(true){
-            if(cnt >= 0){
-                if(arr[end++] % 2 == 1){
+        while (true) {
+            if (cnt >= 0) {
+                if (arr[end++] % 2 == 1) {
                     cnt--;
                 }
-            }
-            else{
-                if(arr[start++] % 2 == 1){
+            } else {
+                if (arr[start++] % 2 == 1) {
                     cnt++;
                 }
             }
 
-            if(end == N) break;
+            if (end == N) break;
         }
 
         System.out.println(start);
         System.out.println(end);
         System.out.println(cnt);
 
-        int ans = end - start + 1 - (K-cnt);
+        int ans = end - start + 1 - (K - cnt);
         System.out.println(ans);
 
         sc.close();

@@ -17,25 +17,22 @@ public class Main {
         pq1.offer(Integer.parseInt(br.readLine()));
         sb.append(pq1.peek()).append("\n");
 
-        for(int i=1 ; i<N ; i++){
+        for (int i = 1; i < N; i++) {
 
 
             int n = Integer.parseInt(br.readLine());
 
-            if(pq1.size() == pq2.size()){
-                if(pq2.peek() < n){
+            if (pq1.size() == pq2.size()) {
+                if (pq2.peek() < n) {
                     pq1.offer(pq2.poll());
                     pq2.offer(n);
-                }
-                else{
+                } else {
                     pq1.offer(n);
                 }
-            }
-            else{
-                if(pq1.peek() < n){
+            } else {
+                if (pq1.peek() < n) {
                     pq2.offer(n);
-                }
-                else{
+                } else {
                     pq2.offer(pq1.poll());
                     pq1.offer(n);
                 }

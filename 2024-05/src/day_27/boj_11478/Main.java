@@ -11,8 +11,8 @@ public class Main {
         int len = input.length();
 
         Set<String> set = new HashSet<>();
-        for(int i=0 ; i<len ; i++){
-            for(int j=i+1 ; j<=len ; j++){
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j <= len; j++) {
                 set.add(input.substring(i, j));
             }
         }

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Node{
+    static class Node {
         int r;
         int c;
         int breakWall;    // 벽은 부순 횟수
@@ -32,7 +32,7 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         map = new char[N][M];
-        for(int i=0 ; i<N ; i++) {
+        for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();
         }
 
@@ -40,7 +40,7 @@ public class Main {
         System.out.println(ans);
     }
 
-    private static int BFS(){
+    private static int BFS() {
         Queue<Node> q = new ArrayDeque<>();
         q.offer(new Node(0, 0, 0));
 
@@ -51,31 +51,31 @@ public class Main {
         // 거리
         int dist = 1;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
 
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 Node node = q.poll();
-                if((node.r==N-1) && (node.c==M-1)) return dist;    // 종료 조건
+                if ((node.r == N - 1) && (node.c == M - 1)) return dist;    // 종료 조건
 
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = node.r + dr[dir];
                     int nc = node.c + dc[dir];
                     int breakWall = node.breakWall;
 
-                    if(nr>=0 && nr<N && nc>=0 && nc<M){
+                    if (nr >= 0 && nr < N && nc >= 0 && nc < M) {
                         // 이동할 수 있는 칸이면 벽을 부순 횟수를 그대로 가져감
-                        if(map[nr][nc]=='0'){
-                            if(!visited[nr][nc][breakWall]){
+                        if (map[nr][nc] == '0') {
+                            if (!visited[nr][nc][breakWall]) {
                                 q.offer(new Node(nr, nc, breakWall));
                                 visited[nr][nc][breakWall] = true;
                             }
                         }
                         // 이동할 수 없는 칸이면 벽을 더 부술 수 있으면 부수고 이동
-                        else{
-                            if((breakWall < 1) && !visited[nr][nc][breakWall+1]){
-                                q.offer(new Node(nr, nc, breakWall+1));
-                                visited[nr][nc][breakWall+1] = true;
+                        else {
+                            if ((breakWall < 1) && !visited[nr][nc][breakWall + 1]) {
+                                q.offer(new Node(nr, nc, breakWall + 1));
+                                visited[nr][nc][breakWall + 1] = true;
                             }
                         }
                     }

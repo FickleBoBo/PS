@@ -14,12 +14,12 @@ public class Main {
         int T = Integer.parseInt(br.readLine());
 
         // T번 반복
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             int N = Integer.parseInt(br.readLine());    // N : 수열의 크기
 
             // 입력이 10개씩 개행이라 그냥 StringBuilder로 받아줌
             sb = new StringBuilder();
-            for(int i=0 ; i<=N/10 ; i++) sb.append(br.readLine()).append(" ");
+            for (int i = 0; i <= N / 10; i++) sb.append(br.readLine()).append(" ");
 
             // 공백으로 쪼개기
             st = new StringTokenizer(sb.toString());
@@ -43,18 +43,17 @@ public class Main {
             sb.append(pq2.peek()).append(" ");
             cnt++;
 
-            while(st.hasMoreTokens()){
+            while (st.hasMoreTokens()) {
                 int n = Integer.parseInt(st.nextToken());
 
                 // pq1과 pq2의 크기가 같으면 pq2.peek()에 중앙값을 위치시켜야하니까
                 // pq1에서 제일 큰 애보다 n이 작으면 pq1에서 제일 큰 애 pq2에 넣고 n을 pq1에 넣어줌
                 // pq1에서 제일 큰 애보다 n이 크면 그냥 pq2에 넣으면 됨
-                if(pq1.size() == pq2.size()){
-                    if(pq1.peek() > n){
+                if (pq1.size() == pq2.size()) {
+                    if (pq1.peek() > n) {
                         pq2.offer(pq1.poll());
                         pq1.offer(n);
-                    }
-                    else{
+                    } else {
                         pq2.offer(n);
                     }
 
@@ -63,17 +62,16 @@ public class Main {
                     cnt++;
 
                     // 출력 양식 맞추기
-                    if(cnt % 10 == 0) sb.append("\n");
+                    if (cnt % 10 == 0) sb.append("\n");
                     else sb.append(" ");
                 }
                 // pq1과 pq2의 크기가 다르면(=pq2의 크기가 1 더 큼) 일단 pq1에 원소를 넣어야 함
                 // pq2에서 제일 작은 애보다 n이 크면 pq2에서 제일 작은 애 pq1에 넣고 n을 pq2에 넣어줌
                 // pq1에서 제일 작은 애보다 n이 작으면 그냥 pq1에 넣으면 됨
-                else{
-                    if(pq2.peek() > n){
+                else {
+                    if (pq2.peek() > n) {
                         pq1.offer(n);
-                    }
-                    else{
+                    } else {
                         pq1.offer(pq2.poll());
                         pq2.offer(n);
                     }

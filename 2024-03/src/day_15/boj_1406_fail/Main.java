@@ -15,7 +15,7 @@ public class Main {
 
         String input = br.readLine();
 
-        for(int i=0 ; i<input.length() ; i++){
+        for (int i = 0; i < input.length(); i++) {
             list.add(input.charAt(i));
         }
 
@@ -25,9 +25,9 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             char[] order = br.readLine().toCharArray();
-            if(order.length > 1){
+            if (order.length > 1) {
                 list.add(pos++, order[2]);
 
 //                System.out.println("pos : " + pos);
@@ -36,10 +36,9 @@ public class Main {
 //                }
 //                System.out.println("\n");
 
-            }
-            else{
-                if(order[0]=='L'){
-                    pos = pos > 0 ? pos-1 : pos;
+            } else {
+                if (order[0] == 'L') {
+                    pos = pos > 0 ? pos - 1 : pos;
 
 //                    System.out.println("pos : " + pos);
 //                    for(char c : list){
@@ -47,9 +46,8 @@ public class Main {
 //                    }
 //                    System.out.println("\n");
 
-                }
-                else if(order[0]=='D'){
-                    pos = pos < list.size() ? pos+1 : pos;
+                } else if (order[0] == 'D') {
+                    pos = pos < list.size() ? pos + 1 : pos;
 
 //                    System.out.println("pos : " + pos);
 //                    for(char c : list){
@@ -57,9 +55,8 @@ public class Main {
 //                    }
 //                    System.out.println("\n");
 
-                }
-                else if(order[0]=='B'){
-                    if(pos > 0) list.remove(--pos);
+                } else if (order[0] == 'B') {
+                    if (pos > 0) list.remove(--pos);
 
 //                    System.out.println("pos : " + pos);
 //                    for(char c : list){
@@ -72,7 +69,7 @@ public class Main {
         }
 
 //        System.out.println("pos : " + pos);
-        for(char c : list){
+        for (char c : list) {
             sb.append(c);
         }
 

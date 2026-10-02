@@ -18,7 +18,7 @@ public class Main {
         N = sc.nextInt();
         M = sc.nextInt();
         arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
         Arrays.sort(arr);
@@ -29,18 +29,18 @@ public class Main {
         System.out.println(sb.toString());
     }
 
-    private static void permutationWithRepetition(int sidx){
-        if(sidx == M){
-            for(int i=0 ; i<M ; i++){
+    private static void permutationWithRepetition(int sidx) {
+        if (sidx == M) {
+            for (int i = 0; i < M; i++) {
                 sb.append(sel[i] + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sel[sidx] = arr[i];
-            permutationWithRepetition(sidx+1);
+            permutationWithRepetition(sidx + 1);
         }
 
     }

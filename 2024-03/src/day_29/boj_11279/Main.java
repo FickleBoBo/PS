@@ -13,8 +13,8 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<N ; i++){
-            sb.append(br.readLine()+" ");
+        for (int i = 0; i < N; i++) {
+            sb.append(br.readLine() + " ");
         }
 
         StringTokenizer st = new StringTokenizer(sb.toString(), " ");
@@ -23,12 +23,12 @@ public class Main {
             return o2 - o1;
         });
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int n = Integer.parseInt(st.nextToken());
 
-            if(n>0) pq.offer(n);
-            else{
-                if(pq.isEmpty()) System.out.println(0);
+            if (n > 0) pq.offer(n);
+            else {
+                if (pq.isEmpty()) System.out.println(0);
                 else System.out.println(pq.poll());
             }
         }

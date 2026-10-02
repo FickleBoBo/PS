@@ -22,11 +22,10 @@ public class Main {
     // 유클리드 호제법(완전 못짬)
     private static void GCD(int a, int b) {
         if (a >= b) {
-           if(a % b == 0) gcd = b;
-           else GCD(a % b, b);
-        }
-        else{
-            if(b % a == 0) gcd = a;
+            if (a % b == 0) gcd = b;
+            else GCD(a % b, b);
+        } else {
+            if (b % a == 0) gcd = a;
             else GCD(a, b % a);
         }
     }

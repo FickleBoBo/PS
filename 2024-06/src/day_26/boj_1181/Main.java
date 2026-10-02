@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class MyComparator implements Comparator<String>{
+    static class MyComparator implements Comparator<String> {
 
         @Override
         public int compare(String o1, String o2) {
@@ -24,7 +24,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         Set<String> set = new HashSet<>();
-        for(int i=0 ; i<N ; i++) {
+        for (int i = 0; i < N; i++) {
             set.add(br.readLine());
         }
 
@@ -34,7 +34,7 @@ public class Main {
 
         Collections.sort(list, myComparator);
 
-        for(String s : list){
+        for (String s : list) {
             sb.append(s).append("\n");
         }
 

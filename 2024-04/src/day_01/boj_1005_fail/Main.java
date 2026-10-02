@@ -8,74 +8,74 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb;
-		StringTokenizer st;
-		int T = Integer.parseInt(br.readLine());
-		
-		for(int tc=1 ; tc<=T ; tc++) {
-			char[] input = br.readLine().toCharArray();
-			int N = Character.getNumericValue(input[0]);
-			int K = Character.getNumericValue(input[2]);
+    public static void main(String[] args) throws IOException {
 
-			sb = new StringBuilder();
-			for(int i=0 ; i<=K ; i++) {
-				sb.append(br.readLine() + " ");
-			}
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb;
+        StringTokenizer st;
+        int T = Integer.parseInt(br.readLine());
 
-			st = new StringTokenizer(sb.toString(), " ");
+        for (int tc = 1; tc <= T; tc++) {
+            char[] input = br.readLine().toCharArray();
+            int N = Character.getNumericValue(input[0]);
+            int K = Character.getNumericValue(input[2]);
 
-			int[][] adj = new int[N+1][N+1];
-			int[] inDegree = new int[N+1];
-			int[] weight = new int[N+1];
+            sb = new StringBuilder();
+            for (int i = 0; i <= K; i++) {
+                sb.append(br.readLine() + " ");
+            }
 
-			for(int i=1 ; i<=N ; i++){
-				weight[i] = Integer.parseInt(st.nextToken());
-			}
+            st = new StringTokenizer(sb.toString(), " ");
+
+            int[][] adj = new int[N + 1][N + 1];
+            int[] inDegree = new int[N + 1];
+            int[] weight = new int[N + 1];
+
+            for (int i = 1; i <= N; i++) {
+                weight[i] = Integer.parseInt(st.nextToken());
+            }
 //			System.out.println("weight: " + Arrays.toString(weight));
 
-			while(st.hasMoreTokens()) {
-				int X = Integer.parseInt(st.nextToken());
-				int Y = Integer.parseInt(st.nextToken());
-				adj[X][Y]++;
-				inDegree[Y]++;
-			}
+            while (st.hasMoreTokens()) {
+                int X = Integer.parseInt(st.nextToken());
+                int Y = Integer.parseInt(st.nextToken());
+                adj[X][Y]++;
+                inDegree[Y]++;
+            }
 //			System.out.println("adj");
 //			for(int i=1 ; i<=N ; i++){
 //				System.out.println(Arrays.toString(adj[i]));
 //			}
 //			System.out.println("inDegree: " + Arrays.toString(inDegree));
 
-			int W = Integer.parseInt(br.readLine());
+            int W = Integer.parseInt(br.readLine());
 //			System.out.println("W: " + W);
 
 
-			int minTime = 0;
-			Queue<Integer> topoSort = new LinkedList<>();
-			for(int i=1 ; i<=N ; i++){
-				if(inDegree[i]==0) topoSort.offer(i);
-			}
+            int minTime = 0;
+            Queue<Integer> topoSort = new LinkedList<>();
+            for (int i = 1; i <= N; i++) {
+                if (inDegree[i] == 0) topoSort.offer(i);
+            }
 
-			while(!topoSort.isEmpty()){
-				int item = topoSort.poll();
-				if(item==W) break;
+            while (!topoSort.isEmpty()) {
+                int item = topoSort.poll();
+                if (item == W) break;
 
-				for(int i=1 ; i<=N ; i++){
-					if(adj[item][i] != 0){
-						inDegree[i]--;
-						if(inDegree[i]==0){
-							minTime += weight[i];
-						}
-					}
-				}
-			}
+                for (int i = 1; i <= N; i++) {
+                    if (adj[item][i] != 0) {
+                        inDegree[i]--;
+                        if (inDegree[i] == 0) {
+                            minTime += weight[i];
+                        }
+                    }
+                }
+            }
 
-			System.out.println(minTime);
+            System.out.println(minTime);
 
-		}
-		
-		br.close();
-	}
+        }
+
+        br.close();
+    }
 }

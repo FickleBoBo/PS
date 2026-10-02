@@ -20,11 +20,11 @@ public class Solution {
         nums = new int[1_000_000];
 
         int i = 0;
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             nums[i++] = Integer.parseInt(st.nextToken());
         }
 
-        quickSort(0, nums.length-1);
+        quickSort(0, nums.length - 1);
 
         System.out.println(nums[500_000]);
 
@@ -33,14 +33,14 @@ public class Solution {
 
     static void quickSort(int left, int right) {
 
-        if(left >= right){
+        if (left >= right) {
             return;
         }
 
         int pivot = partition(left, right);
 
-        quickSort(left, pivot-1);
-        quickSort(pivot+1, right);
+        quickSort(left, pivot - 1);
+        quickSort(pivot + 1, right);
     }
 
     // Hoare Partition
@@ -50,24 +50,24 @@ public class Solution {
         int L = left + 1;
         int R = right;
 
-        while(L < R){
+        while (L < R) {
 
-            while((L < R) && (nums[L] < nums[pivot])){
+            while ((L < R) && (nums[L] < nums[pivot])) {
                 L++;
             }
 
-            while(nums[R] > nums[pivot]){
+            while (nums[R] > nums[pivot]) {
                 R--;
             }
 
-            if(L < R){
+            if (L < R) {
                 int tmp = nums[L];
                 nums[L] = nums[R];
                 nums[R] = tmp;
             }
         }
 
-        if(nums[pivot] > nums[R]){
+        if (nums[pivot] > nums[R]) {
             int tmp = nums[R];
             nums[R] = nums[pivot];
             nums[pivot] = tmp;

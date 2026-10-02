@@ -21,8 +21,8 @@ class Tree implements Comparable<Tree> {
 }
 
 public class Main {
-    static int[] adj_x = { -1, -1, -1, 0, 0, 1, 1, 1 };    // 8방 탐색
-    static int[] adj_y = { -1, 0, 1, -1, 1, -1, 0, 1 };    // 8방 탐색
+    static int[] adj_x = {-1, -1, -1, 0, 0, 1, 1, 1};    // 8방 탐색
+    static int[] adj_y = {-1, 0, 1, -1, 1, -1, 0, 1};    // 8방 탐색
 
     public static void main(String[] args) throws Exception {
 
@@ -61,9 +61,9 @@ public class Main {
             Queue<Tree> die_tree_list = new LinkedList<>();    // 죽은 나무 큐(양분 퍼트리기 용)
 
             /* 봄
-            *  나이가 어린 나무부터 양분을 먹고 양분을 못먹은 나무는 죽는다
-            * */
-            for (int i = 0; i < tree_list.size();) {    // 살아있는 나무 디큐를 돌면서
+             *  나이가 어린 나무부터 양분을 먹고 양분을 못먹은 나무는 죽는다
+             * */
+            for (int i = 0; i < tree_list.size(); ) {    // 살아있는 나무 디큐를 돌면서
                 Tree cur = tree_list.poll();            // 하나 꺼내서
                 if (eat[cur.x][cur.y] >= cur.age) {     // 양분을 먹을 수 있는 조건이면
                     eat[cur.x][cur.y] -= cur.age;       // 양분 먹고(땅의 양분을 바꿈)
@@ -76,15 +76,15 @@ public class Main {
             }
 
             /* 여름
-            *  죽은 나무 큐를 돌며 죽은 자리에 양분을 추가
-            * */
+             *  죽은 나무 큐를 돌며 죽은 자리에 양분을 추가
+             * */
             for (Tree t : die_tree_list) {
                 eat[t.x][t.y] += t.age / 2;
             }
 
             /* 가을
-            *  나이가 5의 배수인 나무가 있으면 8방 탐색하며 새로운 나무를 심는다
-            * */
+             *  나이가 5의 배수인 나무가 있으면 8방 탐색하며 새로운 나무를 심는다
+             * */
             Queue<Tree> temp_list = new LinkedList<>();    // 새로운 나무 큐를 만듦
             for (Tree t : tree_list) {
                 if (t.age % 5 == 0) {
@@ -104,8 +104,8 @@ public class Main {
             }
 
             /* 겨울
-            *  맵을 돌며 양분을 추가해줌
-            * */
+             *  맵을 돌며 양분을 추가해줌
+             * */
             for (int i = 1; i <= N; i++) {
                 for (int j = 1; j <= N; j++) {
                     eat[i][j] += A[i][j];

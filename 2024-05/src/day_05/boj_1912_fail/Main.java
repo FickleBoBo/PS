@@ -10,14 +10,14 @@ public class Main {
         int n = sc.nextInt();
 
         int[] arr = new int[n];
-        for(int i=0 ; i<n ; i++){
+        for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
 
         int[] dp = new int[n];
         dp[0] = arr[0];
-        for(int i=1 ; i<n ; i++){
-            dp[i] = dp[i-1] + arr[i];
+        for (int i = 1; i < n; i++) {
+            dp[i] = dp[i - 1] + arr[i];
         }
 
         System.out.println(Arrays.toString(dp));

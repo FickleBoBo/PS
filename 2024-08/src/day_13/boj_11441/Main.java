@@ -12,18 +12,18 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        int[] arr = new int[1+N];
-        int[] prefixSum = new int[1+N];
+        int[] arr = new int[1 + N];
+        int[] prefixSum = new int[1 + N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
-            prefixSum[i] = prefixSum[i-1] + arr[i];
+            prefixSum[i] = prefixSum[i - 1] + arr[i];
         }
 
         int M = Integer.parseInt(br.readLine());
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int a = Integer.parseInt(st.nextToken()) - 1;

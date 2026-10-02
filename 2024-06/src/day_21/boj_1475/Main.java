@@ -9,7 +9,7 @@ public class Main {
 
         // 숫자가 몇 번 쓰였는지 저장하는 카운팅 배열(인덱스 번호 == 사용한 숫자)
         int[] cntArr = new int[10];
-        for(int i=0 ; i<N.length() ; i++){
+        for (int i = 0; i < N.length(); i++) {
             cntArr[N.charAt(i) - '0']++;
         }
 
@@ -19,8 +19,8 @@ public class Main {
 
         // 0 ~ 8 중 가장 많이 사용된 숫자의 개수를 max에 저장
         int max = Integer.MIN_VALUE;
-        for(int i=0 ; i<9 ; i++){
-            if(cntArr[i] > max){
+        for (int i = 0; i < 9; i++) {
+            if (cntArr[i] > max) {
                 max = cntArr[i];
             }
         }

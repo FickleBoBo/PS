@@ -8,20 +8,20 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class Main {
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int n = Integer.parseInt(br.readLine());
-		
-		int[] nums = new int[n+1];
-		for(int i=1 ; i<=n ; i++) {
-			nums[i] = Integer.parseInt(br.readLine());
-		}
-		Queue<Character> q = new LinkedList<>();
-		
-		Stack<Integer> st1 = new Stack<Integer>();
-		Stack<Integer> st2 = new Stack<Integer>();
-		
+    public static void main(String[] args) throws NumberFormatException, IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+
+        int[] nums = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            nums[i] = Integer.parseInt(br.readLine());
+        }
+        Queue<Character> q = new LinkedList<>();
+
+        Stack<Integer> st1 = new Stack<Integer>();
+        Stack<Integer> st2 = new Stack<Integer>();
+
 //		for(int i=1 ; i<=n ; i++) {
 //			if(nums[i] == i) {
 //				q.offer('+');
@@ -32,6 +32,6 @@ public class Main {
 //			
 //			
 //		}
-		
-	}
+
+    }
 }

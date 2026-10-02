@@ -10,13 +10,13 @@ public class Main {
 
         int[] arr = new int[3];
 
-        for(int i=0 ; i<3 ; i++){
+        for (int i = 0; i < 3; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(arr);
 
-        if(arr[2] >= arr[0] + arr[1]) System.out.println((arr[0] + arr[1]) * 2 - 1);
+        if (arr[2] >= arr[0] + arr[1]) System.out.println((arr[0] + arr[1]) * 2 - 1);
         else System.out.println(arr[0] + arr[1] + arr[2]);
     }
 }

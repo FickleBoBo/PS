@@ -11,7 +11,7 @@ class Solution {
         Map<Integer, Integer> cntMap = new HashMap<>();
 
         // 귤 배열에서 카운팅 맵으로 알맞게 집어넣기
-        for(int tang : tangerine){
+        for (int tang : tangerine) {
             cntMap.put(tang, cntMap.getOrDefault(tang, 0) + 1);
         }
 
@@ -24,11 +24,11 @@ class Solution {
         int ans = cntMap.size();        // 박스에 담은 귤의 종류
         int left = tangerine.length;    // 남은 귤의 개수
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             left -= pq.poll();    // 같은 무게 개수 적은 귤 없애고
             ans--;                // 귤의 종류 하나 빼줌
 
-            if(k > left) break;    // 남은 귤이 k개보다 적으면 끝
+            if (k > left) break;    // 남은 귤이 k개보다 적으면 끝
         }
 
         return ans + 1;    // 사실 남은 귤이 k개 이상이어야 하니 귤 종류 하나 더 있어야 함

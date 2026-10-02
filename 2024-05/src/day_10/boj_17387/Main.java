@@ -48,26 +48,24 @@ public class Main {
         long dx2 = x4 - x3;
         long dy2 = y4 - y3;
 
-        if (dy1==0 && dy2== 0) {
+        if (dy1 == 0 && dy2 == 0) {
             if (y1 != y3) {
                 System.out.println(0);
             } else {
                 if (x1 > x4 || x2 < x3) System.out.println(0);
                 else System.out.println(1);
             }
-        }
-        else if (dx1==0 && dx2==0) {
+        } else if (dx1 == 0 && dx2 == 0) {
             if (x1 != x3) {
                 System.out.println(0);
             } else {
                 if (y1 > y4 || y2 < y3) System.out.println(0);
                 else System.out.println(1);
             }
-        }
-        else if (dx1==0) {
+        } else if (dx1 == 0) {
 //            long tmpY = dy2 * (x1-x3) + y3 * dx2;
-            if (((dy2 * (x1-x3) + y3 * dx2) >= y3 * dx2 && (dy2 * (x1-x3) + y3 * dx2) <= y4 * dx2 || (dy2 * (x1-x3) + y3 * dx2) >= y4 * dx2 && (dy2 * (x1-x3) + y3 * dx2) <= y3 * dx2) &&
-                    ((dy2 * (x1-x3) + y3 * dx2) >= y1 * dx2 && (dy2 * (x1-x3) + y3 * dx2) <= y2 * dx2 || (dy2 * (x1-x3) + y3 * dx2) >= y2 * dx2 && (dy2 * (x1-x3) + y3 * dx2) <= y1 * dx2) &&
+            if (((dy2 * (x1 - x3) + y3 * dx2) >= y3 * dx2 && (dy2 * (x1 - x3) + y3 * dx2) <= y4 * dx2 || (dy2 * (x1 - x3) + y3 * dx2) >= y4 * dx2 && (dy2 * (x1 - x3) + y3 * dx2) <= y3 * dx2) &&
+                    ((dy2 * (x1 - x3) + y3 * dx2) >= y1 * dx2 && (dy2 * (x1 - x3) + y3 * dx2) <= y2 * dx2 || (dy2 * (x1 - x3) + y3 * dx2) >= y2 * dx2 && (dy2 * (x1 - x3) + y3 * dx2) <= y1 * dx2) &&
                     (x1 >= x3 && x1 <= x4 || x1 >= x4 && x1 <= x3)) {
                 System.out.println(1);
 //                    System.out.println("여기?");
@@ -75,22 +73,20 @@ public class Main {
                 System.out.println(0);
 //                    System.out.println("여기?");
             }
-        }
-        else if (dx2==0) {
+        } else if (dx2 == 0) {
 //            long tmpY = dy1 * (x3-x1) + y1 * dx1;
 //                System.out.println(tmpY);
 //                System.out.println(y1*dx1);
 //                System.out.println(y2*dx1);
-            if (((dy1 * (x3-x1) + y1 * dx1) >= y1 * dx1 && (dy1 * (x3-x1) + y1 * dx1) <= y2 * dx1 || (dy1 * (x3-x1) + y1 * dx1) >= y2 * dx1 && (dy1 * (x3-x1) + y1 * dx1) <= y1 * dx1) &&
-                    ((dy1 * (x3-x1) + y1 * dx1) >= y3 * dx1 && (dy1 * (x3-x1) + y1 * dx1) <= y4 * dx1 || (dy1 * (x3-x1) + y1 * dx1) >= y4 * dx1 && (dy1 * (x3-x1) + y1 * dx1) <= y3 * dx1) &&
+            if (((dy1 * (x3 - x1) + y1 * dx1) >= y1 * dx1 && (dy1 * (x3 - x1) + y1 * dx1) <= y2 * dx1 || (dy1 * (x3 - x1) + y1 * dx1) >= y2 * dx1 && (dy1 * (x3 - x1) + y1 * dx1) <= y1 * dx1) &&
+                    ((dy1 * (x3 - x1) + y1 * dx1) >= y3 * dx1 && (dy1 * (x3 - x1) + y1 * dx1) <= y4 * dx1 || (dy1 * (x3 - x1) + y1 * dx1) >= y4 * dx1 && (dy1 * (x3 - x1) + y1 * dx1) <= y3 * dx1) &&
                     ((x3 >= x1 && x3 <= x2 || x3 >= x2 && x3 <= x1))) {
                 System.out.println(1);
             } else {
                 System.out.println(0);
 //                    System.out.println("여기?");
             }
-        }
-        else if (dy1 * dx2 == dy2 * dx1) {
+        } else if (dy1 * dx2 == dy2 * dx1) {
             if (dy1 * dx2 * x1 - dx1 * dx2 * y1 != dy2 * dx1 * x3 - dx1 * dx2 * y3) {
                 System.out.println(0);
 //                System.out.println("여기?");
@@ -116,8 +112,8 @@ public class Main {
 //                System.out.println(x3*dummy);
 //                System.out.println(x4*dummy);
 //            System.out.println((y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3));
-            if (((y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) >= x1*(dx2*dy1 - dx1*dy2) && (y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) <= x2*(dx2*dy1 - dx1*dy2) || (y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) >= x2*(dx2*dy1 - dx1*dy2) && (y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) <= x1*(dx2*dy1 - dx1*dy2)) &&
-                    (y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) >= x3*(dx2*dy1 - dx1*dy2) && (y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) <= x4*(dx2*dy1 - dx1*dy2) || (y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) >= x4*(dx2*dy1 - dx1*dy2) && (y3-y1)*dx1*dx2+(dx2*dy1*x1-dx1*dy2*x3) <= x3*(dx2*dy1 - dx1*dy2)) {
+            if (((y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) >= x1 * (dx2 * dy1 - dx1 * dy2) && (y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) <= x2 * (dx2 * dy1 - dx1 * dy2) || (y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) >= x2 * (dx2 * dy1 - dx1 * dy2) && (y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) <= x1 * (dx2 * dy1 - dx1 * dy2)) &&
+                    (y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) >= x3 * (dx2 * dy1 - dx1 * dy2) && (y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) <= x4 * (dx2 * dy1 - dx1 * dy2) || (y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) >= x4 * (dx2 * dy1 - dx1 * dy2) && (y3 - y1) * dx1 * dx2 + (dx2 * dy1 * x1 - dx1 * dy2 * x3) <= x3 * (dx2 * dy1 - dx1 * dy2)) {
                 System.out.println(1);
             } else {
                 System.out.println(0);

@@ -15,14 +15,14 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
-        List<int[]>[] adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        List<int[]>[] adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
-        int[] degree = new int[1+N];
-        boolean[] complexParts = new boolean[1+N];
+        int[] degree = new int[1 + N];
+        boolean[] complexParts = new boolean[1 + N];
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
             int cnt = sc.nextInt();
@@ -32,21 +32,21 @@ public class Main {
         }
 
         Queue<Integer> q = new LinkedList<>();
-        int[] dp = new int[1+N];
+        int[] dp = new int[1 + N];
         dp[N] = 1;
 
-        for(int i=1 ; i<=N ; i++){
-            if(degree[i] == 0){
+        for (int i = 1; i <= N; i++) {
+            if (degree[i] == 0) {
                 q.offer(i);
             }
         }
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int item = q.poll();
 
-            for(int[] next : adj[item]){
+            for (int[] next : adj[item]) {
                 degree[next[0]]--;
-                if(degree[next[0]] == 0){
+                if (degree[next[0]] == 0) {
                     q.offer(next[0]);
                 }
 
@@ -56,8 +56,8 @@ public class Main {
 
 //        System.out.println(Arrays.toString(dp));
 
-        for(int i=1 ; i<=N ; i++){
-            if(!complexParts[i]){
+        for (int i = 1; i <= N; i++) {
+            if (!complexParts[i]) {
                 System.out.println(i + " " + dp[i]);
             }
         }

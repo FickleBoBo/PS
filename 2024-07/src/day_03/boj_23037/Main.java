@@ -9,7 +9,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         int sum = 0;
-        while(N > 0){
+        while (N > 0) {
             int r = N % 10;
             N /= 10;
             sum += r * r * r * r * r;

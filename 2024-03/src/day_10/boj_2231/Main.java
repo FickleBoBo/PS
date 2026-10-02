@@ -11,25 +11,23 @@ public class Main {
         boolean flag = false;
         int ans = 1;
         int tmp = ans;
-        while(ans <= N){    // 처음부터 찾는데 N보다 커질때는 답이 될 수 없어서 종료
-            char[] trans = (ans+"").toCharArray();
-            for(int i=0 ; i<trans.length ; i++){
+        while (ans <= N) {    // 처음부터 찾는데 N보다 커질때는 답이 될 수 없어서 종료
+            char[] trans = (ans + "").toCharArray();
+            for (int i = 0; i < trans.length; i++) {
                 tmp += Character.getNumericValue(trans[i]);
             }
-            if(tmp == N){    // 생성자를 찾으면 flag 켜고(생성자 존재) 종료
+            if (tmp == N) {    // 생성자를 찾으면 flag 켜고(생성자 존재) 종료
                 flag = true;
                 break;
-            }
-            else{    // 아니면 1 더한 값으로 다시 탐색
+            } else {    // 아니면 1 더한 값으로 다시 탐색
                 ans++;
                 tmp = ans;
             }
         }
 
-        if(flag){
+        if (flag) {
             System.out.println(ans);
-        }
-        else{
+        } else {
             System.out.println(0);
         }
 

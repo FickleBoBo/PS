@@ -12,7 +12,7 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             st = new StringTokenizer(br.readLine());
 
             int N = Integer.parseInt(st.nextToken());
@@ -20,13 +20,13 @@ public class Main {
 
             int[] arr1 = new int[N];
             st = new StringTokenizer(br.readLine());
-            for(int i=0 ; i<N ; i++){
+            for (int i = 0; i < N; i++) {
                 arr1[i] = Integer.parseInt(st.nextToken());
             }
 
             int[] arr2 = new int[M];
             st = new StringTokenizer(br.readLine());
-            for(int i=0 ; i<M ; i++){
+            for (int i = 0; i < M; i++) {
                 arr2[i] = Integer.parseInt(st.nextToken());
             }
 
@@ -34,9 +34,9 @@ public class Main {
             Arrays.sort(arr2);
 
             int cnt = 0;
-            for(int i=0 ; i<N ; i++){
-                for(int j=M-1 ; j>=0 ; j--){
-                    if(arr1[i] > arr2[j]){
+            for (int i = 0; i < N; i++) {
+                for (int j = M - 1; j >= 0; j--) {
+                    if (arr1[i] > arr2[j]) {
                         cnt += j + 1;
                         break;
                     }

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Node implements Comparable<Node>{
+    static class Node implements Comparable<Node> {
         int v;
         int w;
 
@@ -34,20 +34,20 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        List<Node>[] adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        List<Node>[] adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int n = Integer.parseInt(st.nextToken());
 
-            while(st.hasMoreTokens()){
+            while (st.hasMoreTokens()) {
                 int v = Integer.parseInt(st.nextToken());
 
-                if(v == -1) break;
+                if (v == -1) break;
 
                 int w = Integer.parseInt(st.nextToken());
 
@@ -66,22 +66,22 @@ public class Main {
         System.out.println(result2[1]);
     }
 
-    private static int[] Dijkstra(int v, int N, List<Node>[] adj){
+    private static int[] Dijkstra(int v, int N, List<Node>[] adj) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(v, 0));
 
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
 
-        int[] dist = new int[1+N];
+        int[] dist = new int[1 + N];
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if(visited[node.v]) continue;
+            if (visited[node.v]) continue;
             visited[node.v] = true;
 
-            for(Node next : adj[node.v]){
-                if(!visited[next.v] && (dist[node.v] + next.w > dist[next.v])){
+            for (Node next : adj[node.v]) {
+                if (!visited[next.v] && (dist[node.v] + next.w > dist[next.v])) {
                     dist[next.v] = dist[node.v] + next.w;
 //                    System.out.println(Arrays.toString(dist));
                     pq.add(new Node(next.v, next.w));
@@ -91,8 +91,8 @@ public class Main {
 
         int ansV = 0;
         int ansDist = 0;
-        for(int i=1 ; i<=N ; i++){
-            if(dist[i] > ansDist){
+        for (int i = 1; i <= N; i++) {
+            if (dist[i] > ansDist) {
                 ansV = i;
                 ansDist = dist[i];
             }

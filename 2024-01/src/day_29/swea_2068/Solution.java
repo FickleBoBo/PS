@@ -9,11 +9,11 @@ public class Solution {
 
         int T = sc.nextInt();    // T : 테스트 케이스의 수
 
-        for(int tc=1 ; tc<=T ; tc++){          // tc : 각 테스트 케이스마다 수행
+        for (int tc = 1; tc <= T; tc++) {          // tc : 각 테스트 케이스마다 수행
             int max = Integer.MIN_VALUE;       // max에 int형 최솟값을 넣고 변경하는 식으로 계산
-            for(int i=0 ; i<10 ; i++){
+            for (int i = 0; i < 10; i++) {
                 int num = sc.nextInt();
-                max = max>num ? max : num;     // 삼항 연산자 활용
+                max = max > num ? max : num;     // 삼항 연산자 활용
             }
             System.out.printf("#%d %d\n", tc, max);
         }

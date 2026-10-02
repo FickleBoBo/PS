@@ -13,7 +13,7 @@ public class Main {
 
         int[] arr = new int[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -23,18 +23,17 @@ public class Main {
         int right = 0;
         int ans = 0;
 
-        while(true){
-            if(cntArr[arr[right]] < K){
+        while (true) {
+            if (cntArr[arr[right]] < K) {
                 cntArr[arr[right]]++;
                 right++;
                 ans = Math.max(ans, right - left);
-            }
-            else{
+            } else {
                 cntArr[arr[left]]--;
                 left++;
             }
 
-            if(right == N) break;
+            if (right == N) break;
         }
 
         System.out.println(ans);

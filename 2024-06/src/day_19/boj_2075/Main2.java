@@ -13,15 +13,15 @@ public class Main2 {
 
         // 우선순위 큐에 N개를 일단 넣음
         st = new StringTokenizer(br.readLine());
-        for(int j=0 ; j<N ; j++){
+        for (int j = 0; j < N; j++) {
             pq.offer(Integer.parseInt(st.nextToken()));
         }
 
-        for(int i=1 ; i<N ; i++){
+        for (int i = 1; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             // 우선순위 큐가 항상 N개를 유지해야 하므로 추가하면서 삭제
-            for(int j=0 ; j<N ; j++){
+            for (int j = 0; j < N; j++) {
                 pq.offer(Integer.parseInt(st.nextToken()));
                 pq.poll();
             }

@@ -16,20 +16,20 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             set.add(br.readLine());
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             String name = br.readLine();
 
-            if(set.contains(name)){
+            if (set.contains(name)) {
                 ans.offer(name);
             }
         }
 
         sb.append(ans.size()).append("\n");
-        while(!ans.isEmpty()){
+        while (!ans.isEmpty()) {
             sb.append(ans.poll()).append("\n");
         }
 

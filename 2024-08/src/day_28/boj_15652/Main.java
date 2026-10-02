@@ -26,18 +26,18 @@ public class Main {
         bw.flush();
     }
 
-    private static void combination(int idx, int sidx){
-        if(sidx == M){
-            for(int n : sel){
+    private static void combination(int idx, int sidx) {
+        if (sidx == M) {
+            for (int n : sel) {
                 sb.append(n).append(" ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=idx ; i<=N ; i++){
+        for (int i = idx; i <= N; i++) {
             sel[sidx] = i;
-            combination(i, sidx+1);
+            combination(i, sidx + 1);
         }
     }
 

@@ -19,10 +19,10 @@ public class Main2 {
 
         int N = Integer.parseInt(br.readLine());
 
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++) adj[i] = new ArrayList<>();
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) adj[i] = new ArrayList<>();
 
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
 
             int u = Integer.parseInt(st.nextToken());
@@ -32,8 +32,8 @@ public class Main2 {
             adj[v].add(u);
         }
 
-        visited = new boolean[1+N];
-        dp = new int[1+N][2];
+        visited = new boolean[1 + N];
+        dp = new int[1 + N][2];
 
         // 어떤 노드에서 시작해도 상관 없음? (트리는 루트가 고정이 아닌가?)
         int start = 1;
@@ -43,14 +43,14 @@ public class Main2 {
         System.out.println(Math.min(dp[start][0], dp[start][1]));
     }
 
-    private static void DFS(int node){
+    private static void DFS(int node) {
         visited[node] = true;
 
         // node가 얼리어답터면 개수 1
         dp[node][0] = 1;
 
-        for(int next : adj[node]){
-            if(visited[next]) continue;
+        for (int next : adj[node]) {
+            if (visited[next]) continue;
             DFS(next);
 
             // node가 얼리어답터일 경우, 자식들은 얼리어답터거나 얼리어답터가 아니거나 가능

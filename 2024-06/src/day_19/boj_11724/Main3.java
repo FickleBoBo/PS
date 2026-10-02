@@ -9,13 +9,13 @@ public class Main3 {
     static int[] p;
 
     // find-set
-    private static int find(int x){
-        if(x == p[x]) return p[x];
+    private static int find(int x) {
+        if (x == p[x]) return p[x];
         return p[x] = find(p[x]);
     }
 
     // union-set
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -27,12 +27,12 @@ public class Main3 {
         int M = Integer.parseInt(st.nextToken());
 
         // make-set
-        p = new int[1+N];
-        for(int i=1 ; i<=N ; i++){
+        p = new int[1 + N];
+        for (int i = 1; i <= N; i++) {
             p[i] = i;
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = find(Integer.parseInt(st.nextToken()));
@@ -42,8 +42,8 @@ public class Main3 {
         }
 
         int cnt = 0;
-        for(int i=1 ; i<=N ; i++){
-            if(i == p[i]) cnt++;    // 최고 조상이 자기 자신(그룹 대표)이면 카운트
+        for (int i = 1; i <= N; i++) {
+            if (i == p[i]) cnt++;    // 최고 조상이 자기 자신(그룹 대표)이면 카운트
         }
 
         System.out.println(cnt);

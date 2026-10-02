@@ -14,10 +14,10 @@ public class Main {
         int X = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int num = Integer.parseInt(st.nextToken());
 
-            if(num < X){
+            if (num < X) {
                 sb.append(num).append(" ");
             }
         }

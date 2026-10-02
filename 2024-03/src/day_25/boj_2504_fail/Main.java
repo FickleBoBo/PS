@@ -13,30 +13,25 @@ public class Main {
         Stack<String> st = new Stack<>();
         boolean incorrect = false;
 
-        for(int i=0 ; i<input.length ; i++){
-            if(input[i].equals("(") || (input[i].equals("["))) {
+        for (int i = 0; i < input.length; i++) {
+            if (input[i].equals("(") || (input[i].equals("["))) {
                 investigate.push(input[i]);
-            }
-            else if(input[i].equals(")")){
-                if(!investigate.isEmpty() && investigate.peek().equals("(")){
+            } else if (input[i].equals(")")) {
+                if (!investigate.isEmpty() && investigate.peek().equals("(")) {
                     investigate.pop();
-                }
-                else{
+                } else {
                     incorrect = true;
                     break;
                 }
-            }
-            else if(input[i].equals("]")){
-                if(!investigate.isEmpty() && investigate.peek().equals("[")){
+            } else if (input[i].equals("]")) {
+                if (!investigate.isEmpty() && investigate.peek().equals("[")) {
                     investigate.pop();
-                }
-                else{
+                } else {
                     incorrect = true;
                     break;
                 }
             }
         }
-
 
 
 //        if(incorrect) System.out.println(0);

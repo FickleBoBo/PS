@@ -12,7 +12,7 @@ public class Main {
         char[] input = br.readLine().toCharArray();
         int ans = 0;
 
-        for(char c : input){
+        for (char c : input) {
             ans += ansArr[c - 'A'];
         }
 

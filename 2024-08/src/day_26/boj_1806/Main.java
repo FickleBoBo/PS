@@ -13,7 +13,7 @@ public class Main {
 
         int[] arr = new int[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -22,19 +22,18 @@ public class Main {
         int sum = 0;
         int ans = Integer.MAX_VALUE;
 
-        while(true){
-            if(sum < S){
+        while (true) {
+            if (sum < S) {
                 sum += arr[right];
                 right++;
-            }
-            else{
+            } else {
                 sum -= arr[left];
                 ans = Math.min(ans, right - left);
                 left++;
             }
 
             // 71% 테스트 케이스
-            if(sum < S && right == N) break;
+            if (sum < S && right == N) break;
         }
 
         System.out.println(ans == Integer.MAX_VALUE ? 0 : ans);

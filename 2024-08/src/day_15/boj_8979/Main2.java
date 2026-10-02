@@ -12,7 +12,7 @@ public class Main2 {
         int K = Integer.parseInt(st.nextToken());
 
         int[][] map = new int[N][4];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             map[i][0] = Integer.parseInt(st.nextToken());
@@ -23,20 +23,18 @@ public class Main2 {
         Arrays.sort(map, ((o1, o2) -> Integer.compare(o1[0], o2[0])));
 
         int rank = 1;
-        int goldCnt = map[K-1][1];
-        int silverCnt = map[K-1][2];
-        int bronzeCnt = map[K-1][3];
+        int goldCnt = map[K - 1][1];
+        int silverCnt = map[K - 1][2];
+        int bronzeCnt = map[K - 1][3];
 
-        for(int i=0 ; i<N ; i++){
-            if(map[i][1] > goldCnt){
+        for (int i = 0; i < N; i++) {
+            if (map[i][1] > goldCnt) {
                 rank++;
-            }
-            else if(map[i][1] == goldCnt){
-                if(map[i][2] > silverCnt){
+            } else if (map[i][1] == goldCnt) {
+                if (map[i][2] > silverCnt) {
                     rank++;
-                }
-                else if(map[i][2] == silverCnt){
-                    if(map[i][3] > bronzeCnt){
+                } else if (map[i][2] == silverCnt) {
+                    if (map[i][3] > bronzeCnt) {
                         rank++;
                     }
                 }

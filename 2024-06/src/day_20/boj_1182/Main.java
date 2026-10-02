@@ -21,29 +21,29 @@ public class Main {
 
         arr = new int[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         // 1 ~ N 개의 원소를 뽑는 조합으로 부분집합 구하기
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             combination(0, 0, i);
         }
 
         System.out.println(cnt);
     }
 
-    private static void combination(int idx, int sidx, int maxLen){
-        if(sidx == maxLen){
-            if(sum == S){
+    private static void combination(int idx, int sidx, int maxLen) {
+        if (sidx == maxLen) {
+            if (sum == S) {
                 cnt++;
             }
             return;
         }
 
-        for(int i=idx ; i<N ; i++){
+        for (int i = idx; i < N; i++) {
             sum += arr[i];
-            combination(i+1, sidx+1, maxLen);
+            combination(i + 1, sidx + 1, maxLen);
             sum -= arr[i];
         }
     }

@@ -13,16 +13,14 @@ public class Main {
         Stack<Character> st = new Stack<>();
         int ans = 0;
 
-        for(int i=0 ; i<input.length() ; i++){
-            if(input.charAt(i) == '('){    // 막대기 들어오고
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == '(') {    // 막대기 들어오고
                 st.push('(');
-            }
-            else{
-                if(input.charAt(i-1) == '('){    // 레이저면
+            } else {
+                if (input.charAt(i - 1) == '(') {    // 레이저면
                     st.pop();
                     ans += st.size();
-                }
-                else{    // 막대기가 끝난거면
+                } else {    // 막대기가 끝난거면
                     st.pop();
                     ans++;
                 }

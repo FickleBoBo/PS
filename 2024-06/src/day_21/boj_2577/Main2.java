@@ -9,7 +9,7 @@ public class Main2 {
         StringBuilder sb = new StringBuilder();
 
         int mul = 1;
-        for(int i=1 ; i<=3 ; i++){
+        for (int i = 1; i <= 3; i++) {
             mul *= Integer.parseInt(br.readLine());
         }
 
@@ -19,11 +19,11 @@ public class Main2 {
         // int -> String 으로 타입을 변환하면 String의 메서드를 사용할 수 있어 가독성이 좀 더 좋아짐
         String mulToString = String.valueOf(mul);
 
-        for(int i=0 ; i<mulToString.length() ; i++){
+        for (int i = 0; i < mulToString.length(); i++) {
             cntArr[mulToString.charAt(i) - '0']++;
         }
 
-        for(int i=0 ; i<10 ; i++){
+        for (int i = 0; i < 10; i++) {
             sb.append(cntArr[i]).append("\n");
         }
 

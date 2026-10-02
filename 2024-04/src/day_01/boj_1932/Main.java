@@ -12,15 +12,15 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(br.readLine() + " ");
         }
 
         StringTokenizer st = new StringTokenizer(sb.toString(), " ");
 
         int[][] triangle = new int[N][N];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<=i ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j <= i; j++) {
                 triangle[i][j] = Integer.parseInt(st.nextToken());
             }
         }
@@ -32,11 +32,11 @@ public class Main {
 //        }
 //        System.out.println();
 
-        int[][] dp = new int[N][N+1];
+        int[][] dp = new int[N][N + 1];
         dp[0][1] = triangle[0][0];
-        for(int i=1 ; i<N ; i++){
-            for(int j=1 ; j<=i+1 ; j++){
-                dp[i][j] = Math.max(dp[i-1][j-1], dp[i-1][j]) + triangle[i][j-1];
+        for (int i = 1; i < N; i++) {
+            for (int j = 1; j <= i + 1; j++) {
+                dp[i][j] = Math.max(dp[i - 1][j - 1], dp[i - 1][j]) + triangle[i][j - 1];
             }
         }
 //        for(int i=0 ; i<N ; i++){
@@ -48,8 +48,8 @@ public class Main {
 //        System.out.println();
 
         int ans = 0;
-        for(int i=1 ; i<=N ; i++){
-            ans = Math.max(ans, dp[N-1][i]);
+        for (int i = 1; i <= N; i++) {
+            ans = Math.max(ans, dp[N - 1][i]);
         }
         System.out.println(ans);
 

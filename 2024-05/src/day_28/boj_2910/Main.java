@@ -31,10 +31,10 @@ public class Main {
         List<Node> nums = new ArrayList<>();
 
         out:
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int n = sc.nextInt();
-            for(int j=0 ; j<nums.size() ; j++){
-                if(nums.get(j).num == n){
+            for (int j = 0; j < nums.size(); j++) {
+                if (nums.get(j).num == n) {
                     nums.get(j).cnt++;
                     continue out;
                 }
@@ -43,8 +43,8 @@ public class Main {
         }
         Collections.sort(nums);
 
-        for(Node node : nums){
-            for(int i=0 ; i<=node.cnt ; i++){
+        for (Node node : nums) {
+            for (int i = 0; i <= node.cnt; i++) {
                 System.out.print(node.num + " ");
             }
         }

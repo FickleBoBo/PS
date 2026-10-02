@@ -8,13 +8,13 @@ class Solution {
     static int[] p;
 
     // find-set
-    static int find(int x){
-        if(x == p[x]) return x;
+    static int find(int x) {
+        if (x == p[x]) return x;
         return p[x] = find(p[x]);
     }
 
     // union-set
-    static void union(int x, int y){
+    static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -22,28 +22,28 @@ class Solution {
 
         // 간선 배열
         PriorityQueue<int[]> edges = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[2], o2[2]));
-        for(int[] cost : costs) edges.offer(cost);
+        for (int[] cost : costs) edges.offer(cost);
 
         // make-set
         p = new int[n];
-        for(int i=0 ; i<n ; i++) p[i] = i;
+        for (int i = 0; i < n; i++) p[i] = i;
 
         // 크루스칼 알고리즘
         int sum = 0;
         int cnt = 0;
-        while(!edges.isEmpty()){
+        while (!edges.isEmpty()) {
             int[] e = edges.poll();
 
             int a = find(e[0]);
             int b = find(e[1]);
 
-            if(a == b) continue;    // 같은 집합이면 continue
+            if (a == b) continue;    // 같은 집합이면 continue
 
             union(a, b);
             sum += e[2];
             cnt++;
 
-            if(cnt == n-1) break;
+            if (cnt == n - 1) break;
         }
 
         return sum;

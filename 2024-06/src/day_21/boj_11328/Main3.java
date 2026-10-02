@@ -10,14 +10,14 @@ public class Main3 {
         StringTokenizer st;
 
         int T = Integer.parseInt(br.readLine());
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
 
             st = new StringTokenizer(br.readLine());
             char[] str1 = st.nextToken().toCharArray();
             char[] str2 = st.nextToken().toCharArray();
 
             // 두 문자열의 길이가 다르면 더 비교할 필요없음
-            if(str1.length != str2.length){
+            if (str1.length != str2.length) {
                 bw.write("Impossible\n");
                 continue;
             }
@@ -28,8 +28,8 @@ public class Main3 {
 
             // flag는 각 인덱스의 알파벳이 서로 다르면 false
             boolean flag = true;
-            for(int i=0 ; i<str1.length ; i++){
-                if(str1[i] != str2[i]){
+            for (int i = 0; i < str1.length; i++) {
+                if (str1[i] != str2[i]) {
                     flag = false;
                     break;
                 }

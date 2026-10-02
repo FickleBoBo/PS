@@ -9,13 +9,13 @@ public class Main {
     static int[] p;
 
     // find-set
-    private static int find(int x){
-        if(x == p[x]) return p[x];
+    private static int find(int x) {
+        if (x == p[x]) return p[x];
         return p[x] = find(p[x]);
     }
 
     // union-set
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -29,19 +29,19 @@ public class Main {
         p = new int[N];
 
         // make-set
-        for(int i=1 ; i<N ; i++){
+        for (int i = 1; i < N; i++) {
             p[i] = i;
         }
 
         int ans = 0;
 
-        for(int i=1 ; i<=M ; i++){
+        for (int i = 1; i <= M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int a = find(Integer.parseInt(st.nextToken()));
             int b = find(Integer.parseInt(st.nextToken()));
 
-            if(a == b){
+            if (a == b) {
                 ans = i;
                 break;
             }

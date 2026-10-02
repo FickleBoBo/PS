@@ -12,7 +12,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         String[][] arr = new String[N][2];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = br.readLine().split(" ");
         }
 
@@ -21,7 +21,7 @@ public class Main {
             return Integer.parseInt(o1[0]) - Integer.parseInt(o2[0]);
         }));
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             System.out.println(arr[i][0] + " " + arr[i][1]);
         }
 

@@ -22,7 +22,7 @@ public class Main {
         if (d >= r1 + r2) {
             System.out.println("0.000");  // String으로 출력안하면 0.0으로 출력됨
             return;
-        // 한 원이 다른 원 내부에 있는 경우
+            // 한 원이 다른 원 내부에 있는 경우
         } else if (d <= r1 - r2) {
             System.out.printf("%.3f", areaOfCircle(r2));
             return;

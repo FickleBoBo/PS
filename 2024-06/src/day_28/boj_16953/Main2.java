@@ -16,7 +16,7 @@ public class Main2 {
         System.out.println(ans);
     }
 
-    private static int BFS(int A, int B){
+    private static int BFS(int A, int B) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(A);
 
@@ -26,24 +26,24 @@ public class Main2 {
 
         int ans = 1;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
 
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int node = q.poll();
 
-                if(node == B) return ans;    // 종료 조건
+                if (node == B) return ans;    // 종료 조건
 
                 // 2를 곱하는 경우
-                if((node*2 <= B) && !visited.contains(node*2)){
-                    q.offer(node*2);
-                    visited.add(node*2);
+                if ((node * 2 <= B) && !visited.contains(node * 2)) {
+                    q.offer(node * 2);
+                    visited.add(node * 2);
                 }
                 // 1을 수의 가장 오른쪽에 추가하는 경우
                 // 10을 곱하고 1을 더해야해서 int형의 범위를 넘어갈 수 있음
-                if(((node*10L+1) <= B) && !visited.contains(node*10+1)){
-                    q.offer(node*10+1);
-                    visited.add(node*10+1);
+                if (((node * 10L + 1) <= B) && !visited.contains(node * 10 + 1)) {
+                    q.offer(node * 10 + 1);
+                    visited.add(node * 10 + 1);
                 }
             }
 

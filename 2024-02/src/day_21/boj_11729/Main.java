@@ -8,20 +8,20 @@ public class Main {
 
     static StringBuilder sb = new StringBuilder();    // 억까 문제라 StringBuilder 써야 됨
 
-    static void Hanoi(int N, int from, int tmp, int to){
-        if(N==1){
+    static void Hanoi(int N, int from, int tmp, int to) {
+        if (N == 1) {
             sb.append(from);
             sb.append(" ");
             sb.append(to);
             sb.append("\n");
             return;
         }
-        Hanoi(N-1, from, to, tmp);
+        Hanoi(N - 1, from, to, tmp);
         sb.append(from);
         sb.append(" ");
         sb.append(to);
         sb.append("\n");
-        Hanoi(N-1, tmp, from, to);
+        Hanoi(N - 1, tmp, from, to);
     }
 
     public static void main(String[] args) throws IOException {

@@ -15,18 +15,17 @@ public class Main {
         String prefix = st.nextToken();
         String suffix = st.nextToken();
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             String str = br.readLine();
 
-            if(prefix.length() + suffix.length() > str.length()){
+            if (prefix.length() + suffix.length() > str.length()) {
                 bw.write("NE\n");
                 continue;
             }
 
-            if(str.substring(0, prefix.length()).equals(prefix) && str.substring(str.length()-suffix.length(), str.length()).equals(suffix)){
+            if (str.substring(0, prefix.length()).equals(prefix) && str.substring(str.length() - suffix.length(), str.length()).equals(suffix)) {
                 bw.write("DA\n");
-            }
-            else{
+            } else {
                 bw.write("NE\n");
             }
         }

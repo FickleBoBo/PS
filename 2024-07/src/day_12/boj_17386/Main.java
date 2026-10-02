@@ -33,7 +33,7 @@ public class Main {
     // 그러면 직선과 두 점에 대한 외적 벡터가 서로 정반대 방향을 가리킴(벡터의 부호가 반대)
     // 각 선분에 대해 둘 다 외적 벡터의 방향이 반대면 두 선분이 교차하는 상태
     // 좌표로 주어진 벡터의 외적은 신발끈 공식으로 구할 수 있음
-    private static int ccw(long x1, long y1, long x2, long y2, long x3, long y3, long x4, long y4){
+    private static int ccw(long x1, long y1, long x2, long y2, long x3, long y3, long x4, long y4) {
 
         // 벡터 (x1, y1), (x2, y2)와 벡터 (x1, y1), (x3, y3)의 외적
         int vector1 = (x2 * y3 - x3 * y2) + (x3 * y1 - x1 * y3) + (x1 * y2 - x2 * y1) > 0 ? 1 : -1;

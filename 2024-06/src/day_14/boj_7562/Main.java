@@ -19,7 +19,7 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             N = Integer.parseInt(br.readLine());
 
             // 현재 위치
@@ -53,18 +53,18 @@ public class Main {
             int len = q.size();
 
             // BFS로 최단거리를 구하는 방법
-            for (int i=0 ; i<len ; i++) {
+            for (int i = 0; i < len; i++) {
                 int[] node = q.poll();
 
                 // target을 찾으면 종료
-                if((node[0]==target[0]) && (node[1]==target[1])){
+                if ((node[0] == target[0]) && (node[1] == target[1])) {
                     return ans;
                 }
 
-                for (int dir=0 ; dir<8 ; dir++) {
+                for (int dir = 0; dir < 8; dir++) {
                     int nr = node[0] + dr[dir];
                     int nc = node[1] + dc[dir];
-                    if (nr>=0 && nr<N && nc>=0 && nc<N && (!visited[nr][nc])){
+                    if (nr >= 0 && nr < N && nc >= 0 && nc < N && (!visited[nr][nc])) {
                         q.offer(new int[]{nr, nc});
                         visited[nr][nc] = true;
                     }

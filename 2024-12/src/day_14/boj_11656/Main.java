@@ -12,12 +12,12 @@ public class Main {
         String S = br.readLine();
 
         List<String> list = new ArrayList<>();
-        for(int i = 0; i < S.length(); i++) {
+        for (int i = 0; i < S.length(); i++) {
             list.add(S.substring(i));
         }
         list.sort(Comparator.naturalOrder());
 
-        for(String s : list) {
+        for (String s : list) {
             sb.append(s).append("\n");
         }
 

@@ -28,8 +28,8 @@ public class Main {
         bw.flush();
     }
 
-    private static int GCD(int a, int b){
-        if(b == 0) return a;
+    private static int GCD(int a, int b) {
+        if (b == 0) return a;
         return GCD(b, a % b);
     }
 

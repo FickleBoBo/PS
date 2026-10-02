@@ -19,8 +19,8 @@ public class Main {
         sb.append(N + 1906);
 
         // 1번 규칙
-        for(char c : input){
-            if(!set.contains(c)){
+        for (char c : input) {
+            if (!set.contains(c)) {
                 sb.append(c);
                 set.add(c);
             }

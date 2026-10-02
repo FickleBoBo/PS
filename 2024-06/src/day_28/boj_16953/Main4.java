@@ -17,27 +17,27 @@ public class Main4 {
     }
 
     // B에서 A를 찾아나감
-    private static int BFS(int A, int B){
+    private static int BFS(int A, int B) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(B);
 
         int ans = 1;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
 
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int node = q.poll();
 
-                if(node < A) continue;    // A보다 작은건 버려야 함
-                else if(node == A) return ans;    // 종료 조건
+                if (node < A) continue;    // A보다 작은건 버려야 함
+                else if (node == A) return ans;    // 종료 조건
 
                 // 2의 배수면 2로 나눈다
-                if(node % 2 == 0){
+                if (node % 2 == 0) {
                     q.offer(node / 2);
                 }
                 // 끝자리가 1이면 1을 빼고 10으로 나눈다
-                else if(((node - 1) % 10) == 0){
+                else if (((node - 1) % 10) == 0) {
                     q.offer((node - 1) / 10);
                 }
             }

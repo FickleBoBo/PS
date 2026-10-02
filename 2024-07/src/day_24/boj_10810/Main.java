@@ -13,21 +13,21 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int[] arr = new int[1+N];
+        int[] arr = new int[1 + N];
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
 
-            for(int j=a ; j<=b ; j++){
+            for (int j = a; j <= b; j++) {
                 arr[j] = n;
             }
         }
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             sb.append(arr[i]).append(" ");
         }
 

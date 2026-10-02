@@ -10,12 +10,11 @@ public class Main {
         int B = Integer.parseInt(br.readLine());
         int C = Integer.parseInt(br.readLine());
 
-        if(A + B + C == 180){
-            if(A == 60 && B == 60 && C == 60) System.out.println("Equilateral");
-            else if(A == B || B == C || C == A) System.out.println("Isosceles");
+        if (A + B + C == 180) {
+            if (A == 60 && B == 60 && C == 60) System.out.println("Equilateral");
+            else if (A == B || B == C || C == A) System.out.println("Isosceles");
             else System.out.println("Scalene");
-        }
-        else{
+        } else {
             System.out.println("Error");
         }
     }

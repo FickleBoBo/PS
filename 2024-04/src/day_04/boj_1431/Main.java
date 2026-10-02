@@ -12,36 +12,34 @@ public class Main {
 
         int N = sc.nextInt();
         String[] arr = new String[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.next();
         }
 
         List<Character> nums = new ArrayList<>();
-        for(int i=1 ; i<10 ; i++){
-            nums.add((char) (i+'0'));
+        for (int i = 1; i < 10; i++) {
+            nums.add((char) (i + '0'));
         }
 
         Arrays.sort(arr, ((o1, o2) -> {
-            if(o1.length() != o2.length()){
+            if (o1.length() != o2.length()) {
                 return o1.length() - o2.length();
-            }
-            else{
+            } else {
                 int num1 = 0;
                 int num2 = 0;
-                for(int i=0 ; i<o1.length() ; i++){
-                    if(nums.contains(o1.charAt(i))){
+                for (int i = 0; i < o1.length(); i++) {
+                    if (nums.contains(o1.charAt(i))) {
                         num1 += Character.getNumericValue(o1.charAt(i));
                     }
-                    if(nums.contains(o2.charAt(i))){
+                    if (nums.contains(o2.charAt(i))) {
                         num2 += Character.getNumericValue(o2.charAt(i));
                     }
                 }
-                if(num1 != num2){
+                if (num1 != num2) {
                     return num1 - num2;
-                }
-                else{
-                    for(int i=0 ; i<o1.length() ; i++){
-                        if(o1.charAt(i) != o2.charAt(i)){
+                } else {
+                    for (int i = 0; i < o1.length(); i++) {
+                        if (o1.charAt(i) != o2.charAt(i)) {
                             return o1.charAt(i) - o2.charAt(i);
                         }
                     }
@@ -50,7 +48,7 @@ public class Main {
             }
         }));
 
-        for(String str : arr){
+        for (String str : arr) {
             System.out.println(str);
         }
 

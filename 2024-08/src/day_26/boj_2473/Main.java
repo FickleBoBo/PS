@@ -14,7 +14,7 @@ public class Main {
 
         long[] arr = new long[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -23,24 +23,23 @@ public class Main {
         long minSum = Long.MAX_VALUE;
         long[] ans = new long[3];
 
-        for(int i=0 ; i<N-2 ; i++){
-            int left = i+1;
-            int right = N-1;
+        for (int i = 0; i < N - 2; i++) {
+            int left = i + 1;
+            int right = N - 1;
 
-            while(left < right){
+            while (left < right) {
                 long sum = arr[i] + arr[left] + arr[right];
 
-                if(Math.abs(sum) < Math.abs(minSum)){
+                if (Math.abs(sum) < Math.abs(minSum)) {
                     minSum = sum;
                     ans[0] = arr[i];
                     ans[1] = arr[left];
                     ans[2] = arr[right];
                 }
 
-                if(sum > 0){
+                if (sum > 0) {
                     right--;
-                }
-                else{
+                } else {
                     left++;
                 }
             }

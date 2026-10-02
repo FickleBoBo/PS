@@ -9,22 +9,22 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        boolean[] isPrime = new boolean[1+N];
-        for(int i=2 ; i<=N ; i++){
+        boolean[] isPrime = new boolean[1 + N];
+        for (int i = 2; i <= N; i++) {
             isPrime[i] = true;
         }
 
-        for(int i=2 ; i*i<=N ; i++){
-            if(isPrime[i]){
-                for(int j=i*i ; j<=N ; j+=i){
+        for (int i = 2; i * i <= N; i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j <= N; j += i) {
                     isPrime[j] = false;
                 }
             }
         }
 
         List<Integer> primeList = new ArrayList<>();
-        for(int i=2 ; i<=N ; i++){
-            if(isPrime[i]){
+        for (int i = 2; i <= N; i++) {
+            if (isPrime[i]) {
                 primeList.add(i);
             }
         }
@@ -34,18 +34,16 @@ public class Main {
         int sum = 0;
         int cnt = 0;
 
-        while(true){
-            if(sum < N && right == primeList.size()) break;
+        while (true) {
+            if (sum < N && right == primeList.size()) break;
 
-            if(sum < N){
+            if (sum < N) {
                 sum += primeList.get(right);
                 right++;
-            }
-            else if(sum > N){
+            } else if (sum > N) {
                 sum -= primeList.get(left);
                 left++;
-            }
-            else{
+            } else {
                 sum -= primeList.get(left);
                 left++;
                 cnt++;

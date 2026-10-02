@@ -17,7 +17,7 @@ public class Solution {
             }
             Arrays.sort(arr);                // 배열을 정렬해주는 메소드 사용해봄
             System.out.printf("#%d ", tc);
-            for(int i=0 ; i<N ; i++){
+            for (int i = 0; i < N; i++) {
                 System.out.printf("%d ", arr[i]);
             }
             System.out.println();

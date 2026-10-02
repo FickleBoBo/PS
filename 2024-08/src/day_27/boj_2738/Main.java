@@ -14,16 +14,16 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
 
         int[][] arr = new int[N][M];
-        for(int i=0 ; i<N * 2 ; i++){
+        for (int i = 0; i < N * 2; i++) {
             st = new StringTokenizer(br.readLine());
 
-            for(int j=0 ; j<M ; j++){
+            for (int j = 0; j < M; j++) {
                 arr[i % N][j] += Integer.parseInt(st.nextToken());
             }
         }
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 sb.append(arr[i][j]).append(" ");
             }
             sb.append("\n");

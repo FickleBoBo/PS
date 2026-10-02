@@ -22,25 +22,23 @@ public class Main {
 
         char[][] map = new char[U + M + D][L + N + R];
 
-        for(int i=U ; i< U + M ; i++){
+        for (int i = U; i < U + M; i++) {
             String input = br.readLine();
 
-            for(int j=L ; j< L + N ; j++){
+            for (int j = L; j < L + N; j++) {
                 map[i][j] = input.charAt(j - L);
             }
         }
 
-        for(int i=0 ; i<map.length ; i++){
-            for(int j=0 ; j<map[i].length ; j++){
-                if(map[i][j] == '\u0000'){
-                    if((i + j) % 2 == 0){
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == '\u0000') {
+                    if ((i + j) % 2 == 0) {
                         sb.append('#');
-                    }
-                    else{
+                    } else {
                         sb.append('.');
                     }
-                }
-                else{
+                } else {
                     sb.append(map[i][j]);
                 }
             }

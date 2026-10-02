@@ -3,7 +3,8 @@ package day_19.prms_150365;
 class Solution {
     public String solution(int n, int m, int x, int y, int r, int c, int k) {
         // 최단거리가 k보다 길거나 k가 거리경로 + 2의 배수가 아니면 불가능한 케이스
-        if ((Math.abs(r - x) + Math.abs(c - y)) % 2 != k % 2 || Math.abs(r - x) + Math.abs(c - y) > k) return "impossible";
+        if ((Math.abs(r - x) + Math.abs(c - y)) % 2 != k % 2 || Math.abs(r - x) + Math.abs(c - y) > k)
+            return "impossible";
 
         StringBuilder sb = new StringBuilder();
 

@@ -9,8 +9,8 @@ public class Main {
         String input = br.readLine().trim();
         int cnt = 1;
 
-        for(int i=0 ; i<input.length() ; i++){
-            if(input.charAt(i) == ' ') cnt++;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == ' ') cnt++;
         }
 
         System.out.println(input.isEmpty() ? 0 : cnt);

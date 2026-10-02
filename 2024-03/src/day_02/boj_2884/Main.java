@@ -11,12 +11,12 @@ public class Main {
 
         int newH = H - 1;
         int newM = M + 15;
-        if(newH == -1) newH += 24;
-        if(newM >= 60){
-            newM -=60 ;
+        if (newH == -1) newH += 24;
+        if (newM >= 60) {
+            newM -= 60;
             newH += 1;
         }
-        if(newH == 24) newH -= 24;
+        if (newH == 24) newH -= 24;
 
         System.out.println(newH + " " + newM);
 

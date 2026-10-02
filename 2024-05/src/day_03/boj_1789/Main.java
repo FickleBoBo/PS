@@ -9,8 +9,8 @@ public class Main {
         long S = sc.nextLong();
 
         long N = 1;
-        while(true){
-            if(S >= N*(N+1)/2 && S < (N+1)*(N+2)/2){
+        while (true) {
+            if (S >= N * (N + 1) / 2 && S < (N + 1) * (N + 2) / 2) {
                 break;
             }
             N++;

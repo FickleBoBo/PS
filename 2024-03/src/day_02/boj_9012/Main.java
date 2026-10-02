@@ -13,28 +13,26 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
 
             char[] input = br.readLine().toCharArray();
             boolean flag = true;
 
-            for(int i=0 ; i<input.length ; i++){
-                if(input[i]=='('){
+            for (int i = 0; i < input.length; i++) {
+                if (input[i] == '(') {
                     stack.push('(');
-                }
-                else if(input[i]==')'){
-                    if(!stack.empty()){
+                } else if (input[i] == ')') {
+                    if (!stack.empty()) {
                         stack.pop();
-                    }
-                    else{
+                    } else {
                         flag = false;
                         break;
                     }
                 }
             }
-            if(!stack.isEmpty()) flag = false;
+            if (!stack.isEmpty()) flag = false;
 
-            if(flag) System.out.println("YES");
+            if (flag) System.out.println("YES");
             else System.out.println("NO");
             stack.clear();
         }

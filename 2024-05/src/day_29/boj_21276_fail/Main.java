@@ -12,19 +12,19 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         List<String> names = new ArrayList<>();
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             names.add(st.nextToken());
         }
         Collections.sort(names);
 
         int M = Integer.parseInt(br.readLine());
         List<String>[] adj = new ArrayList[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             adj[i] = new ArrayList<>();
         }
         int[] degree = new int[N];
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             String descendant = st.nextToken();
             String anscestor = st.nextToken();
@@ -32,12 +32,12 @@ public class Main {
             degree[names.indexOf(descendant)]++;
         }
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             Collections.sort(adj[i]);
-            for(int j=0 ; j<adj[i].size() ; i++){
+            for (int j = 0; j < adj[i].size(); i++) {
                 String name = adj[i].get(j);
                 int idx = names.indexOf(name);
-                if(degree[idx] > 1){
+                if (degree[idx] > 1) {
                     adj[i].remove(name);
                     degree[idx]--;
                 }
@@ -52,8 +52,8 @@ public class Main {
         List<String> Karr = new ArrayList<>();
 
         Queue<String> q = new LinkedList<>();
-        for(int i=0 ; i<N ; i++){
-            if(degree[i] == 0){
+        for (int i = 0; i < N; i++) {
+            if (degree[i] == 0) {
                 q.offer(names.get(i));
                 Karr.add(names.get(i));
             }
@@ -81,16 +81,16 @@ public class Main {
 
         sb.append(Karr.size() + "\n");
 //        System.out.println(Karr.size());
-        for(String name : Karr){
+        for (String name : Karr) {
             sb.append(name + " ");
 //            System.out.print(name + " ");
         }
         sb.append("\n");
 //        System.out.println();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(names.get(i) + " " + adj[i].size() + " ");
 //            System.out.print(names.get(i) + " " + adj[i].size() + " ");
-            for(String name : adj[i]){
+            for (String name : adj[i]) {
                 sb.append(name + " ");
 //                System.out.print(name + " ");
             }

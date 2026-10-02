@@ -9,13 +9,13 @@ public class Main2 {
     static int[] p;
 
     // find-set
-    private static int find(int x){
-        if(x == p[x]) return x;
+    private static int find(int x) {
+        if (x == p[x]) return x;
         return p[x] = find(p[x]);
     }
 
     // union-set
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -28,14 +28,14 @@ public class Main2 {
         // T : 테스트 케이스의 수
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
 
             // F : 친구 관계의 수
             int F = Integer.parseInt(br.readLine());
 
             // 각각의 친구 관계마다 두 명이 존재하므로 이론상 최대 F * 2 명까지 가능
             p = new int[F * 2];
-            for(int i=0 ; i<p.length ; i++) p[i] = i;    // make-set
+            for (int i = 0; i < p.length; i++) p[i] = i;    // make-set
 
             // 친구 네트워크에 몇 명이 있는지 세는 카운팅 배열(=dp?)
             int[] cntArr = new int[F * 2];
@@ -46,15 +46,15 @@ public class Main2 {
             Map<String, Integer> map = new HashMap<>();
             int n = 0;
 
-            for(int i=0 ; i<F ; i++){
+            for (int i = 0; i < F; i++) {
                 st = new StringTokenizer(br.readLine());
 
                 String f1 = st.nextToken();
                 String f2 = st.nextToken();
 
                 // map에 안 넣은 이름이면 n으로 정수 부여
-                if(!map.containsKey(f1)) map.put(f1, n++);
-                if(!map.containsKey(f2)) map.put(f2, n++);
+                if (!map.containsKey(f1)) map.put(f1, n++);
+                if (!map.containsKey(f2)) map.put(f2, n++);
 
                 // 이거 하려고 정수로 바꾼거
                 int x = find(map.get(f1));
@@ -66,7 +66,7 @@ public class Main2 {
                 // x와 y의 그룹장이 다르면 cntArr 갱신하고 유니온 해줌
                 // 유니온 먼저하면 그룹장이 같아진채로 더하는거니까 순서 중요!
                 // 개수를 계속 x에만 더하는거라 가능한 논리인듯?
-                if(x != y){
+                if (x != y) {
                     cntArr[x] += cntArr[y];
                     union(x, y);
                 }

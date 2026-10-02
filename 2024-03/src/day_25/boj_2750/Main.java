@@ -12,13 +12,13 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         int[] nums = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             nums[i] = Integer.parseInt(br.readLine());
         }
 
         Arrays.sort(nums);
 
-        for(int n : nums){
+        for (int n : nums) {
             System.out.println(n);
         }
 

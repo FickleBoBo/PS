@@ -26,18 +26,18 @@ public class Main {
         bw.flush();
     }
 
-    private static void permutation(int sidx){
-        if(sidx == M){
-            for(int n : sel){
+    private static void permutation(int sidx) {
+        if (sidx == M) {
+            for (int n : sel) {
                 sb.append(n).append(" ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             sel[sidx] = i;
-            permutation(sidx+1);
+            permutation(sidx + 1);
         }
     }
 

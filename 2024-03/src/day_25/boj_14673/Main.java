@@ -22,9 +22,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         M = sc.nextInt();
         N = sc.nextInt();
-        map = new int[N+2][M+2];
-        for(int i=1 ; i<=N ; i++){
-            for(int j=1 ; j<=M ; j++){
+        map = new int[N + 2][M + 2];
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= M; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
@@ -36,9 +36,9 @@ public class Main {
         sc.close();
     }
 
-    private static void printCopyMap(){
-        for(int i=1 ; i<=N ; i++){
-            for(int j=1 ; j<=M ; j++){
+    private static void printCopyMap() {
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= M; j++) {
                 System.out.print(copyMap[i][j] + " ");
             }
             System.out.println();
@@ -46,26 +46,26 @@ public class Main {
         System.out.println();
     }
 
-    private static void copyOriginMap(){
-        copyMap = new int[N+2][M+2];
-        for(int i=1 ; i<=N ; i++){
-            copyMap[i] = Arrays.copyOf(map[i], M+2);
+    private static void copyOriginMap() {
+        copyMap = new int[N + 2][M + 2];
+        for (int i = 1; i <= N; i++) {
+            copyMap[i] = Arrays.copyOf(map[i], M + 2);
         }
     }
 
-    private static void dropPuzzle(){
-        for(int j=1 ; j<=M ; j++){
+    private static void dropPuzzle() {
+        for (int j = 1; j <= M; j++) {
             out:
-            for(int i=N ; i>=1 ; i--){
-                if(copyMap[i][j]==0){
-                    for(int k=i-1 ; k>=1 ; k--){
-                        if(copyMap[k][j] != 0){
+            for (int i = N; i >= 1; i--) {
+                if (copyMap[i][j] == 0) {
+                    for (int k = i - 1; k >= 1; k--) {
+                        if (copyMap[k][j] != 0) {
                             int tmp = copyMap[k][j];
                             copyMap[k][j] = copyMap[i][j];
                             copyMap[i][j] = tmp;
                             break;
                         }
-                        if(k == 1){
+                        if (k == 1) {
                             break out;
                         }
                     }
@@ -74,11 +74,11 @@ public class Main {
         }
     }
 
-    private static void permutation(int sidx){
-        if(sidx == 3){
+    private static void permutation(int sidx) {
+        if (sidx == 3) {
             int cnt = 0;
             copyOriginMap();
-            for(int i=0 ; i<3 ; i++){
+            for (int i = 0; i < 3; i++) {
                 cnt += BFS(sel[i]);
                 dropPuzzle();
             }
@@ -86,32 +86,32 @@ public class Main {
             return;
         }
 
-        for(int i=0 ; i<N*M ; i++){
+        for (int i = 0; i < N * M; i++) {
             sel[sidx] = i;
-            permutation(sidx+1);
+            permutation(sidx + 1);
         }
     }
 
-    private static int BFS(int n){
+    private static int BFS(int n) {
         int cnt = 0;
         int r = n / M + 1;
         int c = n % M + 1;
         int value = copyMap[r][c];
-        if(value == 0){
+        if (value == 0) {
             return 0;
         }
         Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[] {r, c});
+        q.offer(new int[]{r, c});
         cnt++;
         copyMap[r][c] = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] item = q.poll();
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = item[0] + dr[dir];
                 int nc = item[1] + dc[dir];
-                if(copyMap[nr][nc] == value){
-                    q.offer(new int[] {nr, nc});
+                if (copyMap[nr][nc] == value) {
+                    q.offer(new int[]{nr, nc});
                     cnt++;
                     copyMap[nr][nc] = 0;
                 }

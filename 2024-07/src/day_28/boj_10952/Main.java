@@ -12,9 +12,9 @@ public class Main {
 
         String input;
 
-        while(true){
+        while (true) {
             input = br.readLine();
-            if(input.charAt(0) == '0') break;
+            if (input.charAt(0) == '0') break;
 
             st = new StringTokenizer(input);
 

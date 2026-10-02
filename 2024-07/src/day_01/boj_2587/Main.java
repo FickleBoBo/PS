@@ -10,7 +10,7 @@ public class Main {
         int sum = 0;
         int[] arr = new int[5];
 
-        for(int i=0 ; i<5 ; i++){
+        for (int i = 0; i < 5; i++) {
             arr[i] = Integer.parseInt(br.readLine());
             sum += arr[i];
         }

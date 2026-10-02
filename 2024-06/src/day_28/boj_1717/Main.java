@@ -9,13 +9,13 @@ public class Main {
     static int[] p;
 
     // find-set
-    private static int find(int x){
-        if(x == p[x]) return p[x];
+    private static int find(int x) {
+        if (x == p[x]) return p[x];
         return p[x] = find(p[x]);
     }
 
     // union-set
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -27,28 +27,26 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        p = new int[1+N];
+        p = new int[1 + N];
 
         // make-set
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             p[i] = i;
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             boolean flag = st.nextToken().equals("0");    // 연산의 종류 구분
             int a = find(Integer.parseInt(st.nextToken()));
             int b = find(Integer.parseInt(st.nextToken()));
 
-            if(flag){
+            if (flag) {
                 union(a, b);
-            }
-            else{
-                if(a == b){
+            } else {
+                if (a == b) {
                     bw.write("YES\n");
-                }
-                else{
+                } else {
                     bw.write("NO\n");
                 }
             }

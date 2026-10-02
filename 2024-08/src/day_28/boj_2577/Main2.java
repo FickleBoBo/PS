@@ -9,7 +9,7 @@ public class Main2 {
         StringBuilder sb = new StringBuilder();
 
         int result = 1;
-        for(int i=1 ; i<=3 ; i++){
+        for (int i = 1; i <= 3; i++) {
             result *= Integer.parseInt(br.readLine());
         }
 
@@ -19,11 +19,11 @@ public class Main2 {
         // int -> String -> char[] 으로 타입을 변환
         char[] resultArr = String.valueOf(result).toCharArray();
 
-        for(int n : resultArr){
+        for (int n : resultArr) {
             cntArr[n - '0']++;
         }
 
-        for(int i=0 ; i<10 ; i++){
+        for (int i = 0; i < 10; i++) {
             sb.append(cntArr[i]).append("\n");
         }
 

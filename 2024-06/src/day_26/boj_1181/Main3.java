@@ -12,7 +12,7 @@ public class Main3 {
         int N = Integer.parseInt(br.readLine());
 
         Set<String> set = new HashSet<>();
-        for(int i=0 ; i<N ; i++) {
+        for (int i = 0; i < N; i++) {
             set.add(br.readLine());
         }
 
@@ -26,7 +26,7 @@ public class Main3 {
             return o1.compareTo(o2);
         });
 
-        for(String s : list){
+        for (String s : list) {
             sb.append(s).append("\n");
         }
 

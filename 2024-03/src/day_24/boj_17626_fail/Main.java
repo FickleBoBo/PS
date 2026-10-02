@@ -6,7 +6,7 @@ public class Main {
 
     static int ans = 4;
     static int[] DP = new int[50000];
-    
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -16,20 +16,18 @@ public class Main {
         System.out.println(ans);
     }
 
-    private static void Lagrange(int num, int cnt){
-        if(cnt > 4){
+    private static void Lagrange(int num, int cnt) {
+        if (cnt > 4) {
             return;
-        }
-        else if(num == 0){
+        } else if (num == 0) {
             ans = Math.min(ans, cnt);
             return;
-        }
-        else if(num < 0){
+        } else if (num < 0) {
             return;
         }
 
-        for(int i = (int) Math.sqrt(num); i>(int) (Math.sqrt(num)/4) ; i--){
-            Lagrange(num-i*i, cnt+1);
+        for (int i = (int) Math.sqrt(num); i > (int) (Math.sqrt(num) / 4); i--) {
+            Lagrange(num - i * i, cnt + 1);
         }
 
     }

@@ -7,12 +7,12 @@ public class Main {
 
     static int[] p;
 
-    private static int find(int x){
-        if(x == p[x]) return x;
+    private static int find(int x) {
+        if (x == p[x]) return x;
         return p[x] = find(p[x]);
     }
 
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -24,24 +24,22 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        p = new int[1+N];
-        for(int i=1 ; i<=N ; i++) p[i] = i;
+        p = new int[1 + N];
+        for (int i = 1; i <= N; i++) p[i] = i;
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             boolean flag = Integer.parseInt(st.nextToken()) == 0;
             int x = find(Integer.parseInt(st.nextToken()));
             int y = find(Integer.parseInt(st.nextToken()));
 
-            if(flag){
+            if (flag) {
                 union(x, y);
-            }
-            else{
-                if(x == y){
+            } else {
+                if (x == y) {
                     bw.write("YES\n");
-                }
-                else{
+                } else {
                     bw.write("NO\n");
                 }
             }

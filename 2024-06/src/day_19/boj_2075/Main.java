@@ -10,11 +10,11 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
         List<Integer> list = new ArrayList<>();
-        
-        for(int i=0 ; i<N ; i++){
+
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
-            for(int j=0 ; j<N ; j++){
+            for (int j = 0; j < N; j++) {
                 list.add(Integer.parseInt(st.nextToken()));
             }
         }

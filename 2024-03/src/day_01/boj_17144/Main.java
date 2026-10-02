@@ -33,7 +33,7 @@ public class Main {
         step2 - 집과 미세먼지 정보를 입력받으려고 StringBuilder 사용(시간 제한 1초라서 써봄)
         */
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<R ; i++){
+        for (int i = 0; i < R; i++) {
             sb.append(br.readLine() + " ");    // 입력 받고 끝에 공백 안넣어주면 다음 줄이랑 붙어버림
         }
 //        System.out.println(sb.toString());
@@ -47,8 +47,8 @@ public class Main {
 //        }
 
         map = new int[R][C];
-        for(int i=0 ; i<R ; i++){
-            for(int j=0 ; j<C ; j++){
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
@@ -57,10 +57,10 @@ public class Main {
         /*
         step4 - 공기청정기의 좌표를 받아줌
         */
-        for(int i=0 ; i<R ; i++){
-            if(map[i][0] == -1){
+        for (int i = 0; i < R; i++) {
+            if (map[i][0] == -1) {
                 posUp = i;
-                posDown = i+1;
+                posDown = i + 1;
                 break;
             }
         }
@@ -69,7 +69,7 @@ public class Main {
         /*
         step5 - T초만큼 미세먼지를 퍼트리고(=spreadDust()) 공기청정기를 돌림(=runAirCleaner())
         */
-        while(T > 0){
+        while (T > 0) {
             spreadDust();
 //            printMap();
 //            System.out.println(countDust());
@@ -90,10 +90,10 @@ public class Main {
     맵을 출력해서 로직에 맞게 잘 작동하나 확인하려고 만든 임시 메서드
     먼지 퍼트리기와 공청기 돌려서 먼지 이동시키기에서 요긴함
     */
-    static void printMap(){
+    static void printMap() {
         System.out.println("맵 출력");
-        for(int i=0 ; i<R ; i++){
-            for(int j=0 ; j<C ; j++){
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();
@@ -108,20 +108,20 @@ public class Main {
     3. 먼지를 퍼트린 후 데이터를 임시 집에 넣어준다(원본 집을 쭉 돌며 반복) -> 원본 집에 이거 하면 데이터가 바뀌어서 안될듯?
     4. 다 끝나면 원본 집에 임시 집의 데이터를 덮어 씌운다(임시 집 = 먼지 퍼트린 후 원본 집)
     */
-    static void spreadDust(){
+    static void spreadDust() {
         int[][] afterMap = new int[R][C];
         afterMap[posUp][0] = -1;
         afterMap[posDown][0] = -1;
 
         int cnt = 0;
-        for(int r=0 ; r<R ; r++){
-            for(int c=0 ; c<C ; c++){
-                if(map[r][c] > 0){    // 원본 집에서 먼지를 찾으면
-                    for(int dir=0 ; dir<4 ; dir++){    // 사방 탐색
+        for (int r = 0; r < R; r++) {
+            for (int c = 0; c < C; c++) {
+                if (map[r][c] > 0) {    // 원본 집에서 먼지를 찾으면
+                    for (int dir = 0; dir < 4; dir++) {    // 사방 탐색
                         int nr = r + dr[dir];
                         int nc = c + dc[dir];
-                        if((nr>=0) && (nc>=0) && (nr<R) && (nc<C) &&    // 먼지를 퍼트릴 수 있으면
-                                (map[nr][nc] != -1)){
+                        if ((nr >= 0) && (nc >= 0) && (nr < R) && (nc < C) &&    // 먼지를 퍼트릴 수 있으면
+                                (map[nr][nc] != -1)) {
                             afterMap[nr][nc] += (map[r][c] / 5);    // 임시 집에 퍼트림
                             cnt++;
                         }
@@ -133,7 +133,7 @@ public class Main {
         }
 
         // 원본 집에 임시 집 데이터 넣어주기
-        for(int i=0 ; i<R ; i++){
+        for (int i = 0; i < R; i++) {
             map[i] = Arrays.copyOf(afterMap[i], C);
         }
 
@@ -145,7 +145,7 @@ public class Main {
     2. 한 바퀴만 돌아서 달팽이 배열처럼 안하고 그냥 무식하게 함
     3. 한 바퀴 다 돌고 공청기에서 집으로 나가는 공기는 0으로 만들어줘야 하는데 이거를 놓쳐서 디버깅 좀 걸림
     */
-    static void runAirCleaner(){
+    static void runAirCleaner() {
         int r;
         int c;
         int nr;
@@ -157,50 +157,49 @@ public class Main {
         nr = r - 1;
         nc = 0;
         map[r][c] = 0;
-        while(nr >= 0){
+        while (nr >= 0) {
 //            System.out.printf("위로 가는 중 - r: %d, c: %d, nr: %d, nc: %d\n", r, c, nr, nc);
 //            printMap();
             map[r][c] = map[nr][nc];
             nr -= 1;
             r -= 1;
-            if(nr == -1){
+            if (nr == -1) {
                 nr = 0;
                 nc = 1;
                 break;
             }
         }
-        while(nc < C){
+        while (nc < C) {
 //            System.out.printf("오른쪽으로 가는 중 - r: %d, c: %d, nr: %d, nc: %d\n", r, c, nr, nc);
 //            printMap();
             map[r][c] = map[nr][nc];
             nc += 1;
             c += 1;
-            if(nc == C){
+            if (nc == C) {
                 nr = 1;
-                nc = C-1;
+                nc = C - 1;
                 break;
             }
         }
-        while(nr <= posUp){
+        while (nr <= posUp) {
             map[r][c] = map[nr][nc];
             nr += 1;
             r += 1;
-            if(nr == posDown){
+            if (nr == posDown) {
                 nr = posUp;
-                nc = C-2;
+                nc = C - 2;
                 break;
             }
         }
-        while(nc > 0){
+        while (nc > 0) {
             map[r][c] = map[nr][nc];
             nc -= 1;
             c -= 1;
-            if(nc == 0){
+            if (nc == 0) {
                 break;
             }
         }
         map[r][c] = 0;
-
 
 
         // 공청기 아래쪽 한바퀴 휘 돌기
@@ -209,41 +208,41 @@ public class Main {
         nr = r + 1;
         nc = 0;
         map[r][c] = 0;
-        while(nr < R){
+        while (nr < R) {
             map[r][c] = map[nr][nc];
             nr += 1;
             r += 1;
-            if(nr == R){
-                nr = R-1;
+            if (nr == R) {
+                nr = R - 1;
                 nc = 1;
                 break;
             }
         }
-        while(nc < C){
+        while (nc < C) {
             map[r][c] = map[nr][nc];
             nc += 1;
             c += 1;
-            if(nc == C){
-                nr = R-2;
-                nc = C-1;
+            if (nc == C) {
+                nr = R - 2;
+                nc = C - 1;
                 break;
             }
         }
-        while(nr >= posDown){
+        while (nr >= posDown) {
             map[r][c] = map[nr][nc];
             nr -= 1;
             r -= 1;
-            if(nr == posUp){
+            if (nr == posUp) {
                 nr = posDown;
-                nc = C-2;
+                nc = C - 2;
                 break;
             }
         }
-        while(nc > 0){
+        while (nc > 0) {
             map[r][c] = map[nr][nc];
             nc -= 1;
             c -= 1;
-            if(nc == 0){
+            if (nc == 0) {
                 break;
             }
         }
@@ -252,11 +251,11 @@ public class Main {
     }
 
     // 원본 집 돌며 먼지 수 세서 리턴하는 메서드
-    static int countDust(){
+    static int countDust() {
         int ans = 0;
-        for(int i=0 ; i<R ; i++){
-            for(int j=0 ; j<C ; j++){
-                if(map[i][j] > 0){
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (map[i][j] > 0) {
                     ans += map[i][j];
                 }
             }

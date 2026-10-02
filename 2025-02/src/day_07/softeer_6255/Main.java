@@ -32,9 +32,9 @@ public class Main {
 
             // 규칙 1
             if (rowC1 == rowC2) sb.append(map[rowC1][(colC1 + 1) % 5]).append(map[rowC2][(colC2 + 1) % 5]);
-            // 규칙 2
+                // 규칙 2
             else if (colC1 == colC2) sb.append(map[(rowC1 + 1) % 5][colC1]).append(map[(rowC2 + 1) % 5][colC2]);
-            // 규칙 3
+                // 규칙 3
             else sb.append(map[rowC1][colC2]).append(map[rowC2][colC1]);
         }
 

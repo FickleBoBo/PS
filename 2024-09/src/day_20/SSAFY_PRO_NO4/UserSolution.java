@@ -5,7 +5,7 @@ import java.util.*;
 // 학생 클래스
 // 학년과 성별 정보는 학생 클래스에서는 필요없다
 // TreeSet의 Key로 사용해서 Comparable, equals, hashCode 오버라이딩
-class Student implements Comparable<Student>{
+class Student implements Comparable<Student> {
     int id;
     int score;
 
@@ -16,7 +16,7 @@ class Student implements Comparable<Student>{
 
     @Override
     public int compareTo(Student o) {
-        if(this.score != o.score) return Integer.compare(this.score, o.score);
+        if (this.score != o.score) return Integer.compare(this.score, o.score);
         return Integer.compare(this.id, o.id);
     }
 
@@ -70,7 +70,7 @@ class UserSolution {
 
     public int remove(int mId) {
         int key = idAndKeyMap.getOrDefault(mId, 0);
-        if(key == 0){
+        if (key == 0) {
 //            System.out.println(0);
             return 0;
         }
@@ -80,7 +80,7 @@ class UserSolution {
         idAndKeyMap.remove(mId);
         idAndStudentMap.remove(mId);
 
-        if(map.get(key).isEmpty()){
+        if (map.get(key).isEmpty()) {
 //            System.out.println(0);
             return 0;
         }
@@ -91,8 +91,8 @@ class UserSolution {
 
     public int query(int mGradeCnt, int mGrade[], int mGenderCnt, char mGender[][], int mScore) {
         Set<Integer> keySet = new HashSet<>();
-        for(int i=0 ; i<mGradeCnt ; i++){
-            for(int j=0 ; j<mGenderCnt ; j++){
+        for (int i = 0; i < mGradeCnt; i++) {
+            for (int j = 0; j < mGenderCnt; j++) {
                 keySet.add(mGrade[i] + mGender[j][0]);
             }
         }
@@ -100,16 +100,15 @@ class UserSolution {
         int ansId = 0;
         int ansScore = MAX_SCORE;
 
-        for(int key : keySet){
+        for (int key : keySet) {
             // 왜 ceiling인데 -1을 해줘야 잘 찾는지 모르겠음
-            Student ceiling = map.get(key).ceiling(new Student(MAX_ID, mScore-1));
+            Student ceiling = map.get(key).ceiling(new Student(MAX_ID, mScore - 1));
 
-            if(ceiling == null) continue;
+            if (ceiling == null) continue;
 
-            if(ceiling.score == ansScore){
+            if (ceiling.score == ansScore) {
                 ansId = Math.min(ansId, ceiling.id);
-            }
-            else if(ceiling.score < ansScore){
+            } else if (ceiling.score < ansScore) {
                 ansId = ceiling.id;
                 ansScore = ceiling.score;
             }

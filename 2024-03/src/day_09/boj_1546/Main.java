@@ -12,13 +12,13 @@ public class Main {
         int[] nums = new int[N];
         int sum = 0;
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             nums[i] = sc.nextInt();
             sum += nums[i];
         }
 
         Arrays.sort(nums);
-        double M = nums[N-1];
+        double M = nums[N - 1];
 
         System.out.println(sum / M / N * 100);    // double이 중간에 껴야함
 

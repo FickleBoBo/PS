@@ -12,11 +12,11 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             st = new StringTokenizer(br.readLine());
 
             int[] arr = new int[10];
-            for(int i=0 ; i<10 ; i++){
+            for (int i = 0; i < 10; i++) {
                 arr[i] = Integer.parseInt(st.nextToken());
             }
 

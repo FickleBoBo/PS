@@ -33,12 +33,12 @@ public class Main {
         int E = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(br.readLine());
 
-        adj = new ArrayList[1+V];
-        for(int i=1 ; i<=V ; i++){
+        adj = new ArrayList[1 + V];
+        for (int i = 1; i <= V; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        for(int i=0 ; i<E ; i++){
+        for (int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
@@ -48,11 +48,10 @@ public class Main {
         }
 
         int[] ans = dijkstra(K);
-        for(int i=1 ; i<=V ; i++){
-            if(ans[i] == INF){
+        for (int i = 1; i <= V; i++) {
+            if (ans[i] == INF) {
                 bw.write("INF\n");
-            }
-            else{
+            } else {
                 bw.write(ans[i] + "\n");
             }
         }
@@ -61,23 +60,23 @@ public class Main {
         bw.close();
     }
 
-    private static int[] dijkstra(int start){
+    private static int[] dijkstra(int start) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
-        boolean[] visited = new boolean[1+V];
-        int[] dist = new int[1+V];
+        boolean[] visited = new boolean[1 + V];
+        int[] dist = new int[1 + V];
         Arrays.fill(dist, INF);
 
         dist[start] = 0;
         pq.add(new Node(start, 0));
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if(visited[node.v]) continue;
+            if (visited[node.v]) continue;
             visited[node.v] = true;
 
-            for(Node next : adj[node.v]){
-                if(!visited[next.v] && dist[node.v] + next.w < dist[next.v]){
+            for (Node next : adj[node.v]) {
+                if (!visited[next.v] && dist[node.v] + next.w < dist[next.v]) {
                     dist[next.v] = dist[node.v] + next.w;
                     pq.add(new Node(next.v, dist[next.v]));
                 }

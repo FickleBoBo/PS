@@ -13,7 +13,7 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -21,15 +21,15 @@ public class Main {
         Arrays.sort(sortedArr);
         int idx = 0;
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i=0 ; i<N ; i++){
-            if(!map.containsKey(sortedArr[i])){
+        for (int i = 0; i < N; i++) {
+            if (!map.containsKey(sortedArr[i])) {
                 map.put(sortedArr[i], idx++);
             }
         }
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(map.get(arr[i])).append(" ");
         }
         bw.write(sb.toString());

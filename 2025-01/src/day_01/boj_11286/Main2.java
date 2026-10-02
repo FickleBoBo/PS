@@ -12,7 +12,7 @@ public class Main2 {
         int N = Integer.parseInt(br.readLine());
 
         PriorityQueue<Integer> pq = new PriorityQueue<>((o1, o2) -> {
-            if(o1 + o2 != 0) return Integer.compare(Math.abs(o1), Math.abs(o2));
+            if (o1 + o2 != 0) return Integer.compare(Math.abs(o1), Math.abs(o2));
             return Integer.compare(o1, o2);
         });
 

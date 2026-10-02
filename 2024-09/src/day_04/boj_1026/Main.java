@@ -14,12 +14,12 @@ public class Main {
         int[] B = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             A[i] = Integer.parseInt(st.nextToken());
         }
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             B[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -28,8 +28,8 @@ public class Main {
 
         int S = 0;
 
-        for(int i=0 ; i<N ; i++){
-            S += A[i] * B [N-i-1];
+        for (int i = 0; i < N; i++) {
+            S += A[i] * B[N - i - 1];
         }
 
         System.out.println(S);

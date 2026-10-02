@@ -11,7 +11,7 @@ public class Main {
         int X = Integer.parseInt(br.readLine());
         int N = Integer.parseInt(br.readLine());
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -19,6 +19,6 @@ public class Main {
             X -= a * b;
         }
 
-        System.out.println(X==0 ? "Yes" : "No");
+        System.out.println(X == 0 ? "Yes" : "No");
     }
 }

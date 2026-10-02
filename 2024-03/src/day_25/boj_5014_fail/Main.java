@@ -16,25 +16,23 @@ public class Main {
         int ans = 0;
         int move = 0;
 
-        if(((G > S) && (U == 0)) || (G < S) && (D == 0)){
+        if (((G > S) && (U == 0)) || (G < S) && (D == 0)) {
             flag = true;
-        }
-        else{
-            if(G > S){
-                while(G > S-U){
+        } else {
+            if (G > S) {
+                while (G > S - U) {
                     S += U;
                     move++;
                 }
-            }
-            else if(G < S){
-                while(G < S+D){
+            } else if (G < S) {
+                while (G < S + D) {
                     S -= D;
                     move++;
                 }
             }
         }
 
-        if(flag) System.out.println("use the stairs");
+        if (flag) System.out.println("use the stairs");
         else System.out.println(ans);
 
         sc.close();

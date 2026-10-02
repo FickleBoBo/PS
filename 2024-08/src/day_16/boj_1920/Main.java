@@ -14,14 +14,14 @@ public class Main {
 
         br.readLine();
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.add(Integer.parseInt(st.nextToken()));
         }
 
         br.readLine();
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
-            if(set.contains(Integer.parseInt(st.nextToken()))) sb.append("1\n");
+        while (st.hasMoreTokens()) {
+            if (set.contains(Integer.parseInt(st.nextToken()))) sb.append("1\n");
             else sb.append("0\n");
         }
 

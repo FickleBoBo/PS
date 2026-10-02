@@ -13,19 +13,18 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] A = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             A[i] = Integer.parseInt(st.nextToken());
         }
 
-        int[] dp = new int[1+N];
+        int[] dp = new int[1 + N];
         int maxLen = 0;
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int idx = binarySearch(dp, 1, maxLen, A[i]);
-            if(idx > maxLen){
+            if (idx > maxLen) {
                 dp[++maxLen] = A[i];
-            }
-            else{
+            } else {
                 dp[idx] = A[i];
             }
             System.out.println(Arrays.toString(dp));
@@ -35,19 +34,17 @@ public class Main {
         System.out.println(maxLen);
     }
 
-    private static int binarySearch(int[] arr, int left, int right, int value){
-        if(value > arr[right]) return right + 1;
+    private static int binarySearch(int[] arr, int left, int right, int value) {
+        if (value > arr[right]) return right + 1;
 
         int mid = (left + right) / 2;
 
-        while(left < right){
-            if(value > arr[mid]){
+        while (left < right) {
+            if (value > arr[mid]) {
                 left = mid + 1;
-            }
-            else if(value < arr[mid]){
+            } else if (value < arr[mid]) {
                 right = mid;
-            }
-            else{
+            } else {
                 break;
             }
             mid = (left + right) / 2;

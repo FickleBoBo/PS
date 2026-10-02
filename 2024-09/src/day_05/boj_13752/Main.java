@@ -9,10 +9,10 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             int k = Integer.parseInt(br.readLine());
 
-            for(int i=0 ; i<k ; i++){
+            for (int i = 0; i < k; i++) {
                 bw.write("=");
             }
             bw.newLine();

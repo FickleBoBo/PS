@@ -25,18 +25,18 @@ public class Main {
 
     }
 
-    private static void combination(int idx, int sidx){
-        if(sidx == M){
-            for(int i=0 ; i<M ; i++){
+    private static void combination(int idx, int sidx) {
+        if (sidx == M) {
+            for (int i = 0; i < M; i++) {
                 sb.append(sel[i] + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=idx ; i<=N ; i++){
+        for (int i = idx; i <= N; i++) {
             sel[sidx] = i;
-            combination(i, sidx+1);
+            combination(i, sidx + 1);
         }
 
     }

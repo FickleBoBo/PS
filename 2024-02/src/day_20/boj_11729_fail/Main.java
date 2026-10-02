@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    static void Hanoi(int N, int from, int tmp, int to){
-        if(N==1){
+    static void Hanoi(int N, int from, int tmp, int to) {
+        if (N == 1) {
             System.out.println(from + " " + to);
             return;
         }
-        Hanoi(N-1, from, to, tmp);
+        Hanoi(N - 1, from, to, tmp);
         System.out.println(from + " " + to);
-        Hanoi(N-1, tmp, from, to);
+        Hanoi(N - 1, tmp, from, to);
     }
 
     public static void main(String[] args) throws IOException {

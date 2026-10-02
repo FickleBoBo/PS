@@ -20,7 +20,7 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         sel = new int[M];
-        visited = new boolean[1+N];    // 인덱스와 수열 값을 맞춰주기 위한 패딩
+        visited = new boolean[1 + N];    // 인덱스와 수열 값을 맞춰주기 위한 패딩
 
         permutation(0);
 
@@ -29,20 +29,20 @@ public class Main {
         bw.close();
     }
 
-    private static void permutation(int sidx){
-        if(sidx == M){
-            for(int n : sel){
+    private static void permutation(int sidx) {
+        if (sidx == M) {
+            for (int n : sel) {
                 sb.append(n).append(" ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=1 ; i<=N ; i++){
-            if(!visited[i]){
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i]) {
                 sel[sidx] = i;
                 visited[i] = true;
-                permutation(sidx+1);
+                permutation(sidx + 1);
                 visited[i] = false;
             }
         }

@@ -14,8 +14,8 @@ public class Main {
         int min = 0;
         int max = 0;
         int[][] map = new int[N][M];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 map[i][j] = sc.nextInt();
                 sum += map[i][j];
                 min = Math.min(min, map[i][j]);

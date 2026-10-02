@@ -9,13 +9,13 @@ public class Main {
     static int[] p;
 
     // find-set
-    private static int find(int x){
-        if(x == p[x]) return x;
+    private static int find(int x) {
+        if (x == p[x]) return x;
         return p[x] = find(p[x]);
     }
 
     // union-set
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -28,7 +28,7 @@ public class Main {
     static boolean[][] visited;
 
     // 격자의 좌표를 저장하는 노드 클래스
-    static class Node{
+    static class Node {
         int r;
         int c;
 
@@ -39,7 +39,7 @@ public class Main {
     }
 
     // 두 섬과 거리를 저장하는 간선 클래스
-    static class Edge implements Comparable<Edge>{
+    static class Edge implements Comparable<Edge> {
         int x;
         int y;
         int w;
@@ -65,10 +65,10 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         map = new int[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
-            for(int j=0 ; j<M ; j++){
+            for (int j = 0; j < M; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
@@ -78,10 +78,10 @@ public class Main {
         visited = new boolean[N][M];
         int num = 1;
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
-                if(map[i][j] == 0) continue;
-                if(visited[i][j]) continue;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (map[i][j] == 0) continue;
+                if (visited[i][j]) continue;
 
                 BFS(i, j, num);
                 num++;
@@ -93,89 +93,89 @@ public class Main {
         // 세로 방향 다리를 먼저 탐색하고 이후 가로 방향 다리를 탐색함
         PriorityQueue<Edge> edges = new PriorityQueue<>();
 
-        for(int i=1 ; i<N-1 ; i++){
-            for(int j=0 ; j<M ; j++){
-                if(map[i][j] > 0) continue;
+        for (int i = 1; i < N - 1; i++) {
+            for (int j = 0; j < M; j++) {
+                if (map[i][j] > 0) continue;
 
-                if(map[i-1][j] > 0){
+                if (map[i - 1][j] > 0) {
                     int k = 1;
                     int len = 1;
 
-                    while(i+k < N && map[i+k][j] == 0){
+                    while (i + k < N && map[i + k][j] == 0) {
                         k++;
                         len++;
                     }
 
-                    if(i+k == N) continue;    // 한쪽 끝이 격자 밖인지 판단
-                    if(len == 1) continue;    // 다리의 길이는 2 이상
+                    if (i + k == N) continue;    // 한쪽 끝이 격자 밖인지 판단
+                    if (len == 1) continue;    // 다리의 길이는 2 이상
 
-                    edges.add(new Edge(map[i-1][j], map[i+k][j], len));
+                    edges.add(new Edge(map[i - 1][j], map[i + k][j], len));
                 }
             }
         }
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=1 ; j<M-1 ; j++){
-                if(map[i][j] > 0) continue;
+        for (int i = 0; i < N; i++) {
+            for (int j = 1; j < M - 1; j++) {
+                if (map[i][j] > 0) continue;
 
-                if(map[i][j-1] > 0){
+                if (map[i][j - 1] > 0) {
                     int k = 1;
                     int len = 1;
 
-                    while(j+k < M && map[i][j+k] == 0){
+                    while (j + k < M && map[i][j + k] == 0) {
                         k++;
                         len++;
                     }
 
-                    if(j+k == M) continue;    // 한쪽 끝이 격자 밖인지 판단
-                    if(len == 1) continue;    // 다리의 길이는 2 이상
+                    if (j + k == M) continue;    // 한쪽 끝이 격자 밖인지 판단
+                    if (len == 1) continue;    // 다리의 길이는 2 이상
 
-                    edges.add(new Edge(map[i][j-1], map[i][j+k], len));
+                    edges.add(new Edge(map[i][j - 1], map[i][j + k], len));
                 }
             }
         }
 
         // make-set
         p = new int[num];
-        for(int i=1 ; i<num ; i++) p[i] = i;
+        for (int i = 1; i < num; i++) p[i] = i;
 
         int sum = 0;
         int cnt = 0;
 
         // step.4 - 크루스칼 알고리즘으로 모든 섬을 연결하는 다리 길이의 최솟값 탐색
-        while(!edges.isEmpty()){
+        while (!edges.isEmpty()) {
             Edge e = edges.poll();
 
             int x = find(e.x);
             int y = find(e.y);
 
-            if(x == y) continue;
+            if (x == y) continue;
 
             union(x, y);
             sum += e.w;
             cnt++;
 
-            if(cnt == num-2) break;    // num이 섬의 개수 + 1이라서 num-2 개의 다리를 연결
+            if (cnt == num - 2) break;    // num이 섬의 개수 + 1이라서 num-2 개의 다리를 연결
         }
 
-        System.out.println(cnt == num-2 ? sum : -1);
+        System.out.println(cnt == num - 2 ? sum : -1);
     }
 
-    private static void BFS(int r, int c, int num){
+    private static void BFS(int r, int c, int num) {
         Queue<Node> q = new ArrayDeque<>();
 
         q.offer(new Node(r, c));
         visited[r][c] = true;
         map[r][c] = num;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             Node node = q.poll();
 
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = node.r + dr[dir];
                 int nc = node.c + dc[dir];
 
-                if(nr>=0 && nr<N && nc>=0 && nc<M && !visited[nr][nc] && map[nr][nc] > 0){
+                if (nr >= 0 && nr < N && nc >= 0 && nc < M && !visited[nr][nc] && map[nr][nc] > 0) {
                     q.offer(new Node(nr, nc));
                     visited[nr][nc] = true;
                     map[nr][nc] = num;

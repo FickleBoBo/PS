@@ -8,9 +8,9 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        while(true){
+        while (true) {
             String str = br.readLine();
-            if(str.equals(".")) break;    // 종료 조건
+            if (str.equals(".")) break;    // 종료 조건
 
             char[] input = str.toCharArray();
 
@@ -18,36 +18,33 @@ public class Main {
             Deque<Character> stack = new ArrayDeque<>();
             boolean flag = true;
 
-            for(char c : input){
+            for (char c : input) {
                 // 열린 괄호면 푸시
-                if(c == '(' || c == '['){
+                if (c == '(' || c == '[') {
                     stack.push(c);
                 }
                 // 닫힌 괄호면 스택이 비었는지, 스택의 peek와 짝을 이루는지 판단
-                else if(c == ')'){
-                    if(stack.isEmpty() || stack.peek() == '['){
+                else if (c == ')') {
+                    if (stack.isEmpty() || stack.peek() == '[') {
                         flag = false;
                         break;
-                    }
-                    else{
+                    } else {
                         stack.pop();
                     }
-                }
-                else if(c == ']'){
-                    if(stack.isEmpty() || stack.peek() == '('){
+                } else if (c == ']') {
+                    if (stack.isEmpty() || stack.peek() == '(') {
                         flag = false;
                         break;
-                    }
-                    else{
+                    } else {
                         stack.pop();
                     }
                 }
             }
 
             // 남은 열린 괄호가 스택에 있으면 균형잡인 문자열이 아님
-            if(!stack.isEmpty()) flag = false;
+            if (!stack.isEmpty()) flag = false;
 
-            if(flag) bw.write("yes\n");
+            if (flag) bw.write("yes\n");
             else bw.write("no\n");
         }
 

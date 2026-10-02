@@ -17,12 +17,12 @@ public class Main {
 
         st = new StringTokenizer(br.readLine());
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int num = Integer.parseInt(st.nextToken());
 
             // 정수의 개수가 한개인 경우 주의(테스트 케이스 98%)
-            if(num > max) max = num;
-            if(num < min) min = num;
+            if (num > max) max = num;
+            if (num < min) min = num;
         }
         sb.append(min).append(" ").append(max);
 

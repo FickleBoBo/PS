@@ -5,23 +5,22 @@ import java.util.*;
 class Solution_fail2 {
     public int[] solution(String[] gems) {
         Set<String> total = new HashSet<>();
-        for(String gem : gems) total.add(gem);
+        for (String gem : gems) total.add(gem);
 
         int N = total.size();
         int[] ans = new int[]{1, gems.length};
 
-        for(int i=0 ; i<gems.length ; i++){
+        for (int i = 0; i < gems.length; i++) {
             Set<String> set = new HashSet<>();
 
-            for(int j=i ; j<gems.length ; j++){
+            for (int j = i; j < gems.length; j++) {
                 set.add(gems[j]);
 
-                if(set.size() == N){
-                    if(j-i < ans[1] - ans[0]){
+                if (set.size() == N) {
+                    if (j - i < ans[1] - ans[0]) {
                         ans[0] = i + 1;
                         ans[1] = j + 1;
-                    }
-                    else if((j-i == ans[1] - ans[0]) && i < ans[0]){
+                    } else if ((j - i == ans[1] - ans[0]) && i < ans[0]) {
                         ans[0] = i + 1;
                         ans[1] = j + 1;
                     }

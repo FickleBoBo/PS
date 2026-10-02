@@ -11,9 +11,9 @@ public class Main2 {
         StringTokenizer st;
 
         // EOF 까지 입력 받기
-        while(true){
+        while (true) {
             String input = br.readLine();
-            if(input == null) break;
+            if (input == null) break;
 
             sb.append(input).append(" ");
         }
@@ -23,13 +23,13 @@ public class Main2 {
 
         PriorityQueue<Long> pq = new PriorityQueue<>();
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             sb = new StringBuilder(st.nextToken());
             pq.offer(Long.parseLong(sb.reverse().toString()));
         }
 
         sb = new StringBuilder();
-        while(!pq.isEmpty()) sb.append(pq.poll()).append("\n");
+        while (!pq.isEmpty()) sb.append(pq.poll()).append("\n");
 
         bw.write(sb.toString());
         bw.flush();

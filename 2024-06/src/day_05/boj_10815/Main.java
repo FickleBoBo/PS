@@ -16,13 +16,13 @@ public class Main {
         Map<Integer, Integer> map = new HashMap<>();
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreElements()){
+        while (st.hasMoreElements()) {
             map.put(Integer.parseInt(st.nextToken()), 1);
         }
 
         int M = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreElements()){
+        while (st.hasMoreElements()) {
             System.out.print(map.getOrDefault(Integer.parseInt(st.nextToken()), 0) + " ");
         }
     }

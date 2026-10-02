@@ -23,8 +23,8 @@ public class Main {
         System.out.println((q / gcd) + " " + (r / gcd));
     }
 
-    private static int GCD(int a, int b){
-        if(b == 0) return a;
+    private static int GCD(int a, int b) {
+        if (b == 0) return a;
         return GCD(b, a % b);
     }
 

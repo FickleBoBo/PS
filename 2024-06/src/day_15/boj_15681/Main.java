@@ -19,15 +19,15 @@ public class Main {
         int R = Integer.parseInt(st.nextToken());
         int Q = Integer.parseInt(st.nextToken());
 
-        subTreeSize = new int[1+N];
+        subTreeSize = new int[1 + N];
         Arrays.fill(subTreeSize, 1);
 
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
             int U = Integer.parseInt(st.nextToken());
             int V = Integer.parseInt(st.nextToken());
@@ -35,11 +35,11 @@ public class Main {
             adj[V].add(U);
         }
 
-        visited = new boolean[1+N];
+        visited = new boolean[1 + N];
         visited[R] = true;
         DFS(R);
 
-        for(int i=0 ; i<Q ; i++){
+        for (int i = 0; i < Q; i++) {
             sb.append(subTreeSize[Integer.parseInt(br.readLine())]).append("\n");
         }
 
@@ -48,10 +48,10 @@ public class Main {
         bw.close();
     }
 
-    private static int DFS(int node){
+    private static int DFS(int node) {
 
-        for(int next : adj[node]){
-            if(!visited[next]){
+        for (int next : adj[node]) {
+            if (!visited[next]) {
                 visited[next] = true;
                 subTreeSize[node] += DFS(next);
             }

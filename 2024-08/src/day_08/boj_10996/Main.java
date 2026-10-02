@@ -10,12 +10,11 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        for(int i=1 ; i<=2 * N ; i++){
-            for(int j=1 ; j<=N ; j++){
-                if((i + j) % 2 == 0){
+        for (int i = 1; i <= 2 * N; i++) {
+            for (int j = 1; j <= N; j++) {
+                if ((i + j) % 2 == 0) {
                     sb.append("*");
-                }
-                else{
+                } else {
                     sb.append(" ");
                 }
             }

@@ -14,13 +14,13 @@ public class Main3 {
         StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
         int M = Integer.parseInt(br.readLine());
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -33,20 +33,20 @@ public class Main3 {
         System.out.println(cnt);
     }
 
-    private static int BFS(int start){
+    private static int BFS(int start) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(start);
 
-        boolean[] visited = new boolean[1+N];    // 컴퓨터 번호와 index를 일치시킨 방문 체크 배열
+        boolean[] visited = new boolean[1 + N];    // 컴퓨터 번호와 index를 일치시킨 방문 체크 배열
         visited[start] = true;
 
         int cnt = 0;    // 1번 컴퓨터는 제외
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int node = q.poll();
 
-            for(int next : adj[node]){
-                if(!visited[next]){
+            for (int next : adj[node]) {
+                if (!visited[next]) {
                     q.offer(next);
                     visited[next] = true;
                     cnt++;

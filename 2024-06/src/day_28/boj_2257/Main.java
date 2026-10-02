@@ -14,39 +14,34 @@ public class Main {
         int ans = 0;
 
         Stack<String> st = new Stack<>();
-        for(int i=0 ; i<input.length() ; i++){
+        for (int i = 0; i < input.length(); i++) {
             char ch = input.charAt(i);
 
-            if(ch == '('){
+            if (ch == '(') {
                 st.push("(");
-            }
-            else if(ch == ')'){
+            } else if (ch == ')') {
                 int tmp = 0;
-                while(true){
+                while (true) {
                     String pop = st.pop();
-                    if(pop.equals("(")){
+                    if (pop.equals("(")) {
                         break;
                     }
                     tmp += Integer.parseInt(pop);
                 }
                 st.push(String.valueOf(tmp));
-            }
-            else if(ch == 'H'){
+            } else if (ch == 'H') {
                 st.push("1");
-            }
-            else if(ch == 'C'){
+            } else if (ch == 'C') {
                 st.push("12");
-            }
-            else if(ch == 'O'){
+            } else if (ch == 'O') {
                 st.push("16");
-            }
-            else{
+            } else {
                 int tmp = Integer.parseInt(st.pop());
-                st.push(String.valueOf(tmp * (ch-'0')));
+                st.push(String.valueOf(tmp * (ch - '0')));
             }
         }
 
-        while(!st.isEmpty()){
+        while (!st.isEmpty()) {
             ans += Integer.parseInt(st.pop());
         }
 

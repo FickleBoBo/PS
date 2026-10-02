@@ -16,19 +16,19 @@ public class Main {
         N = sc.nextInt();
         int M = sc.nextInt();
         int v = sc.nextInt();
-        adj = new boolean[N+1][N+1];
+        adj = new boolean[N + 1][N + 1];
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
             adj[a][b] = adj[b][a] = true;
         }
 
-        visited = new boolean[N+1];
+        visited = new boolean[N + 1];
         DFS(v);
         System.out.println();
 
-        visited = new boolean[N+1];
+        visited = new boolean[N + 1];
         BFS(v);
 
         sc.close();
@@ -36,13 +36,13 @@ public class Main {
 
     private static void DFS(int node) {
         // 종료 조건
-        if(visited[node]) return;
+        if (visited[node]) return;
 
         // 재귀 조건
         System.out.print(node + " ");
         visited[node] = true;
-        for(int i=1 ; i<=N ; i++){
-            if((!visited[i]) && (adj[node][i])){
+        for (int i = 1; i <= N; i++) {
+            if ((!visited[i]) && (adj[node][i])) {
                 DFS(i);
             }
         }
@@ -53,12 +53,12 @@ public class Main {
         queue.offer(node);
         visited[node] = true;
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int item = queue.poll();
             System.out.print(item + " ");
 
-            for(int i=1 ; i<=N ; i++){
-                if((!visited[i] && (adj[item][i]))){
+            for (int i = 1; i <= N; i++) {
+                if ((!visited[i] && (adj[item][i]))) {
                     queue.offer(i);
                     visited[i] = true;
                 }

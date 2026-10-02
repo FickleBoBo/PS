@@ -27,18 +27,18 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
 
-        List<Node>[] adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        List<Node>[] adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        int[][] floyd = new int[1+N][1+N];
-        for(int i=0 ; i<=N ; i++){
+        int[][] floyd = new int[1 + N][1 + N];
+        for (int i = 0; i <= N; i++) {
             Arrays.fill(floyd[i], INF);
             floyd[i][i] = 0;
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -47,20 +47,19 @@ public class Main {
             floyd[a][b] = Math.min(floyd[a][b], c);
         }
 
-        for(int k=1 ; k<=N ; k++){
-            for(int i=1 ; i<=N ; i++){
-                for(int j=1 ; j<=N ; j++){
+        for (int k = 1; k <= N; k++) {
+            for (int i = 1; i <= N; i++) {
+                for (int j = 1; j <= N; j++) {
                     floyd[i][j] = Math.min(floyd[i][j], floyd[i][k] + floyd[k][j]);
                 }
             }
         }
 
-        for(int i=1 ; i<=N ; i++){
-            for(int j=1 ; j<=N ; j++){
-                if(floyd[i][j] != INF){
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= N; j++) {
+                if (floyd[i][j] != INF) {
                     bw.write(floyd[i][j] + " ");
-                }
-                else{
+                } else {
                     bw.write(0 + " ");
                 }
             }

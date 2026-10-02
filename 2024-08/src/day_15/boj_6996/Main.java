@@ -13,14 +13,14 @@ public class Main {
         int T = Integer.parseInt(br.readLine());
 
         out:
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             st = new StringTokenizer(br.readLine());
 
             String str1 = st.nextToken();
             String str2 = st.nextToken();
 
             // 두 단어의 길이가 다르면 애너그램이 될 수 없음
-            if(str1.length() != str2.length()){
+            if (str1.length() != str2.length()) {
                 sb.append(str1).append(" & ").append(str2).append(" are NOT anagrams.\n");
                 continue;
             }
@@ -32,8 +32,8 @@ public class Main {
             Arrays.sort(charArr2);
 
             // 애너그램이면 정렬했을 때 각 자리 알파벳이 모두 일치해야 함
-            for(int i=0 ; i<charArr1.length ; i++){
-                if(charArr1[i] != charArr2[i]){
+            for (int i = 0; i < charArr1.length; i++) {
+                if (charArr1[i] != charArr2[i]) {
                     sb.append(str1).append(" & ").append(str2).append(" are NOT anagrams.\n");
                     continue out;
                 }

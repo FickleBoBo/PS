@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Node implements Comparable<Node>{
+    static class Node implements Comparable<Node> {
         int v;
         int w;
 
@@ -36,12 +36,12 @@ public class Main {
 
         // adj : 정방향 인접 리스트
         // reverseAdj : 간선 방향을 반대로한 연결 리스트
-        adj = new ArrayList[1+N];
-        reverseAdj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++) adj[i] = new ArrayList<>();
-        for(int i=1 ; i<=N ; i++) reverseAdj[i] = new ArrayList<>();
+        adj = new ArrayList[1 + N];
+        reverseAdj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) adj[i] = new ArrayList<>();
+        for (int i = 1; i <= N; i++) reverseAdj[i] = new ArrayList<>();
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -56,7 +56,7 @@ public class Main {
         int[] dp2 = Dijkstra(X, reverseAdj);    // 다른 모든 도시에서 X까지 가는 최단 거리 배열을 반환
 
         int max = Integer.MIN_VALUE;
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             max = Math.max(max, dp1[i] + dp2[i]);
         }
 
@@ -64,24 +64,24 @@ public class Main {
     }
 
     // 일반 다익스트라 알고리즘
-    private static int[] Dijkstra(int start, List<Node>[] adj){
+    private static int[] Dijkstra(int start, List<Node>[] adj) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(start, 0));
 
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
 
-        int[] dist = new int[1+N];
+        int[] dist = new int[1 + N];
         Arrays.fill(dist, INF);
         dist[start] = 0;
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if(visited[node.v]) continue;
+            if (visited[node.v]) continue;
             visited[node.v] = true;
 
-            for(Node next : adj[node.v]){
-                if(!visited[next.v] && (dist[next.v] > dist[node.v] + next.w)){
+            for (Node next : adj[node.v]) {
+                if (!visited[next.v] && (dist[next.v] > dist[node.v] + next.w)) {
                     dist[next.v] = dist[node.v] + next.w;
                     pq.offer(new Node(next.v, dist[next.v]));
                 }

@@ -14,20 +14,20 @@ public class Main {
 
         Set<String> set = new HashSet<>();
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             String name = st.nextToken();
             boolean leave = st.nextToken().equals("leave");
 
-            if(leave) set.remove(name);
+            if (leave) set.remove(name);
             else set.add(name);
         }
 
         PriorityQueue<String> pq = new PriorityQueue<>(Collections.reverseOrder());
         pq.addAll(set);
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             sb.append(pq.poll()).append("\n");
         }
 

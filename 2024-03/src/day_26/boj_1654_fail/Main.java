@@ -13,19 +13,19 @@ public class Main {
         int K = Integer.parseInt(input[0]);
         int N = Integer.parseInt(input[1]);
         int[] arr = new int[K];
-        for(int i=0 ; i<K ; i++){
+        for (int i = 0; i < K; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
         Arrays.sort(arr);
 
         int num = arr[0];
 
-        while(true){
+        while (true) {
             int cnt = 0;
-            for(int i=0 ; i<K ; i++){
+            for (int i = 0; i < K; i++) {
                 cnt += arr[i] / num;
             }
-            if(cnt >= N){
+            if (cnt >= N) {
                 break;
             }
             num--;

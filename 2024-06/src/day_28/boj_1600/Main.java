@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static class Node{
+    static class Node {
         int r;
         int c;
         int cnt;
@@ -43,10 +43,10 @@ public class Main {
         H = Integer.parseInt(st.nextToken());
 
         map = new int[H][W];
-        for(int i=0 ; i<H ; i++){
+        for (int i = 0; i < H; i++) {
             st = new StringTokenizer(br.readLine());
 
-            for(int j=0 ; j<W ; j++){
+            for (int j = 0; j < W; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
@@ -55,48 +55,48 @@ public class Main {
         System.out.println(ans);
     }
 
-    private static int BFS(int K){
+    private static int BFS(int K) {
         Queue<Node> q = new ArrayDeque<>();
         q.offer(new Node(0, 0, K));
 
         int[][] visited = new int[H][W];
-        for(int i=0 ; i<H ; i++){
+        for (int i = 0; i < H; i++) {
             Arrays.fill(visited[i], -1);
         }
         visited[0][0] = K;
 
         int dist = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
 
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 Node node = q.poll();
-                if(node.r == H-1 && node.c == W-1) return dist;
+                if (node.r == H - 1 && node.c == W - 1) return dist;
 
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = node.r + dr[dir];
                     int nc = node.c + dc[dir];
 
-                    if(nr>=0 && nr<H && nc>=0 && nc<W && map[nr][nc]==0){
-                        if(visited[nr][nc] < node.cnt){
+                    if (nr >= 0 && nr < H && nc >= 0 && nc < W && map[nr][nc] == 0) {
+                        if (visited[nr][nc] < node.cnt) {
                             q.offer(new Node(nr, nc, node.cnt));
                             visited[nr][nc] = node.cnt;
                         }
                     }
                 }
 
-                if(node.cnt == 0) continue;
+                if (node.cnt == 0) continue;
 
-                for(int dir=0 ; dir<8 ; dir++){
+                for (int dir = 0; dir < 8; dir++) {
                     int nr = node.r + drh[dir];
                     int nc = node.c + dch[dir];
 
-                    if(nr>=0 && nr<H && nc>=0 && nc<W && map[nr][nc]==0){
+                    if (nr >= 0 && nr < H && nc >= 0 && nc < W && map[nr][nc] == 0) {
                         // if(visited[nr][nc] < node.cnt) 이건 메모리 초과
-                        if(visited[nr][nc] < node.cnt-1){
-                            q.offer(new Node(nr, nc, node.cnt-1));
-                            visited[nr][nc] = node.cnt-1;
+                        if (visited[nr][nc] < node.cnt - 1) {
+                            q.offer(new Node(nr, nc, node.cnt - 1));
+                            visited[nr][nc] = node.cnt - 1;
                         }
                     }
                 }

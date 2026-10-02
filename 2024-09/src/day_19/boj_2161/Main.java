@@ -13,14 +13,14 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         Queue<Integer> q = new ArrayDeque<>();
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             q.offer(i);
         }
 
-        while(true){
+        while (true) {
             sb.append(q.poll()).append(" ");
 
-            if(q.isEmpty()) break;
+            if (q.isEmpty()) break;
 
             q.offer(q.poll());
         }

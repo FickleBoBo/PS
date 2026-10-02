@@ -12,7 +12,7 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
 
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
         Arrays.sort(arr);
@@ -21,18 +21,17 @@ public class Main {
         int right = 0;
         int ans = Integer.MAX_VALUE;
 
-        while(true){
+        while (true) {
             int diff = arr[right] - arr[left];
 
-            if(diff >= M){
+            if (diff >= M) {
                 ans = Math.min(ans, diff);
                 left++;
-            }
-            else{
+            } else {
                 right++;
             }
 
-            if(right == N || left > right) break;
+            if (right == N || left > right) break;
         }
 
         System.out.println(ans);

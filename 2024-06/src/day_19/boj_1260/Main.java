@@ -22,10 +22,10 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
         int V = Integer.parseInt(st.nextToken());
 
-        adj = new boolean[1+N][1+N];
-        visited = new boolean[1+N];
+        adj = new boolean[1 + N][1 + N];
+        visited = new boolean[1 + N];
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -42,31 +42,31 @@ public class Main {
         bw.close();
     }
 
-    private static void DFS(int node){
+    private static void DFS(int node) {
         visited[node] = true;    // node에 대한 방문 체크
         sb.append(node).append(" ");
 
-        for(int i=1 ; i<=N ; i++){
-            if(!visited[i] && adj[node][i]){
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i] && adj[node][i]) {
                 DFS(i);
             }
         }
     }
 
-    private static void BFS(int start){
+    private static void BFS(int start) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(start);
 
-        visited = new boolean[1+N];
+        visited = new boolean[1 + N];
         visited[start] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int node = q.poll();
 
             sb.append(node).append(" ");
 
-            for(int i=1 ; i<=N ; i++){
-                if(!visited[i] && adj[node][i]){
+            for (int i = 1; i <= N; i++) {
+                if (!visited[i] && adj[node][i]) {
                     q.offer(i);
                     visited[i] = true;
                 }

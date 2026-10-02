@@ -12,12 +12,12 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        List<Integer>[] adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        List<Integer>[] adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
             int nodeA = Integer.parseInt(st.nextToken());
             int nodeB = Integer.parseInt(st.nextToken());
@@ -29,7 +29,7 @@ public class Main {
 
         int M = Integer.parseInt(br.readLine());
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int nodeA = Integer.parseInt(st.nextToken());
             int nodeB = Integer.parseInt(st.nextToken());
@@ -41,22 +41,22 @@ public class Main {
         bw.close();
     }
 
-    private static int[] BFS(int N, List<Integer>[] adj){
+    private static int[] BFS(int N, List<Integer>[] adj) {
         Queue<Integer> q = new LinkedList<>();
         q.offer(1);
 
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
         visited[1] = true;
 
-        int[] level = new int[1+N];
+        int[] level = new int[1 + N];
         int height = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int node = q.poll();
-                for(int next : adj[node]){
-                    if(!visited[next]){
+                for (int next : adj[node]) {
+                    if (!visited[next]) {
                         q.offer(next);
                         visited[next] = true;
                     }
@@ -69,14 +69,14 @@ public class Main {
         return level;
     }
 
-    private static int find(int A, int B, int N, List<Integer>[] adj, int[] height){
-        boolean[] ancestorOfA = new boolean[1+N];
+    private static int find(int A, int B, int N, List<Integer>[] adj, int[] height) {
+        boolean[] ancestorOfA = new boolean[1 + N];
 
         out:
-        while(true){
+        while (true) {
             ancestorOfA[A] = true;
-            for(int next : adj[A]){
-                if(height[next] < height[A]){
+            for (int next : adj[A]) {
+                if (height[next] < height[A]) {
                     A = next;
                     continue out;
                 }
@@ -85,10 +85,10 @@ public class Main {
         }
 
         out:
-        while(true){
-            if(ancestorOfA[B]) return B;
-            for(int next : adj[B]){
-                if(height[next] < height[B]){
+        while (true) {
+            if (ancestorOfA[B]) return B;
+            for (int next : adj[B]) {
+                if (height[next] < height[B]) {
                     B = next;
                     continue out;
                 }

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Node implements Comparable<Node>{
+    static class Node implements Comparable<Node> {
         int idx;
         int pos;
         int len;
@@ -20,7 +20,7 @@ public class Main {
 
         @Override
         public int compareTo(Node o) {
-            if(this.len == o.len) return Integer.compare(o.pos, this.pos);
+            if (this.len == o.len) return Integer.compare(o.pos, this.pos);
             return Integer.compare(this.len, o.len);
         }
 
@@ -44,7 +44,7 @@ public class Main {
         st = new StringTokenizer(br.readLine());
 
         Set<Integer> set = new TreeSet<>();
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.add(Integer.parseInt(st.nextToken()));
         }
         set.add(0);
@@ -54,10 +54,10 @@ public class Main {
 //        System.out.println(list);
 
         PriorityQueue<Node> pq;
-        while(list.size() > C + 2){
+        while (list.size() > C + 2) {
             pq = new PriorityQueue<>();
-            for(int i=0 ; i<list.size()-2 ; i++){
-                Node newNode = new Node(i+1, list.get(i+2), list.get(i+2) - list.get(i));
+            for (int i = 0; i < list.size() - 2; i++) {
+                Node newNode = new Node(i + 1, list.get(i + 2), list.get(i + 2) - list.get(i));
                 pq.offer(newNode);
 //                System.out.println(newNode);
 //                System.out.println();
@@ -71,9 +71,9 @@ public class Main {
 
 //        System.out.println(list);
 
-        for(int i=0 ; i<list.size()-1 ; i++){
-            ans1 = Math.max(list.get(i+1) - list.get(i), ans1);
-            if(list.get(i) > 0){
+        for (int i = 0; i < list.size() - 1; i++) {
+            ans1 = Math.max(list.get(i + 1) - list.get(i), ans1);
+            if (list.get(i) > 0) {
                 ans2 = Math.min(ans2, list.get(i));
             }
         }

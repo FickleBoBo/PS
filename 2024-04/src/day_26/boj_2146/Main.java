@@ -26,7 +26,7 @@ public class Main {
         int ans = Integer.MAX_VALUE;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if(map[i][j]==1){
+                if (map[i][j] == 1) {
                     ans = Math.min(ans, BFS(i, j));
                 }
             }
@@ -63,7 +63,7 @@ public class Main {
                 cnt++;
             }
         }
-        if(cnt==0) return Integer.MAX_VALUE;
+        if (cnt == 0) return Integer.MAX_VALUE;
 
         q.offer(new int[]{r, c});
         int ans = 0;
@@ -76,11 +76,10 @@ public class Main {
                     int nr = node[0] + dr[dir];
                     int nc = node[1] + dc[dir];
                     if (nr >= 0 && nr < N && nc >= 0 && nc < N && !visited[nr][nc]) {
-                        if(map[nr][nc] == 0){
+                        if (map[nr][nc] == 0) {
                             q.offer(new int[]{nr, nc});
                             visited[nr][nc] = true;
-                        }
-                        else{
+                        } else {
                             return ans;
                         }
                     }

@@ -27,20 +27,20 @@ public class Main {
 
     }
 
-    private static void permutation(int sidx){
-        if(sidx == M){
-            for(int i=0 ; i<M ; i++){
+    private static void permutation(int sidx) {
+        if (sidx == M) {
+            for (int i = 0; i < M; i++) {
                 sb.append(sel[i] + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=0 ; i<N ; i++){
-            if(!visited[i]){
-                sel[sidx] = i+1;
+        for (int i = 0; i < N; i++) {
+            if (!visited[i]) {
+                sel[sidx] = i + 1;
                 visited[i] = true;
-                permutation(sidx+1);
+                permutation(sidx + 1);
                 visited[i] = false;
             }
 

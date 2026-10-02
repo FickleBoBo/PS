@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Node implements Comparable<Node>{
+    static class Node implements Comparable<Node> {
         int r;
         int c;
         int cnt;
@@ -38,7 +38,7 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
 
         map = new char[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();
         }
 
@@ -46,36 +46,35 @@ public class Main {
         System.out.println(ans);
     }
 
-    private static int BFS(){
+    private static int BFS() {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(0, 0, 0));
 
         int[][] visited = new int[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             Arrays.fill(visited[i], INF);
         }
         visited[0][0] = 0;
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
-            if((node.r==N-1) && (node.c==M-1)) return node.cnt;    // 한번이라도 갱신되면 그게 최솟값
+            if ((node.r == N - 1) && (node.c == M - 1)) return node.cnt;    // 한번이라도 갱신되면 그게 최솟값
 
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = node.r + dr[dir];
                 int nc = node.c + dc[dir];
                 int cnt = node.cnt;
 
-                if(nr>=0 && nr<N && nc>=0 && nc<M){
-                    if(map[nr][nc]=='0'){
-                        if(visited[nr][nc] > cnt){
+                if (nr >= 0 && nr < N && nc >= 0 && nc < M) {
+                    if (map[nr][nc] == '0') {
+                        if (visited[nr][nc] > cnt) {
                             pq.offer(new Node(nr, nc, cnt));
                             visited[nr][nc] = cnt;
                         }
-                    }
-                    else{
-                        if(visited[nr][nc] > cnt+1){
-                            pq.offer(new Node(nr, nc, cnt+1));
-                            visited[nr][nc] = cnt+1;
+                    } else {
+                        if (visited[nr][nc] > cnt + 1) {
+                            pq.offer(new Node(nr, nc, cnt + 1));
+                            visited[nr][nc] = cnt + 1;
                         }
                     }
                 }

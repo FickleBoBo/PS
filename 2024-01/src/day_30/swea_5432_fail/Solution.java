@@ -12,7 +12,7 @@ public class Solution {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(bf.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
 
             String[] input = bf.readLine().split("");
 
@@ -23,23 +23,23 @@ public class Solution {
 
             int cnt = 0;
 
-            for(int i=0 ; i<input.length ; i++){
-                if(input[i].equals("(")){
+            for (int i = 0; i < input.length; i++) {
+                if (input[i].equals("(")) {
                     stack.push(i);
-                } else{
+                } else {
                     openIdx = stack.pop();
-                    if((i-openIdx)>1){
-                        for(int j=openIdx ; j<=i ; j++){
+                    if ((i - openIdx) > 1) {
+                        for (int j = openIdx; j <= i; j++) {
                             pipe[j]++;
                         }
                         cnt++;
-                    } else{
+                    } else {
                         laser.add(openIdx);
                     }
                 }
             }
 
-            for(int i=0 ; i<laser.size() ; i++){
+            for (int i = 0; i < laser.size(); i++) {
                 cnt += pipe[laser.get(i)];
             }
             System.out.printf("#%d %d\n", tc, cnt);

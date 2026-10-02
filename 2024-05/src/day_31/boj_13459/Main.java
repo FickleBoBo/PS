@@ -29,14 +29,13 @@ public class Main {
         bluePos = new int[2];
 
         map = new String[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             map[i] = br.readLine().split("");
-            for(int j=0 ; j<M ; j++){
-                if(map[i][j].equals("R")){
+            for (int j = 0; j < M; j++) {
+                if (map[i][j].equals("R")) {
                     redPos[0] = i;
                     redPos[1] = j;
-                }
-                else if(map[i][j].equals("B")){
+                } else if (map[i][j].equals("B")) {
                     bluePos[0] = i;
                     bluePos[1] = j;
                 }
@@ -45,27 +44,27 @@ public class Main {
 
         combination(0, -1);
 
-        if(flag) System.out.println(1);
+        if (flag) System.out.println(1);
         else System.out.println(0);
     }
 
-    private static void combination(int sidx, int pick){
-        if(sidx == 10){
+    private static void combination(int sidx, int pick) {
+        if (sidx == 10) {
             moveBoard();
             return;
         }
 
-        for(int i=0 ; i<4 ; i++){
-            if(pick != i){
+        for (int i = 0; i < 4; i++) {
+            if (pick != i) {
                 sel[sidx] = arr[i];
                 combination(sidx + 1, i);
             }
         }
     }
 
-    private static void moveBoard(){
+    private static void moveBoard() {
         String[][] copyMap = map.clone();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             copyMap[i] = map[i].clone();
         }
 
@@ -77,137 +76,130 @@ public class Main {
         boolean redout = false;
         boolean blueout = false;
 
-        for(int i=0 ; i<10 ; i++){
-            if(sel[i] == 'U'){
-                if(rx < bx){
+        for (int i = 0; i < 10; i++) {
+            if (sel[i] == 'U') {
+                if (rx < bx) {
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx-1][ry].equals(".")){
+                    while (copyMap[rx - 1][ry].equals(".")) {
                         rx--;
                     }
-                    if(copyMap[rx-1][ry].equals("O")) redout = true;
+                    if (copyMap[rx - 1][ry].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
 
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx-1][by].equals(".")){
+                    while (copyMap[bx - 1][by].equals(".")) {
                         bx--;
                     }
-                    if(copyMap[bx-1][by].equals("O")) blueout = true;
+                    if (copyMap[bx - 1][by].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
-                }
-                else{
+                } else {
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx-1][by].equals(".")){
+                    while (copyMap[bx - 1][by].equals(".")) {
                         bx--;
                     }
-                    if(copyMap[bx-1][by].equals("O")) blueout = true;
+                    if (copyMap[bx - 1][by].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
 
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx-1][ry].equals(".")){
+                    while (copyMap[rx - 1][ry].equals(".")) {
                         rx--;
                     }
-                    if(copyMap[rx-1][ry].equals("O")) redout = true;
+                    if (copyMap[rx - 1][ry].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
                 }
-            }
-            else if(sel[i] == 'D'){
-                if(rx > bx){
+            } else if (sel[i] == 'D') {
+                if (rx > bx) {
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx+1][ry].equals(".")){
+                    while (copyMap[rx + 1][ry].equals(".")) {
                         rx++;
                     }
-                    if(copyMap[rx+1][ry].equals("O")) redout = true;
+                    if (copyMap[rx + 1][ry].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
 
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx+1][by].equals(".")){
+                    while (copyMap[bx + 1][by].equals(".")) {
                         bx++;
                     }
-                    if(copyMap[bx+1][by].equals("O")) blueout = true;
+                    if (copyMap[bx + 1][by].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
-                }
-                else{
+                } else {
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx+1][by].equals(".")){
+                    while (copyMap[bx + 1][by].equals(".")) {
                         bx++;
                     }
-                    if(copyMap[bx+1][by].equals("O")) blueout = true;
+                    if (copyMap[bx + 1][by].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
 
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx+1][ry].equals(".")){
+                    while (copyMap[rx + 1][ry].equals(".")) {
                         rx++;
                     }
-                    if(copyMap[rx+1][ry].equals("O")) redout = true;
+                    if (copyMap[rx + 1][ry].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
                 }
-            }
-            else if(sel[i] == 'L'){
-                if(ry < by){
+            } else if (sel[i] == 'L') {
+                if (ry < by) {
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx][ry-1].equals(".")){
+                    while (copyMap[rx][ry - 1].equals(".")) {
                         ry--;
                     }
-                    if(copyMap[rx][ry-1].equals("O")) redout = true;
+                    if (copyMap[rx][ry - 1].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
 
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx][by-1].equals(".")){
+                    while (copyMap[bx][by - 1].equals(".")) {
                         by--;
                     }
-                    if(copyMap[bx][by-1].equals("O")) blueout = true;
+                    if (copyMap[bx][by - 1].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
-                }
-                else{
+                } else {
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx][by-1].equals(".")){
+                    while (copyMap[bx][by - 1].equals(".")) {
                         by--;
                     }
-                    if(copyMap[bx][by-1].equals("O")) blueout = true;
+                    if (copyMap[bx][by - 1].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
 
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx][ry-1].equals(".")){
+                    while (copyMap[rx][ry - 1].equals(".")) {
                         ry--;
                     }
-                    if(copyMap[rx][ry-1].equals("O")) redout = true;
+                    if (copyMap[rx][ry - 1].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
                 }
-            }
-            else if(sel[i] == 'R'){
-                if(ry > by){
+            } else if (sel[i] == 'R') {
+                if (ry > by) {
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx][ry+1].equals(".")){
+                    while (copyMap[rx][ry + 1].equals(".")) {
                         ry++;
                     }
-                    if(copyMap[rx][ry+1].equals("O")) redout = true;
+                    if (copyMap[rx][ry + 1].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
 
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx][by+1].equals(".")){
+                    while (copyMap[bx][by + 1].equals(".")) {
                         by++;
                     }
-                    if(copyMap[bx][by+1].equals("O")) blueout = true;
+                    if (copyMap[bx][by + 1].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
-                }
-                else{
+                } else {
                     copyMap[bx][by] = ".";
-                    while(copyMap[bx][by+1].equals(".")){
+                    while (copyMap[bx][by + 1].equals(".")) {
                         by++;
                     }
-                    if(copyMap[bx][by+1].equals("O")) blueout = true;
+                    if (copyMap[bx][by + 1].equals("O")) blueout = true;
                     else copyMap[bx][by] = "B";
 
                     copyMap[rx][ry] = ".";
-                    while(copyMap[rx][ry+1].equals(".")){
+                    while (copyMap[rx][ry + 1].equals(".")) {
                         ry++;
                     }
-                    if(copyMap[rx][ry+1].equals("O")) redout = true;
+                    if (copyMap[rx][ry + 1].equals("O")) redout = true;
                     else copyMap[rx][ry] = "R";
                 }
             }
 
-            if(redout && !blueout){
+            if (redout && !blueout) {
                 flag = true;
                 return;
             }

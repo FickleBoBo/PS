@@ -12,18 +12,16 @@ public class Main {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
         int N = Integer.parseInt(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int x = Integer.parseInt(br.readLine());
 
-            if(x > 0){
+            if (x > 0) {
                 pq.offer(x);
-            }
-            else{
-                if(pq.isEmpty()){
+            } else {
+                if (pq.isEmpty()) {
                     sb.append(0).append("\n");
 
-                }
-                else{
+                } else {
                     sb.append(pq.poll()).append("\n");
 
                 }

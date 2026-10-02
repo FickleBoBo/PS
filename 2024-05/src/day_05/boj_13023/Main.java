@@ -22,17 +22,17 @@ public class Main {
         int M = Integer.parseInt(input[1]);
 
         adj = new ArrayList[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             adj[i] = new ArrayList<>();
         }
 
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             sb.append(br.readLine() + " ");
         }
         StringTokenizer st = new StringTokenizer(sb.toString(), " ");
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
             adj[x].add(y);
@@ -41,28 +41,28 @@ public class Main {
 
         flag = false;
         visited = new boolean[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             visited[i] = true;
             DFS(i, 0);
             visited[i] = false;
-            if(flag) break;
+            if (flag) break;
         }
 
-        if(flag) System.out.println(1);
+        if (flag) System.out.println(1);
         else System.out.println(0);
 
     }
 
-    private static void DFS(int node, int depth){
-        if(depth==4) {
+    private static void DFS(int node, int depth) {
+        if (depth == 4) {
             flag = true;
             return;
         }
 
-        for(int i=0 ; i<adj[node].size() ; i++){
-            if(!visited[adj[node].get(i)]){
+        for (int i = 0; i < adj[node].size(); i++) {
+            if (!visited[adj[node].get(i)]) {
                 visited[adj[node].get(i)] = true;
-                DFS(adj[node].get(i), depth+1);
+                DFS(adj[node].get(i), depth + 1);
                 visited[adj[node].get(i)] = false;
             }
         }

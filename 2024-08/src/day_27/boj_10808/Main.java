@@ -14,11 +14,11 @@ public class Main {
         int[] cntArr = new int[26];
 
         // a(97) ~ z(122)까지 오름차순으로 아스키 코드가 부여되어 있어서 'a'를 빼면 0 ~ 25로 바꿀 수 있다
-        for(char c : input){
+        for (char c : input) {
             cntArr[c - 'a']++;
         }
 
-        for(int n : cntArr){
+        for (int n : cntArr) {
             sb.append(n).append(" ");
         }
 

@@ -64,7 +64,7 @@ public class Main {
 
                         // 번호가 짝수인 직원은 상사에게 왼쪽 부하 직원
                         if (i % 2 == 0) tree[i / 2].left.add(task);
-                        // 번호가 홀수인 직원은 상사에게 오른쪽 부하 직원
+                            // 번호가 홀수인 직원은 상사에게 오른쪽 부하 직원
                         else tree[i / 2].right.add(task);
                     }
                     // 짝수일이면서 오른쪽 부하직원이 준 업무가 있는 경우
@@ -73,7 +73,7 @@ public class Main {
 
                         // 번호가 짝수인 직원은 상사에게 왼쪽 부하 직원
                         if (i % 2 == 0) tree[i / 2].left.add(task);
-                        // 번호가 홀수인 직원은 상사에게 오른쪽 부하 직원
+                            // 번호가 홀수인 직원은 상사에게 오른쪽 부하 직원
                         else tree[i / 2].right.add(task);
                     }
                 }
@@ -83,7 +83,7 @@ public class Main {
             for (int i = leafStart; i <= leafEnd; i++) {
                 // 번호가 짝수인 직원은 상사에게 왼쪽 부하 직원
                 if ((i % 2 == 0) && !tree[i].left.isEmpty()) tree[i / 2].left.add(tree[i].left.remove());
-                // 번호가 홀수인 직원은 상사에게 오른쪽 부하 직원
+                    // 번호가 홀수인 직원은 상사에게 오른쪽 부하 직원
                 else if ((i % 2 == 1) && !tree[i].right.isEmpty()) tree[i / 2].right.add(tree[i].right.remove());
             }
         }

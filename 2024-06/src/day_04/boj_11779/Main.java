@@ -32,11 +32,11 @@ public class Main {
         N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
 
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int A = Integer.parseInt(st.nextToken());
             int B = Integer.parseInt(st.nextToken());
@@ -59,37 +59,37 @@ public class Main {
         System.out.println(ans[0][end]);
 
         Stack<Integer> stack = new Stack<>();
-        while(true){
+        while (true) {
             stack.push(end);
             end = ans[1][end];
-            if(end == 0) break;
+            if (end == 0) break;
         }
 
         System.out.println(stack.size());
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             System.out.print(stack.pop() + " ");
         }
 
     }
 
-    private static int[][] Dijkstra(int start){
+    private static int[][] Dijkstra(int start) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(start, 0));
 
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
 
-        int[][] dp = new int[2][1+N];
+        int[][] dp = new int[2][1 + N];
         Arrays.fill(dp[0], INF);
         dp[0][start] = 0;
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if(visited[node.v]) continue;
+            if (visited[node.v]) continue;
             visited[node.v] = true;
 
-            for(Node next : adj[node.v]){
-                if(!visited[next.v] && (dp[0][node.v] + next.w < dp[0][next.v])){
+            for (Node next : adj[node.v]) {
+                if (!visited[next.v] && (dp[0][node.v] + next.w < dp[0][next.v])) {
                     dp[0][next.v] = dp[0][node.v] + next.w;
                     pq.add(new Node(next.v, dp[0][next.v]));
                     dp[1][next.v] = node.v;

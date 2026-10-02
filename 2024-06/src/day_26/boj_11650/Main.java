@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Item implements Comparable<Item>{
+    static class Item implements Comparable<Item> {
         int x;
         int y;
 
@@ -16,7 +16,7 @@ public class Main {
 
         @Override
         public int compareTo(Item o) {
-            if(this.x != o.x){
+            if (this.x != o.x) {
                 return Integer.compare(this.x, o.x);
             }
             return Integer.compare(this.y, o.y);
@@ -33,7 +33,7 @@ public class Main {
 
         Item[] arr = new Item[N];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int x = Integer.parseInt(st.nextToken());
@@ -45,7 +45,7 @@ public class Main {
         // Comparable
         Arrays.sort(arr);
 
-        for(Item item : arr){
+        for (Item item : arr) {
             sb.append(item.x).append(" ").append(item.y).append("\n");
         }
 

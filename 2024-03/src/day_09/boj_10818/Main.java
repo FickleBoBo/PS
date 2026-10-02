@@ -10,12 +10,12 @@ public class Main {
         int N = sc.nextInt();
         int[] nums = new int[N];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             nums[i] = sc.nextInt();
         }
 
         Arrays.sort(nums);
 
-        System.out.println(nums[0] + " " + nums[N-1]);
+        System.out.println(nums[0] + " " + nums[N - 1]);
     }
 }

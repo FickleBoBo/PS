@@ -21,18 +21,18 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         map = new int[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            for(int j=0 ; j<M ; j++){
+            for (int j = 0; j < M; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
         int cnt = 0;
         int ans = 0;
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
-                if(map[i][j] == 1){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (map[i][j] == 1) {
                     int area = BFS(i, j);
                     ans = Math.max(ans, area);    // 그림 넓이의 최댓값 갱신
                     cnt++;    // 그림의 개수 갱신
@@ -44,19 +44,19 @@ public class Main {
         System.out.println(ans);
     }
 
-    private static int BFS(int r, int c){
+    private static int BFS(int r, int c) {
         Queue<int[]> q = new ArrayDeque<>();
         q.offer(new int[]{r, c});
         map[r][c] = 0;    // 원본 맵을 수정해서 방문체크
         int cnt = 1;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] node = q.poll();
 
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = node[0] + dr[dir];
                 int nc = node[1] + dc[dir];
-                if(nr>=0 && nr<N && nc>=0 && nc<M && (map[nr][nc]==1)){
+                if (nr >= 0 && nr < N && nc >= 0 && nc < M && (map[nr][nc] == 1)) {
                     q.offer(new int[]{nr, nc});
                     map[nr][nc] = 0;
                     cnt++;

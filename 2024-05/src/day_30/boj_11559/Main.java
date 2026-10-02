@@ -16,24 +16,24 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         map = new String[12][6];
-        for(int i=0 ; i<12 ; i++){
+        for (int i = 0; i < 12; i++) {
             map[i] = br.readLine().split("");
         }
 
         int cnt = 0;
-        while(true){
+        while (true) {
             boolean flag = false;
-            for(int i=11 ; i>=0 ; i--){
-                for(int j=0 ; j<6 ; j++){
-                    if(!map[i][j].equals(".")){
+            for (int i = 11; i >= 0; i--) {
+                for (int j = 0; j < 6; j++) {
+                    if (!map[i][j].equals(".")) {
                         boolean tmpFlag = BFS(i, j, map[i][j]);
-                        if(tmpFlag){
+                        if (tmpFlag) {
                             flag = true;
                         }
                     }
                 }
             }
-            if(flag){
+            if (flag) {
                 dropPuyoPuyo();
                 cnt++;
                 continue;
@@ -44,9 +44,9 @@ public class Main {
         System.out.println(cnt);
     }
 
-    private static void printMap(){
-        for(int i=0 ; i<12 ; i++){
-            for(int j=0 ; j<6 ; j++){
+    private static void printMap() {
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 6; j++) {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();
@@ -54,16 +54,16 @@ public class Main {
         System.out.println();
     }
 
-    private static void dropPuyoPuyo(){
-        for(int j=0 ; j<6 ; j++){
+    private static void dropPuyoPuyo() {
+        for (int j = 0; j < 6; j++) {
             out:
-            for(int i=11 ; i>0 ; i--){
-                if(map[i][j].equals(".")){
-                    for(int k=1 ; k<=i ; k++){
-                        if(!map[i-k][j].equals(".")){
+            for (int i = 11; i > 0; i--) {
+                if (map[i][j].equals(".")) {
+                    for (int k = 1; k <= i; k++) {
+                        if (!map[i - k][j].equals(".")) {
                             String tmp = map[i][j];
-                            map[i][j] = map[i-k][j];
-                            map[i-k][j] = tmp;
+                            map[i][j] = map[i - k][j];
+                            map[i - k][j] = tmp;
                             continue out;
                         }
                     }
@@ -73,7 +73,7 @@ public class Main {
         }
     }
 
-    private static boolean BFS(int r, int c, String color){
+    private static boolean BFS(int r, int c, String color) {
         boolean flag = false;
         Queue<int[]> q = new LinkedList<>();
         boolean[][] visited = new boolean[12][6];
@@ -83,12 +83,12 @@ public class Main {
         visited[r][c] = true;
         cnt++;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] item = q.poll();
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = item[0] + dr[dir];
                 int nc = item[1] + dc[dir];
-                if(nr>=0 && nr<12 && nc>=0 && nc<6 && !visited[nr][nc] && map[nr][nc].equals(color)){
+                if (nr >= 0 && nr < 12 && nc >= 0 && nc < 6 && !visited[nr][nc] && map[nr][nc].equals(color)) {
                     q.offer(new int[]{nr, nc});
                     visited[nr][nc] = true;
                     cnt++;
@@ -96,11 +96,11 @@ public class Main {
             }
         }
 
-        if(cnt >= 4){
+        if (cnt >= 4) {
             flag = true;
-            for(int i=0 ; i<12 ; i++){
-                for(int j=0 ; j<6 ; j++){
-                    if(visited[i][j]){
+            for (int i = 0; i < 12; i++) {
+                for (int j = 0; j < 6; j++) {
+                    if (visited[i][j]) {
                         map[i][j] = ".";
                     }
                 }

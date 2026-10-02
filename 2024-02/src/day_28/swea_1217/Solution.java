@@ -7,7 +7,7 @@ public class Solution {
 
         Scanner sc = new Scanner(System.in);
 
-        for(int tc=1 ; tc<=10 ; tc++){
+        for (int tc = 1; tc <= 10; tc++) {
             sc.nextInt();
             int N = sc.nextInt();
             int M = sc.nextInt();
@@ -19,11 +19,11 @@ public class Solution {
 
     // 오늘 배운 분할정복으로 재귀 돌려줌
     private static int powMethod(int n, int m) {
-        if(m == 1) return n;
+        if (m == 1) return n;
 
-        int tmp = powMethod(n, (m/2));
+        int tmp = powMethod(n, (m / 2));
 
-        if(m % 2 == 0) return tmp * tmp;
+        if (m % 2 == 0) return tmp * tmp;
         else return tmp * tmp * n;
     }
 

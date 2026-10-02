@@ -15,15 +15,15 @@ public class Main {
         char[] input = sc.next().toCharArray();    // 입력을 char[]로 변환해서 받음
 
         // 카운팅 배열 채우기로 char[]에서 char을 하나씩 뽑아서 소문자로 바꾸고 a를 빼주고 int로 형변환하면 카운팅 배열에 넣기 좋음
-        for(char c : input) {
+        for (char c : input) {
             countingArr[(int) (Character.toLowerCase(c) - 'a')]++;
         }
 
         // 최댓값과 인덱스 찾기
         int max = Integer.MIN_VALUE;
         int maxIdx = -1;
-        for(int i=0 ; i<countingArr.length ; i++){
-            if(countingArr[i] > max){
+        for (int i = 0; i < countingArr.length; i++) {
+            if (countingArr[i] > max) {
                 max = countingArr[i];
                 maxIdx = i;
             }
@@ -33,10 +33,9 @@ public class Main {
         int[] tmp = Arrays.copyOf(countingArr, countingArr.length);
         Arrays.sort(tmp);
 
-        if(tmp[25] == tmp[24]){
+        if (tmp[25] == tmp[24]) {
             System.out.println("?");
-        }
-        else{
+        } else {
             System.out.println(alphabet[maxIdx]);
         }
 

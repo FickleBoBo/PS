@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main2 {
 
-    static class Node implements Comparable<Node>{
+    static class Node implements Comparable<Node> {
         int r;
         int c;
         int cnt;
@@ -38,7 +38,7 @@ public class Main2 {
         N = Integer.parseInt(st.nextToken());
 
         map = new char[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();
         }
 
@@ -47,7 +47,7 @@ public class Main2 {
     }
 
     // 다익스트라 알고리즘
-    private static int Dijkstra(){
+    private static int Dijkstra() {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(0, 0, 0));
 
@@ -56,32 +56,32 @@ public class Main2 {
 
         // 해당 위치에 가기 위해 벽을 부순 횟수를 저장하는 배열
         int[][] dist = new int[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             Arrays.fill(dist[i], INF);
         }
         dist[0][0] = 0;
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if(visited[node.r][node.c]) continue;
+            if (visited[node.r][node.c]) continue;
             visited[node.r][node.c] = true;
 
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = node.r + dr[dir];
                 int nc = node.c + dc[dir];
 
-                if(nr>=0 && nr<N && nc>=0 && nc<M && !visited[nr][nc]){
+                if (nr >= 0 && nr < N && nc >= 0 && nc < M && !visited[nr][nc]) {
                     // 빈칸이면서 벽을 덜 부수고 갈 수 있으면
-                    if(map[nr][nc]=='0'){
-                        if(dist[nr][nc] > dist[node.r][node.c]){
+                    if (map[nr][nc] == '0') {
+                        if (dist[nr][nc] > dist[node.r][node.c]) {
                             dist[nr][nc] = dist[node.r][node.c];
                             pq.offer(new Node(nr, nc, dist[nr][nc]));
                         }
                     }
                     // 벽이면서 벽을 덜 부수고 갈 수 있으면
-                    else{
-                        if(dist[nr][nc] > dist[node.r][node.c] + 1){
+                    else {
+                        if (dist[nr][nc] > dist[node.r][node.c] + 1) {
                             dist[nr][nc] = dist[node.r][node.c] + 1;
                             pq.offer(new Node(nr, nc, dist[nr][nc]));
                         }
@@ -90,7 +90,7 @@ public class Main2 {
             }
         }
 
-        return dist[N-1][M-1];
+        return dist[N - 1][M - 1];
     }
 
 }

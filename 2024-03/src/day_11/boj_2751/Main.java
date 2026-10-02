@@ -12,14 +12,14 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         boolean[] countingArr = new boolean[2_000_001];
 
-        for(int i=1 ; i<=N ; i++){
-            countingArr[Integer.parseInt(br.readLine())+1_000_000] = true;
+        for (int i = 1; i <= N; i++) {
+            countingArr[Integer.parseInt(br.readLine()) + 1_000_000] = true;
         }
 
         // 중복이 없으므로 boolean 카운팅으로 계산(sort는 시간 초과나는듯)
-        for(int i=0 ; i<=2_000_000 ; i++){
-            if(countingArr[i]){
-                sb.append((i-1_000_000)+"\n");
+        for (int i = 0; i <= 2_000_000; i++) {
+            if (countingArr[i]) {
+                sb.append((i - 1_000_000) + "\n");
             }
         }
 

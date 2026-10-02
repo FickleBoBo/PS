@@ -22,7 +22,7 @@ public class Main {
 
         arr = new int[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(arr);
@@ -35,9 +35,9 @@ public class Main {
         bw.close();
     }
 
-    private static void combination(int idx, int sidx){
-        if(sidx == M){
-            for(int n : sel){
+    private static void combination(int idx, int sidx) {
+        if (sidx == M) {
+            for (int n : sel) {
                 sb.append(n).append(" ");
             }
             sb.append("\n");
@@ -45,11 +45,11 @@ public class Main {
         }
 
         int before = 0;
-        for(int i=idx ; i<N ; i++){
-            if(before!=arr[i]){
+        for (int i = idx; i < N; i++) {
+            if (before != arr[i]) {
                 sel[sidx] = arr[i];
                 before = arr[i];
-                combination(i, sidx+1);
+                combination(i, sidx + 1);
             }
         }
     }

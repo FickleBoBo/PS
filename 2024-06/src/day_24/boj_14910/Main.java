@@ -12,9 +12,9 @@ public class Main {
 
         boolean flag = true;
         int n = Integer.MIN_VALUE;
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int next = Integer.parseInt(st.nextToken());
-            if(n > next){
+            if (n > next) {
                 flag = false;
                 break;
             }

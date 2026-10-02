@@ -20,8 +20,8 @@ public class Main {
         int K = sc.nextInt();
 
         int[][] map = new int[N][M];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
@@ -35,14 +35,14 @@ public class Main {
         int front = 0;
         int back = 0;
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
 
             int dir = Integer.parseInt(st.nextToken());
 
-            if(((dir==1) && (y==M-1)) ||
-                    ((dir==2) && (y==0)) ||
-                    ((dir==3) && (x==0)) ||
-                    ((dir==4) && (x==N-1))) continue;
+            if (((dir == 1) && (y == M - 1)) ||
+                    ((dir == 2) && (y == 0)) ||
+                    ((dir == 3) && (x == 0)) ||
+                    ((dir == 4) && (x == N - 1))) continue;
 
 
             int nx = x + dr[dir];
@@ -50,7 +50,7 @@ public class Main {
             int newPos = map[nx][ny];
 
             // 오른쪽으로 갈 경우
-            if(dir==1){
+            if (dir == 1) {
                 int tmp = right;
                 right = front;
                 front = left;
@@ -60,7 +60,7 @@ public class Main {
                 y++;
             }
             // 왼쪽으로 갈 경우
-            else if(dir==2){
+            else if (dir == 2) {
                 int tmp = left;
                 left = front;
                 front = right;
@@ -70,7 +70,7 @@ public class Main {
                 y--;
             }
             // 위로 갈 경우
-            else if(dir==3){
+            else if (dir == 3) {
                 int tmp = up;
                 up = front;
                 front = down;
@@ -80,7 +80,7 @@ public class Main {
                 x--;
             }
             // 아래로 갈 경우
-            else if(dir==4){
+            else if (dir == 4) {
                 int tmp = down;
                 down = front;
                 front = up;
@@ -90,14 +90,12 @@ public class Main {
                 x++;
             }
 
-            if(map[nx][ny]==0){
+            if (map[nx][ny] == 0) {
                 map[nx][ny] = back;
-            }
-            else{
+            } else {
                 back = map[nx][ny];
                 map[nx][ny] = 0;
             }
-
 
 
             System.out.println(front);

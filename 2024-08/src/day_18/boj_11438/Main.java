@@ -20,13 +20,13 @@ public class Main {
         N = Integer.parseInt(br.readLine());
 
         // 1. 주어진 입력으로 트리의 연결 관계를 나타내는 인접리스트 초기화
-        adj = new ArrayList[1+N];
+        adj = new ArrayList[1 + N];
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
             int A = Integer.parseInt(st.nextToken());
             int B = Integer.parseInt(st.nextToken());
@@ -39,8 +39,8 @@ public class Main {
         // dp : 각 노드의 부모와 조상을 저장하는 dp 테이블
         // depth : 각 노드의 깊이를 저장하는 배열
         maxLog = (int) (Math.log(N) / Math.log(2)) + 1;    // (int) Math.ceil(Math.log(N) / Math.log(2))가 좀 더 좋은듯?
-        dp = new int[1+N][maxLog];
-        depth = new int[1+N];
+        dp = new int[1 + N][maxLog];
+        depth = new int[1 + N];
 
         // 3. BFS로 LCA 알고리즘에서 사용할 변수들 초기화
         // DFS로도 되고 LCA에서는 DFS가 정석이라고 함
@@ -49,16 +49,16 @@ public class Main {
 
         // 4. dp 테이블에서 조상 설정
         // 각 2^j번째 조상을 구하기 위해 1 ~ N번 노드에 대해 반복문을 돌리는 순서 중요
-        for(int j=1 ; j<maxLog ; j++){
-            for(int node=1 ; node<=N ; node++){
-                dp[node][j] = dp[dp[node][j-1]][j-1];
+        for (int j = 1; j < maxLog; j++) {
+            for (int node = 1; node <= N; node++) {
+                dp[node][j] = dp[dp[node][j - 1]][j - 1];
             }
         }
 
         // 5. 두 노드에 대한 LCA 알고리즘 수행
         int M = Integer.parseInt(br.readLine());
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -74,18 +74,18 @@ public class Main {
     }
 
     // BFS는 루트에서 수행
-    private static void BFS(int root){
+    private static void BFS(int root) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(root);
 
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
         visited[root] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int parent = q.poll();
 
-            for(int child : adj[parent]){
-                if(visited[child]) continue;
+            for (int child : adj[parent]) {
+                if (visited[child]) continue;
 
                 q.offer(child);
                 visited[child] = true;
@@ -100,21 +100,21 @@ public class Main {
         }
     }
 
-    private static void DFS(int node, int parent){
+    private static void DFS(int node, int parent) {
         depth[node] = depth[parent] + 1;
         dp[node][0] = parent;
 
-        for(int next : adj[node]){
-            if(next == parent) continue;
+        for (int next : adj[node]) {
+            if (next == parent) continue;
 
             DFS(next, node);
         }
     }
 
     // LCA 알고리즘
-    private static int LCA(int a, int b){
+    private static int LCA(int a, int b) {
         // 깊이가 더 깊은 것을 a로 설정
-        if(depth[a] < depth[b]){
+        if (depth[a] < depth[b]) {
             int tmp = a;
             a = b;
             b = tmp;
@@ -125,8 +125,8 @@ public class Main {
 
         // 두 노드의 깊이를 맞출때는 비트 마스킹을 이용
         // ex) 깊이 차가 5면 5 -> 101 이니까 1칸 + 4칸 이동한다 느낌
-        for(int i=0 ; i<maxLog ; i++){
-            if((diff & (1 << i)) > 0){
+        for (int i = 0; i < maxLog; i++) {
+            if ((diff & (1 << i)) > 0) {
                 a = dp[a][i];
             }
         }
@@ -143,8 +143,8 @@ public class Main {
         // 2칸 위는 서로 조상이 같으니 패스(최소 공통 조상이지만 패스)
         // 1칸 위는 서로 조상이 다르니 각각 이동(이제 1칸 위가 최소 공통 조상이겠지?)
         // 반복문 종료
-        for(int i=maxLog-1 ; i>=0 ; i--){
-            if(dp[a][i] != dp[b][i]){
+        for (int i = maxLog - 1; i >= 0; i--) {
+            if (dp[a][i] != dp[b][i]) {
                 a = dp[a][i];
                 b = dp[b][i];
             }

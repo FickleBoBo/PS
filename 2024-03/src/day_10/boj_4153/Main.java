@@ -12,11 +12,10 @@ public class Main {
         nums[1] = sc.nextInt();
         nums[2] = sc.nextInt();
         Arrays.sort(nums);    // 입력이 오름차순은 아님
-        while(nums[0] > 0){    // 종료 조건
-            if(nums[0]*nums[0] + nums[1]*nums[1] == nums[2]*nums[2]){
+        while (nums[0] > 0) {    // 종료 조건
+            if (nums[0] * nums[0] + nums[1] * nums[1] == nums[2] * nums[2]) {
                 System.out.println("right");
-            }
-            else{
+            } else {
                 System.out.println("wrong");
             }
             nums[0] = sc.nextInt();

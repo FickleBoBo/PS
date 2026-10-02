@@ -20,8 +20,8 @@ public class Main {
 
         // map : 지도 정보 받아줌
         int[][] map = new int[N][M];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
@@ -41,16 +41,16 @@ public class Main {
 
 
         // 명령이 남아있는 동안 반복
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
 
             // dir : 방향 정보 토큰을 받아서 형변환
             int dir = Integer.parseInt(st.nextToken());
 
             // 이동 불가일때 continue로 명령 무시
-            if(((dir==1) && (y==M-1)) ||
-                    ((dir==2) && (y==0)) ||
-                    ((dir==3) && (x==0)) ||
-                    ((dir==4) && (x==N-1))) continue;
+            if (((dir == 1) && (y == M - 1)) ||
+                    ((dir == 2) && (y == 0)) ||
+                    ((dir == 3) && (x == 0)) ||
+                    ((dir == 4) && (x == N - 1))) continue;
 
             // 델타용 좌표 계산
             int nx = x + dr[dir];
@@ -58,13 +58,12 @@ public class Main {
             int newPos = map[nx][ny];
 
             // 오른쪽으로 갈 경우
-            if(dir==1) {
+            if (dir == 1) {
                 int tmp = back;             // 임시변수에 back 정보 받아줌(3개를 스왑하는 개념)
-                if(newPos==0){              // 다음 칸의 바닥면이 0이면
+                if (newPos == 0) {              // 다음 칸의 바닥면이 0이면
                     map[nx][ny] = right;    // 기존 주사위의 오른쪽면이 바닥으로 갈테니 덮어줌
                     back = right;           // 이거 찾는데 개오래 걸렸는데 새로운 바닥면에 기존의 오른쪽 숫자를 넣어줘야 함(right 대신 0 넣어서 테케 4가 계속 틀림)
-                }
-                else{
+                } else {
                     back = newPos;          // 다음 칸의 바닥면이 0이 아니면
                     map[nx][ny] = 0;        // 0으로 바꿔줌
                 }
@@ -75,13 +74,12 @@ public class Main {
                 y++;    // 계산 끝나면 좌표 갱신
             }
             // 왼쪽으로 갈 경우
-            else if(dir==2){
+            else if (dir == 2) {
                 int tmp = back;
-                if(newPos==0){
+                if (newPos == 0) {
                     map[nx][ny] = left;
                     back = left;
-                }
-                else{
+                } else {
                     back = newPos;
                     map[nx][ny] = 0;
                 }
@@ -92,13 +90,12 @@ public class Main {
                 y--;    // 계산 끝나면 좌표 갱신
             }
             // 위로 갈 경우
-            else if(dir==3){
+            else if (dir == 3) {
                 int tmp = back;
-                if(newPos==0){
+                if (newPos == 0) {
                     map[nx][ny] = up;
                     back = up;
-                }
-                else{
+                } else {
                     back = newPos;
                     map[nx][ny] = 0;
                 }
@@ -109,13 +106,12 @@ public class Main {
                 x--;    // 계산 끝나면 좌표 갱신
             }
             // 아래로 갈 경우
-            else if(dir==4){
+            else if (dir == 4) {
                 int tmp = back;
-                if(newPos==0){
+                if (newPos == 0) {
                     map[nx][ny] = down;
                     back = down;
-                }
-                else{
+                } else {
                     back = newPos;
                     map[nx][ny] = 0;
                 }

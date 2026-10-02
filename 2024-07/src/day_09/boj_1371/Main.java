@@ -13,23 +13,23 @@ public class Main {
         String str;
         int[] cntArr = new int[26];
 
-        while((str = br.readLine()) != null){
+        while ((str = br.readLine()) != null) {
             st = new StringTokenizer(str);
-            while(st.hasMoreTokens()){
+            while (st.hasMoreTokens()) {
                 char[] input = st.nextToken().toCharArray();
-                for(char c : input){
+                for (char c : input) {
                     cntArr[c - 'a']++;
                 }
             }
         }
 
         int max = 0;
-        for(int i=0 ; i<26 ; i++){
+        for (int i = 0; i < 26; i++) {
             max = Math.max(max, cntArr[i]);
         }
 
-        for(int i=0 ; i<26 ; i++){
-            if(cntArr[i] == max){
+        for (int i = 0; i < 26; i++) {
+            if (cntArr[i] == max) {
                 sb.append((char) (i + 'a'));
             }
         }

@@ -13,19 +13,19 @@ public class Main {
         Set<Integer> set = new HashSet<>();
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.add(Integer.parseInt(st.nextToken()));
         }
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.remove(Integer.parseInt(st.nextToken()));
         }
 
         PriorityQueue<Integer> pq = new PriorityQueue<>(set);
 
         sb.append(pq.size()).append("\n");
-        while(!pq.isEmpty()) sb.append(pq.poll()).append(" ");
+        while (!pq.isEmpty()) sb.append(pq.poll()).append(" ");
 
         bw.write(sb.toString());
         bw.flush();

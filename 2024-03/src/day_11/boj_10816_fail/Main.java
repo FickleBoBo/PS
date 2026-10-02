@@ -17,17 +17,17 @@ public class Main {
         st = new StringTokenizer(br.readLine(), " ");
         List<Integer> list = new ArrayList<>();
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             list.add(Integer.parseInt(st.nextToken()));
         }
 
         int M = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine(), " ");
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int ans = 0;
             int num = Integer.parseInt(st.nextToken());
-            while(list.contains(num)){
+            while (list.contains(num)) {
                 list.remove((Integer) num);
                 ans++;
             }

@@ -15,14 +15,14 @@ public class Main {
 
         // 1 ~ N가지 Queue에 담음
         Queue<Integer> q = new ArrayDeque<>();
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             q.offer(i);
         }
 
         sb.append("<");
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             // Queue에서 꺼내면서 집어 넣음
-            for(int i=1 ; i<K ; i++){
+            for (int i = 1; i < K; i++) {
                 q.offer(q.poll());
             }
 

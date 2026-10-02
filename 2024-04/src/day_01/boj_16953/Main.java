@@ -17,29 +17,29 @@ public class Main {
         int cnt = q.size();
 
         boolean flag = false;
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             Long num = q.poll();
             cnt--;
 
-            if(num == B){
+            if (num == B) {
                 flag = true;
                 break;
             }
 
-            if(num * 2 <= B){
+            if (num * 2 <= B) {
                 q.offer(num * 2);
             }
-            if(num * 10 + 1 <= B){
+            if (num * 10 + 1 <= B) {
                 q.offer(num * 10 + 1);
             }
 
-            if(cnt == 0){
+            if (cnt == 0) {
                 cnt = q.size();
                 ans++;
             }
         }
 
-        if(flag) System.out.println(ans);
+        if (flag) System.out.println(ans);
         else System.out.println(-1);
 
         sc.close();

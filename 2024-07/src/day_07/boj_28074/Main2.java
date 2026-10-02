@@ -8,10 +8,9 @@ public class Main2 {
 
         String input = br.readLine();
 
-        if(input.contains("M") && input.contains("O") && input.contains("B") && input.contains("I") && input.contains("S")){
+        if (input.contains("M") && input.contains("O") && input.contains("B") && input.contains("I") && input.contains("S")) {
             System.out.println("YES");
-        }
-        else{
+        } else {
             System.out.println("NO");
         }
     }

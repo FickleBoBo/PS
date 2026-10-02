@@ -11,9 +11,15 @@ class Solution {
 
         // Queue로 바꾸고 각 Queue의 원소의 합 저장
         long sum1 = 0;
-        for(int n : queue1) { q1.offer(n); sum1 += n; }
+        for (int n : queue1) {
+            q1.offer(n);
+            sum1 += n;
+        }
         long sum2 = 0;
-        for(int n : queue2) { q2.offer(n); sum2 += n; }
+        for (int n : queue2) {
+            q2.offer(n);
+            sum2 += n;
+        }
 
         // 작업 횟수
         int cnt = 0;
@@ -21,23 +27,23 @@ class Solution {
         // 두 큐의 합을 같게 만들 수 있으면 true, 없으면 false
         boolean flag = true;
 
-        while(true){
+        while (true) {
             // 한 쪽 큐가 빌 때까지 이동하는 상황이면 불가능한 원소 조합
             // 이유는 잘 모르겠는데 모든 원소의 총합의 절반보다 큰 원소가 있어야만 가능한 경우로 예상(예제 3번 케이스)?
-            if(q1.isEmpty() || q2.isEmpty()){
+            if (q1.isEmpty() || q2.isEmpty()) {
                 flag = false;
                 break;
             }
 
             // 이거 없으면 테스트 케이스 11번, 28번 시간초과나는데 느낌이 딱 무한루프
             // cnt의 상한이 얼마인지는 잘 모르겠음
-            if(cnt > (q1.size() + q2.size()) * 2){
+            if (cnt > (q1.size() + q2.size()) * 2) {
                 flag = false;
                 break;
             }
 
             // 큐1의 총합이 더 크면 큐1에서 큐2로 하나 옮김
-            if(sum1 > sum2){
+            if (sum1 > sum2) {
                 int n = q1.poll();
                 sum1 -= n;
                 sum2 += n;
@@ -45,7 +51,7 @@ class Solution {
                 cnt++;
             }
             // 큐2의 총합이 더 크면 큐2에서 큐1로 하나 옮김
-            else if(sum1 < sum2){
+            else if (sum1 < sum2) {
                 int n = q2.poll();
                 sum1 += n;
                 sum2 -= n;
@@ -53,7 +59,7 @@ class Solution {
                 cnt++;
             }
             // 두 큐의 합이 같으면 종료
-            else{
+            else {
                 break;
             }
         }

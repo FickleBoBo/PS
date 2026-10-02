@@ -9,13 +9,13 @@ public class Main2 {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
-        StringBuilder[] sbArr = new StringBuilder[1+200];    // 카운팅 배열
-        for(int i=0 ; i<=200 ; i++){    // enhenced for 문으로 출력할거라 0번도 초기화
+        StringBuilder[] sbArr = new StringBuilder[1 + 200];    // 카운팅 배열
+        for (int i = 0; i <= 200; i++) {    // enhenced for 문으로 출력할거라 0번도 초기화
             sbArr[i] = new StringBuilder();
         }
 
         int N = Integer.parseInt(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int age = Integer.parseInt(st.nextToken());
@@ -24,7 +24,7 @@ public class Main2 {
             sbArr[age].append(age).append(" ").append(name).append("\n");
         }
 
-        for(StringBuilder sb : sbArr){
+        for (StringBuilder sb : sbArr) {
             bw.write(sb.toString());
         }
         bw.flush();

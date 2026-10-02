@@ -35,15 +35,15 @@ public class Main {
         StringTokenizer st;
 
         int tc = 1;
-        while(true){
+        while (true) {
             int N = Integer.parseInt(br.readLine());
-            if(N == 0) break;
+            if (N == 0) break;
 
             int[][] adj = new int[N][N];
-            for(int i=0 ; i<N ; i++){
+            for (int i = 0; i < N; i++) {
                 st = new StringTokenizer(br.readLine());
 
-                for(int j=0 ; j<N ; j++){
+                for (int j = 0; j < N; j++) {
                     adj[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
@@ -55,32 +55,32 @@ public class Main {
 
     }
 
-    private static int Dijkstra(int N, int[][] adj){
+    private static int Dijkstra(int N, int[][] adj) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(0, 0, 0));
 
         boolean[][] visited = new boolean[N][N];
 
         int[][] dist = new int[N][N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             Arrays.fill(dist[i], INF);
         }
         dist[0][0] = adj[0][0];
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if(visited[node.r][node.c]) continue;
+            if (visited[node.r][node.c]) continue;
             visited[node.r][node.c] = true;
 
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = node.r + dr[dir];
                 int nc = node.c + dc[dir];
-                
-                if(nr>=0 && nr<N && nc>=0 && nc<N && !visited[nr][nc]){
-                    
+
+                if (nr >= 0 && nr < N && nc >= 0 && nc < N && !visited[nr][nc]) {
+
                     // 등호 있으나 없으나네
-                    if(dist[node.r][node.c] + adj[nr][nc] <= dist[nr][nc]){
+                    if (dist[node.r][node.c] + adj[nr][nc] <= dist[nr][nc]) {
                         dist[nr][nc] = dist[node.r][node.c] + adj[nr][nc];
                         pq.add(new Node(nr, nc, dist[nr][nc]));
                     }
@@ -96,7 +96,7 @@ public class Main {
 //            System.out.println();
 //        }
 
-        return dist[N-1][N-1];
+        return dist[N - 1][N - 1];
     }
 
 }

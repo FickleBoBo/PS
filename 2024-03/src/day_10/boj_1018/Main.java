@@ -13,12 +13,12 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
         input = new char[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             input[i] = sc.next().toCharArray();
         }
 
-        for(int i=0 ; i<=N-8 ; i++){
-            for(int j=0 ; j<=M-8 ; j++){
+        for (int i = 0; i <= N - 8; i++) {
+            for (int j = 0; j <= M - 8; j++) {
                 paintBlack(i, j);
                 paintWhite(i, j);
             }
@@ -30,13 +30,12 @@ public class Main {
     private static void paintBlack(int r, int c) {
         boolean isBlack = true;
         int count = 0;
-        for(int i=r ; i<r+8 ; i++){
-            for(int j=c ; j<c+8 ; j++){
-                if(isBlack){
-                    if(input[i][j] == 'W') count++;
-                }
-                else{
-                    if(input[i][j] == 'B') count++;
+        for (int i = r; i < r + 8; i++) {
+            for (int j = c; j < c + 8; j++) {
+                if (isBlack) {
+                    if (input[i][j] == 'W') count++;
+                } else {
+                    if (input[i][j] == 'B') count++;
 
                 }
                 isBlack = !isBlack;
@@ -49,13 +48,12 @@ public class Main {
     private static void paintWhite(int r, int c) {
         boolean isWhite = true;
         int count = 0;
-        for(int i=r ; i<r+8 ; i++){
-            for(int j=c ; j<c+8 ; j++){
-                if(isWhite){
-                    if(input[i][j] == 'B') count++;
-                }
-                else{
-                    if(input[i][j] == 'W') count++;
+        for (int i = r; i < r + 8; i++) {
+            for (int j = c; j < c + 8; j++) {
+                if (isWhite) {
+                    if (input[i][j] == 'B') count++;
+                } else {
+                    if (input[i][j] == 'W') count++;
 
                 }
                 isWhite = !isWhite;

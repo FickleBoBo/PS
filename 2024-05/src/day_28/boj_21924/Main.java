@@ -36,14 +36,14 @@ public class Main {
         int M = Integer.parseInt(input[1]);
 
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             sb.append(br.readLine() + " ");
         }
         StringTokenizer st = new StringTokenizer(sb.toString(), " ");
 
         List<Edge> edges = new ArrayList<>();
         long sum = 0;
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
@@ -52,8 +52,8 @@ public class Main {
         }
         Collections.sort(edges);
 
-        p = new int[1+N];
-        for(int i=1 ; i<=N ; i++){
+        p = new int[1 + N];
+        for (int i = 1; i <= N; i++) {
             p[i] = i;
         }
 
@@ -61,34 +61,34 @@ public class Main {
         int cnt = 0;
         boolean connected = false;
 
-        for(int i=0 ; i<edges.size() ; i++){
+        for (int i = 0; i < edges.size(); i++) {
             int x = find(edges.get(i).a);
             int y = find(edges.get(i).b);
-            if(x == y) continue;
+            if (x == y) continue;
 
             union(x, y);
             sum -= edges.get(i).v;
             cnt++;
-            if(cnt == N-1){
+            if (cnt == N - 1) {
                 connected = true;
                 break;
             }
         }
 
-        if(connected) System.out.println(sum);
+        if (connected) System.out.println(sum);
         else System.out.println(-1);
     }
 
     static int[] p;
 
-    private static int find(int x){
-        if(x != p[x]){
+    private static int find(int x) {
+        if (x != p[x]) {
             p[x] = find(p[x]);
         }
         return p[x];
     }
 
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 

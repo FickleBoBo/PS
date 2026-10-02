@@ -27,17 +27,17 @@ public class Main {
 
     private static void permutationWithRepetition(int sidx) {
 
-        if(sidx == M){
-            for(int i=0 ; i<M ; i++){
+        if (sidx == M) {
+            for (int i = 0; i < M; i++) {
                 sb.append(sel[i] + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             sel[sidx] = i;
-            permutationWithRepetition(sidx+1);
+            permutationWithRepetition(sidx + 1);
         }
 
     }

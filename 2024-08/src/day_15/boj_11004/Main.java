@@ -14,10 +14,10 @@ public class Main {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
         st = new StringTokenizer(br.readLine());
-        for(int i=K ; i<=N ; i++){
+        for (int i = K; i <= N; i++) {
             pq.offer(Integer.parseInt(st.nextToken()));
         }
-        for(int i=1 ; i<K ; i++){
+        for (int i = 1; i < K; i++) {
             pq.offer(Integer.parseInt(st.nextToken()));
             pq.poll();
         }

@@ -18,10 +18,10 @@ public class Main {
         sc.close();
     }
 
-    private static long comb(long n, long k){
-        if(k==0) return n;
-        else if(k==n) return 1;
-        return (comb(n-1, k) + comb(n-1, k-1)) % M;
+    private static long comb(long n, long k) {
+        if (k == 0) return n;
+        else if (k == n) return 1;
+        return (comb(n - 1, k) + comb(n - 1, k - 1)) % M;
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Person implements Comparable<Person>{
+    static class Person implements Comparable<Person> {
         int age;
         String name;
 
@@ -31,7 +31,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         Person[] pArr = new Person[N];
-        for(int i=0 ; i<N ; i++) {
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int age = Integer.parseInt(st.nextToken());
@@ -41,7 +41,7 @@ public class Main {
 
         Arrays.sort(pArr);
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(pArr[i].age).append(" ").append(pArr[i].name).append("\n");
         }
 

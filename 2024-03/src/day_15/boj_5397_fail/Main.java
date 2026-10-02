@@ -12,28 +12,25 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             List<Character> password = new LinkedList<>();
             int pos = 0;
             char[] input = br.readLine().toCharArray();
 
-            for(char c : input){
-                if(c == '<'){
-                    pos = pos > 0 ? pos-1 : pos;
-                }
-                else if(c == '>'){
-                    pos = pos < password.size() ? pos+1 : pos;
-                }
-                else if(c == '-'){
-                    if(pos > 0) password.remove(--pos);
-                }
-                else{
+            for (char c : input) {
+                if (c == '<') {
+                    pos = pos > 0 ? pos - 1 : pos;
+                } else if (c == '>') {
+                    pos = pos < password.size() ? pos + 1 : pos;
+                } else if (c == '-') {
+                    if (pos > 0) password.remove(--pos);
+                } else {
                     password.add(pos++, c);
                 }
             }
 
             StringBuilder sb = new StringBuilder();
-            for(char c : password){
+            for (char c : password) {
                 sb.append(c);
             }
             System.out.println(sb);

@@ -8,12 +8,12 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
-        List<Integer>[] adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        List<Integer>[] adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
-        int[] p = new int[1+N];
-        for(int i=0 ; i<M ; i++){
+        int[] p = new int[1 + N];
+        for (int i = 0; i < M; i++) {
             int from = sc.nextInt();
             int to = sc.nextInt();
             adj[from].add(to);
@@ -23,22 +23,22 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         Queue<Integer> q = new LinkedList<>();
 
-        for(int i=1 ; i<=N ; i++){
-            if(p[i] == 0){
+        for (int i = 1; i <= N; i++) {
+            if (p[i] == 0) {
                 q.offer(i);
             }
         }
 
         int cnt = 0;
-        while(true){
+        while (true) {
             int item = q.poll();
             sb.append(item + " ");
             cnt++;
-            if(cnt == N) break;
+            if (cnt == N) break;
 
-            for(int i : adj[item]){
+            for (int i : adj[item]) {
                 p[i]--;
-                if(p[i] == 0) q.offer(i);
+                if (p[i] == 0) q.offer(i);
             }
         }
 

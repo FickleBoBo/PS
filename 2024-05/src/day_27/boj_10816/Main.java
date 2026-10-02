@@ -14,7 +14,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         StringTokenizer st1 = new StringTokenizer(br.readLine(), " ");
         Map<String, Integer> map = new HashMap<>();
-        while(st1.hasMoreTokens()){
+        while (st1.hasMoreTokens()) {
             String key = st1.nextToken();
             map.put(key, map.getOrDefault(key, 0) + 1);
         }
@@ -23,7 +23,7 @@ public class Main {
         StringTokenizer st2 = new StringTokenizer(br.readLine(), " ");
 
         StringBuilder sb = new StringBuilder();
-        while(st2.hasMoreTokens()){
+        while (st2.hasMoreTokens()) {
             sb.append(map.getOrDefault(st2.nextToken(), 0) + " ");
         }
 

@@ -12,13 +12,12 @@ public class Main {
         Stack<Integer> st = new Stack<>();
         int ans = 0;
 
-        for(int i=0 ; i<K ; i++){
+        for (int i = 0; i < K; i++) {
             int n = sc.nextInt();
-            if(n > 0){
+            if (n > 0) {
                 st.push(n);
                 ans += n;
-            }
-            else{
+            } else {
                 ans -= st.pop();
             }
         }

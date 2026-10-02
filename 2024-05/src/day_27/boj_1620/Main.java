@@ -12,15 +12,15 @@ public class Main {
         int M = sc.nextInt();
         Map<String, String> map = new HashMap<>();
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             String input = sc.next();
-            map.put(input, i+"");
-            map.put(i+"", input);
+            map.put(input, i + "");
+            map.put(i + "", input);
         }
 
         sc.nextLine();
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             String input = sc.nextLine();
             System.out.println(map.get(input));
         }

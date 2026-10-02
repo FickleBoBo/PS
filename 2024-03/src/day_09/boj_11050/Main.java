@@ -11,10 +11,10 @@ public class Main {
         int K = sc.nextInt();
 
         int ans = 1;
-        for(int i=1 ; i<=K ; i++){    // 조합 공식 위쪽
+        for (int i = 1; i <= K; i++) {    // 조합 공식 위쪽
             ans *= N--;
         }
-        for(int i=1 ; i<=K ; i++){    // 조합 공식 아래쪽
+        for (int i = 1; i <= K; i++) {    // 조합 공식 아래쪽
             ans /= i;
         }
 

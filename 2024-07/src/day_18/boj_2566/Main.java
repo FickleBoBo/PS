@@ -12,12 +12,12 @@ public class Main {
         int maxR = -1;
         int maxC = -1;
 
-        for(int i=1 ; i<=9 ; i++){
+        for (int i = 1; i <= 9; i++) {
             st = new StringTokenizer(br.readLine());
 
-            for(int j=1 ; j<=9 ; j++){
+            for (int j = 1; j <= 9; j++) {
                 int num = Integer.parseInt(st.nextToken());
-                if(num >= max){
+                if (num >= max) {
                     max = num;
                     maxR = i;
                     maxC = j;

@@ -14,13 +14,12 @@ public class Main {
 
         Map<String, String> map = new HashMap<>();
 
-        for(int i=0 ; i<n ; i++){
+        for (int i = 0; i < n; i++) {
             String[] input = br.readLine().split(" ");
-            if(input[1].equals("enter")){
+            if (input[1].equals("enter")) {
                 map.put(input[0], input[1]);
-            }
-            else{
-                if(map.getOrDefault(input[0], null) != null){
+            } else {
+                if (map.getOrDefault(input[0], null) != null) {
                     map.remove(input[0]);
                 }
             }
@@ -28,13 +27,13 @@ public class Main {
 
         String[] left = new String[map.size()];
         int idx = 0;
-        for(String key : map.keySet()){
+        for (String key : map.keySet()) {
             left[idx++] = key;
         }
 
         Arrays.sort(left);
 
-        for(int i=left.length-1 ; i>=0 ; i--){
+        for (int i = left.length - 1; i >= 0; i--) {
             System.out.println(left[i]);
         }
     }

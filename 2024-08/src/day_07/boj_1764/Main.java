@@ -16,18 +16,18 @@ public class Main {
         PriorityQueue<String> pq = new PriorityQueue<>();
 
         Set<String> set = new HashSet<>();
-        for(int i=0 ; i<N ; i++) set.add(br.readLine());
+        for (int i = 0; i < N; i++) set.add(br.readLine());
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             String input = br.readLine();
 
-            if(set.contains(input)){
+            if (set.contains(input)) {
                 pq.offer(input);
             }
         }
 
         sb.append(pq.size()).append("\n");
-        while(!pq.isEmpty()) sb.append(pq.poll()).append("\n");
+        while (!pq.isEmpty()) sb.append(pq.poll()).append("\n");
 
         bw.write(sb.toString());
         bw.flush();

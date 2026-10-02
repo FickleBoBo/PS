@@ -21,11 +21,11 @@ public class Main3 {
         R = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
 
-        map = new char[1+R][1+C];
-        for(int i=1 ; i<=R ; i++){
+        map = new char[1 + R][1 + C];
+        for (int i = 1; i <= R; i++) {
             String input = br.readLine();
-            for(int j=1 ; j<=C ; j++){
-                map[i][j] = input.charAt(j-1);
+            for (int j = 1; j <= C; j++) {
+                map[i][j] = input.charAt(j - 1);
             }
         }
 
@@ -34,15 +34,15 @@ public class Main3 {
         System.out.println(ans);
     }
 
-    private static void DFS(int r, int c, int cnt, int visit){
+    private static void DFS(int r, int c, int cnt, int visit) {
         ans = Math.max(ans, cnt);
 
-        for(int dir=0 ; dir<4 ; dir++){
+        for (int dir = 0; dir < 4; dir++) {
             int nr = r + dr[dir];
             int nc = c + dc[dir];
 
-            if((visit & (1 << (map[nr][nc] - 'A'))) == 0 && nr>=1 && nr<=R && nc>=1 && nc<=C){
-                DFS(nr, nc, cnt+1, (visit | (1 << map[nr][nc] - 'A')));
+            if ((visit & (1 << (map[nr][nc] - 'A'))) == 0 && nr >= 1 && nr <= R && nc >= 1 && nc <= C) {
+                DFS(nr, nc, cnt + 1, (visit | (1 << map[nr][nc] - 'A')));
             }
         }
 

@@ -11,15 +11,15 @@ public class Main {
 
         Deque<Integer> stack = new ArrayDeque<>();
 
-        for(int i=0 ; i<K ; i++){
+        for (int i = 0; i < K; i++) {
             int n = Integer.parseInt(br.readLine());
 
-            if(n == 0) stack.pop();
+            if (n == 0) stack.pop();
             else stack.push(n);
         }
 
         int sum = 0;
-        while(!stack.isEmpty()) sum += stack.pop();
+        while (!stack.isEmpty()) sum += stack.pop();
 
         System.out.println(sum);
     }

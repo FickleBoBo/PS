@@ -11,24 +11,24 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        boolean[] isPrime = new boolean[1+N];
-        for(int i=2 ; i<=N ; i++){
+        boolean[] isPrime = new boolean[1 + N];
+        for (int i = 2; i <= N; i++) {
             isPrime[i] = true;
         }
 
-        for(int i=2 ; i<=N ; i++){
-            if(isPrime[i]){
+        for (int i = 2; i <= N; i++) {
+            if (isPrime[i]) {
                 K--;
-                if(K == 0){
+                if (K == 0) {
                     System.out.println(i);
                     return;
                 }
 
-                for(int j=i*i ; j<=N ; j+=i){
-                    if(isPrime[j]){
+                for (int j = i * i; j <= N; j += i) {
+                    if (isPrime[j]) {
                         isPrime[j] = false;
                         K--;
-                        if(K == 0){
+                        if (K == 0) {
                             System.out.println(j);
                             return;
                         }

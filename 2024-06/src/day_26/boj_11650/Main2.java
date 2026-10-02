@@ -5,11 +5,11 @@ import java.util.*;
 
 public class Main2 {
 
-    static class MyComparator implements Comparator<int[]>{
+    static class MyComparator implements Comparator<int[]> {
 
         @Override
         public int compare(int[] o1, int[] o2) {
-            if(o1[0] != o2[0]){
+            if (o1[0] != o2[0]) {
                 return Integer.compare(o1[0], o2[0]);
             }
             return Integer.compare(o1[1], o2[1]);
@@ -26,7 +26,7 @@ public class Main2 {
 
         int[][] arr = new int[N][2];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             arr[i][0] = Integer.parseInt(st.nextToken());
@@ -38,7 +38,7 @@ public class Main2 {
 
         Arrays.sort(arr, myComparator);
 
-        for(int[] item : arr){
+        for (int[] item : arr) {
             sb.append(item[0]).append(" ").append(item[1]).append("\n");
         }
 

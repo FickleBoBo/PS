@@ -29,7 +29,7 @@ public class Main_test {
         q.offer(new Node(4));
         q.offer(new Node(2));
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             System.out.print(q.poll().value + " ");
         }
         System.out.println();
@@ -40,7 +40,7 @@ public class Main_test {
         q.add(new Node(4));
         q.add(new Node(2));
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             System.out.print(q.poll().value + " ");
         }
         System.out.println();
@@ -52,7 +52,7 @@ public class Main_test {
         dq.offer(new Node(4));
         dq.offer(new Node(2));
 
-        while(!dq.isEmpty()){
+        while (!dq.isEmpty()) {
             System.out.print(dq.poll().value + " ");
         }
         System.out.println();
@@ -63,7 +63,7 @@ public class Main_test {
         dq.add(new Node(4));
         dq.add(new Node(2));
 
-        while(!dq.isEmpty()){
+        while (!dq.isEmpty()) {
             System.out.print(dq.poll().value + " ");
         }
         System.out.println();
@@ -75,7 +75,7 @@ public class Main_test {
         pq.offer(new Node(4));
         pq.offer(new Node(2));
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             System.out.print(pq.poll().value + " ");
         }
         System.out.println();
@@ -86,7 +86,7 @@ public class Main_test {
         pq.add(new Node(4));
         pq.add(new Node(2));
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             System.out.print(pq.poll().value + " ");
         }
         System.out.println();

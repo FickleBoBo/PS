@@ -9,8 +9,8 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         int cnt = 0;
-        for(int i=1 ; i<=N ; i++){
-            for(int j=0 ; j<=i ; j++){
+        for (int i = 1; i <= N; i++) {
+            for (int j = 0; j <= i; j++) {
                 cnt += i;
                 cnt += j;
             }

@@ -17,18 +17,18 @@ public class Main {
         N = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
-        nodes = new ArrayList[1+N];
+        nodes = new ArrayList[1 + N];
 
         nodes[1] = new ArrayList<Integer>();
-        for(int i=2 ; i<=N ; i++){
+        for (int i = 2; i <= N; i++) {
             nodes[i] = new ArrayList<Integer>();
-            sb.append(br.readLine()+" ");
+            sb.append(br.readLine() + " ");
         }
 
         StringTokenizer st = new StringTokenizer(sb.toString(), " ");
-        p = new int[1+N];
+        p = new int[1 + N];
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int node1 = Integer.parseInt(st.nextToken());
             int node2 = Integer.parseInt(st.nextToken());
 
@@ -38,7 +38,7 @@ public class Main {
 
         BFS(1);
 
-        for(int i=2 ; i<=N ; i++){
+        for (int i = 2; i <= N; i++) {
             System.out.println(p[i]);
         }
 
@@ -50,12 +50,12 @@ public class Main {
         q.offer(node);
         p[node] = node;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int item = q.poll();
 
-            for(int i=0 ; i<nodes[item].size() ; i++){
+            for (int i = 0; i < nodes[item].size(); i++) {
                 int connect = (int) nodes[item].get(i);
-                if(p[connect] == 0){
+                if (p[connect] == 0) {
                     p[connect] = item;
                     q.offer(connect);
                 }

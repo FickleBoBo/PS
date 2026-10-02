@@ -19,7 +19,7 @@ public class Main {
 
         @Override
         public int compareTo(Problem o) {
-            if(this.deadLine == o.deadLine){
+            if (this.deadLine == o.deadLine) {
                 return Integer.compare(o.reward, this.reward);
             }
             return Integer.compare(this.deadLine, o.deadLine);
@@ -43,7 +43,7 @@ public class Main {
         PriorityQueue<Problem> pq = new PriorityQueue<>();
 
         int maxLen = 0;
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int deadLine = Integer.parseInt(st.nextToken());
             int reward = Integer.parseInt(st.nextToken());
@@ -56,15 +56,15 @@ public class Main {
         int ans = 0;
         int date = 1;
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
 
 
-            while(!pq.isEmpty() && pq.peek().deadLine == date){
+            while (!pq.isEmpty() && pq.peek().deadLine == date) {
                 System.out.println(pq.peek());
                 pq2.offer(pq.poll());
             }
 
-            while(pq2.size() > date){
+            while (pq2.size() > date) {
                 pq2.poll();
             }
 
@@ -72,7 +72,7 @@ public class Main {
             date++;
         }
 
-        while(!pq2.isEmpty()){
+        while (!pq2.isEmpty()) {
             System.out.println("pq2.peek() = " + pq2.peek());
             ans += pq2.poll().reward;
         }

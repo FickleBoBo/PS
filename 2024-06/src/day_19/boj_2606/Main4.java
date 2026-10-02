@@ -15,14 +15,14 @@ public class Main4 {
         StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
-        visited = new boolean[1+N];    // 컴퓨터 번호와 index를 일치시킨 방문 체크 배열
+        visited = new boolean[1 + N];    // 컴퓨터 번호와 index를 일치시킨 방문 체크 배열
 
         int M = Integer.parseInt(br.readLine());
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -35,12 +35,12 @@ public class Main4 {
         System.out.println(cnt);
     }
 
-    private static int DFS(int node){
+    private static int DFS(int node) {
         visited[node] = true;    // node에 대한 방문 체크
         int cnt = 1;    // node 자신 한 개를 카운트
 
-        for(int next : adj[node]){
-            if(!visited[next]){
+        for (int next : adj[node]) {
+            if (!visited[next]) {
                 cnt += DFS(next);    // 카운트에 연결된 노드의 카운트를 더한게 최종 카운트
             }
         }

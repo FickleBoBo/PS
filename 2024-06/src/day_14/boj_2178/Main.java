@@ -20,7 +20,7 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         map = new char[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();
         }
 
@@ -40,17 +40,17 @@ public class Main {
             int len = q.size();
 
             // BFS로 최단거리를 구하는 방법
-            for (int i=0 ; i<len ; i++) {
+            for (int i = 0; i < len; i++) {
                 int[] node = q.poll();
 
-                for (int dir=0 ; dir<4 ; dir++) {
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = node[0] + dr[dir];
                     int nc = node[1] + dc[dir];
-                    if (nr>=0 && nr<N && nc>=0 && nc<M && (map[nr][nc]=='1')) {
+                    if (nr >= 0 && nr < N && nc >= 0 && nc < M && (map[nr][nc] == '1')) {
 
                         // 새로운 좌표가 도착지면 종료하는데 최단거리를 갱신하기 전이라서 +1을 해서 리턴
                         // 출발위치와 도착위치가 다른 것이 보장돼서 가능한 조건
-                        if((nr==N-1) && (nc==M-1)){
+                        if ((nr == N - 1) && (nc == M - 1)) {
                             return ans + 1;
                         }
 

@@ -13,12 +13,12 @@ public class Main {
         Set<Integer> set = new HashSet<>();
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.add(Integer.parseInt(st.nextToken()));
         }
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.add(Integer.parseInt(st.nextToken()));
         }
 

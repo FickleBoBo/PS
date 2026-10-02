@@ -11,32 +11,29 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine(), ".", true);
 
         boolean flag = true;
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             String token = st.nextToken();
 
-            if(token.equals(".")){
+            if (token.equals(".")) {
                 sb.append(token);
-            }
-            else{
-                if(token.length() % 2 == 1){
+            } else {
+                if (token.length() % 2 == 1) {
                     flag = false;
                     break;
-                }
-                else{
-                    for(int i=0 ; i<token.length()/4 ; i++){
+                } else {
+                    for (int i = 0; i < token.length() / 4; i++) {
                         sb.append("AAAA");
                     }
-                    for(int i=0 ; i<token.length()%4 ; i++){
+                    for (int i = 0; i < token.length() % 4; i++) {
                         sb.append("B");
                     }
                 }
             }
         }
 
-        if(flag){
+        if (flag) {
             bw.write(sb.toString());
-        }
-        else{
+        } else {
             bw.write("-1");
         }
         bw.flush();

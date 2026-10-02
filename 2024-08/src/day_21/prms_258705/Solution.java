@@ -3,16 +3,15 @@ package day_21.prms_258705;
 class Solution {
     public int solution(int n, int[] tops) {
 
-        int[] dp = new int[1+n];
+        int[] dp = new int[1 + n];
         dp[0] = 1;
         dp[1] = tops[0] == 0 ? 3 : 4;
 
-        for(int i=1 ; i<n ; i++){
-            if(tops[i] == 0){
-                dp[i+1] = (3 * dp[i] - dp[i-1] + 10007) % 10007;  // +10007 안하면 음수 나올 수 있음
-            }
-            else{
-                dp[i+1] = (4 * dp[i] - dp[i-1] + 10007) % 10007;
+        for (int i = 1; i < n; i++) {
+            if (tops[i] == 0) {
+                dp[i + 1] = (3 * dp[i] - dp[i - 1] + 10007) % 10007;  // +10007 안하면 음수 나올 수 있음
+            } else {
+                dp[i + 1] = (4 * dp[i] - dp[i - 1] + 10007) % 10007;
             }
         }
 

@@ -15,42 +15,41 @@ public class Main {
         int D = Integer.parseInt(st.nextToken());
 
         int ans = BFS(S, G, F, U, D);
-        if(ans >= 0){    // S == G 인 케이스가 테케 30% 에 있음
+        if (ans >= 0) {    // S == G 인 케이스가 테케 30% 에 있음
             System.out.println(ans);
-        }
-        else{
+        } else {
             System.out.println("use the stairs");
         }
     }
 
-    private static int BFS(int curr, int target, int height, int up, int down){
+    private static int BFS(int curr, int target, int height, int up, int down) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(curr);
 
-        boolean[] visited = new boolean[1+height];
+        boolean[] visited = new boolean[1 + height];
         visited[curr] = true;
 
         int ans = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
 
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int node = q.poll();
 
                 // 목표층에 도달하면 종료
-                if(node == target){
+                if (node == target) {
                     return ans;
                 }
 
                 // 다음 층이 건물에 있는 층이면서 방문 안한 층이면 Queue에 넣어줌
                 int nextUp = node + up;
-                if((nextUp <= height) && (!visited[nextUp])){
+                if ((nextUp <= height) && (!visited[nextUp])) {
                     q.offer(nextUp);
                     visited[nextUp] = true;
                 }
                 int nextDown = node - down;
-                if((nextDown >= 1) && (!visited[nextDown])){
+                if ((nextDown >= 1) && (!visited[nextDown])) {
                     q.offer(nextDown);
                     visited[nextDown] = true;
                 }

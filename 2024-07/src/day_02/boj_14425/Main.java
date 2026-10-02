@@ -12,14 +12,14 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
 
         Set<String> set = new HashSet<>();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             set.add(br.readLine());
         }
 
         int cnt = 0;
 
-        for(int i=0 ; i<M ; i++){
-            if(set.contains(br.readLine())){
+        for (int i = 0; i < M; i++) {
+            if (set.contains(br.readLine())) {
                 cnt++;
             }
         }

@@ -5,11 +5,13 @@ import java.util.*;
 public class Main {
 
     // 간선 클래스 (출발 노드, 도착 노드, 가중치)
-    static class Edge implements Comparable<Edge>{
+    static class Edge implements Comparable<Edge> {
         int x, y, v;
 
         public Edge(int x, int y, int v) {
-            this.x = x; this.y = y; this.v = v;
+            this.x = x;
+            this.y = y;
+            this.v = v;
         }
 
         @Override
@@ -33,8 +35,8 @@ public class Main {
         N = sc.nextInt();
         M = sc.nextInt();
         map = new int[N][M];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
@@ -47,9 +49,9 @@ public class Main {
          */
         int num = 1;    // 각 섬의 번호
         visited = new int[N][M];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
-                if(visited[i][j]==0 && map[i][j]==1){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (visited[i][j] == 0 && map[i][j] == 1) {
                     BFS(i, j, num++);
                 }
             }
@@ -67,32 +69,30 @@ public class Main {
         List<Edge> edges = new ArrayList<>();
 
         // 세로 다리 찾기
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
-                if(visited[i][j]==0){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (visited[i][j] == 0) {
                     int start = j;
                     int end = j;
 
                     // 일단 상하로 각각 직진 시키기
-                    while(start > 0 && visited[i][start]==0){
+                    while (start > 0 && visited[i][start] == 0) {
                         start--;
                     }
-                    while(end < M-1 && visited[i][end]==0){
+                    while (end < M - 1 && visited[i][end] == 0) {
                         end++;
                     }
 
                     // 발생 가능한 상황
-                    if(visited[i][start]==0){    // case1
+                    if (visited[i][start] == 0) {    // case1
                         j = end;
-                    }
-                    else if(visited[i][end]==0){    // case2
+                    } else if (visited[i][end] == 0) {    // case2
                         break;
-                    }
-                    else{    // case3
+                    } else {    // case3
                         int x = visited[i][start];
                         int y = visited[i][end];
                         int v = end - start - 1;    // 다리의 길이가 가중치!!
-                        if(v>1){    // 길이 1인 다리는 못 놓는다
+                        if (v > 1) {    // 길이 1인 다리는 못 놓는다
                             edges.add(new Edge(x, y, v));
                             edges.add(new Edge(y, x, v));
                         }
@@ -103,28 +103,26 @@ public class Main {
         }
 
         // 가로 다리 찾기
-        for(int j=0 ; j<M ; j++){
-            for(int i=0 ; i<N ; i++){
-                if(visited[i][j]==0){
+        for (int j = 0; j < M; j++) {
+            for (int i = 0; i < N; i++) {
+                if (visited[i][j] == 0) {
                     int start = i;
                     int end = i;
-                    while(start > 0 && visited[start][j]==0){
+                    while (start > 0 && visited[start][j] == 0) {
                         start--;
                     }
-                    while(end < N-1 && visited[end][j]==0){
+                    while (end < N - 1 && visited[end][j] == 0) {
                         end++;
                     }
-                    if(visited[start][j]==0){
+                    if (visited[start][j] == 0) {
                         i = end;
-                    }
-                    else if(visited[end][j]==0){
+                    } else if (visited[end][j] == 0) {
                         break;
-                    }
-                    else{
+                    } else {
                         int x = visited[start][j];
                         int y = visited[end][j];
                         int v = end - start - 1;
-                        if(v>1){
+                        if (v > 1) {
                             edges.add(new Edge(x, y, v));
                             edges.add(new Edge(y, x, v));
                         }
@@ -139,26 +137,26 @@ public class Main {
 
         // p배열 준비
         p = new int[num];    // num이 지금 섬의 개수 보다 1 크게 되는데 딱 0은 패딩자리라 최적화
-        for(int i=1 ; i<num ; i++){
+        for (int i = 1; i < num; i++) {
             p[i] = i;
         }
 
         // step4 - 크루스칼 돌리기
         int ans = 0;
         int cnt = 0;
-        for(int i=0 ; i<edges.size() ; i++){
+        for (int i = 0; i < edges.size(); i++) {
             int x = find(edges.get(i).x);
             int y = find(edges.get(i).y);
-            if(x!=y){
+            if (x != y) {
                 union(x, y);
                 ans += edges.get(i).v;
                 cnt++;
-                if(cnt==num-1-1) break;    // num-1이 정점의 수라 num-2가 MST
+                if (cnt == num - 1 - 1) break;    // num-1이 정점의 수라 num-2가 MST
             }
         }
 
         // step5 - 출력하기
-        if(cnt!=num-2) System.out.println(-1);    // 크루스칼에서 break로 종료되어야 MST임
+        if (cnt != num - 2) System.out.println(-1);    // 크루스칼에서 break로 종료되어야 MST임
         else System.out.println(ans);
 
         sc.close();
@@ -166,28 +164,28 @@ public class Main {
 
     static int[] p;
 
-    private static int find(int x){
-        if(x != p[x]){
+    private static int find(int x) {
+        if (x != p[x]) {
             p[x] = find(p[x]);
         }
         return p[x];
     }
 
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
-    private static void BFS(int r, int c, int num){
+    private static void BFS(int r, int c, int num) {
         Queue<int[]> q = new LinkedList<>();
         q.offer(new int[]{r, c});
         visited[r][c] = num;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] item = q.poll();
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = item[0] + dr[dir];
                 int nc = item[1] + dc[dir];
-                if(nr>=0 && nr<N && nc>=0 & nc<M && visited[nr][nc]==0 && map[nr][nc]==1){
+                if (nr >= 0 && nr < N && nc >= 0 & nc < M && visited[nr][nc] == 0 && map[nr][nc] == 1) {
                     q.offer(new int[]{nr, nc});
                     visited[nr][nc] = num;
                 }

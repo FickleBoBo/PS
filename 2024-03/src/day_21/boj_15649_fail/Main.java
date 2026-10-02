@@ -25,19 +25,19 @@ public class Main {
         sc.close();
     }
 
-    static void combination(int idx, int sidx){
-        if(sidx == M){
-            for(int i=0 ; i<sidx ; i++){
+    static void combination(int idx, int sidx) {
+        if (sidx == M) {
+            for (int i = 0; i < sidx; i++) {
                 sb.append(sArr[i] + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=idx ; i<=N ; i++){
+        for (int i = idx; i <= N; i++) {
             sArr[sidx] = i;
-            if(sidx == i) combination(i+1, sidx+1);
-            else combination(i, sidx+1);
+            if (sidx == i) combination(i + 1, sidx + 1);
+            else combination(i, sidx + 1);
         }
     }
 

@@ -17,6 +17,7 @@ class Solution {
             buf[k] = str.charAt(k);
         buf[str.length()] = '\0';
     }
+
     private static boolean run(BufferedReader br) throws Exception {
         int q = Integer.parseInt(br.readLine());
 

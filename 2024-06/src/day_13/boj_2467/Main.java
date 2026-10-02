@@ -11,28 +11,27 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         int start = 0;
-        int end = N-1;
+        int end = N - 1;
         int ans = Integer.MAX_VALUE;
         int ansStart = -1;
         int ansEnd = N;
 
-        while(start < end){
+        while (start < end) {
             int sum = Math.abs(arr[start] + arr[end]);
-            if(sum < ans){
+            if (sum < ans) {
                 ans = sum;
                 ansStart = arr[start];
                 ansEnd = arr[end];
             }
 
-            if(Math.abs(arr[start+1] + arr[end]) < Math.abs(arr[start] + arr[end-1])){
+            if (Math.abs(arr[start + 1] + arr[end]) < Math.abs(arr[start] + arr[end - 1])) {
                 start++;
-            }
-            else if(Math.abs(arr[start+1] + arr[end]) >= Math.abs(arr[start] + arr[end-1])){
+            } else if (Math.abs(arr[start + 1] + arr[end]) >= Math.abs(arr[start] + arr[end - 1])) {
                 end--;
             }
         }

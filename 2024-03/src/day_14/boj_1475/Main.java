@@ -10,14 +10,14 @@ public class Main {
         char[] input = sc.next().toCharArray();
         int[] countingArr = new int[10];
 
-        for(char c : input){
-            countingArr[c-'0']++;
+        for (char c : input) {
+            countingArr[c - '0']++;
         }
         countingArr[6] += countingArr[9];
         countingArr[6] = (countingArr[6] + 1) / 2;
 
         int max = 0;
-        for(int i=0 ; i<9 ; i++){
+        for (int i = 0; i < 9; i++) {
             max = max > countingArr[i] ? max : countingArr[i];
         }
 

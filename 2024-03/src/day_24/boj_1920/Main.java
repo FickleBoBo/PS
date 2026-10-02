@@ -14,14 +14,14 @@ public class Main {
         int[] arr = new int[N];
 
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(arr);
 
         int M = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine(), " ");
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int ans = Arrays.binarySearch(arr, Integer.parseInt(st.nextToken()));
             if (ans >= 0) System.out.println(1);
             else System.out.println(0);

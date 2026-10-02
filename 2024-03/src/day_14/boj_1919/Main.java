@@ -14,15 +14,15 @@ public class Main {
         int[] cntArr1 = new int[26];
         int[] cntArr2 = new int[26];
 
-        for(int i=0 ; i<words1.length ; i++) {
-            cntArr1[words1[i]-'a']++;
+        for (int i = 0; i < words1.length; i++) {
+            cntArr1[words1[i] - 'a']++;
         }
-        for(int i=0 ; i<words2.length ; i++) {
-            cntArr2[words2[i]-'a']++;
+        for (int i = 0; i < words2.length; i++) {
+            cntArr2[words2[i] - 'a']++;
         }
         int cnt = 0;
-        for(int i=0 ; i<26 ; i++) {
-            cnt += Math.abs(cntArr1[i]-cntArr2[i]);
+        for (int i = 0; i < 26; i++) {
+            cnt += Math.abs(cntArr1[i] - cntArr2[i]);
         }
         System.out.println(cnt);
     }

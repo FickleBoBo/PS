@@ -12,7 +12,7 @@ public class Main {
 
         st = new StringTokenizer(br.readLine());
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(arr);
@@ -20,19 +20,17 @@ public class Main {
         int X = Integer.parseInt(br.readLine());
 
         int left = 0;
-        int right = N-1;
+        int right = N - 1;
         int cnt = 0;
 
-        while(left < right){
+        while (left < right) {
             int sum = arr[left] + arr[right];
 
-            if(sum < X){
+            if (sum < X) {
                 left++;
-            }
-            else if(sum > X){
+            } else if (sum > X) {
                 right--;
-            }
-            else{
+            } else {
                 cnt++;
                 left++;
                 right--;

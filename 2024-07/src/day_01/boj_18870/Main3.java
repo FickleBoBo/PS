@@ -15,22 +15,22 @@ public class Main3 {
         int[] arr = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         SortedSet<Integer> sortedSet = new TreeSet<>();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sortedSet.add(arr[i]);
         }
 
         Map<Integer, Integer> map = new HashMap<>();
         int rank = 0;
-        for(int item : sortedSet){
+        for (int item : sortedSet) {
             map.put(item, rank++);
         }
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(map.get(arr[i])).append(" ");
         }
 

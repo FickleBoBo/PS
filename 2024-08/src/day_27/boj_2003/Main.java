@@ -13,7 +13,7 @@ public class Main {
 
         int[] arr = new int[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -22,22 +22,20 @@ public class Main {
         int sum = 0;
         int cnt = 0;
 
-        while(true){
-            if(sum < M){
+        while (true) {
+            if (sum < M) {
                 sum += arr[right];
                 right++;
-            }
-            else if(sum > M){
+            } else if (sum > M) {
                 sum -= arr[left];
                 left++;
-            }
-            else{
+            } else {
                 cnt++;
                 sum -= arr[left];
                 left++;
             }
 
-            if(sum < M && right == N) break;
+            if (sum < M && right == N) break;
         }
 
         System.out.println(cnt);

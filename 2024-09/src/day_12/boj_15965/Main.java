@@ -14,18 +14,18 @@ public class Main {
         boolean[] isPrime = new boolean[10_000_000];
         Arrays.fill(isPrime, true);
 
-        for(int i=2 ; i*i<10_000_000 ; i++){
-            if(isPrime[i]){
-                for(int j=i*i ; j<10_000_000 ; j+=i){
+        for (int i = 2; i * i < 10_000_000; i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j < 10_000_000; j += i) {
                     isPrime[j] = false;
                 }
             }
         }
 
         int order = 0;
-        for(int i=2 ; i<10_000_000 ; i++){
-            if(isPrime[i]) order++;
-            if(order == n){
+        for (int i = 2; i < 10_000_000; i++) {
+            if (isPrime[i]) order++;
+            if (order == n) {
                 System.out.println(i);
                 return;
             }

@@ -10,8 +10,8 @@ public class Main {
         int E = sc.nextInt();
         int ans = 0;
 
-        int[][] adj = new int[1+V][1+V];
-        for(int i=0 ; i<E ; i++) {
+        int[][] adj = new int[1 + V][1 + V];
+        for (int i = 0; i < E; i++) {
             int A = sc.nextInt();
             int B = sc.nextInt();
             int W = sc.nextInt();
@@ -19,8 +19,8 @@ public class Main {
             ans += W;
         }
 
-        boolean[] visited = new boolean[1+V];
-        int[] dist = new int[1+V];
+        boolean[] visited = new boolean[1 + V];
+        int[] dist = new int[1 + V];
         Arrays.fill(dist, Integer.MAX_VALUE);
 
         int node = 1;
@@ -28,9 +28,9 @@ public class Main {
         dist[node] = 0;
         int cost = 0;
 
-        for(int i=2 ; i<=V ; i++){
-            for(int j=1 ; j<=V ; j++){
-                if(!visited[j] && adj[node][j]>0 && adj[node][j]<dist[j]){
+        for (int i = 2; i <= V; i++) {
+            for (int j = 1; j <= V; j++) {
+                if (!visited[j] && adj[node][j] > 0 && adj[node][j] < dist[j]) {
                     dist[j] = adj[node][j];
                 }
             }
@@ -38,14 +38,14 @@ public class Main {
             int min = Integer.MAX_VALUE;
             int idx = -1;
 
-            for(int j=1 ; j<=V ; j++){
-                if(!visited[j] && dist[j] < min){
+            for (int j = 1; j <= V; j++) {
+                if (!visited[j] && dist[j] < min) {
                     min = dist[j];
                     idx = j;
                 }
             }
 
-            if(idx == -1){
+            if (idx == -1) {
                 ans = -1;
                 cost = 0;
                 break;

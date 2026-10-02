@@ -19,13 +19,13 @@ public class Solution {
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             N = sc.nextInt();
             W = sc.nextInt();
             H = sc.nextInt();
             map = new int[H][W];
-            for(int h=0 ; h<H ; h++){
-                for(int w=0 ; w<W ; w++){
+            for (int h = 0; h < H; h++) {
+                for (int w = 0; w < W; w++) {
                     map[h][w] = sc.nextInt();
                 }
             }
@@ -33,35 +33,32 @@ public class Solution {
 
             int[] dropCols;
 
-            if(N == 1){
-                for(int a=0 ; a<W ; a++){
+            if (N == 1) {
+                for (int a = 0; a < W; a++) {
                     dropCols = new int[]{a};
                     dropBalls(dropCols);
                 }
-            }
-            else if(N == 2){
-                for(int a=0 ; a<W ; a++){
-                    for(int b=0 ; b<W ; b++){
+            } else if (N == 2) {
+                for (int a = 0; a < W; a++) {
+                    for (int b = 0; b < W; b++) {
                         dropCols = new int[]{a, b};
                         dropBalls(dropCols);
                     }
                 }
-            }
-            else if(N == 3){
-                for(int a=0 ; a<W ; a++){
-                    for(int b=0 ; b<W ; b++){
-                        for(int c=0 ; c<W ; c++){
+            } else if (N == 3) {
+                for (int a = 0; a < W; a++) {
+                    for (int b = 0; b < W; b++) {
+                        for (int c = 0; c < W; c++) {
                             dropCols = new int[]{a, b, c};
                             dropBalls(dropCols);
                         }
                     }
                 }
-            }
-            else if(N == 4){
-                for(int a=0 ; a<W ; a++){
-                    for(int b=0 ; b<W ; b++){
-                        for(int c=0 ; c<W ; c++){
-                            for(int d=0 ; d<W ; d++){
+            } else if (N == 4) {
+                for (int a = 0; a < W; a++) {
+                    for (int b = 0; b < W; b++) {
+                        for (int c = 0; c < W; c++) {
+                            for (int d = 0; d < W; d++) {
                                 dropCols = new int[]{a, b, c, d};
                                 dropBalls(dropCols);
                             }
@@ -77,9 +74,9 @@ public class Solution {
         sc.close();
     }
 
-    static void printCopyMap(){
-        for(int h=0 ; h<H ; h++){
-            for(int w=0 ; w<W ; w++){
+    static void printCopyMap() {
+        for (int h = 0; h < H; h++) {
+            for (int w = 0; w < W; w++) {
                 System.out.print(copyMap[h][w] + " ");
             }
             System.out.println();
@@ -87,9 +84,9 @@ public class Solution {
         System.out.println();
     }
 
-    static void copyOriginMap(){
+    static void copyOriginMap() {
         copyMap = new int[H][W];
-        for(int h=0 ; h<H ; h++){
+        for (int h = 0; h < H; h++) {
             copyMap[h] = Arrays.copyOf(map[h], W);
         }
     }
@@ -97,9 +94,9 @@ public class Solution {
     static void dropBalls(int[] dropCols) {
         copyOriginMap();
 
-        for(int i=0 ; i<dropCols.length ; i++){
-            for(int h=0 ; h<H ; h++){
-                if(copyMap[h][dropCols[i]] != 0){
+        for (int i = 0; i < dropCols.length; i++) {
+            for (int h = 0; h < H; h++) {
+                if (copyMap[h][dropCols[i]] != 0) {
 //                    System.out.println(Arrays.toString(dropCols));
 //                    System.out.println("떨어뜨린 위치: " + h + " " + dropCols[i]);
                     boomBlock(h, dropCols[i], copyMap[h][dropCols[i]]);
@@ -112,9 +109,9 @@ public class Solution {
         }
 
         int cnt = 0;
-        for(int a=0 ; a<H ; a++){
-            for(int b=0 ; b<W ; b++){
-                if(copyMap[a][b] != 0) cnt++;
+        for (int a = 0; a < H; a++) {
+            for (int b = 0; b < W; b++) {
+                if (copyMap[a][b] != 0) cnt++;
             }
         }
         ans = ans > cnt ? cnt : ans;
@@ -122,11 +119,11 @@ public class Solution {
     }
 
     static void dropBlocks() {
-        for(int i=0 ; i<W ; i++){
-            for(int j=1 ; j<H ; j++){
-                if((j > 0) && (copyMap[H-j-1][i] != 0) && (copyMap[H-j][i] == 0)){
-                    copyMap[H-j][i] = copyMap[H-j-1][i];
-                    copyMap[H-j-1][i] = 0;
+        for (int i = 0; i < W; i++) {
+            for (int j = 1; j < H; j++) {
+                if ((j > 0) && (copyMap[H - j - 1][i] != 0) && (copyMap[H - j][i] == 0)) {
+                    copyMap[H - j][i] = copyMap[H - j - 1][i];
+                    copyMap[H - j - 1][i] = 0;
                     j -= 2;
                 }
             }
@@ -134,14 +131,14 @@ public class Solution {
     }
 
     static void boomBlock(int row, int col, int length) {
-        if(copyMap[row][col] == 0) return;
+        if (copyMap[row][col] == 0) return;
         copyMap[row][col] = 0;
 
-        for(int len=1 ; len<length ; len++){
-            for(int dir=0 ; dir<4 ; dir++){
-                int nr = row+dr[dir]*len;
-                int nc = col+dc[dir]*len;
-                if((nr>=0) && (nc>=0) && (nr<H) && (nc<W)){
+        for (int len = 1; len < length; len++) {
+            for (int dir = 0; dir < 4; dir++) {
+                int nr = row + dr[dir] * len;
+                int nc = col + dc[dir] * len;
+                if ((nr >= 0) && (nc >= 0) && (nr < H) && (nc < W)) {
                     boomBlock(nr, nc, copyMap[nr][nc]);
 
                 }

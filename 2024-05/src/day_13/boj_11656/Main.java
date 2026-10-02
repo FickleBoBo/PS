@@ -10,13 +10,13 @@ public class Main {
         String str = sc.next();
 
         String[] arr = new String[str.length()];
-        for(int i=0 ; i<str.length() ; i++){
+        for (int i = 0; i < str.length(); i++) {
             arr[i] = str.substring(i);
         }
 
         Arrays.sort(arr);
 
-        for(String s : arr){
+        for (String s : arr) {
             System.out.println(s);
         }
     }

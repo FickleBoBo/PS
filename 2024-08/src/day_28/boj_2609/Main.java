@@ -15,12 +15,12 @@ public class Main {
         System.out.println(LCM(A, B));
     }
 
-    private static int GCD(int a, int b){
-        if(b == 0) return a;
+    private static int GCD(int a, int b) {
+        if (b == 0) return a;
         return GCD(b, a % b);
     }
 
-    private static int LCM(int a, int b){
+    private static int LCM(int a, int b) {
         int gcd = GCD(a, b);
         return a * b / gcd;
     }

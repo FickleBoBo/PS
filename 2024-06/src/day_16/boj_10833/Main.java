@@ -7,13 +7,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int[][] arr = new int[N][2];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i][0] = sc.nextInt();
             arr[i][1] = sc.nextInt();
         }
 
         int ans = 0;
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             ans += arr[i][1] % arr[i][0];
         }
 

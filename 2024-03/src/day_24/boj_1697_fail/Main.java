@@ -10,20 +10,18 @@ public class Main {
         int K = sc.nextInt();
         int ans = 0;
 
-        if((N != K) && (N == 0)){
+        if ((N != K) && (N == 0)) {
             N += 1;
             ans++;
         }
 
-        while(N != K){
-            if(N > K){
+        while (N != K) {
+            if (N > K) {
                 ans = N - K;
                 break;
-            }
-            else if(N*2 < K){
+            } else if (N * 2 < K) {
                 N *= 2;
-            }
-            else{
+            } else {
                 //
             }
 

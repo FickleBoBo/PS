@@ -18,21 +18,21 @@ public class Main {
         N = sc.nextInt();
         int maxHeight = 0;
         map = new int[N][N];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 map[i][j] = sc.nextInt();
                 maxHeight = maxHeight > map[i][j] ? maxHeight : map[i][j];
             }
         }
 
         int max = 0;
-        for(int tc=0 ; tc<=maxHeight ; tc++){
+        for (int tc = 0; tc <= maxHeight; tc++) {
 
             int cnt = 0;
             visited = new boolean[N][N];
-            for(int i=0 ; i<N ; i++){
-                for(int j=0 ; j<N ; j++){
-                    if((!visited[i][j]) && (map[i][j] > tc)){
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    if ((!visited[i][j]) && (map[i][j] > tc)) {
                         BFS(i, j, tc);
                         cnt++;
                     }
@@ -46,17 +46,17 @@ public class Main {
         sc.close();
     }
 
-    private static void BFS(int r, int c, int height){
+    private static void BFS(int r, int c, int height) {
         Queue<int[]> q = new LinkedList<>();
         q.offer(new int[]{r, c});
         visited[r][c] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] item = q.poll();
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = item[0] + dr[dir];
                 int nc = item[1] + dc[dir];
-                if((nr>=0)&&(nc>=0)&&(nr<N)&&(nc<N)&&(!visited[nr][nc])&&(map[nr][nc] > height)){
+                if ((nr >= 0) && (nc >= 0) && (nr < N) && (nc < N) && (!visited[nr][nc]) && (map[nr][nc] > height)) {
                     q.offer(new int[]{nr, nc});
                     visited[nr][nc] = true;
                 }

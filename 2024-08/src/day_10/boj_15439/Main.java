@@ -8,6 +8,6 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        System.out.println(N * (N-1));
+        System.out.println(N * (N - 1));
     }
 }

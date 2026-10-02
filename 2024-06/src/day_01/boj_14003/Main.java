@@ -12,21 +12,20 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] A = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             A[i] = Integer.parseInt(st.nextToken());
         }
 
-        int[] dp = new int[1+N];
+        int[] dp = new int[1 + N];
         Arrays.fill(dp, Integer.MIN_VALUE);
         int maxLen = 0;
         int[] result = new int[N];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int idx = binarySearch(dp, 1, maxLen, A[i]);
-            if(idx > maxLen){
+            if (idx > maxLen) {
                 dp[++maxLen] = A[i];
-            }
-            else{
+            } else {
                 dp[idx] = A[i];
             }
             result[i] = idx;
@@ -38,33 +37,31 @@ public class Main {
         bw.write(maxLen + "\n");
         int[] lis = new int[maxLen];
         int idx = 0;
-        for(int i=N-1 ; i>=0 ; i--){
-            if(result[i] == maxLen){
+        for (int i = N - 1; i >= 0; i--) {
+            if (result[i] == maxLen) {
                 lis[idx] = A[i];
                 idx++;
                 maxLen--;
             }
         }
-        for(int i=lis.length-1 ; i>=0 ; i--){
+        for (int i = lis.length - 1; i >= 0; i--) {
             bw.write(lis[i] + " ");
         }
         bw.flush();
         bw.close();
     }
 
-    private static int binarySearch(int[] arr, int left, int right, int value){
-        if(value > arr[right]) return right + 1;
+    private static int binarySearch(int[] arr, int left, int right, int value) {
+        if (value > arr[right]) return right + 1;
 
         int mid = (left + right) / 2;
 
-        while(left < right){
-            if(value > arr[mid]){
+        while (left < right) {
+            if (value > arr[mid]) {
                 left = mid + 1;
-            }
-            else if(value < arr[mid]){
+            } else if (value < arr[mid]) {
                 right = mid;
-            }
-            else{
+            } else {
                 break;
             }
             mid = (left + right) / 2;

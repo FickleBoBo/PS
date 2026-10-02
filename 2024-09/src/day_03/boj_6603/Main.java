@@ -17,16 +17,16 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
-        while(true){
+        while (true) {
             String input = br.readLine();
-            if(input.charAt(0) == '0') break;    // 종료 조건
+            if (input.charAt(0) == '0') break;    // 종료 조건
 
             st = new StringTokenizer(input);
 
             N = Integer.parseInt(st.nextToken());
 
             arr = new int[N];
-            for(int i=0 ; i<N ; i++){
+            for (int i = 0; i < N; i++) {
                 arr[i] = Integer.parseInt(st.nextToken());
             }
 
@@ -39,18 +39,18 @@ public class Main {
         bw.flush();
     }
 
-    private static void combination(int idx, int sidx){
-        if(sidx == R){
-            for(int n : sel){
+    private static void combination(int idx, int sidx) {
+        if (sidx == R) {
+            for (int n : sel) {
                 sb.append(n).append(" ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=idx ; i<N ; i++){
+        for (int i = idx; i < N; i++) {
             sel[sidx] = arr[i];
-            combination(i+1, sidx+1);
+            combination(i + 1, sidx + 1);
         }
     }
 

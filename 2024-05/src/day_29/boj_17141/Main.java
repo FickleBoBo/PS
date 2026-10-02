@@ -26,13 +26,12 @@ public class Main {
         map = new int[N][N];
         list = new ArrayList<>();
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 map[i][j] = sc.nextInt();
-                if(map[i][j] == 1){
+                if (map[i][j] == 1) {
                     wallCnt++;
-                }
-                else if(map[i][j] == 2){
+                } else if (map[i][j] == 2) {
                     list.add(i * N + j);
                 }
             }
@@ -42,31 +41,31 @@ public class Main {
         sel = new int[R];
         combination(0, 0);
 
-        if(ans == Integer.MAX_VALUE) System.out.println(-1);
+        if (ans == Integer.MAX_VALUE) System.out.println(-1);
         else System.out.println(ans);
 
     }
 
-    private static void combination(int idx, int sidx){
-        if(sidx == R){
+    private static void combination(int idx, int sidx) {
+        if (sidx == R) {
             ans = Math.min(ans, BFS(sel));
             return;
         }
 
-        for(int i=idx ; i<list.size() ; i++){
+        for (int i = idx; i < list.size(); i++) {
             sel[sidx] = list.get(i);
-            combination(i+1, sidx+1);
+            combination(i + 1, sidx + 1);
         }
     }
 
-    private static int BFS(int[] selected){
+    private static int BFS(int[] selected) {
         int[][] copyMap = map.clone();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             copyMap[i] = map[i].clone();
         }
 
         Queue<int[]> q = new LinkedList<>();
-        for(int i=0 ; i<R ; i++){
+        for (int i = 0; i < R; i++) {
             int r = selected[i] / N;
             int c = selected[i] % N;
             q.offer(new int[]{r, c});
@@ -75,15 +74,15 @@ public class Main {
 
         int time = 0;
         int cnt = wallCnt + R;
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             time++;
             int len = q.size();
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int[] item = q.poll();
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = item[0] + dr[dir];
                     int nc = item[1] + dc[dir];
-                    if(nr>=0 && nr<N && nc>=0 && nc<N && (copyMap[nr][nc]==0 || copyMap[nr][nc]==2)){
+                    if (nr >= 0 && nr < N && nc >= 0 && nc < N && (copyMap[nr][nc] == 0 || copyMap[nr][nc] == 2)) {
                         q.offer(new int[]{nr, nc});
                         copyMap[nr][nc] = 3;
                         cnt++;
@@ -92,7 +91,7 @@ public class Main {
             }
         }
 
-        if(cnt == N*N) return time-1;
+        if (cnt == N * N) return time - 1;
         else return Integer.MAX_VALUE;
     }
 

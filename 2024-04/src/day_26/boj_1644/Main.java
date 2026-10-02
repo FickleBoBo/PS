@@ -10,14 +10,14 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
 
-        if(N==1) System.out.println(0);
-        else{
+        if (N == 1) System.out.println(0);
+        else {
             List<Integer> isPrime = new ArrayList<>();
 
             out:
-            for(int i=2 ; i<=N ; i++){
-                for(int j=2 ; j<=Math.sqrt(i) ; j++){
-                    if(i % j == 0){
+            for (int i = 2; i <= N; i++) {
+                for (int j = 2; j <= Math.sqrt(i); j++) {
+                    if (i % j == 0) {
                         continue out;
                     }
                 }
@@ -29,24 +29,21 @@ public class Main {
             int end = 0;
             int sum = isPrime.get(0);
 
-            while(true){
-                if(end == isPrime.size()-1){
-                    if(sum < N){
+            while (true) {
+                if (end == isPrime.size() - 1) {
+                    if (sum < N) {
                         break;
-                    }
-                    else if(sum == N){
+                    } else if (sum == N) {
                         cnt++;
                         break;
                     }
                 }
 
-                if(sum < N){
+                if (sum < N) {
                     sum += isPrime.get(++end);
-                }
-                else if(sum > N){
+                } else if (sum > N) {
                     sum -= isPrime.get(start++);
-                }
-                else{
+                } else {
 //                for(int n : isPrime){
 //                    System.out.print(n + " ");
 //                }

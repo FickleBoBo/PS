@@ -11,14 +11,14 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
-        List<Integer>[] adj = new ArrayList[1+N];
-        int[] degree = new int[1+N];
+        List<Integer>[] adj = new ArrayList[1 + N];
+        int[] degree = new int[1 + N];
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             int A = sc.nextInt();
             int B = sc.nextInt();
             adj[A].add(B);
@@ -26,22 +26,22 @@ public class Main {
         }
 
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
 
-        for(int i=1 ; i<=N ; i++){
-            if(degree[i] == 0){
+        for (int i = 1; i <= N; i++) {
+            if (degree[i] == 0) {
                 pq.offer(i);
                 visited[i] = true;
             }
         }
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             int item = pq.poll();
             System.out.print(item + " ");
 
-            for(int next : adj[item]){
+            for (int next : adj[item]) {
                 degree[next]--;
-                if(!visited[next] && degree[next] == 0){
+                if (!visited[next] && degree[next] == 0) {
                     pq.offer(next);
                     visited[next] = true;
                 }

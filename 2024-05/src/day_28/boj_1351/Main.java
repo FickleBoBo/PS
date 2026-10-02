@@ -22,10 +22,10 @@ public class Main {
     }
 
     private static long calculateAN(long n) {
-        if(map.containsKey(n)) return map.get(n);
-        else{
-            map.put(n, calculateAN(n/P) + calculateAN(n/Q));
+        if (map.containsKey(n)) return map.get(n);
+        else {
+            map.put(n, calculateAN(n / P) + calculateAN(n / Q));
         }
-        return calculateAN(n/P) + calculateAN(n/Q);
+        return calculateAN(n / P) + calculateAN(n / Q);
     }
 }

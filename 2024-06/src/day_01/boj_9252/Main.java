@@ -12,18 +12,18 @@ public class Main {
         int len1 = arr1.length;
         int len2 = arr2.length;
 
-        int[][] dp = new int[1+len1][1+len2];
+        int[][] dp = new int[1 + len1][1 + len2];
 
-        for(int i=1 ; i<=len1 ; i++){
-            for(int j=1 ; j<=len2 ; j++){
+        for (int i = 1; i <= len1; i++) {
+            for (int j = 1; j <= len2; j++) {
 
                 // 새로 추가되는 문자가 서로 동일하면 길이 + 1
-                if(arr1[i-1] == arr2[j-1]){
-                    dp[i][j] = dp[i-1][j-1] + 1;
+                if (arr1[i - 1] == arr2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
                 }
                 // 새로 추가되는 문자가 서로 다르면 지금까지 구한 길이
-                else{
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+                else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
         }
@@ -33,15 +33,13 @@ public class Main {
         int r = len1;
         int c = len2;
         int idx = lcs.length - 1;
-        while(idx >= 0){
-            if(dp[r][c] == dp[r-1][c]){
+        while (idx >= 0) {
+            if (dp[r][c] == dp[r - 1][c]) {
                 r--;
-            }
-            else if(dp[r][c] == dp[r][c-1]){
+            } else if (dp[r][c] == dp[r][c - 1]) {
                 c--;
-            }
-            else{
-                lcs[idx] = arr1[r-1];
+            } else {
+                lcs[idx] = arr1[r - 1];
                 r--;
                 c--;
                 idx--;
@@ -49,7 +47,7 @@ public class Main {
         }
 
         System.out.println(lcs.length);
-        for(int i=0 ; i<lcs.length ; i++){
+        for (int i = 0; i < lcs.length; i++) {
             System.out.print(lcs[i]);
         }
     }

@@ -9,7 +9,7 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine()) / 4;
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             bw.write("long ");
         }
         bw.write("int");

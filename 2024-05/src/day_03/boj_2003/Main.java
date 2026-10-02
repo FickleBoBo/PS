@@ -9,7 +9,7 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
 
@@ -18,22 +18,20 @@ public class Main {
         int sum = arr[0];
 
         int ans = 0;
-        while(true){
-            if(sum < M){
+        while (true) {
+            if (sum < M) {
                 sum += arr[++end];
-            }
-            else if(sum > M){
+            } else if (sum > M) {
                 sum -= arr[start++];
-            }
-            else{
+            } else {
                 ans++;
-                if(end < N-1){
+                if (end < N - 1) {
                     sum += arr[++end];
                 }
                 sum -= arr[start++];
             }
 
-            if(end>=N-1 && sum<M) break;
+            if (end >= N - 1 && sum < M) break;
         }
 
         System.out.println(ans);

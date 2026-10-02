@@ -9,22 +9,21 @@ public class Main {
         int N = sc.nextInt();
         int S = sc.nextInt();
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
         Arrays.sort(arr);
 
-        int[][] dp = new int[1+N][1+N];
-        for(int i=1 ; i<=N ; i++){
-            for(int j=i ; j<=N ; j++){
-                dp[i][j] = dp[i][j-1] + arr[j-1];
+        int[][] dp = new int[1 + N][1 + N];
+        for (int i = 1; i <= N; i++) {
+            for (int j = i; j <= N; j++) {
+                dp[i][j] = dp[i][j - 1] + arr[j - 1];
             }
         }
 
 
-
-        for(int i=1 ; i<=N ; i++){
-            for(int j=1 ; j<=N ; j++){
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= N; j++) {
                 System.out.printf("%3d ", dp[i][j]);
             }
             System.out.println();

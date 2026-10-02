@@ -18,14 +18,14 @@ public class Main2 {
 
         N = Integer.parseInt(br.readLine());
 
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
-        visited = new boolean[1+N];
-        p = new int[1+N];
+        visited = new boolean[1 + N];
+        p = new int[1 + N];
 
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -35,7 +35,7 @@ public class Main2 {
         }
 
         DFS(1);
-        for(int i=2 ; i<=N ; i++){
+        for (int i = 2; i <= N; i++) {
             sb.append(p[i]).append("\n");
         }
 
@@ -44,11 +44,11 @@ public class Main2 {
         bw.close();
     }
 
-    private static void DFS(int node){
+    private static void DFS(int node) {
         visited[node] = true;    // node에 대한 방문 체크
 
-        for(int next : adj[node]){
-            if(!visited[next]){
+        for (int next : adj[node]) {
+            if (!visited[next]) {
                 p[next] = node;    // node와 연결된 next들의 부모 초기화
                 DFS(next);
             }

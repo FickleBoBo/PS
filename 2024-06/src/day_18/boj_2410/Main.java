@@ -10,23 +10,22 @@ public class Main {
 
         int row = 1;
         int value = 1;
-        while(value <= N){
+        while (value <= N) {
             value *= 2;
             row++;
         }
         row--;
 
-        int[][] dp = new int[row][1+N];
+        int[][] dp = new int[row][1 + N];
         Arrays.fill(dp[0], 1);
 
-        for(int i=1 ; i<row ; i++){
+        for (int i = 1; i < row; i++) {
             dp[i][0] = 1;
-            for(int j=1 ; j<=N ; j++){
-                if(j >= (int) Math.pow(2, i)){
-                    dp[i][j] = (dp[i-1][j] + dp[i][j - (int) Math.pow(2, i)]) % 1000000000;
-                }
-                else{
-                    dp[i][j] = dp[i-1][j] % 1000000000;
+            for (int j = 1; j <= N; j++) {
+                if (j >= (int) Math.pow(2, i)) {
+                    dp[i][j] = (dp[i - 1][j] + dp[i][j - (int) Math.pow(2, i)]) % 1000000000;
+                } else {
+                    dp[i][j] = dp[i - 1][j] % 1000000000;
                 }
             }
         }
@@ -45,6 +44,6 @@ public class Main {
 //            System.out.println();
 //        }
 
-        System.out.println(dp[row-1][N] % 1000000000);
+        System.out.println(dp[row - 1][N] % 1000000000);
     }
 }

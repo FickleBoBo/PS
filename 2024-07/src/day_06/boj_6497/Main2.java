@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main2 {
 
-    static class Edge implements Comparable<Edge>{
+    static class Edge implements Comparable<Edge> {
         int x;
         int y;
         int w;
@@ -26,13 +26,13 @@ public class Main2 {
     static int[] p;
 
     // find-set
-    private static int find(int x){
-        if(x == p[x]) return x;
+    private static int find(int x) {
+        if (x == p[x]) return x;
         return p[x] = find(p[x]);
     }
 
     // union-set
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -42,18 +42,18 @@ public class Main2 {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st;
 
-        while(true){
+        while (true) {
             st = new StringTokenizer(br.readLine());
             int V = Integer.parseInt(st.nextToken());
             int E = Integer.parseInt(st.nextToken());
 
             // 종료 조건
-            if(V == 0) break;
+            if (V == 0) break;
 
             int sum1 = 0;
 
             PriorityQueue<Edge> edges = new PriorityQueue<>();
-            for(int i=0 ; i<E ; i++){
+            for (int i = 0; i < E; i++) {
                 st = new StringTokenizer(br.readLine());
 
                 int x = Integer.parseInt(st.nextToken());
@@ -65,26 +65,26 @@ public class Main2 {
             }
 
             // make-set
-            p = new int[1+V];
-            for(int i=0 ; i<V ; i++) p[i] = i;
+            p = new int[1 + V];
+            for (int i = 0; i < V; i++) p[i] = i;
 
             int sum2 = 0;
             int cnt = 0;
 
             // 크루스칼 알고리즘
-            while(!edges.isEmpty()){
+            while (!edges.isEmpty()) {
                 Edge edge = edges.poll();
 
                 int x = find(edge.x);
                 int y = find(edge.y);
 
-                if(x == y) continue;
+                if (x == y) continue;
 
                 union(x, y);
                 sum2 += edge.w;
                 cnt++;
 
-                if(cnt == V-1) break;
+                if (cnt == V - 1) break;
             }
 
             sb.append(sum1 - sum2).append("\n");

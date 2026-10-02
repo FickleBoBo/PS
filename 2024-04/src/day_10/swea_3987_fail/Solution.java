@@ -16,17 +16,17 @@ public class Solution {
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             N = sc.nextInt();
             C = sc.nextInt();
             arr = new int[N];
-            for(int i=0 ; i<N ; i++){
+            for (int i = 0; i < N; i++) {
                 arr[i] = sc.nextInt();
             }
             Arrays.sort(arr);
             ans = 0;
 
-            for(int i=1 ; i<=N ; i++){
+            for (int i = 1; i <= N; i++) {
                 sel = new int[i];
                 combination(0, 0, i, 0, 0);
             }
@@ -37,17 +37,17 @@ public class Solution {
         sc.close();
     }
 
-    private static void combination(int idx, int sidx, int len, int c, int sum){
-        if(c > C) return;
+    private static void combination(int idx, int sidx, int len, int c, int sum) {
+        if (c > C) return;
 
-        if(sidx == len){
+        if (sidx == len) {
             ans = ans > sum ? ans : sum;
             return;
         }
 
-        for(int i=idx ; i<N ; i++){
+        for (int i = idx; i < N; i++) {
             sel[sidx] = arr[i];
-            combination(i+1, sidx+1, len, c+sel[sidx], sum+sel[sidx]*sel[sidx]);
+            combination(i + 1, sidx + 1, len, c + sel[sidx], sum + sel[sidx] * sel[sidx]);
         }
     }
 

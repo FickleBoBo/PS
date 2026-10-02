@@ -9,19 +9,17 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        int left = N-1;
-        int right= N-1;
+        int left = N - 1;
+        int right = N - 1;
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<2*N-1 ; j++){
-                if(j==right){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < 2 * N - 1; j++) {
+                if (j == right) {
                     bw.write("*");
                     break;
-                }
-                else if(j==left){
+                } else if (j == left) {
                     bw.write("*");
-                }
-                else{
+                } else {
                     bw.write(" ");
                 }
             }

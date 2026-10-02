@@ -13,7 +13,7 @@ public class Main {
         int M = 1234567891;
         long ans = 0;
 
-        for(char c : input){
+        for (char c : input) {
             ans += (c - 'a' + 1) * r;
             r *= 31;
             ans %= M;

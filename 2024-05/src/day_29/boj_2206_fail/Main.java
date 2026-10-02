@@ -35,15 +35,15 @@ public class Main {
         List<int[]> walls = new ArrayList<>();
         map = new int[N][M];
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(br.readLine());
         }
         String[] input = sb.toString().split("");
         int idx = 0;
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<M ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 map[i][j] = -1 * Integer.parseInt(input[idx++]);
-                if(map[i][j] == -1){
+                if (map[i][j] == -1) {
                     walls.add(new int[]{i, j});
                 }
             }
@@ -51,12 +51,12 @@ public class Main {
 
         int ans = BFS();
 
-        if(ans == Integer.MAX_VALUE) System.out.println(-1);
+        if (ans == Integer.MAX_VALUE) System.out.println(-1);
         else System.out.println(ans);
 
     }
 
-    private static int BFS(){
+    private static int BFS() {
         int[][] visited = new int[N][M];
 
         Queue<Node> q = new LinkedList<>();
@@ -65,44 +65,39 @@ public class Main {
         visited[0][0] = 1;
         int ans = 1;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             ans++;
             int len = q.size();
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 Node item = q.poll();
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = item.r + dr[dir];
                     int nc = item.c + dc[dir];
-                    if(nr>=0 && nr<N && nc>=0 && nc<M){
-                        if(visited[nr][nc] == 0){
-                            if(map[nr][nc] == 0){
+                    if (nr >= 0 && nr < N && nc >= 0 && nc < M) {
+                        if (visited[nr][nc] == 0) {
+                            if (map[nr][nc] == 0) {
                                 q.offer(new Node(nr, nc, item.breakWall));
                                 map[nr][nc] = ans;
-                                if(item.breakWall) visited[nr][nc] = 2;
+                                if (item.breakWall) visited[nr][nc] = 2;
                                 else visited[nr][nc] = 1;
-                            }
-                            else{
-                                if(item.breakWall){
+                            } else {
+                                if (item.breakWall) {
                                     continue;
-                                }
-                                else{
+                                } else {
                                     q.offer(new Node(nr, nc, true));
 //                                    map[nr][nc] = ans;
                                     visited[nr][nc] = 2;
                                 }
                             }
-                        }
-                        else if(visited[nr][nc] == 1){
+                        } else if (visited[nr][nc] == 1) {
                             continue;
-                        }
-                        else{
-                            if(!item.breakWall){
-                                if(map[nr][nc] >= 0){
+                        } else {
+                            if (!item.breakWall) {
+                                if (map[nr][nc] >= 0) {
                                     q.offer(new Node(nr, nc, false));
                                     map[nr][nc] = ans;
                                     visited[nr][nc] = 1;
-                                }
-                                else{
+                                } else {
                                     q.offer(new Node(nr, nc, true));
 //                                    map[nr][nc] = ans;
                                     visited[nr][nc] = 2;
@@ -113,8 +108,7 @@ public class Main {
                 }
 
 
-
-                if(map[N-1][M-1] != 0) break;
+                if (map[N - 1][M - 1] != 0) break;
             }
 
 //            for(int k=0 ; k<N ; k++){
@@ -148,8 +142,8 @@ public class Main {
 //            System.out.println();
 //        }
 
-        if(map[N-1][M-1] == 0) return Integer.MAX_VALUE;
-        else return ans-1;
+        if (map[N - 1][M - 1] == 0) return Integer.MAX_VALUE;
+        else return ans - 1;
     }
 
 }

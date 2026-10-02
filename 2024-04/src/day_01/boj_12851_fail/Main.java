@@ -19,21 +19,21 @@ public class Main {
         q.offer(N);
         int len = q.size();
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int pos = q.poll();
             len--;
 
-            if(pos == K){
+            if (pos == K) {
                 cnt++;
                 found = true;
             }
 
-            q.offer(pos-1);
-            q.offer(pos+1);
-            q.offer(2*pos);
+            q.offer(pos - 1);
+            q.offer(pos + 1);
+            q.offer(2 * pos);
 
-            if(len==0){
-                if(found){
+            if (len == 0) {
+                if (found) {
                     break;
                 }
                 len = q.size();

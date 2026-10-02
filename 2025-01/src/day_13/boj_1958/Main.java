@@ -19,7 +19,8 @@ public class Main {
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= M; j++) {
                 for (int k = 1; k <= K; k++) {
-                    if (str1[i - 1] == str2[j - 1] && str1[i - 1] == str3[k - 1]) dp[i][j][k] = dp[i - 1][j - 1][k - 1] + 1;
+                    if (str1[i - 1] == str2[j - 1] && str1[i - 1] == str3[k - 1])
+                        dp[i][j][k] = dp[i - 1][j - 1][k - 1] + 1;
                     else dp[i][j][k] = Math.max(dp[i - 1][j][k], Math.max(dp[i][j - 1][k], dp[i][j][k - 1]));
                 }
             }

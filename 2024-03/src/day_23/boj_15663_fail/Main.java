@@ -24,9 +24,9 @@ public class Main {
         duplicatedNums = new boolean[N];
         sel = new int[M];
         visited = new boolean[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int num = sc.nextInt();
-            if(arr.contains(num)){
+            if (arr.contains(num)) {
                 duplicatedNums[i] = true;
             }
             arr.add(num);
@@ -38,20 +38,20 @@ public class Main {
         System.out.println(sb.toString());
     }
 
-    private static void permutation(int sidx){
-        if(sidx == M){
-            for(int n : sel){
+    private static void permutation(int sidx) {
+        if (sidx == M) {
+            for (int n : sel) {
                 sb.append(n + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=0 ; i<N ; i++){
-            if(!visited[i] && !duplicatedNums[i]){
+        for (int i = 0; i < N; i++) {
+            if (!visited[i] && !duplicatedNums[i]) {
                 sel[sidx] = arr.get(i);
                 visited[i] = true;
-                permutation(sidx+1);
+                permutation(sidx + 1);
                 visited[i] = false;
             }
         }

@@ -11,20 +11,20 @@ public class Main {
         int G = Integer.parseInt(br.readLine());
         int P = Integer.parseInt(br.readLine());
 
-        int[] checkArr = new int[1+G];
-        for(int i=1 ; i<=G ; i++){
+        int[] checkArr = new int[1 + G];
+        for (int i = 1; i <= G; i++) {
             checkArr[i] = i;
         }
-        boolean[] visited = new boolean[1+G];
+        boolean[] visited = new boolean[1 + G];
 
         int cnt = 0;
 
         out:
-        for(int i=0 ; i<P ; i++){
+        for (int i = 0; i < P; i++) {
             int g = Integer.parseInt(br.readLine());
 
-            for(int j=checkArr[g] ; j>0 ; j--){
-                if(!visited[j]){
+            for (int j = checkArr[g]; j > 0; j--) {
+                if (!visited[j]) {
                     visited[j] = true;
                     checkArr[g] = j;
                     cnt++;

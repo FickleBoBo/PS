@@ -22,7 +22,7 @@ public class Main {
 
         arr = new String[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = st.nextToken();
         }
         Arrays.sort(arr);    // 입력 값이 사전순이 아니므로 정렬
@@ -36,10 +36,10 @@ public class Main {
         bw.close();
     }
 
-    private static void combination(int idx, int sidx){
-        if(sidx == R){
-            if(meetCondition()){    // 문제 조건을 만족하면 StringBuilder에 추가
-                for(String s : sel){
+    private static void combination(int idx, int sidx) {
+        if (sidx == R) {
+            if (meetCondition()) {    // 문제 조건을 만족하면 StringBuilder에 추가
+                for (String s : sel) {
                     sb.append(s);
                 }
                 sb.append("\n");
@@ -47,9 +47,9 @@ public class Main {
             return;
         }
 
-        for(int i=idx ; i<N ; i++){
+        for (int i = idx; i < N; i++) {
             sel[sidx] = arr[i];
-            combination(i+1, sidx+1);
+            combination(i + 1, sidx + 1);
         }
     }
 
@@ -57,16 +57,15 @@ public class Main {
     private static boolean meetCondition() {
         int ja = 0;
         int mo = 0;
-        for(String s : sel){
-            if(s.equals("a") || s.equals("e") || s.equals("i") || s.equals("o") || s.equals("u")){
+        for (String s : sel) {
+            if (s.equals("a") || s.equals("e") || s.equals("i") || s.equals("o") || s.equals("u")) {
                 mo++;
-            }
-            else{
+            } else {
                 ja++;
             }
         }
 
-        if(mo >= 1 && ja >= 2) return true;
+        if (mo >= 1 && ja >= 2) return true;
         else return false;
     }
 

@@ -25,7 +25,7 @@ public class Main {
 
         // 물건을 저장하는 리스트
         List<Item> itemList = new ArrayList<>();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int v = Integer.parseInt(st.nextToken());
@@ -33,13 +33,13 @@ public class Main {
             int k = Integer.parseInt(st.nextToken());
 
             // 여기가 핵심인데 k보다 작거나 같은 모든 2의 배수(1 포함)를 itemList에 저장하고 그만큼 k를 감소
-            for(int j=1 ; j<=k ; j <<= 1){
+            for (int j = 1; j <= k; j <<= 1) {
                 itemList.add(new Item(v * j, c * j));
                 k -= j;
             }
 
             // 남은 k도 itemList에 추가해줌
-            if(k > 0){
+            if (k > 0) {
                 itemList.add(new Item(v * k, c * k));
             }
 
@@ -51,15 +51,14 @@ public class Main {
         int len = itemList.size() - 1;
 
         // 2차원 dp 테이블로 해결
-        int[][] dp = new int[1+len][1+M];
+        int[][] dp = new int[1 + len][1 + M];
 
-        for(int i=1 ; i<=len ; i++){
-            for(int j=1 ; j<=M ; j++){
-                if(j < itemList.get(i).v){
-                    dp[i][j] = dp[i-1][j];
-                }
-                else{
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-itemList.get(i).v] + itemList.get(i).c);
+        for (int i = 1; i <= len; i++) {
+            for (int j = 1; j <= M; j++) {
+                if (j < itemList.get(i).v) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - itemList.get(i).v] + itemList.get(i).c);
                 }
             }
         }

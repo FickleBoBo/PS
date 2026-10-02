@@ -14,12 +14,12 @@ public class Main {
         int n2 = sc.nextInt();
         int m = sc.nextInt();
 
-        List[] adjList = new List[n+1];
-        for(int i=1 ; i<=n ; i++){
+        List[] adjList = new List[n + 1];
+        for (int i = 1; i <= n; i++) {
             adjList[i] = new LinkedList<Integer>();
         }
 
-        for(int i=0 ; i<m ; i++){
+        for (int i = 0; i < m; i++) {
             int p = sc.nextInt();
             int c = sc.nextInt();
             adjList[p].add(c);
@@ -27,7 +27,7 @@ public class Main {
         }
 
         Queue<Integer> q = new LinkedList<>();
-        boolean[] visited = new boolean[n+1];
+        boolean[] visited = new boolean[n + 1];
         q.offer(n1);
         visited[n1] = true;
         int ans = 0;
@@ -35,27 +35,27 @@ public class Main {
         int cnt = q.size();
 
         out:
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int item = q.poll();
             cnt--;
-            for(int i=0 ; i<adjList[item].size() ; i++){
+            for (int i = 0; i < adjList[item].size(); i++) {
                 int connect = (int) adjList[item].get(i);
-                if(!visited[connect]){
+                if (!visited[connect]) {
                     q.offer(connect);
                     visited[connect] = true;
-                    if(connect == n2){
+                    if (connect == n2) {
                         flag = true;
                         break out;
                     }
                 }
             }
-            if(cnt == 0){
+            if (cnt == 0) {
                 cnt = q.size();
                 ans++;
             }
         }
 
-        if(flag) System.out.println(ans+1);
+        if (flag) System.out.println(ans + 1);
         else System.out.println(-1);
 
         sc.close();

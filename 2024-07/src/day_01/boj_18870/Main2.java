@@ -16,7 +16,7 @@ public class Main2 {
         int[] sortedArr = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sortedArr[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -24,13 +24,13 @@ public class Main2 {
 
         Map<Integer, Integer> map = new HashMap<>();
         int rank = 0;
-        for(int i=0 ; i<N ; i++){
-            if(!map.containsKey(sortedArr[i])){
+        for (int i = 0; i < N; i++) {
+            if (!map.containsKey(sortedArr[i])) {
                 map.put(sortedArr[i], rank++);
             }
         }
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(map.get(arr[i])).append(" ");
         }
 

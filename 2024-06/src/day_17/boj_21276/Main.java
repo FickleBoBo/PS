@@ -20,7 +20,7 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         // 자손들을 저장하는 Map (key: 이름, value: 자손들 리스트)
         Map<String, List<String>> map = new HashMap<>();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             String name = st.nextToken();
             map.put(name, new ArrayList<>());
             indegree.put(name, 0);
@@ -29,7 +29,7 @@ public class Main {
 
         // 기억하는 정보의 개수
         int M = Integer.parseInt(br.readLine());
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             String descendant = st.nextToken();
             String ancestor = st.nextToken();
@@ -42,25 +42,25 @@ public class Main {
 
         // 위상 정렬 시작
         Queue<String> q = new ArrayDeque<>();
-        for(String key : indegree.keySet()){
-            if(indegree.get(key) == 0){
+        for (String key : indegree.keySet()) {
+            if (indegree.get(key) == 0) {
                 q.offer(key);
                 ans.offer(key);    // 초기 진입차수가 0이면 각 가문의 시조
             }
         }
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             String name = q.poll();
 
             // 위상 정렬에서 뽑은 애의 자손들을 둘러보며
-            for(String descendant : map.get(name)){
+            for (String descendant : map.get(name)) {
 
                 // 자손들의 진입차수를 1 감소시킴
                 indegree.put(descendant, indegree.get(descendant) - 1);
 
                 // 진입차수가 0이 된 자손은 Queue에 넣고 자식에 추가
                 // 자식과 자손을 구분하는 것이 포인트
-                if(indegree.get(descendant) == 0){
+                if (indegree.get(descendant) == 0) {
                     q.offer(descendant);
                     child.get(name).offer(descendant);
                 }
@@ -71,19 +71,19 @@ public class Main {
 
         // 처음엔 가문의 시조와 관련된 정보 출력
         sb.append(ans.size()).append("\n");
-        while(!ans.isEmpty()){
+        while (!ans.isEmpty()) {
             sb.append(ans.poll()).append(" ");
         }
         sb.append("\n");
 
         // 다음엔 각 사람에 대해 자식을 출력
-        for(String key : child.keySet()){
+        for (String key : child.keySet()) {
             ans.offer(key);
         }
-        while(!ans.isEmpty()){
+        while (!ans.isEmpty()) {
             String name = ans.poll();
             sb.append(name).append(" ").append(child.get(name).size()).append(" ");
-            while(!child.get(name).isEmpty()){
+            while (!child.get(name).isEmpty()) {
                 sb.append(child.get(name).poll()).append(" ");
             }
             sb.append("\n");

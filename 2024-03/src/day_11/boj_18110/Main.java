@@ -12,7 +12,7 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         int[] arr = new int[n];
 
-        for(int i=0 ; i<n ; i++){
+        for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
 
@@ -20,9 +20,9 @@ public class Main {
 
         int del = (int) Math.round(n * 0.15);
         int start = del;
-        int end = n-1 - del;
+        int end = n - 1 - del;
         int sum = 0;
-        for(int i=start ; i<=end ; i++){
+        for (int i = start; i <= end; i++) {
             sum += arr[i];
         }
 

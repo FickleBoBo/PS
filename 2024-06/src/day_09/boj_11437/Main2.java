@@ -15,16 +15,16 @@ public class Main2 {
         StringTokenizer st;
 
         int N = Integer.parseInt(br.readLine());
-        parents = new int[1+N];
+        parents = new int[1 + N];
 
         // 인접리스트로 연결관계 저장
-        List<Integer>[] adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        List<Integer>[] adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
         // 인접리스트에 연결관계를 저장하는데 입력만으로 부모자식 관계를 알 수가 없음
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             st = new StringTokenizer(br.readLine());
             int nodeA = Integer.parseInt(st.nextToken());
             int nodeB = Integer.parseInt(st.nextToken());
@@ -38,7 +38,7 @@ public class Main2 {
         int M = Integer.parseInt(br.readLine());
 
         // 두 정점의 거리를 find 메서드로 구해서 StringBuilder에 저장했다가 한번에 출력
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int nodeA = Integer.parseInt(st.nextToken());
             int nodeB = Integer.parseInt(st.nextToken());
@@ -53,22 +53,22 @@ public class Main2 {
     }
 
     // 트리의 루트(=1)부터 쭉 BFS 타면서 최단거리를 저장하면 그게 각 노드의 높이가 됨
-    private static int[] BFS(int N, List<Integer>[] adj){
+    private static int[] BFS(int N, List<Integer>[] adj) {
         Queue<Integer> q = new LinkedList<>();
         q.offer(1);
 
-        boolean[] visited = new boolean[1+N];
+        boolean[] visited = new boolean[1 + N];
         visited[1] = true;
 
-        int[] height = new int[1+N];
+        int[] height = new int[1 + N];
         int level = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int node = q.poll();
-                for(int next : adj[node]){
-                    if(!visited[next]){
+                for (int next : adj[node]) {
+                    if (!visited[next]) {
                         q.offer(next);
                         visited[next] = true;
                         parents[next] = node;
@@ -88,15 +88,15 @@ public class Main2 {
     // 첨에 A의 조상을 전부 다 구하고 B의 부모를 구하면서 A의 조상에 포함되나 구하는 식으로 했는데 너무 느리지만 통과는 됨(아슬아슬)
     // A와 B를 동시에 부모를 구하며 비교하면 안정적으로 통과됨 -> O(N) 풀이?
     // DP를 활용해서 O(log N)에도 풀이 가능하다는데 이해 잘 안됨
-    private static int find(int A, int B, int[] height){
-        while(height[A] > height[B]){
+    private static int find(int A, int B, int[] height) {
+        while (height[A] > height[B]) {
             A = parents[A];
         }
-        while(height[A] < height[B]){
+        while (height[A] < height[B]) {
             B = parents[B];
         }
 
-        while(A != B){
+        while (A != B) {
             A = parents[A];
             B = parents[B];
         }

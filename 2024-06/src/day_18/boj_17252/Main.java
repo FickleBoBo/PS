@@ -7,18 +7,17 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
 
-        if(N == 0){
+        if (N == 0) {
             System.out.println("NO");
-        }
-        else{
+        } else {
             int div = 1162261467;
-            while(div > 0){
-                if(N >= div){
+            while (div > 0) {
+                if (N >= div) {
                     N -= div;
                 }
                 div /= 3;
             }
-            System.out.println(N==0 ? "YES" : "NO");
+            System.out.println(N == 0 ? "YES" : "NO");
         }
     }
 }

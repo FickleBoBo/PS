@@ -10,7 +10,7 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
         Arrays.sort(arr);
@@ -20,18 +20,17 @@ public class Main {
         int diff = arr[end] - arr[start];
         int min = Integer.MAX_VALUE;
 
-        if(N==1 || M==0) System.out.println(0);
-        else{
-            while(true){
-                if(diff < M){
+        if (N == 1 || M == 0) System.out.println(0);
+        else {
+            while (true) {
+                if (diff < M) {
                     diff = arr[++end] - arr[start];
-                }
-                else{
+                } else {
                     min = Math.min(min, diff);
                     diff = arr[end] - arr[++start];
                 }
 
-                if(end == N-1 && diff < M) break;
+                if (end == N - 1 && diff < M) break;
             }
 
             System.out.println(min);

@@ -15,7 +15,7 @@ public class Main {
         int num2 = 0;
 
         int digit = 1;
-        for(int i=0 ; i<3 ; i++){
+        for (int i = 0; i < 3; i++) {
             num1 += Character.getNumericValue(input1.charAt(i)) * digit;
             num2 += Character.getNumericValue(input2.charAt(i)) * digit;
             digit *= 10;

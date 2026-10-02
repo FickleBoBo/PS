@@ -12,11 +12,11 @@ public class Main2 {
         int N = Integer.parseInt(br.readLine());
 
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             pq.offer(Integer.parseInt(br.readLine()));
         }
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             sb.append(pq.poll()).append("\n");
         }
         bw.write(sb.toString());

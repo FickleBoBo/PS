@@ -13,16 +13,16 @@ public class Main {
         List<Integer> xpos = new ArrayList<>();
         List<Integer> ypos = new ArrayList<>();
 
-        for(int i=1 ; i<=3 ; i++){
+        for (int i = 1; i <= 3; i++) {
             st = new StringTokenizer(br.readLine());
 
             Integer x = Integer.valueOf(st.nextToken());
             Integer y = Integer.valueOf(st.nextToken());
 
-            if(xpos.contains(x)) xpos.remove(x);
+            if (xpos.contains(x)) xpos.remove(x);
             else xpos.add(x);
 
-            if(ypos.contains(y)) ypos.remove(y);
+            if (ypos.contains(y)) ypos.remove(y);
             else ypos.add(y);
         }
 

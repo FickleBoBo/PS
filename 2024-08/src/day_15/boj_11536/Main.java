@@ -11,17 +11,15 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         String[] arr = new String[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = br.readLine();
         }
 
-        if(isIncreasing(arr)){
+        if (isIncreasing(arr)) {
             bw.write("INCREASING");
-        }
-        else if(isDecreasing(arr)){
+        } else if (isDecreasing(arr)) {
             bw.write("DECREASING");
-        }
-        else{
+        } else {
             bw.write("NEITHER");
         }
 
@@ -29,12 +27,12 @@ public class Main {
         bw.close();
     }
 
-    private static boolean isIncreasing(String[] arr){
+    private static boolean isIncreasing(String[] arr) {
         String[] tmp = arr.clone();
         Arrays.sort(tmp);
 
-        for(int i=0 ; i<arr.length ; i++){
-            if(!arr[i].equals(tmp[i])){
+        for (int i = 0; i < arr.length; i++) {
+            if (!arr[i].equals(tmp[i])) {
                 return false;
             }
         }
@@ -42,12 +40,12 @@ public class Main {
         return true;
     }
 
-    private static boolean isDecreasing(String[] arr){
+    private static boolean isDecreasing(String[] arr) {
         String[] tmp = arr.clone();
         Arrays.sort(tmp, Collections.reverseOrder());
 
-        for(int i=0 ; i<arr.length ; i++){
-            if(!arr[i].equals(tmp[i])){
+        for (int i = 0; i < arr.length; i++) {
+            if (!arr[i].equals(tmp[i])) {
                 return false;
             }
         }

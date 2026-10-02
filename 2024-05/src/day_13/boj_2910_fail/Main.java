@@ -11,18 +11,18 @@ public class Main {
         int C = sc.nextInt();
 
         List<Integer> list = new LinkedList<>();
-        int[] cntArr = new int[1+C];
+        int[] cntArr = new int[1 + C];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int n = sc.nextInt();
-            if(!list.contains(n)){
+            if (!list.contains(n)) {
                 list.add(n);
             }
             cntArr[n]++;
         }
 
-        for(int i=0 ; i<list.size() ; i++){
-            for(int j=0 ; j < cntArr[list.get(i)] ; j++){
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < cntArr[list.get(i)]; j++) {
                 System.out.print(list.get(i) + " ");
             }
         }

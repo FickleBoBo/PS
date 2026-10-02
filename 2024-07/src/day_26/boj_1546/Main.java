@@ -15,10 +15,10 @@ public class Main {
         int[] arr = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
             sum += arr[i];
-            if(arr[i] > max) max = arr[i];
+            if (arr[i] > max) max = arr[i];
         }
 
         System.out.println((double) sum / max * 100 / N);

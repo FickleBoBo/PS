@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static class Student implements Comparable<Student>{
+    static class Student implements Comparable<Student> {
         String name;
         int kor;
         int eng;
@@ -20,13 +20,13 @@ public class Main {
 
         @Override
         public int compareTo(Student o) {
-            if(this.kor != o.kor){
+            if (this.kor != o.kor) {
                 return Integer.compare(o.kor, this.kor);
             }
-            if(this.eng != o.eng){
+            if (this.eng != o.eng) {
                 return Integer.compare(this.eng, o.eng);
             }
-            if(this.math != o.math){
+            if (this.math != o.math) {
                 return Integer.compare(o.math, this.math);
             }
             return this.name.compareTo(o.name);
@@ -43,7 +43,7 @@ public class Main {
 
         Student[] students = new Student[N];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             String name = st.nextToken();
@@ -56,7 +56,7 @@ public class Main {
 
         Arrays.sort(students);
 
-        for(Student student : students){
+        for (Student student : students) {
             sb.append(student.name).append("\n");
         }
 

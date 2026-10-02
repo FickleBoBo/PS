@@ -15,14 +15,14 @@ public class Main {
 
         Map<String, String> map = new HashMap<>();
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             String name = br.readLine();
 
             map.put(name, String.valueOf(i));
             map.put(String.valueOf(i), name);
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             String order = br.readLine();
             sb.append(map.get(order)).append("\n");
         }

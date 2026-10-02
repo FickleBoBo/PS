@@ -13,30 +13,30 @@ public class Solution {
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             int N = sc.nextInt();
             int M = sc.nextInt();
-            int[][] map = new int[1+N+1][1+M+1];
+            int[][] map = new int[1 + N + 1][1 + M + 1];
             int ans = 0;
 
             Arrays.fill(map[0], Integer.MAX_VALUE);
-            for(int i=1 ; i<=N ; i++){
+            for (int i = 1; i <= N; i++) {
                 Arrays.fill(map[i], Integer.MAX_VALUE);
-                for(int j=1 ; j<=M ; j++){
+                for (int j = 1; j <= M; j++) {
                     map[i][j] = sc.nextInt();
                 }
             }
-            Arrays.fill(map[N+1], Integer.MAX_VALUE);
+            Arrays.fill(map[N + 1], Integer.MAX_VALUE);
 
-            for(int i=1 ; i<=N ; i++){
-                for(int j=1 ; j<=M ; j++){
+            for (int i = 1; i <= N; i++) {
+                for (int j = 1; j <= M; j++) {
                     int cnt = 0;
-                    for(int k=0 ; k<8 ; k++){
-                        if(map[i][j] > map[i+dr[k]][j+dc[k]]){
+                    for (int k = 0; k < 8; k++) {
+                        if (map[i][j] > map[i + dr[k]][j + dc[k]]) {
                             cnt++;
                         }
                     }
-                    if(cnt >= 4){
+                    if (cnt >= 4) {
                         ans++;
                     }
                 }

@@ -26,28 +26,28 @@ public class Main {
         miro = new String[N][M];
         visited = new boolean[N][M];
         timeTable = new int[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             miro[i] = br.readLine().split("");
         }
 
-        BFS(new int[] {0, 0});
-        System.out.println(timeTable[N-1][M-1]);    // 미로의 끝에 해당하는 최단 거리 출력
+        BFS(new int[]{0, 0});
+        System.out.println(timeTable[N - 1][M - 1]);    // 미로의 끝에 해당하는 최단 거리 출력
         br.close();
     }
 
-    private static void BFS(int[] start){
+    private static void BFS(int[] start) {
         Queue<int[]> q = new LinkedList<>();
         q.offer(start);
         visited[start[0]][start[1]] = true;
         timeTable[start[0]][start[1]] = 1;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] pos = q.poll();
 
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = pos[0] + dr[dir];
                 int nc = pos[1] + dc[dir];
-                if((nr>=0) && (nc>=0) && (nr<N) && (nc<M) && (!visited[nr][nc]) && (miro[nr][nc].equals("1"))){
+                if ((nr >= 0) && (nc >= 0) && (nr < N) && (nc < M) && (!visited[nr][nc]) && (miro[nr][nc].equals("1"))) {
                     q.offer(new int[]{nr, nc});
                     visited[nr][nc] = true;
                     timeTable[nr][nc] = timeTable[pos[0]][pos[1]] + 1;

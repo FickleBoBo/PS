@@ -11,13 +11,13 @@ public class Main {
         String S = br.readLine();
 
         String[] arr = new String[S.length()];
-        for(int i=0 ; i<arr.length ; i++){
+        for (int i = 0; i < arr.length; i++) {
             arr[i] = S.substring(i);
         }
 
         Arrays.sort(arr);
 
-        for(String s : arr){
+        for (String s : arr) {
             bw.write(s);
             bw.write("\n");
         }

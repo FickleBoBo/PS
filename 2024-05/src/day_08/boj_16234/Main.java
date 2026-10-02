@@ -22,24 +22,24 @@ public class Main {
         L = sc.nextInt();
         R = sc.nextInt();
         map = new int[N][N];
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
 
         int ans = 0;
-        while(true){
+        while (true) {
             flag = false;
             visited = new boolean[N][N];
-            for(int i=0 ; i<N ; i++){
-                for(int j=0 ; j<N ; j++){
-                    if(!visited[i][j]){
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    if (!visited[i][j]) {
                         BFS(i, j);
                     }
                 }
             }
-            if(!flag) break;
+            if (!flag) break;
             ans++;
         }
 
@@ -49,7 +49,7 @@ public class Main {
         sc.close();
     }
 
-    private static void BFS(int r, int c){
+    private static void BFS(int r, int c) {
 //        System.out.printf("r : %d, c : %d\n", r, c);
         int sum = map[r][c];
 //        System.out.println(sum);
@@ -59,15 +59,15 @@ public class Main {
         q2.offer(new int[]{r, c});
         visited[r][c] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] item = q.poll();
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = item[0] + dr[dir];
                 int nc = item[1] + dc[dir];
-                if(nr>=0 && nr<N && nc>=0 && nc<N && !visited[nr][nc]){
+                if (nr >= 0 && nr < N && nc >= 0 && nc < N && !visited[nr][nc]) {
                     int diff = Math.abs(map[nr][nc] - map[item[0]][item[1]]);
 //                    System.out.println(map[nr][nc] + " " + map[item[0]][item[1]] + " " + diff);
-                    if(diff >= L && diff <= R){
+                    if (diff >= L && diff <= R) {
                         sum += map[nr][nc];
                         q.offer(new int[]{nr, nc});
                         q2.offer(new int[]{nr, nc});
@@ -80,10 +80,10 @@ public class Main {
         int newN = sum / q2.size();
 //        System.out.println(newN);
 //        System.out.println(q2.size());
-        if(q2.size() > 1){
+        if (q2.size() > 1) {
             flag = true;
         }
-        while(!q2.isEmpty()){
+        while (!q2.isEmpty()) {
             int[] item = q2.poll();
             map[item[0]][item[1]] = newN;
         }
@@ -91,9 +91,9 @@ public class Main {
 //        printMap();
     }
 
-    private static void printMap(){
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
+    private static void printMap() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();

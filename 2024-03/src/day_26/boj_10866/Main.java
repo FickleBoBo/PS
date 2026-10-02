@@ -13,36 +13,29 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(br.readLine() + " ");
         }
         StringTokenizer st = new StringTokenizer(sb.toString(), " ");
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             String order = st.nextToken();
 
-            if(order.equals("push_front")){
+            if (order.equals("push_front")) {
                 push_front(Integer.parseInt(st.nextToken()));
-            }
-            else if(order.equals("push_back")){
+            } else if (order.equals("push_back")) {
                 push_back(Integer.parseInt(st.nextToken()));
-            }
-            else if(order.equals("pop_front")){
+            } else if (order.equals("pop_front")) {
                 pop_front();
-            }
-            else if(order.equals("pop_back")){
+            } else if (order.equals("pop_back")) {
                 pop_back();
-            }
-            else if(order.equals("size")){
+            } else if (order.equals("size")) {
                 size();
-            }
-            else if(order.equals("empty")){
+            } else if (order.equals("empty")) {
                 empty();
-            }
-            else if(order.equals("front")){
+            } else if (order.equals("front")) {
                 front();
-            }
-            else if(order.equals("back")){
+            } else if (order.equals("back")) {
                 back();
             }
         }
@@ -60,7 +53,7 @@ public class Main {
     }
 
     private static void pop_front() {
-        if(deque.isEmpty()){
+        if (deque.isEmpty()) {
             System.out.println(-1);
             return;
         }
@@ -70,12 +63,12 @@ public class Main {
     }
 
     private static void pop_back() {
-        if(deque.isEmpty()){
+        if (deque.isEmpty()) {
             System.out.println(-1);
             return;
         }
-        int item = deque.get(deque.size()-1);
-        deque.remove(deque.size()-1);
+        int item = deque.get(deque.size() - 1);
+        deque.remove(deque.size() - 1);
         System.out.println(item);
     }
 
@@ -84,7 +77,7 @@ public class Main {
     }
 
     private static void empty() {
-        if(deque.isEmpty()){
+        if (deque.isEmpty()) {
             System.out.println(1);
             return;
         }
@@ -92,7 +85,7 @@ public class Main {
     }
 
     private static void front() {
-        if(deque.isEmpty()){
+        if (deque.isEmpty()) {
             System.out.println(-1);
             return;
         }
@@ -100,11 +93,11 @@ public class Main {
     }
 
     private static void back() {
-        if(deque.isEmpty()){
+        if (deque.isEmpty()) {
             System.out.println(-1);
             return;
         }
-        System.out.println(deque.get(deque.size()-1));
+        System.out.println(deque.get(deque.size() - 1));
     }
 
 }

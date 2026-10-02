@@ -23,17 +23,16 @@ public class Main {
         Queue<int[]> fire = new ArrayDeque<>();    // 불들의 위치
 
         map = new char[H][W];
-        for(int i=0 ; i<H ; i++){
+        for (int i = 0; i < H; i++) {
             String input = br.readLine();
 
-            for(int j=0 ; j<W ; j++){
+            for (int j = 0; j < W; j++) {
                 map[i][j] = input.charAt(j);
 
-                if(map[i][j] == 'J'){
+                if (map[i][j] == 'J') {
                     person[0] = i;
                     person[1] = j;
-                }
-                else if(map[i][j] == 'F'){
+                } else if (map[i][j] == 'F') {
                     fire.offer(new int[]{i, j});
                 }
             }
@@ -43,7 +42,7 @@ public class Main {
         System.out.println(ans > 0 ? ans : "IMPOSSIBLE");
     }
 
-    private static int BFS(int[] person, Queue<int[]> fire){
+    private static int BFS(int[] person, Queue<int[]> fire) {
         Queue<int[]> personQueue = new ArrayDeque<>();    // 지훈이의 위치를 담음
         personQueue.offer(person);
 
@@ -51,19 +50,19 @@ public class Main {
 
         int dist = 1;    // 최단 거리
 
-        while(!personQueue.isEmpty()){    // 지훈이가 없어질 때까지 반복
+        while (!personQueue.isEmpty()) {    // 지훈이가 없어질 때까지 반복
 
             // 불이 붙으려는 칸으로 이동이 불가능해서 불이 먼저 이동해야 한다
             int fireLen = fireQueue.size();
 
-            for(int i=0 ; i<fireLen ; i++){
+            for (int i = 0; i < fireLen; i++) {
                 int[] node = fireQueue.poll();
 
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = node[0] + dr[dir];
                     int nc = node[1] + dc[dir];
 
-                    if(nr>=0 && nr<H && nc>=0 && nc<W && (map[nr][nc]=='.' || map[nr][nc]=='J')){
+                    if (nr >= 0 && nr < H && nc >= 0 && nc < W && (map[nr][nc] == '.' || map[nr][nc] == 'J')) {
                         fireQueue.offer(new int[]{nr, nc});
                         map[nr][nc] = 'F';
                     }
@@ -73,15 +72,15 @@ public class Main {
             // 이후 지훈이가 이동
             int personLen = personQueue.size();
 
-            for(int i=0 ; i<personLen ; i++){
+            for (int i = 0; i < personLen; i++) {
                 int[] node = personQueue.poll();
-                if((node[0]==0) || (node[0]==H-1) || (node[1]==0) || (node[1]==W-1)) return dist;
+                if ((node[0] == 0) || (node[0] == H - 1) || (node[1] == 0) || (node[1] == W - 1)) return dist;
 
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = node[0] + dr[dir];
                     int nc = node[1] + dc[dir];
 
-                    if(nr>=0 && nr<H && nc>=0 && nc<W && map[nr][nc]=='.'){
+                    if (nr >= 0 && nr < H && nc >= 0 && nc < W && map[nr][nc] == '.') {
                         personQueue.offer(new int[]{nr, nc});
                         map[nr][nc] = 'J';
                     }

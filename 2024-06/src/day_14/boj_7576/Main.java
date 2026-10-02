@@ -27,34 +27,32 @@ public class Main {
         Queue<int[]> tomatoQueue = new ArrayDeque<>();
 
         map = new int[N][M];
-        for(int i=0 ; i<N ; i++){
-           st = new StringTokenizer(br.readLine());
-           for(int j=0 ; j<M ; j++){
-               map[i][j] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < M; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
 
-               // 익은 토마토와 빈 상자에 대한 초기화
-               if(map[i][j] == 1){
-                   tomato++;
-                   tomatoQueue.offer(new int[]{i, j});
-               }
-               else if(map[i][j] == -1){
-                   empty++;
-               }
-           }
+                // 익은 토마토와 빈 상자에 대한 초기화
+                if (map[i][j] == 1) {
+                    tomato++;
+                    tomatoQueue.offer(new int[]{i, j});
+                } else if (map[i][j] == -1) {
+                    empty++;
+                }
+            }
         }
 
         int ans = BFS(tomatoQueue);
 
-        if(tomato + empty == N * M){
+        if (tomato + empty == N * M) {
             System.out.println(ans);
-        }
-        else{
+        } else {
             System.out.println(-1);
         }
     }
 
     // 토마토를 모두 익히는데 걸리는 최소 날짜
-    private static int BFS(Queue<int[]> defaultTomato){
+    private static int BFS(Queue<int[]> defaultTomato) {
 
         // 처음 상자에 담겨 있었던 익은 토마토를 Queue에 넣어줌
         Queue<int[]> q = new ArrayDeque<>(defaultTomato);
@@ -66,13 +64,13 @@ public class Main {
             int len = q.size();
 
             // BFS로 최단거리를 구하는 방법
-            for (int i=0 ; i<len ; i++) {
+            for (int i = 0; i < len; i++) {
                 int[] node = q.poll();
 
-                for (int dir=0 ; dir<4 ; dir++) {
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = node[0] + dr[dir];
                     int nc = node[1] + dc[dir];
-                    if (nr>=0 && nr<N && nc>=0 && nc<M && (map[nr][nc]==0)){
+                    if (nr >= 0 && nr < N && nc >= 0 && nc < M && (map[nr][nc] == 0)) {
                         tomato++;
                         q.offer(new int[]{nr, nc});
                         map[nr][nc] = 1;

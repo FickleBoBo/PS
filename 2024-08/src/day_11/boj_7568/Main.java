@@ -16,7 +16,7 @@ public class Main {
         int[][] arr = new int[N][3];
 
         // 몸무게와 키 저장
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             arr[i][0] = Integer.parseInt(st.nextToken());
@@ -24,11 +24,11 @@ public class Main {
         }
 
         // 등수 계산
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int rank = 1;
 
-            for(int j=0 ; j<N ; j++){
-                if(arr[i][0] < arr[j][0] && arr[i][1] < arr[j][1]){
+            for (int j = 0; j < N; j++) {
+                if (arr[i][0] < arr[j][0] && arr[i][1] < arr[j][1]) {
                     rank++;
                 }
             }
@@ -36,7 +36,7 @@ public class Main {
             arr[i][2] = rank;
         }
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(arr[i][2]).append(" ");
         }
 

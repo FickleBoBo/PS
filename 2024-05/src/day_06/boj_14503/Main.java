@@ -44,8 +44,7 @@ public class Main {
                 }
                 r += dr[(d + 2) % 4];
                 c += dc[(d + 2) % 4];
-            }
-            else if (map[r][c] == 1) break;
+            } else if (map[r][c] == 1) break;
         }
 
         System.out.println(cnt);

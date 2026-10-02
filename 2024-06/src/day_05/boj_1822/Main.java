@@ -16,21 +16,21 @@ public class Main {
         Map<Integer, Boolean> map = new HashMap<>();
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             map.put(Integer.parseInt(st.nextToken()), true);
         }
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             map.remove(Integer.parseInt(st.nextToken()));
         }
 
         System.out.println(map.size());
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int key : map.keySet()){
+        for (int key : map.keySet()) {
             pq.add(key);
         }
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             System.out.print(pq.poll() + " ");
         }
     }

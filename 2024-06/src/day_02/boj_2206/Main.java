@@ -18,7 +18,9 @@ public class Main {
         boolean breakWall;    // breakWall : 해당 노드가 벽을 부순적이 있는지 체크하는 변수
 
         public Node(int r, int c, boolean breakWall) {
-            this.r = r; this.c = c; this.breakWall = breakWall;
+            this.r = r;
+            this.c = c;
+            this.breakWall = breakWall;
         }
     }
 
@@ -31,7 +33,7 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         map = new char[N][M];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();
         }
 
@@ -40,7 +42,7 @@ public class Main {
     }
 
     // 최단 거리를 바로 반환
-    private static int BFS(){
+    private static int BFS() {
         // BFS에서 사용할 Queue
         Queue<Node> q = new LinkedList<>();
         q.offer(new Node(0, 0, false));    // 시작점이 (1, 1)로 고정 + 벽이 항상 없음
@@ -57,76 +59,76 @@ public class Main {
         int ans = 1;
 
         // 시작점과 도착점이 동일할 때 출력이 잘 안됐는데, 한번에 만들기 어려워서 그냥 예외처리 한번 해줌(90% 대에서 테케 있음)
-        if(visited[N-1][M-1] != 0) return ans;
+        if (visited[N - 1][M - 1] != 0) return ans;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             // BFS 최단 거리 유형이라서 현재 Queue의 크기만큼만 수행하도록 len 설정
             int len = q.size();
 
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
 
                 // Queue에서 뽑은 각각의 Node에 대한 사방탐색
                 Node item = q.poll();
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = item.r + dr[dir];
                     int nc = item.c + dc[dir];
 
                     // 새로운 Node 후보가 map 안에 있을 경우
-                    if(nr>=0 && nr<N && nc>=0 && nc<M){
+                    if (nr >= 0 && nr < N && nc >= 0 && nc < M) {
 
                         // 새로운 좌표가 이동할 수 있는 곳일 경우
-                        if(map[nr][nc] == '0'){
+                        if (map[nr][nc] == '0') {
                             // 처음 방문할 경우
-                            if(visited[nr][nc] == 0){
+                            if (visited[nr][nc] == 0) {
                                 // 현재 벽을 부순적이 있음
-                                if(item.breakWall){
+                                if (item.breakWall) {
                                     q.offer(new Node(nr, nc, true));
                                     visited[nr][nc] = 2;
                                 }
                                 // 아직 벽을 부순적이 없음
-                                else{
+                                else {
                                     q.offer(new Node(nr, nc, false));
                                     visited[nr][nc] = 1;
                                 }
                             }
                             // 벽을 부순적 없이 방문했었을 경우
-                            else if(visited[nr][nc] == 1){
+                            else if (visited[nr][nc] == 1) {
                                 // 현재 벽을 부순적이 있음
                                 continue;
                             }
                             // 벽을 부순적 있이 방문했었을 경우
-                            else{
+                            else {
                                 // 현재 벽을 부순적이 있음
-                                if(item.breakWall){
+                                if (item.breakWall) {
                                     continue;
                                 }
                                 // 아직 벽을 부순적이 없음
-                                else{
+                                else {
                                     q.offer(new Node(nr, nc, false));
                                     visited[nr][nc] = 1;
                                 }
                             }
                         }
                         // 새로운 좌표가 벽일 경우
-                        else{
+                        else {
                             // 처음 방문할 경우
-                            if(visited[nr][nc] == 0){
+                            if (visited[nr][nc] == 0) {
                                 // 현재 벽을 부순적이 있음
-                                if(item.breakWall){
+                                if (item.breakWall) {
                                     continue;
                                 }
                                 // 아직 벽을 부순적이 없음
-                                else{
+                                else {
                                     q.offer(new Node(nr, nc, true));
                                     visited[nr][nc] = 2;
                                 }
                             }
                             // 벽을 부순적 없이 방문했었을 경우
-                            else if(visited[nr][nc] == 1){
+                            else if (visited[nr][nc] == 1) {
                                 continue;
                             }
                             // 벽을 부순적 있이 방문했었을 경우
-                            else{
+                            else {
                                 continue;
                             }
                         }
@@ -138,7 +140,7 @@ public class Main {
             // Queue의 크기만큼 돌았으면 최단 거리 + 1
             ans++;
             // 도착점을 방문했으면 종료
-            if(visited[N-1][M-1] != 0) return ans;
+            if (visited[N - 1][M - 1] != 0) return ans;
         }
 
         // 도착점을 방문하지 못했으면 -1 리턴

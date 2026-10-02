@@ -9,7 +9,7 @@ public class Main {
 
         Set<Integer> set = new HashSet<>();
 
-        for(int i=1 ; i<=10 ; i++){
+        for (int i = 1; i <= 10; i++) {
             set.add(Integer.parseInt(br.readLine()) % 42);
         }
 

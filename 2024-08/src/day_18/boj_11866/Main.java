@@ -15,18 +15,18 @@ public class Main {
 
         Queue<Integer> q = new ArrayDeque<>();
 
-        for(int i=1 ; i<=N ; i++){
+        for (int i = 1; i <= N; i++) {
             q.offer(i);
         }
 
         sb.append("<");
-        while(!q.isEmpty()){
-            for(int i=1 ; i<K ; i++){
+        while (!q.isEmpty()) {
+            for (int i = 1; i < K; i++) {
                 q.offer(q.poll());
             }
 
             sb.append(q.poll());
-            if(!q.isEmpty()) sb.append(", ");
+            if (!q.isEmpty()) sb.append(", ");
         }
         sb.append(">");
 

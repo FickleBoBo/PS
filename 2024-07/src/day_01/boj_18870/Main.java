@@ -16,19 +16,19 @@ public class Main {
         Set<Integer> set = new HashSet<>();
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
             set.add(arr[i]);
         }
 
         int[] sortedArr = new int[set.size()];
         int idx = 0;
-        for(int key : set){
+        for (int key : set) {
             sortedArr[idx++] = key;
         }
         Arrays.sort(sortedArr);
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(binarySearch(sortedArr, 0, sortedArr.length, arr[i])).append(" ");
         }
 
@@ -37,17 +37,15 @@ public class Main {
         bw.close();
     }
 
-    private static int binarySearch(int[] arr, int left, int right, int target){
-        while(left <= right){
+    private static int binarySearch(int[] arr, int left, int right, int target) {
+        while (left <= right) {
             int mid = (left + right) / 2;
 
-            if(arr[mid] < target){
+            if (arr[mid] < target) {
                 left = mid + 1;
-            }
-            else if(arr[mid] > target){
+            } else if (arr[mid] > target) {
                 right = mid - 1;
-            }
-            else{
+            } else {
                 return mid;
             }
         }

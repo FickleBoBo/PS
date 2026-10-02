@@ -12,14 +12,14 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             st = new StringTokenizer(br.readLine());
 
             int R = Integer.parseInt(st.nextToken());
             char[] S = st.nextToken().toCharArray();
 
-            for(char c : S){
-                for(int i=0 ; i<R ; i++){
+            for (char c : S) {
+                for (int i = 0; i < R; i++) {
                     sb.append(c);
                 }
             }

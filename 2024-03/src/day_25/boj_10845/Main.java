@@ -14,31 +14,26 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             sb.append(br.readLine() + " ");
         }
 
         StringTokenizer st = new StringTokenizer(sb.toString(), " ");
 
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             String str = st.nextToken();
 
-            if(str.equals("push")){
+            if (str.equals("push")) {
                 push(Integer.parseInt(st.nextToken()));
-            }
-            else if(str.equals("pop")){
+            } else if (str.equals("pop")) {
                 pop();
-            }
-            else if(str.equals("size")){
+            } else if (str.equals("size")) {
                 size();
-            }
-            else if(str.equals("empty")){
+            } else if (str.equals("empty")) {
                 empty();
-            }
-            else if(str.equals("front")){
+            } else if (str.equals("front")) {
                 front();
-            }
-            else{
+            } else {
                 back();
             }
 
@@ -49,12 +44,12 @@ public class Main {
 
     private static List<Integer> queue = new LinkedList<>();
 
-    private static void push(int item){
+    private static void push(int item) {
         queue.add(item);
     }
 
-    private static void pop(){
-        if(queue.isEmpty()){
+    private static void pop() {
+        if (queue.isEmpty()) {
             System.out.println(-1);
             return;
         }
@@ -63,32 +58,32 @@ public class Main {
         System.out.println(item);
     }
 
-    private static void size(){
+    private static void size() {
         System.out.println(queue.size());
     }
 
-    private static void empty(){
-        if(queue.isEmpty()){
+    private static void empty() {
+        if (queue.isEmpty()) {
             System.out.println(1);
             return;
         }
         System.out.println(0);
     }
 
-    private static void front(){
-        if(queue.isEmpty()){
+    private static void front() {
+        if (queue.isEmpty()) {
             System.out.println(-1);
             return;
         }
         System.out.println(queue.get(0));
     }
 
-    private static void back(){
-        if(queue.isEmpty()){
+    private static void back() {
+        if (queue.isEmpty()) {
             System.out.println(-1);
             return;
         }
-        System.out.println(queue.get(queue.size()-1));
+        System.out.println(queue.get(queue.size() - 1));
     }
 
 }

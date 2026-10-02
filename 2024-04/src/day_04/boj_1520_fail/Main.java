@@ -18,45 +18,45 @@ public class Main {
         M = sc.nextInt();
         N = sc.nextInt();
 
-        map = new int[1+M+1][1+N+1];
+        map = new int[1 + M + 1][1 + N + 1];
 //        for(int i=0 ; i<M+2 ; i++){
 //            Arrays.fill(map[i], Integer.MAX_VALUE);
 //        }
-        for(int i=1 ; i<=M ; i++){
-            for(int j=1 ; j<=N ; j++){
+        for (int i = 1; i <= M; i++) {
+            for (int j = 1; j <= N; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
 
-        DP = new int[1+M+1][1+N+1];
+        DP = new int[1 + M + 1][1 + N + 1];
 
-        for(int i=1 ; i<=M ; i++){
-            for(int j=1 ; j<=N ; j++){
-                for(int dir=0 ; dir<4 ; dir++){
+        for (int i = 1; i <= M; i++) {
+            for (int j = 1; j <= N; j++) {
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = i + dr[dir];
                     int nc = j + dc[dir];
-                    if(map[i][j] < map[nr][nc]) DP[i][j]++;
+                    if (map[i][j] < map[nr][nc]) DP[i][j]++;
                 }
             }
         }
 
-        int[][] DDP = new int[1+M+1][1+N+1];
+        int[][] DDP = new int[1 + M + 1][1 + N + 1];
 
-        for(int i=1 ; i<=M ; i++){
-            for(int j=1 ; j<=N ; j++){
+        for (int i = 1; i <= M; i++) {
+            for (int j = 1; j <= N; j++) {
                 DDP[i][j] += DP[i][j];
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = i + dr[dir];
                     int nc = j + dc[dir];
-                    if(map[i][j] < map[nr][nc]) DDP[i][j] += DDP[nr][nc];
+                    if (map[i][j] < map[nr][nc]) DDP[i][j] += DDP[nr][nc];
                 }
             }
         }
 
 //        DFS(1, 1);
 
-        for(int i=1 ; i<=M ; i++){
-            for(int j=1 ; j<=N ; j++){
+        for (int i = 1; i <= M; i++) {
+            for (int j = 1; j <= N; j++) {
                 System.out.print(DP[i][j] + " ");
             }
             System.out.println();
@@ -64,8 +64,8 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        for(int i=1 ; i<=M ; i++){
-            for(int j=1 ; j<=N ; j++){
+        for (int i = 1; i <= M; i++) {
+            for (int j = 1; j <= N; j++) {
                 System.out.print(DDP[i][j] + " ");
             }
             System.out.println();
@@ -76,8 +76,8 @@ public class Main {
         sc.close();
     }
 
-    private static void DFS(int r, int c){
-        if(r==M && c==N) {
+    private static void DFS(int r, int c) {
+        if (r == M && c == N) {
             DP[r][c]++;
             H++;
             return;
@@ -85,10 +85,10 @@ public class Main {
 
         DP[r][c]++;
 
-        for(int dir=0 ; dir<4 ; dir++){
+        for (int dir = 0; dir < 4; dir++) {
             int nr = r + dr[dir];
             int nc = c + dc[dir];
-            if(map[r][c] > map[nr][nc]){
+            if (map[r][c] > map[nr][nc]) {
                 DFS(nr, nc);
             }
         }

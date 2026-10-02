@@ -13,24 +13,23 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             pq.add(Integer.parseInt(st.nextToken()));
         }
-
 
 
         int M = Integer.parseInt(br.readLine());
         StringTokenizer st2 = new StringTokenizer(br.readLine(), " ");
         int[] mList = new int[M];
         int idx = 0;
-        while(st2.hasMoreTokens()){
+        while (st2.hasMoreTokens()) {
             mList[idx++] = Integer.parseInt(st2.nextToken());
         }
         int[] cntArr = new int[M];
 
-        while(!pq.isEmpty()){
-            for(int j=0 ; j<M ; j++){
-                while(!pq.isEmpty() && pq.peek() == mList[j]){
+        while (!pq.isEmpty()) {
+            for (int j = 0; j < M; j++) {
+                while (!pq.isEmpty() && pq.peek() == mList[j]) {
                     pq.poll();
                     cntArr[j]++;
                 }
@@ -39,7 +38,7 @@ public class Main {
         }
 
         StringBuilder sb = new StringBuilder();
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             sb.append(cntArr[i] + " ");
         }
 

@@ -26,9 +26,9 @@ public class Main {
         Node ans = BFS(N, K);
 
         Stack<Integer> st = new Stack<>();
-        while(true){
+        while (true) {
             st.push(ans.pos);
-            if(ans.node == null){
+            if (ans.node == null) {
                 break;
             }
             ans = ans.node;
@@ -36,32 +36,32 @@ public class Main {
 
         System.out.println(st.size() - 1);
         StringBuilder sb = new StringBuilder();
-        while(!st.isEmpty()){
+        while (!st.isEmpty()) {
             sb.append(st.pop() + " ");
         }
         System.out.println(sb.toString());
     }
 
-    private static Node BFS(int n, int k){
+    private static Node BFS(int n, int k) {
         Queue<Node> q = new LinkedList<>();
         boolean[] visited = new boolean[200_001];
 
         q.offer(new Node(n));
         visited[n] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             Node node = q.poll();
-            if(node.pos == k) return node;
+            if (node.pos == k) return node;
 
-            if(node.pos * 2 <= 2 * k && !visited[node.pos * 2]){
+            if (node.pos * 2 <= 2 * k && !visited[node.pos * 2]) {
                 q.offer(new Node(node.pos * 2, node));
                 visited[node.pos * 2] = true;
             }
-            if(node.pos - 1 >= 0 && !visited[node.pos - 1]){
+            if (node.pos - 1 >= 0 && !visited[node.pos - 1]) {
                 q.offer(new Node(node.pos - 1, node));
                 visited[node.pos - 1] = true;
             }
-            if(node.pos + 1 <= k && !visited[node.pos + 1]){
+            if (node.pos + 1 <= k && !visited[node.pos + 1]) {
                 q.offer(new Node(node.pos + 1, node));
                 visited[node.pos + 1] = true;
             }

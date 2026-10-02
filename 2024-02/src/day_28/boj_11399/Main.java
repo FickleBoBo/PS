@@ -13,17 +13,17 @@ public class Main {
 
         int N = sc.nextInt();
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
 
         Arrays.sort(arr);
-        int[] prefixArr = new int[1+N];
+        int[] prefixArr = new int[1 + N];
 
         int ans = 0;
-        for(int i=0 ; i<N ; i++){
-            prefixArr[i+1] = prefixArr[i] + arr[i];
-            ans += prefixArr[i+1];
+        for (int i = 0; i < N; i++) {
+            prefixArr[i + 1] = prefixArr[i] + arr[i];
+            ans += prefixArr[i + 1];
         }
 
         System.out.println(ans);

@@ -12,11 +12,11 @@ public class Main3 {
         int N = Integer.parseInt(br.readLine());
 
         Set<Integer> set = new TreeSet<>(Collections.reverseOrder());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             set.add(Integer.parseInt(br.readLine()));
         }
 
-        for(int n : set){
+        for (int n : set) {
             sb.append(n).append("\n");
         }
 

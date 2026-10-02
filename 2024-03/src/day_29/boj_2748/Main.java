@@ -11,10 +11,10 @@ public class Main {
         long An_2 = 0;
         long An_1 = 1;
         long An = -1;
-        if(n==0) An=An_2;
-        else if(n==1) An=An_1;
+        if (n == 0) An = An_2;
+        else if (n == 1) An = An_1;
 
-        for(int i=2 ; i<=n ; i++){
+        for (int i = 2; i <= n; i++) {
             An = An_1 + An_2;
             An_2 = An_1;
             An_1 = An;

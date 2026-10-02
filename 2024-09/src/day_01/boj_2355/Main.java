@@ -11,7 +11,7 @@ public class Main {
         long A = Integer.parseInt(st.nextToken());
         long B = Integer.parseInt(st.nextToken());
 
-        if(A > B){
+        if (A > B) {
             long tmp = A;
             A = B;
             B = tmp;

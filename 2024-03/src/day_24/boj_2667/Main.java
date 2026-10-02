@@ -21,15 +21,15 @@ public class Main {
         N = Integer.parseInt(br.readLine());
 
         map = new char[N][N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();
         }
 
         List<Integer> ansList = new LinkedList<>();
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
-                if(map[i][j] == '1'){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (map[i][j] == '1') {
                     ansList.add(BFS(i, j));
                 }
             }
@@ -38,14 +38,14 @@ public class Main {
         Collections.sort(ansList);
 
         System.out.println(ansList.size());
-        for(int ans : ansList){
+        for (int ans : ansList) {
             System.out.println(ans);
         }
 
         br.close();
     }
 
-    private static int BFS(int r, int c){
+    private static int BFS(int r, int c) {
         int cnt = 0;
 
         Queue<int[]> queue = new LinkedList<>();
@@ -53,12 +53,12 @@ public class Main {
         cnt++;
         map[r][c] = '0';
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int[] item = queue.poll();
-            for(int dir=0 ; dir<4 ; dir++){
+            for (int dir = 0; dir < 4; dir++) {
                 int nr = item[0] + dr[dir];
                 int nc = item[1] + dc[dir];
-                if((nr>=0) && (nc>=0) && (nr<N) && (nc<N) && (map[nr][nc]=='1')){
+                if ((nr >= 0) && (nc >= 0) && (nr < N) && (nc < N) && (map[nr][nc] == '1')) {
                     queue.offer(new int[]{nr, nc});
                     cnt++;
                     map[nr][nc] = '0';

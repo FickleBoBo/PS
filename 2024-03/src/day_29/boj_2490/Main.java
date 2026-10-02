@@ -7,29 +7,29 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        for(int i=0 ; i<3 ; i++){
+        for (int i = 0; i < 3; i++) {
             int ans = 0;
-            for(int j=0 ; j<4 ; j++){
+            for (int j = 0; j < 4; j++) {
                 ans += sc.nextInt();
             }
-            switch (ans){
-                case 3:{
+            switch (ans) {
+                case 3: {
                     System.out.println('A');
                     break;
                 }
-                case 2:{
+                case 2: {
                     System.out.println('B');
                     break;
                 }
-                case 1:{
+                case 1: {
                     System.out.println('C');
                     break;
                 }
-                case 0:{
+                case 0: {
                     System.out.println('D');
                     break;
                 }
-                default:{
+                default: {
                     System.out.println('E');
                 }
             }

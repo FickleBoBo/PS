@@ -20,22 +20,25 @@ public class Main2 {
 
         boolean[][][] map = new boolean[N][N][N];
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 st = new StringTokenizer(br.readLine());
-                for(int k=0 ; k<N ; k++){
+                for (int k = 0; k < N; k++) {
                     map[i][j][k] = Integer.parseInt(st.nextToken()) == 1;
                 }
             }
         }
 
-        sel = new int[5]; visited = new boolean[5]; perm(0);
-        sel = new int[5]; permWithRep(0);
+        sel = new int[5];
+        visited = new boolean[5];
+        perm(0);
+        sel = new int[5];
+        permWithRep(0);
 
         // 회전된 2차원 배열을 미리 구해서 사용
         boolean[][][][] rotatedMap = new boolean[5][4][N][N];
-        for(int i=0 ; i<5 ; i++){
-            for(int j=0 ; j<4 ; j++){
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 4; j++) {
                 rotatedMap[i][j] = rotateMap(map[i], j);
             }
         }
@@ -45,15 +48,15 @@ public class Main2 {
 
                 // 미리 구한 것을 사용
                 boolean[][][] copyMap = new boolean[N][N][N];
-                for(int k=0 ; k<5 ; k++){
+                for (int k = 0; k < 5; k++) {
                     copyMap[k] = rotatedMap[order[k]][rotation[k]];
                 }
 
-                if(!copyMap[0][0][0]) continue;
-                if(!copyMap[N-1][N-1][N-1]) continue;
+                if (!copyMap[0][0][0]) continue;
+                if (!copyMap[N - 1][N - 1][N - 1]) continue;
 
                 int result = BFS(copyMap);
-                if(result == -1) continue;
+                if (result == -1) continue;
 
                 ans = Math.min(ans, result);
             }
@@ -62,7 +65,7 @@ public class Main2 {
         System.out.println(ans == Integer.MAX_VALUE ? -1 : ans);
     }
 
-    private static int BFS(boolean[][][] map){
+    private static int BFS(boolean[][][] map) {
         Queue<int[]> q = new ArrayDeque<>();
         q.offer(new int[]{0, 0, 0});
 
@@ -72,22 +75,22 @@ public class Main2 {
 
         int dist = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int len = q.size();
 
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int[] item = q.poll();
 
-                if(item[0]==N-1 && item[1]==N-1 && item[2]==N-1){
+                if (item[0] == N - 1 && item[1] == N - 1 && item[2] == N - 1) {
                     return dist;
                 }
 
-                for(int dir=0 ; dir<6 ; dir++){
-                    int nh = item[0]+ dh[dir];
-                    int nr = item[1]+ dr[dir];
-                    int nc = item[2]+ dc[dir];
+                for (int dir = 0; dir < 6; dir++) {
+                    int nh = item[0] + dh[dir];
+                    int nr = item[1] + dr[dir];
+                    int nc = item[2] + dc[dir];
 
-                    if(nh>=0 && nh<N && nr>=0 && nr<N && nc>=0 && nc<N && !visited[nh][nr][nc] && map[nh][nr][nc]){
+                    if (nh >= 0 && nh < N && nr >= 0 && nr < N && nc >= 0 && nc < N && !visited[nh][nr][nc] && map[nh][nr][nc]) {
                         q.offer(new int[]{nh, nr, nc});
                         visited[nh][nr][nc] = true;
                     }
@@ -100,18 +103,18 @@ public class Main2 {
         return -1;
     }
 
-    private static boolean[][] rotateMap(boolean[][] copy, int n){
-        if(n == 0) return copy;
+    private static boolean[][] rotateMap(boolean[][] copy, int n) {
+        if (n == 0) return copy;
 
-        return rotateMap(rotateMap90(copy), n-1);
+        return rotateMap(rotateMap90(copy), n - 1);
     }
 
-    private static boolean[][] rotateMap90(boolean[][] copy){
+    private static boolean[][] rotateMap90(boolean[][] copy) {
         boolean[][] result = new boolean[N][N];
 
-        for(int i=0 ; i<N ; i++){
-            for(int j=0 ; j<N ; j++){
-                result[i][j] = copy[N-j-1][i];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                result[i][j] = copy[N - j - 1][i];
             }
         }
 
@@ -123,14 +126,14 @@ public class Main2 {
     static int[] sel;
     static boolean[] visited;
 
-    private static void perm(int sidx){
-        if(sidx == N){
+    private static void perm(int sidx) {
+        if (sidx == N) {
             perm_0_4.add(sel.clone());
             return;
         }
 
-        for(int i=0 ; i<N ; i++){
-            if(visited[i]) continue;
+        for (int i = 0; i < N; i++) {
+            if (visited[i]) continue;
 
             sel[sidx] = i;
             visited[i] = true;
@@ -139,15 +142,15 @@ public class Main2 {
         }
     }
 
-    private static void permWithRep(int sidx){
-        if(sidx == N){
+    private static void permWithRep(int sidx) {
+        if (sidx == N) {
             perm_0_3.add(sel.clone());
             return;
         }
 
-        for(int i=0 ; i<N-1 ; i++){
+        for (int i = 0; i < N - 1; i++) {
             sel[sidx] = i;
-            permWithRep(sidx+1);
+            permWithRep(sidx + 1);
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    static class Edge implements Comparable<Edge>{
+    static class Edge implements Comparable<Edge> {
         int st, ed, w;
 
         public Edge(int st, int ed, int w) {
@@ -18,7 +18,7 @@ public class Main {
 
         @Override
         public int compareTo(Edge o) {
-            return this.w-o.w;
+            return this.w - o.w;
         }
 
         @Override
@@ -37,12 +37,12 @@ public class Main {
         int V = sc.nextInt();
         int E = sc.nextInt();
 
-        List[] edges = new ArrayList[V+1];
-        for(int i=1 ; i<=V ; i++){
+        List[] edges = new ArrayList[V + 1];
+        for (int i = 1; i <= V; i++) {
             edges[i] = new ArrayList<Edge>();
         }
 
-        for(int i=0 ; i<E ; i++){
+        for (int i = 0; i < E; i++) {
             int st = sc.nextInt();
             int ed = sc.nextInt();
             int w = sc.nextInt();
@@ -52,16 +52,16 @@ public class Main {
         }
 
         PriorityQueue<Edge> pq = new PriorityQueue<>();
-        boolean[] visited = new boolean[V+1];
+        boolean[] visited = new boolean[V + 1];
         visited[1] = true;
         pq.addAll(edges[1]);
         // System.out.println(pq.peek().toString());
         int ans = 0;
         int cnt = 1;
-        while(cnt < V){
+        while (cnt < V) {
             Edge e = pq.poll();
             // System.out.println(pq.peek().toString());
-            if(visited[e.ed]) continue;
+            if (visited[e.ed]) continue;
 
             visited[e.ed] = true;
             ans += e.w;

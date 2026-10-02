@@ -14,12 +14,12 @@ public class Main {
         int[] arr = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(arr);
 
-        System.out.println(arr[N-K]);
+        System.out.println(arr[N - K]);
     }
 }

@@ -9,16 +9,16 @@ class Solution {
         int v;    // 노드의 번호
         int w;    // 노드의 가중치(실제로 다익스트라에서 시작노드에서 해당노드까지 최소 intensity가 저장됨)
 
-        Node(int v, int w){
+        Node(int v, int w) {
             this.v = v;
             this.w = w;
         }
 
-        public int compareTo(Node o){
+        public int compareTo(Node o) {
             // w가 같으면 v에 대해서도 정렬을 해줘야 하는데 다익스트라에서 intensity가 같은 봉우리를 여러 개 발견했을 때, 가장 번호가 작은 봉우리를 리턴해야해서임
             // (다익스트라는 봉우리를 발견하면 바로 리턴하게 짬)
             // 이거 없으면 테케 14, 16, 17 틀림
-            if(this.w == o.w){
+            if (this.w == o.w) {
                 return Integer.compare(this.v, o.v);
             }
             return Integer.compare(this.w, o.w);
@@ -28,11 +28,11 @@ class Solution {
     public int[] solution(int n, int[][] paths, int[] gates, int[] summits) {
 
         // 인접 리스트 초기화
-        adj = new ArrayList[1+n];
-        for(int i=1 ; i<=n ; i++){
+        adj = new ArrayList[1 + n];
+        for (int i = 1; i <= n; i++) {
             adj[i] = new ArrayList<>();
         }
-        for(int i=0 ; i<paths.length ; i++){
+        for (int i = 0; i < paths.length; i++) {
             int st = paths[i][0];
             int ed = paths[i][1];
             int w = paths[i][2];
@@ -41,9 +41,13 @@ class Solution {
         }
 
         // 쉼터는 0, 출입구는 1, 봉우리는 2 를 저장하는 체크용 배열(시간 단축용)
-        checkArr = new int[1+n];
-        for(int g : gates) { checkArr[g] = 1; }
-        for(int s : summits) { checkArr[s] = 2; }
+        checkArr = new int[1 + n];
+        for (int g : gates) {
+            checkArr[g] = 1;
+        }
+        for (int s : summits) {
+            checkArr[s] = 2;
+        }
 
         // 조건1 - intensity가 가장 작아야 함
         // 조건2 - intensity가 같은 코스가 여러 개면 봉우리 번호가 작아야 함
@@ -51,17 +55,17 @@ class Solution {
         int[] answer = {Integer.MAX_VALUE, Integer.MAX_VALUE};
 
         // 각 출입구에 대한 Dijkstra
-        for(int g : gates) {
+        for (int g : gates) {
             int[] result = Dijkstra(g, n);
 
             // 더 작은 intensity의 코스를 발견하면 갱신
-            if(result[1] < answer[1]){
+            if (result[1] < answer[1]) {
                 answer[0] = result[0];
                 answer[1] = result[1];
             }
             // intensity가 answer와 동일한 코스를 또 발견하면 봉우리 번호가 작아지게 갱신
             // 이거 없으면 테케 14, 15, 16, 17, 25 틀림
-            else if(result[1] == answer[1] && result[0] < answer[0]){
+            else if (result[1] == answer[1] && result[0] < answer[0]) {
                 answer[0] = result[0];
             }
         }
@@ -83,33 +87,33 @@ class Solution {
     // 그래서 특정 출입구에서 가장 가까운 봉우리를 찾기만 하는 코드로 짜도 상관없음(그냥 이게 출제 의도인듯)
     // 출입구(start)에서 봉우리를 찾는 즉시 리턴을 하게 짜야 시간초과 안남(모든 봉우리의 intensity 다 찾고 최소값 반환 X)
     // 기존의 다익스트라는 누적 거리를 계산하며 dist 배열을 갱신하는데 이거는 그동안 찾은 가중치의 최댓값으로 갱신하는게 다름
-    static int[] Dijkstra(int start, int n){
+    static int[] Dijkstra(int start, int n) {
 
         // 다익스트라는 무조건 우선순위 큐로 해야됨
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(start, 0));
 
-        boolean[] visited = new boolean[1+n];
+        boolean[] visited = new boolean[1 + n];
 
-        int[] dist = new int[1+n];
+        int[] dist = new int[1 + n];
         Arrays.fill(dist, INF);
         dist[start] = 0;
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Node node = pq.poll();
 
             // 봉우리를 찾았을 때, 해당 봉우리가 start에서 가장 intensity가 낮은 봉우리이므로 다른 봉우리를 더 찾을 필요가 없음
-            if(checkArr[node.v]==2){
+            if (checkArr[node.v] == 2) {
                 return new int[]{node.v, dist[node.v]};
             }
 
-            if(visited[node.v]) continue;
+            if (visited[node.v]) continue;
             visited[node.v] = true;
 
-            for(Node next : adj[node.v]){
-                if(checkArr[next.v]==1) continue;    // 다른 출입구를 거쳐가는 코스는 문제 조건에서 안됨
+            for (Node next : adj[node.v]) {
+                if (checkArr[next.v] == 1) continue;    // 다른 출입구를 거쳐가는 코스는 문제 조건에서 안됨
 
-                if(!visited[next.v] && (Math.max(dist[node.v], next.w) < dist[next.v])){
+                if (!visited[next.v] && (Math.max(dist[node.v], next.w) < dist[next.v])) {
                     dist[next.v] = Math.max(dist[node.v], next.w);
                     pq.offer(new Node(next.v, dist[next.v]));
                 }

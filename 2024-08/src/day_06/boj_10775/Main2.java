@@ -11,13 +11,13 @@ public class Main2 {
     static int[] p;
 
     // find-set
-    private static int find(int x){
-        if(x == p[x]) return x;
+    private static int find(int x) {
+        if (x == p[x]) return x;
         return p[x] = find(p[x]);
     }
 
     // union-set
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -28,18 +28,18 @@ public class Main2 {
         int P = Integer.parseInt(br.readLine());
 
         // make-set
-        p = new int[1+G];
-        for(int i=1 ; i<=G ; i++) p[i] = i;
+        p = new int[1 + G];
+        for (int i = 1; i <= G; i++) p[i] = i;
 
         // 1 세 개 입력 들어오는게 71% 반례여서 도킹한 비행기 개수를 반복문 밖에서 세줬음(반복문 안에서 return 하는 방식이 안됐음)
         int ans = 0;
 
-        for(int i=0 ; i<P ; i++){
+        for (int i = 0; i < P; i++) {
             // n : 비행기 번호
             int n = Integer.parseInt(br.readLine());
 
             // 도킹 가능한 게이트 없으면 종료
-            if(find(n) == 0) break;
+            if (find(n) == 0) break;
 
             // 도킹 가능한 게이트를 한칸 이동
             union(find(n) - 1, find(n));    // union(find(n - 1), find(n)); 이렇게 하면 안되는데 같은 번호의 비행기가 연달아 나오면 갱신이 전혀 안됨

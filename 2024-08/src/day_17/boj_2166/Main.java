@@ -10,9 +10,9 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        int[][] posArr = new int[N+1][2];
+        int[][] posArr = new int[N + 1][2];
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             posArr[i][0] = Integer.parseInt(st.nextToken());
@@ -26,11 +26,11 @@ public class Main {
         System.out.printf("%.1f", ans);
     }
 
-    private static double shoelaceFormula(int N, int[][] arr){
+    private static double shoelaceFormula(int N, int[][] arr) {
         long area = 0;
 
-        for(int i=0 ; i<N ; i++){
-            area += (long) arr[i][0] * arr[i+1][1] - (long) arr[i][1] * arr[i+1][0];
+        for (int i = 0; i < N; i++) {
+            area += (long) arr[i][0] * arr[i + 1][1] - (long) arr[i][1] * arr[i + 1][0];
         }
 
         return Math.abs(0.5 * area);

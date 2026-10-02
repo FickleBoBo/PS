@@ -9,17 +9,17 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         int T = Integer.parseInt(sc.nextLine());
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             Map<String, Integer> map = new HashMap<>();
 
             int M = Integer.parseInt(sc.nextLine());
-            for(int i=0 ; i<M ; i++){
+            for (int i = 0; i < M; i++) {
                 String[] input = sc.nextLine().split(" ");
                 map.put(input[1], map.getOrDefault(input[1], 0) + 1);
             }
 
             int ans = 1;
-            for(String key : map.keySet()){
+            for (String key : map.keySet()) {
                 ans *= (map.get(key) + 1);
             }
 

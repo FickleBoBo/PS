@@ -16,12 +16,12 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        adj = new ArrayList[1+N];
-        for(int i=1 ; i<=N ; i++){
+        adj = new ArrayList[1 + N];
+        for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -30,11 +30,11 @@ public class Main {
             adj[B].add(A);
         }
 
-        visited = new boolean[1+N];
+        visited = new boolean[1 + N];
 
         int cnt = 0;
-        for(int i=1 ; i<=N ; i++){
-            if(!visited[i]){
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i]) {
                 BFS(i);
                 cnt++;
             }
@@ -43,17 +43,17 @@ public class Main {
         System.out.println(cnt);
     }
 
-    private static void BFS(int node){
+    private static void BFS(int node) {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(node);
 
         visited[node] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int curr = q.poll();
 
-            for(int next : adj[curr]){
-                if(!visited[next]){
+            for (int next : adj[curr]) {
+                if (!visited[next]) {
                     q.offer(next);
                     visited[next] = true;
                 }

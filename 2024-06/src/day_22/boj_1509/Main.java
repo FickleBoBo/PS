@@ -12,35 +12,35 @@ public class Main {
         String input = br.readLine();
         int N = input.length();
 
-        char[] arr = new char[1+N+1];
-        for(int i=1 ; i<=N ; i++){
-            arr[i] = input.charAt(i-1);
+        char[] arr = new char[1 + N + 1];
+        for (int i = 1; i <= N; i++) {
+            arr[i] = input.charAt(i - 1);
         }
 
-        int[][] dp = new int[1+N+1][1+N+1];
-        for(int i=1 ; i<=N ; i++){
+        int[][] dp = new int[1 + N + 1][1 + N + 1];
+        for (int i = 1; i <= N; i++) {
             dp[i][i] = 1;
-            if(arr[i] == arr[i+1]){
-                dp[i][i+1] = 1;
+            if (arr[i] == arr[i + 1]) {
+                dp[i][i + 1] = 1;
             }
         }
 
-        for(int i=N ; i>=1 ; i--){
-            for(int j=1 ; j<=N ; j++){
-                if(arr[i] == arr[j] && dp[i+1][j-1] == 1){
+        for (int i = N; i >= 1; i--) {
+            for (int j = 1; j <= N; j++) {
+                if (arr[i] == arr[j] && dp[i + 1][j - 1] == 1) {
                     dp[i][j] = 1;
                 }
             }
         }
 
-        int[] dp2 = new int[1+N];
+        int[] dp2 = new int[1 + N];
         Arrays.fill(dp2, 1000000);
         dp2[0] = 0;
 
-        for(int i=1 ; i<=N ; i++){
-            for(int j=i ; j<=N ; j++){
-                if(dp[i][j] == 1){
-                    dp2[j] = Math.min(dp2[j], dp2[i-1]+1);
+        for (int i = 1; i <= N; i++) {
+            for (int j = i; j <= N; j++) {
+                if (dp[i][j] == 1) {
+                    dp2[j] = Math.min(dp2[j], dp2[i - 1] + 1);
                 }
             }
         }

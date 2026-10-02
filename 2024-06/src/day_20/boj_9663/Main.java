@@ -23,24 +23,24 @@ public class Main {
     }
 
     private static void permutation(int sidx) {
-        if(sidx == N){
+        if (sidx == N) {
             cnt++;
             return;
         }
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             int digNum = sidx + i;
             int antiDigNum = sidx - i;
 
-            if(!visited[i] &&
+            if (!visited[i] &&
                     !diagonal.getOrDefault(digNum, false) &&
-                    !antiDiagonal.getOrDefault(antiDigNum, false)){
+                    !antiDiagonal.getOrDefault(antiDigNum, false)) {
 
                 visited[i] = true;
                 diagonal.put(digNum, true);
                 antiDiagonal.put(antiDigNum, true);
 
-                permutation(sidx+1);
+                permutation(sidx + 1);
 
                 visited[i] = false;
                 diagonal.put(digNum, false);

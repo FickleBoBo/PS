@@ -14,24 +14,23 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         // 배치가 불가능한 경우는 N = 3 일때 하나만 있음
-        if(N == 3){
+        if (N == 3) {
             sb.append("-1");
-        }
-        else{
+        } else {
             // 자주 사용되는 값이라 변수로 빼둠
-            int turningPoint = (N+1)/2;
+            int turningPoint = (N + 1) / 2;
 
             // 위쪽 배치
-            for(int i=2 ; i<=turningPoint ; i++){
+            for (int i = 2; i <= turningPoint; i++) {
                 sb.append(i).append("\n");
             }
             sb.append("1\n");
 
             // 아래쪽 배치
-            for(int i=turningPoint+2 ; i<=N ; i++){
+            for (int i = turningPoint + 2; i <= N; i++) {
                 sb.append(i).append("\n");
             }
-            sb.append(turningPoint+1).append("\n");
+            sb.append(turningPoint + 1).append("\n");
         }
 
         bw.write(sb.toString());

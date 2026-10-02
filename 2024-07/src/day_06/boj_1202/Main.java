@@ -6,7 +6,7 @@ import java.util.*;
 public class Main {
 
     // 보석 클래스
-    static class Jewel{
+    static class Jewel {
         int m;
         int v;
 
@@ -26,7 +26,7 @@ public class Main {
         // 1. 입력으로 주어지는 보석을 무게에 대한 오름차순으로 정렬하는 우선순위 큐에 담는다
         PriorityQueue<Jewel> jewels = new PriorityQueue<>(((o1, o2) -> Integer.compare(o1.m, o2.m)));
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             int m = Integer.parseInt(st.nextToken());
@@ -37,7 +37,7 @@ public class Main {
         // 2. 가방을 배열에 담아 무게에 대한 오름차순으로 정렬한다
         int[] knapsacks = new int[K];
 
-        for(int i=0 ; i<K ; i++){
+        for (int i = 0; i < K; i++) {
             knapsacks[i] = Integer.parseInt(br.readLine());
         }
         Arrays.sort(knapsacks);
@@ -52,13 +52,13 @@ public class Main {
         // 다만 pq가 비어있을 경우 건너뛰는 조건이 필요하다(= 해당 가방에 담을 보석이 없음)
         PriorityQueue<Jewel> pq = new PriorityQueue<>(((o1, o2) -> -Integer.compare(o1.v, o2.v)));
 
-        for(int i=0 ; i<K ; i++){
-            while(!jewels.isEmpty() && jewels.peek().m <= knapsacks[i]){
+        for (int i = 0; i < K; i++) {
+            while (!jewels.isEmpty() && jewels.peek().m <= knapsacks[i]) {
                 pq.offer(jewels.poll());
             }
 
             // NullPointer 에러 발생할 수 있음(테스트 케이스 3%)
-            if(pq.isEmpty()) continue;
+            if (pq.isEmpty()) continue;
             sum += pq.poll().v;
         }
 

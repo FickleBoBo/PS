@@ -14,7 +14,7 @@ public class Main2 {
         Map<Integer, Integer> map = new HashMap<>();
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             int num = Integer.parseInt(st.nextToken());
 
             // num이라는 key가 있으면 value에 +1 해서 저장

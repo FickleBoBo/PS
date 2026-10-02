@@ -7,12 +7,12 @@ public class Main {
 
     static int[] p;
 
-    private static int find(int x){
-        if(x == p[x]) return x;
+    private static int find(int x) {
+        if (x == p[x]) return x;
         return p[x] = find(p[x]);
     }
 
-    private static void union(int x, int y){
+    private static void union(int x, int y) {
         p[y] = x;
     }
 
@@ -24,15 +24,15 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
 
         p = new int[N];
-        for(int i=0 ; i<N ; i++) p[i] = i;
+        for (int i = 0; i < N; i++) p[i] = i;
 
-        for(int i=1 ; i<=M ; i++){
+        for (int i = 1; i <= M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int x = find(Integer.parseInt(st.nextToken()));
             int y = find(Integer.parseInt(st.nextToken()));
 
-            if(x == y){
+            if (x == y) {
                 System.out.println(i);
                 return;
             }

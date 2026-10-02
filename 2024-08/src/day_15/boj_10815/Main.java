@@ -15,18 +15,17 @@ public class Main {
         Set<Integer> set = new HashSet<>();
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.add(Integer.parseInt(st.nextToken()));
         }
 
         int M = Integer.parseInt(br.readLine());
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
-            if(set.contains(Integer.parseInt(st.nextToken()))){
+        while (st.hasMoreTokens()) {
+            if (set.contains(Integer.parseInt(st.nextToken()))) {
                 sb.append(1).append(" ");
-            }
-            else{
+            } else {
                 sb.append(0).append(" ");
             }
         }

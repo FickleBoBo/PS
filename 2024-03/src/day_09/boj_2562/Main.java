@@ -12,16 +12,16 @@ public class Main {
         int maxIdx = -1;
 
         // 돌면서 찾기
-        for(int i=0 ; i<9 ; i++){
+        for (int i = 0; i < 9; i++) {
             int n = sc.nextInt();
-            if(n > max){
+            if (n > max) {
                 max = n;
                 maxIdx = i;
             }
         }
 
         System.out.println(max);
-        System.out.println(maxIdx+1);
+        System.out.println(maxIdx + 1);
 
         sc.close();
     }

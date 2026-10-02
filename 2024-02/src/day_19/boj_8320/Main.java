@@ -15,8 +15,8 @@ public class Main {
         int ans = 0;                   // ans : 이 정사각형을 이용해서 만들 수 있는 직사각형의 개수
 
         int N = (int) Math.sqrt(n);    // N : 직사각형 개수 점화식의 항 수
-        for(int i=1 ; i<=N ; i++){
-            ans += n/i-i+1;            // 점화식
+        for (int i = 1; i <= N; i++) {
+            ans += n / i - i + 1;            // 점화식
         }
         System.out.println(ans);
         sc.close();

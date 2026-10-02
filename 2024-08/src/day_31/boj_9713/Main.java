@@ -10,7 +10,7 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++){
+        for (int tc = 1; tc <= T; tc++) {
             int N = Integer.parseInt(br.readLine());
 
             sb.append(((N + 1) / 2) * ((N + 1) / 2)).append("\n");

@@ -12,11 +12,11 @@ public class Main {
         int[] dp = new int[5];
         dp[0] = A;
 
-        for(int i=1 ; i<=4 ; i++){
-            dp[i] = dp[i-1] * A % C;
+        for (int i = 1; i <= 4; i++) {
+            dp[i] = dp[i - 1] * A % C;
         }
 
-        System.out.println(dp[B%4]);
+        System.out.println(dp[B % 4]);
 
 //        System.out.println(calculate(A, B, C) % C);
     }

@@ -14,35 +14,33 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc=1 ; tc<=T ; tc++) {
-        	String[] input = br.readLine().split(" ");
+        for (int tc = 1; tc <= T; tc++) {
+            String[] input = br.readLine().split(" ");
             N = Integer.parseInt(input[0]);
             int K = Integer.parseInt(input[1]);
 
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-            cost = new int[1+N];
+            cost = new int[1 + N];
             int idx = 1;
-            while(st.hasMoreTokens()){
+            while (st.hasMoreTokens()) {
                 cost[idx++] = Integer.parseInt(st.nextToken());
             }
 
 
-
             StringBuilder sb = new StringBuilder();
-            for(int i=0 ; i<K ; i++){
+            for (int i = 0; i < K; i++) {
                 sb.append(br.readLine() + " ");
             }
 
             st = new StringTokenizer(sb.toString(), " ");
 
-            adj = new int[1+N][1+N];
-            while(st.hasMoreTokens()) {
-            	int p = Integer.parseInt(st.nextToken());
-            	int c = Integer.parseInt(st.nextToken());
-            	adj[p][c]++;
+            adj = new int[1 + N][1 + N];
+            while (st.hasMoreTokens()) {
+                int p = Integer.parseInt(st.nextToken());
+                int c = Integer.parseInt(st.nextToken());
+                adj[p][c]++;
             }
-            
 
 
             int W = Integer.parseInt(br.readLine());
@@ -55,17 +53,17 @@ public class Main {
 //            for(int i=0 ; i<adj.length ; i++) {
 //            	System.out.println(Arrays.toString(adj[i]));
 //            }
-            
-            visited = new boolean[1+N];
+
+            visited = new boolean[1 + N];
 //            BFS(W);
 
-            DP = new int[1+N];
+            DP = new int[1 + N];
             ans = 0;
             DFS(W, cost[W]);
 //            System.out.println(Arrays.toString(DP));
-            
-            int[][] tmp = new int[1+N][1+N];
-            
+
+            int[][] tmp = new int[1 + N][1 + N];
+
 //            for(int i=1 ; i<=N ; i++) {
 //            	for(int j=1 ; j<=N ; j++) {
 //            		
@@ -78,11 +76,10 @@ public class Main {
 //            	}
 //            	System.out.println();
 //            }
-            
+
             System.out.println(ans);
         }
-        
-        
+
 
         br.close();
     }
@@ -93,19 +90,19 @@ public class Main {
     static int[] cost;
     static int[] DP;
     static int ans;
-    
+
     private static void DFS(int node, int sum) {
-    	
+
 //    	System.out.println(node);
-    	
-    	for(int i=1 ; i<=N ; i++) {
-    		if(adj[i][node]==1) {
-    			DFS(i, sum+cost[i]);
-    		}
-    	}
-    	
-    	ans = Math.max(ans, sum);
-    	
+
+        for (int i = 1; i <= N; i++) {
+            if (adj[i][node] == 1) {
+                DFS(i, sum + cost[i]);
+            }
+        }
+
+        ans = Math.max(ans, sum);
+
     }
 
 }

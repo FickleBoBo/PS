@@ -22,7 +22,7 @@ public class Main {
 
         arr = new int[N];
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(arr);
@@ -36,20 +36,20 @@ public class Main {
         bw.flush();
     }
 
-    private static void permutation(int sidx){
-        if(sidx == M){
-            for(int n : sel){
+    private static void permutation(int sidx) {
+        if (sidx == M) {
+            for (int n : sel) {
                 sb.append(n).append(" ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=0 ; i<N ; i++){
-            if(!visited[i]){
+        for (int i = 0; i < N; i++) {
+            if (!visited[i]) {
                 sel[sidx] = arr[i];
                 visited[i] = true;
-                permutation(sidx+1);
+                permutation(sidx + 1);
                 visited[i] = false;
             }
         }

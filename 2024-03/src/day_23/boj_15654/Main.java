@@ -19,7 +19,7 @@ public class Main {
         N = sc.nextInt();
         M = sc.nextInt();
         arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
         Arrays.sort(arr);
@@ -34,19 +34,19 @@ public class Main {
 
     private static void permutation(int idx, int sidx) {
 
-        if(sidx == M){
-            for(int i=0 ; i<M ; i++){
+        if (sidx == M) {
+            for (int i = 0; i < M; i++) {
                 sb.append(sel[i] + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=0 ; i<N ; i++){
-            if(!visited[i]){
+        for (int i = 0; i < N; i++) {
+            if (!visited[i]) {
                 sel[sidx] = arr[i];
                 visited[i] = true;
-                permutation(i+1, sidx+1);
+                permutation(i + 1, sidx + 1);
                 visited[i] = false;
             }
         }

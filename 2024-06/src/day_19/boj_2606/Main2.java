@@ -15,11 +15,11 @@ public class Main2 {
         StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
-        adj = new boolean[1+N][1+N];    // 연결이 됐다, 안됐다 두 가지 상태만 있으므로 boolean[][] 타입으로 선언
-        visited = new boolean[1+N];    // 컴퓨터 번호와 index를 일치시킨 방문 체크 배열
+        adj = new boolean[1 + N][1 + N];    // 연결이 됐다, 안됐다 두 가지 상태만 있으므로 boolean[][] 타입으로 선언
+        visited = new boolean[1 + N];    // 컴퓨터 번호와 index를 일치시킨 방문 체크 배열
 
         int M = Integer.parseInt(br.readLine());
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
 
             int A = Integer.parseInt(st.nextToken());
@@ -31,12 +31,12 @@ public class Main2 {
         System.out.println(cnt);
     }
 
-    private static int DFS(int node){
+    private static int DFS(int node) {
         visited[node] = true;    // node에 대한 방문 체크
         int cnt = 1;    // node 자신 한 개를 카운트
 
-        for(int i=1 ; i<=N ; i++){
-            if(!visited[i] && adj[node][i]){
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i] && adj[node][i]) {
                 cnt += DFS(i);    // 카운트에 연결된 노드의 카운트를 더한게 최종 카운트
             }
         }

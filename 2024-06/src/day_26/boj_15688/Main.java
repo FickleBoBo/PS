@@ -10,14 +10,14 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        int[] cntArr = new int[1000000+1+1000000];
-        for(int i=0 ; i<N ; i++){
+        int[] cntArr = new int[1000000 + 1 + 1000000];
+        for (int i = 0; i < N; i++) {
             cntArr[Integer.parseInt(br.readLine()) + 1000000]++;
         }
 
-        for(int i=0 ; i<=2000000 ; i++){
-            for(int j=0 ; j<cntArr[i] ; j++){
-                sb.append(i-1000000).append("\n");
+        for (int i = 0; i <= 2000000; i++) {
+            for (int j = 0; j < cntArr[i]; j++) {
+                sb.append(i - 1000000).append("\n");
             }
         }
         bw.write(sb.toString());

@@ -21,27 +21,27 @@ public class Main {
         sel = new int[2];
 
         nums = new int[N];
-        for(int i=0 ; i<N ; i++) {
+        for (int i = 0; i < N; i++) {
             nums[i] = sc.nextInt();
         }
 
 //        combination(0, 0);
 
-        for(int i=1 ; i< (1<<N) ; i++){
+        for (int i = 1; i < (1 << N); i++) {
             int[] tmp = new int[N];
-            for(int j=0 ; j<N ; j++){
-                if((i & (1<<j)) > 0){
+            for (int j = 0; j < N; j++) {
+                if ((i & (1 << j)) > 0) {
                     tmp[j] = 1;
                 }
             }
             int sum = 0;
-            for(int k=0 ; k<N ; k++){
-                if(tmp[k] > 0){
+            for (int k = 0; k < N; k++) {
+                if (tmp[k] > 0) {
                     sum += nums[k];
                 }
             }
 //            System.out.println(Arrays.toString(tmp));
-            if(sum == S){
+            if (sum == S) {
                 ans++;
             }
         }

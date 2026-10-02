@@ -12,7 +12,7 @@ public class Main {
 
         String input = br.readLine();
 
-        for(char c : alphabet){
+        for (char c : alphabet) {
             sb.append(input.indexOf(c)).append(" ");
         }
 

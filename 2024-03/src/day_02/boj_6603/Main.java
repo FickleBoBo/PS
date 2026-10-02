@@ -14,12 +14,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         String[] input = sc.nextLine().split(" ");
-        while(!(input[0].equals("0"))){
+        while (!(input[0].equals("0"))) {
             k = Integer.parseInt(input[0]);
             set = new int[k];
             sel = new int[6];
-            for(int i=0 ; i<k ; i++){
-                set[i] = Integer.parseInt(input[i+1]);
+            for (int i = 0; i < k; i++) {
+                set[i] = Integer.parseInt(input[i + 1]);
             }
 
             combination(0, 0);
@@ -33,8 +33,8 @@ public class Main {
 
     static void combination(int idx, int sidx) {
         // 종료 조건
-        if(sidx == 6){
-            for(int i=0 ; i<6 ; i++){
+        if (sidx == 6) {
+            for (int i = 0; i < 6; i++) {
                 System.out.print(sel[i] + " ");
             }
             System.out.println();
@@ -42,9 +42,9 @@ public class Main {
         }
 
         // 재귀 조건
-        for(int i=idx ; i<k ; i++){
+        for (int i = idx; i < k; i++) {
             sel[sidx] = set[i];
-            combination(i+1, sidx+1);
+            combination(i + 1, sidx + 1);
         }
     }
 }

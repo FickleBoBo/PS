@@ -14,19 +14,19 @@ public class Main6 {
 
         // Lambda
         PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> {
-            if(o1[1] != o2[1]){
+            if (o1[1] != o2[1]) {
                 return Integer.compare(o1[1], o2[1]);
             }
             return Integer.compare(o1[0], o2[0]);
         });
 
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
 
             pq.offer(new int[]{Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())});
         }
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             int[] item = pq.poll();
             sb.append(item[0]).append(" ").append(item[1]).append("\n");
         }

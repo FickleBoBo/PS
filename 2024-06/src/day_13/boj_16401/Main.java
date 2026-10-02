@@ -15,28 +15,27 @@ public class Main {
 
         st = new StringTokenizer(br.readLine());
         int[] arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         System.out.println(binarySearchUpperBound(arr, 1, 1000000000, M));
     }
 
-    private static int binarySearchUpperBound(int[] arr, int left, int right, int target){
+    private static int binarySearchUpperBound(int[] arr, int left, int right, int target) {
         int N = arr.length;
 
-        while(left < right){
+        while (left < right) {
             int mid = (left + right) / 2;
 
             int cnt = 0;
-            for(int i=0 ; i<N ; i++){
+            for (int i = 0; i < N; i++) {
                 cnt += arr[i] / mid;
             }
 
-            if(cnt >= target){
+            if (cnt >= target) {
                 left = mid + 1;
-            }
-            else{
+            } else {
                 right = mid;
             }
         }

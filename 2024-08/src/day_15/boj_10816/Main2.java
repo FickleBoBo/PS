@@ -15,7 +15,7 @@ public class Main2 {
         int[] arr = new int[N];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(arr);
@@ -23,7 +23,7 @@ public class Main2 {
         int M = Integer.parseInt(br.readLine());
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             int num = Integer.parseInt(st.nextToken());
 
             // 매개변수 이분탐색으로 특정 원소의 개수 탐색 가능
@@ -39,17 +39,16 @@ public class Main2 {
         bw.close();
     }
 
-    private static int binarySearchUpperBound(int[] arr, int value){
+    private static int binarySearchUpperBound(int[] arr, int value) {
         int left = 0;
         int right = arr.length;
 
-        while(left < right){
+        while (left < right) {
             int mid = (left + right) / 2;
 
-            if(arr[mid] <= value){
+            if (arr[mid] <= value) {
                 left = mid + 1;
-            }
-            else{
+            } else {
                 right = mid;
             }
         }
@@ -57,17 +56,16 @@ public class Main2 {
         return right;
     }
 
-    private static int binarySearchLowerBound(int[] arr, int value){
+    private static int binarySearchLowerBound(int[] arr, int value) {
         int left = 0;
         int right = arr.length;
 
-        while(left < right){
+        while (left < right) {
             int mid = (left + right) / 2;
 
-            if(arr[mid] < value){
+            if (arr[mid] < value) {
                 left = mid + 1;
-            }
-            else{
+            } else {
                 right = mid;
             }
         }

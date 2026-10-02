@@ -10,7 +10,7 @@ public class Main {
         char[] nums = br.readLine().toCharArray();
 
         int sum = 0;
-        for(char c : nums){
+        for (char c : nums) {
             sum += c - '0';
         }
 

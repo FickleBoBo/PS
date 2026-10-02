@@ -18,7 +18,7 @@ public class Main {
         N = sc.nextInt();
         M = sc.nextInt();
         arr = new int[N];
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
         Arrays.sort(arr);
@@ -30,17 +30,17 @@ public class Main {
     }
 
     private static void combination(int idx, int sidx) {
-        if(sidx == M){
-            for(int i=0 ; i<M ; i++){
+        if (sidx == M) {
+            for (int i = 0; i < M; i++) {
                 sb.append(sel[i] + " ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i=idx ; i<N ; i++){
+        for (int i = idx; i < N; i++) {
             sel[sidx] = arr[i];
-            combination(i+1, sidx+1);
+            combination(i + 1, sidx + 1);
         }
 
     }

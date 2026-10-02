@@ -12,11 +12,11 @@ public class Main {
         int M = sc.nextInt();
 
         Map<String, String> map = new HashMap<>();
-        for(int i=0 ; i<N ; i++){
+        for (int i = 0; i < N; i++) {
             map.put(sc.next(), sc.next());
         }
 
-        for(int i=0 ; i<M ; i++){
+        for (int i = 0; i < M; i++) {
             System.out.println(map.get(sc.next()));
         }
     }

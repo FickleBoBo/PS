@@ -17,26 +17,25 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
 
         int[] arr = new int[K];
-        for(int i=0 ; i<K ; i++){
+        for (int i = 0; i < K; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
         long ans = binarySearch(arr, K, N, 1, INF);
         System.out.println(ans);
     }
 
-    private static long binarySearch(int[] arr, int len, int key, long left, long right){
+    private static long binarySearch(int[] arr, int len, int key, long left, long right) {
         long mid = (left + right) / 2;
 
-        while(left <= right){
+        while (left <= right) {
             long cnt = 0;
-            for(int i=0 ; i<len ; i++){
-                cnt += arr[i]/mid;
+            for (int i = 0; i < len; i++) {
+                cnt += arr[i] / mid;
             }
 
-            if(cnt < key){
+            if (cnt < key) {
                 right = mid - 1;
-            }
-            else if(cnt >= key){
+            } else if (cnt >= key) {
                 left = mid + 1;
             }
 

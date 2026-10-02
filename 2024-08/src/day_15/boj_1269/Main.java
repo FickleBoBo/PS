@@ -15,13 +15,13 @@ public class Main {
         Set<String> set = new HashSet<>();
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             set.add(st.nextToken());
         }
 
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
-            if(set.contains(st.nextToken())){
+        while (st.hasMoreTokens()) {
+            if (set.contains(st.nextToken())) {
                 cnt++;
             }
         }

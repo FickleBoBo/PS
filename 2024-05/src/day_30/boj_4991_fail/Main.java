@@ -8,7 +8,7 @@ import java.util.*;
 public class Main {
 
     static int[] dr = {-1, 0, 1, 0};
-    static int[] dc = {0 ,1, 0, -1};
+    static int[] dc = {0, 1, 0, -1};
 
     static int w;
     static int h;
@@ -20,42 +20,40 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        while(true){
+        while (true) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             w = Integer.parseInt(st.nextToken());
             h = Integer.parseInt(st.nextToken());
-            if(w==0 && h==0) break;
+            if (w == 0 && h == 0) break;
 
             dirtyPosList = new ArrayList<>();
             ans = 0;
             int r = -1;
             int c = -1;
             map = new String[h][w];
-            for(int i=0 ; i<h ; i++){
+            for (int i = 0; i < h; i++) {
                 map[i] = br.readLine().split("");
-                for(int j=0 ; j<w ; j++){
-                    if(map[i][j].equals("*")){
+                for (int j = 0; j < w; j++) {
+                    if (map[i][j].equals("*")) {
                         dirtyPosList.add(new int[]{i, j});
-                    }
-                    else if(map[i][j].equals("o")){
+                    } else if (map[i][j].equals("o")) {
                         r = i;
                         c = j;
                     }
                 }
             }
-            adj = new int[1+dirtyPosList.size()][1+dirtyPosList.size()];
+            adj = new int[1 + dirtyPosList.size()][1 + dirtyPosList.size()];
 
             BFS(r, c);
-            for(int[] pos : dirtyPosList){
+            for (int[] pos : dirtyPosList) {
                 BFS(pos[0], pos[1]);
             }
-
 
 
         }
     }
 
-    private static void BFS(int r, int c){
+    private static void BFS(int r, int c) {
         Queue<int[]> q = new LinkedList<>();
         boolean[][] visited = new boolean[h][w];
 
@@ -63,16 +61,16 @@ public class Main {
         visited[r][c] = true;
 
         int path = 0;
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             path++;
             int len = q.size();
-            for(int i=0 ; i<len ; i++){
+            for (int i = 0; i < len; i++) {
                 int[] item = q.poll();
-                for(int dir=0 ; dir<4 ; dir++){
+                for (int dir = 0; dir < 4; dir++) {
                     int nr = item[0] + dr[dir];
                     int nc = item[1] + dc[dir];
-                    if(nr>=0 && nr<h && nc>=0 && nc<w && !visited[nr][nc] && !map[nr][nc].equals("x")){
-                        if(map[nr][nc].equals("*")){
+                    if (nr >= 0 && nr < h && nc >= 0 && nc < w && !visited[nr][nc] && !map[nr][nc].equals("x")) {
+                        if (map[nr][nc].equals("*")) {
 //                            adj[][] = adj[][] = path;
                         }
                         q.offer(new int[]{nr, nc});
