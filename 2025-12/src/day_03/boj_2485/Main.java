@@ -13,12 +13,12 @@ public class Main {
             arr[i] = Integer.parseInt(br.readLine());
         }
 
-        int gcd = arr[1] - arr[0];
+        int g = arr[1] - arr[0];
         for (int i = 2; i < n; i++) {
-            gcd = gcd(gcd, arr[i] - arr[i - 1]);
+            g = gcd(g, arr[i] - arr[i - 1]);
         }
 
-        System.out.println((arr[n - 1] - arr[0]) / gcd + 1 - n);
+        System.out.println((arr[n - 1] - arr[0]) / g + 1 - n);
     }
 
     static int gcd(int a, int b) {
