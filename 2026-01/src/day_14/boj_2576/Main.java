@@ -12,7 +12,7 @@ public class Main {
         for (int i = 0; i < 7; i++) {
             int x = Integer.parseInt(br.readLine());
 
-            if (x % 2 == 1) {
+            if (x % 2 != 0) {
                 sum += x;
                 min = Math.min(min, x);
             }
