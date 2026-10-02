@@ -5,6 +5,7 @@ https://www.acmicpc.net/problem/1388
 ![alt text](assets/photo3.png)
 
 # 🔍 바닥 장식
+
 - 설계 시간 : 3min / 1min
 - 구현 시간 : 7min / 30min
 - 난이도 : 실버 4

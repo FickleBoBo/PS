@@ -1,8 +1,7 @@
 https://www.acmicpc.net/problem/12100
 
-
-
 # 🔍 2048 (Easy)
+
 - 설계 시간 : 29min
 - 구현 시간 : 33min
 - 난이도 : 골드 2

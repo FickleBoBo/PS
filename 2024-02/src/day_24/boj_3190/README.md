@@ -1,6 +1,7 @@
 https://www.acmicpc.net/problem/3190
 
 # 🔍 뱀
+
 - 설계 시간 : 2min
 - 구현 시간 : 104min
 - 난이도 : 골드 4

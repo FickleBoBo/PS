@@ -5,6 +5,7 @@ https://www.acmicpc.net/problem/16235
 ![alt text](assets/photo3.png)
 
 # 🔍 나무 재테크(실패)
+
 - 설계 시간 : 6min / 10min
 - 구현 시간 : 0min / 72min
 - 난이도 : 골드 3

@@ -1,6 +1,7 @@
 https://www.acmicpc.net/problem/14499
 
 # 🔍 주사위 굴리기
+
 - 설계 시간 : 3min
 - 구현 시간 : 197min + 85min
 - 난이도 : 골드 4
