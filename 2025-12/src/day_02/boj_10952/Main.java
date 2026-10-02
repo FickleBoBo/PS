@@ -15,7 +15,6 @@ public class Main {
             int b = Integer.parseInt(st.nextToken());
 
             if (a == 0) break;
-
             sb.append(a + b).append("\n");
         }
 
