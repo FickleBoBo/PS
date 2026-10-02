@@ -8,9 +8,9 @@ int main() {
     int a, b, c, d;
     cin >> a >> b >> c >> d;
 
-    int numerator = a * d + b * c;  // 분자
-    int denominator = b * d;        // 분모
-    int g = gcd(numerator, denominator);
+    int p = a * d + b * c;
+    int q = b * d;
+    int g = gcd(p, q);
 
-    cout << numerator / g << ' ' << denominator / g;
+    cout << p / g << ' ' << q / g;
 }

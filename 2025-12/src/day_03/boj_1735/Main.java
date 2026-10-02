@@ -16,11 +16,11 @@ public class Main {
         int c = Integer.parseInt(st.nextToken());
         int d = Integer.parseInt(st.nextToken());
 
-        int numerator = a * d + b * c;  // 분자
-        int denominator = b * d;  // 분모
-        int gcd = gcd(numerator, denominator);
+        int p = a * d + b * c;
+        int q = b * d;
+        int g = gcd(p, q);
 
-        System.out.printf("%d %d", numerator / gcd, denominator / gcd);
+        System.out.printf("%d %d", p / g, q / g);
     }
 
     static int gcd(int a, int b) {
