@@ -10,7 +10,6 @@ public class Main {
 
         int w = Integer.parseInt(st.nextToken());
         int h = Integer.parseInt(st.nextToken());
-
         System.out.printf("%.1f", 0.5 * w * h);
     }
 }
