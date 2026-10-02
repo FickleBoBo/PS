@@ -421,10 +421,15 @@ FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)�
 
 ## 9. 파일 컨벤션
 
-- 한 문제 폴더: `Solution.{java,cpp,py}` + 대체 접근이면 `SolutionN.{ext}`. (프로그래머스 SQL 문제만 `Solution.sql` 하나 — SQL 은 컨벤션·감사 대상 아님.)
+- **폴더**: `{저지}_{번호}` 전부 소문자 — `boj_`·`prms_`·`leet_`·`cofo_`·`swea_`·`softeer_`·`live_` (`cofo_`·`live_` 는 `{대회}{문제 letter 소문자}`). 실패한 시도는 접미사 `_fail` (`boj_16235_fail`).
+- **소스 파일**: 표준입출력 채점(BOJ·Codeforces·SWEA·Softeer)은 `Main.{java,cpp,py}`, 함수형 채점(프로그래머스·LeetCode)은 `Solution.{java,cpp,py}`. 대체 접근이면 `MainN`/`SolutionN`. (프로그래머스 SQL 문제만 `Solution.sql` 하나 — SQL 은 컨벤션·감사 대상 아님.) Java 는 `package day_XX.{폴더};` + public class 명 = 파일명.
 - `SolutionN`의 **끝자리가 같으면 같은 풀이 원리** (Solution = 루프, Solution2 = 폐형식 등).
+- **다중 풀이 번호는 "기본 → 심화" 순** — 더 개념이 깊거나 최적화된 쪽이 뒤. 번호 없는 `Main` 은 가장 기본형. 예: BFS → DFS, BFS → DP, 2D → 1D, Dijkstra → BFS01, DP → DP2, Comparator → Lambda, List → PriorityQueue. 이분탐색·해시맵·TreeSet 이면 그 순서.
+- **보조 파일**: 제출물이 아닌 테스트·실패 시도는 `{Main|Solution}_{test|fail}` (+ 숫자). 예 `Main_test.java`, `Solution_fail2.java`.
+- **이미지·PDF**: 풀이 폴더 아래 `assets/` 안에 `photo1.png`, `photo2.jpg` … (확장자 소문자, 번호는 1부터 빈 번호 없이). README 는 `assets/photoN.ext` 로 참조.
+- SWEA 의 입출력 txt(`sample_input.txt` 등)는 내려받은 원본 이름 그대로 둔다 — 통일 대상 아님.
 - 어떤 언어에서 관용적으로 안 되는 접근은 스킵 → 파일 갭은 의도적 (예: Python `Solution2`/`Solution4`만).
-- **소스 포맷은 사용자가 직접** — 배치 포맷·포맷 훅·Java 포매터 먼저 제안 금지. `.clang-format`(Google 베이스, indent 4, col 120)은 커밋돼 있고 유지 — CP 통상보다 보수적으로 세로로 펼치는 건 **의도적**(아카이브 가독성). `AllowShortLambdas/Functions/Blocks` 비활성도 의도.
+- **소스 포맷은 사용자가 직접** — 배치 포맷·포맷 훅 먼저 제안 금지(사용자가 요청할 때만). `.clang-format`(Google 베이스, indent 4, col 120)은 커밋돼 있고 유지 — CP 통상보다 보수적으로 세로로 펼치는 건 **의도적**(아카이브 가독성). `AllowShortLambdas/Functions/Blocks` 비활성도 의도. Java 는 IntelliJ 기본 스타일, README 는 Prettier 기본 옵션.
 
 ---
 

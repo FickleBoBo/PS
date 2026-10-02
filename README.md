@@ -68,7 +68,7 @@ _One day One Problem_
 | `swea_`    | SWEA                                   | `Solution.java`                                 |
 | `softeer_` | Softeer                                | `Main.java`                                     |
 
-같은 문제의 다른 접근은 `Solution2`, `Solution3` … 처럼 숫자를 붙인다.
+같은 문제의 다른 접근은 `Main2`/`Solution2` … 처럼 숫자를 붙이고, 실패한 시도는 폴더명 끝에 `_fail`을 붙인다. 이미지는 풀이 폴더의 `assets/photoN.*`에 둔다.
 
 ## 🛠️ Skills
 
