@@ -1,8 +1,8 @@
 https://www.acmicpc.net/problem/14501
 
-<img src="photo1.png" width="100%" />
-<img src="photo2.png" width="100%" />
-<img src="photo3.png" width="100%" />
+<img src="assets/photo1.png" width="100%" />
+<img src="assets/photo2.png" width="100%" />
+<img src="assets/photo3.png" width="100%" />
 
 # 🔍 퇴사
 

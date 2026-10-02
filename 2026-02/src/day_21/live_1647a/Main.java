@@ -1,4 +1,4 @@
-package day_21.ksa_a;
+package day_21.live_1647a;
 
 import java.io.*;
 import java.util.*;

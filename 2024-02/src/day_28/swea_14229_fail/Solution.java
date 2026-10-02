@@ -1,4 +1,4 @@
-package day_28.SWEA_D2_14229_Fail;
+package day_28.swea_14229_fail;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,7 +14,7 @@ public class Solution {
 
         // 퀵정렬 구현 실패
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("month_02/src/day_28/SWEA_D2_14229/input.txt")));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src/day_28/swea_14229_fail/input.txt")));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
         nums = new int[1_000_000];

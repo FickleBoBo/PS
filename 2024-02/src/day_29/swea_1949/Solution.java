@@ -1,4 +1,4 @@
-package day_29.SWEA_모의SW역량테스트_1949;
+package day_29.swea_1949;
 
 import java.util.Arrays;
 import java.util.Scanner;

@@ -1,9 +1,9 @@
-package day_20.BOJ_S2_1182;
+package day_20.boj_1182;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main_Bitmask {
+public class Main3 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());

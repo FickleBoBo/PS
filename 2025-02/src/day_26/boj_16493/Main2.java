@@ -1,9 +1,9 @@
-package day_26.BOJ_16493;
+package day_26.boj_16493;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DP_2D {
+public class Main2 {
 
     private static class Item {
         int day;

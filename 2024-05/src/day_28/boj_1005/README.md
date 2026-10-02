@@ -1,7 +1,7 @@
 https://www.acmicpc.net/problem/1005
 
-<img src="./photo1.JPG" />
-<img src="./photo2.JPG" />
+<img src="assets/photo1.jpg" />
+<img src="assets/photo2.jpg" />
 
 # 🔍 ACM Craft
 - 설계 시간 : ? min

@@ -1,9 +1,9 @@
-package day_26.BOJ_S3_1431;
+package day_26.boj_1431;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Comparator {
+public class Main {
 
     // 해당 Character 타입 숫자의 Integer 값을 저장하는 맵
     static Map<Character, Integer> map = new HashMap<>();

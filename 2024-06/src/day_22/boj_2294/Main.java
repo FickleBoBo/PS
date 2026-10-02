@@ -1,9 +1,9 @@
-package day_22.BOJ_G5_2294;
+package day_22.boj_2294;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_2D {
+public class Main {
 
     static final int INF = 1_000_000_000;
 

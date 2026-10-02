@@ -1,4 +1,4 @@
-package day_08.BOJ_G5_13549;
+package day_08.boj_13549;
 
 import java.util.Deque;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package day_27.BOJ_G2_19236_Fail;
+package day_27.boj_19236_fail;
 
 import java.util.PriorityQueue;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package day_24.BOJ_S1_1926;
+package day_24.boj_1926;
 
 import java.util.LinkedList;
 import java.util.Queue;

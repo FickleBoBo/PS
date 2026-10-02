@@ -1,8 +1,8 @@
 https://www.acmicpc.net/problem/19238
 
-<img src="사진1.JPG">
-<img src="사진2.JPG">
-<img src="사진3.JPG">
+<img src="assets/photo1.jpg">
+<img src="assets/photo2.jpg">
+<img src="assets/photo3.jpg">
 
 # 🔍 스타트 택시
 - 설계 시간 : 4min

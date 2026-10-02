@@ -1,9 +1,9 @@
-package day_03.BOJ_S5_11931;
+package day_03.boj_11931;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_treeSet {
+public class Main3 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

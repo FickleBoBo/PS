@@ -1,9 +1,9 @@
-package day_19.BOJ_S2_2075;
+package day_19.boj_2075;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_PriorityQueue {
+public class Main2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;

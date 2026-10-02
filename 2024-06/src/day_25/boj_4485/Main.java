@@ -1,4 +1,4 @@
-package day_25.BOJ_G4_4485;
+package day_25.boj_4485;
 
 import java.io.BufferedReader;
 import java.io.IOException;

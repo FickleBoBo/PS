@@ -1,9 +1,9 @@
-package day_22.BOJ_P4_12920;
+package day_22.boj_12920;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_1D {
+public class Main2 {
 
     // 물건의 무게(v)와 가치(c)를 담는 클래스
     static class Item {

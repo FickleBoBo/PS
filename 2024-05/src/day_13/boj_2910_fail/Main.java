@@ -1,4 +1,4 @@
-package day_13.BOJ_S3_2910_Fail;
+package day_13.boj_2910_fail;
 
 import java.util.LinkedList;
 import java.util.List;

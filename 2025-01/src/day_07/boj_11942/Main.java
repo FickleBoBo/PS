@@ -1,4 +1,4 @@
-package day_07.BOJ_11942;
+package day_07.boj_11942;
 
 public class Main {
     public static void main(String[] args) {

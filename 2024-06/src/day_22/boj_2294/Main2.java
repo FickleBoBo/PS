@@ -1,9 +1,9 @@
-package day_22.BOJ_G5_2294;
+package day_22.boj_2294;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main_1D {
+public class Main2 {
 
     static final int INF = 1_000_000_000;
 

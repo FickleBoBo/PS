@@ -1,7 +1,7 @@
 https://www.acmicpc.net/problem/16434
 
-<img src="./photo1.jpg" width="100%" />
-<img src="./photo2.jpg" width="100%" />
+<img src="assets/photo1.jpg" width="100%" />
+<img src="assets/photo2.jpg" width="100%" />
 
 # 🔍 드래곤 앤 던전
 

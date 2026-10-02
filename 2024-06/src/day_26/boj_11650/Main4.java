@@ -1,9 +1,9 @@
-package day_26.BOJ_S5_11650;
+package day_26.boj_11650;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Comparable_pq {
+public class Main4 {
 
     static class Item implements Comparable<Item>{
         int x;

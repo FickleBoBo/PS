@@ -1,6 +1,6 @@
 https://www.acmicpc.net/problem/1202
 
-<img src="./photo1.jpg" width="100%" />
+<img src="assets/photo1.jpg" width="100%" />
 
 # 🔍 보석 도둑
 - 설계 시간 : ? min

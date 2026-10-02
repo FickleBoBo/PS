@@ -1,4 +1,4 @@
-package day_07.PGMS_LV2_귤_고르기;
+package day_07.prms_138476;
 
 import java.util.*;
 

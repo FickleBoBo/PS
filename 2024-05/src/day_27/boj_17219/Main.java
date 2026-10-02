@@ -1,4 +1,4 @@
-package day_27.BOJ_S4_17219;
+package day_27.boj_17219;
 
 import java.util.HashMap;
 import java.util.Map;

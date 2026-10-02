@@ -1,4 +1,4 @@
-package day_02.SWEA_D2_14229;
+package day_02.swea_14229;
 
 import java.io.BufferedReader;
 import java.io.IOException;

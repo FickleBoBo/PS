@@ -1,9 +1,9 @@
-package day_03.BOJ_11725;
+package day_03.boj_11725;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BFS {
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

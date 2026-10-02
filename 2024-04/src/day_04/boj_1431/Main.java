@@ -1,4 +1,4 @@
-package day_04.BOJ_S3_1431;
+package day_04.boj_1431;
 
 import java.util.ArrayList;
 import java.util.Arrays;

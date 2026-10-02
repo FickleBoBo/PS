@@ -1,4 +1,4 @@
-package day_04.SWEA_D2_1859;
+package day_04.swea_1859;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 public class Solution2 {
     public static void main(String[] args) throws IOException {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src/day_04/SWEA_D2_1859/input.txt")));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src/day_04/swea_1859/input.txt")));
         int T = Integer.parseInt(br.readLine());
 
         for(int tc=1 ; tc<=T ; tc++){

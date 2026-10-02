@@ -1,9 +1,9 @@
 https://www.acmicpc.net/problem/17472
 
-<img src="./사진1.jpg">
-<img src="./사진2.jpg">
-<img src="./사진3.jpg">
-<img src="./사진4.jpg">
+<img src="assets/photo1.jpg">
+<img src="assets/photo2.jpg">
+<img src="assets/photo3.jpg">
+<img src="assets/photo4.jpg">
 
 <hr>
 
@@ -32,7 +32,7 @@ https://www.acmicpc.net/problem/17472
 |5|5|5|5|5|5|0|0|
 
 3. 그래프로 만들기
-<img src="./사진5.jpg">
+<img src="assets/photo5.jpg">
 
 # 🔍 다리 만들기 2
 - 설계 시간 : 8min

@@ -1,8 +1,8 @@
 https://www.acmicpc.net/problem/16235
 
-![alt text](사진1.png)
-![alt text](사진2.png)
-![alt text](사진3.png)
+![alt text](assets/photo1.png)
+![alt text](assets/photo2.png)
+![alt text](assets/photo3.png)
 
 # 🔍 나무 재테크(실패)
 - 설계 시간 : 6min / 10min

@@ -1,4 +1,4 @@
-package day_04.SWEA_D2_1859;
+package day_04.swea_1859;
 
 import java.util.Scanner;
 

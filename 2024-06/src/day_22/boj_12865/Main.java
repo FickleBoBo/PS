@@ -1,9 +1,9 @@
-package day_22.BOJ_G5_12865;
+package day_22.boj_12865;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main_2D {
+public class Main {
 
     // 물건의 무게(w)와 가치(v)를 담는 클래스
     static class Item {

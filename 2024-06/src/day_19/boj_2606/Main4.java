@@ -1,10 +1,10 @@
-package day_19.BOJ_S3_2606;
+package day_19.boj_2606;
 
 import java.io.*;
 import java.util.*;
 
 // 인접 리스트 방식의 DFS
-public class Main_DFS2 {
+public class Main4 {
 
     static int N;
     static List<Integer>[] adj;

@@ -1,9 +1,9 @@
-package day_29.BOJ_14497;
+package day_29.boj_14497;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BFS01 {
+public class Main2 {
 
     private static class Node {
         int r;

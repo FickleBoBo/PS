@@ -1,4 +1,4 @@
-package day_23.cofo_2148A;
+package day_23.cofo_2148a;
 
 import java.io.*;
 import java.util.*;

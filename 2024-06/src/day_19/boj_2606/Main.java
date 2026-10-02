@@ -1,10 +1,10 @@
-package day_19.BOJ_S3_2606;
+package day_19.boj_2606;
 
 import java.io.*;
 import java.util.*;
 
 // 인접 행렬 방식의 BFS
-public class Main_BFS1 {
+public class Main {
 
     static int N;
     static boolean[][] adj;

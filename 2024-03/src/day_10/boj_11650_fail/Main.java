@@ -1,4 +1,4 @@
-package day_10.BOJ_S5_11650_Fail;
+package day_10.boj_11650_fail;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package day_12.KAKAO_2020_Lv3_자물쇠와열쇠;
+package day_12.prms_60059;
 
 import java.util.Arrays;
 

@@ -1,9 +1,9 @@
-package day_20.BOJ_2644;
+package day_20.boj_2644;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DFS {
+public class Main2 {
 
     private static boolean[] visited;
     private static final List<List<Integer>> adj = new ArrayList<>();

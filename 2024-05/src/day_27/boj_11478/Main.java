@@ -1,4 +1,4 @@
-package day_27.BOJ_S3_11478;
+package day_27.boj_11478;
 
 import java.util.HashSet;
 import java.util.Scanner;

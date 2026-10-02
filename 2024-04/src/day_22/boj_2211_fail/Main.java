@@ -1,4 +1,4 @@
-package day_22.BOJ_G2_2211_Fail;
+package day_22.boj_2211_fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;

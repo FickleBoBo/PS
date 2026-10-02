@@ -1,9 +1,9 @@
-package day_20.BOJ_1012;
+package day_20.boj_1012;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BFS {
+public class Main {
 
     private static final int[] dr = {-1, 0, 1, 0};
     private static final int[] dc = {0, 1, 0, -1};

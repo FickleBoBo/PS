@@ -1,9 +1,9 @@
-package day_19.BOJ_S2_11724;
+package day_19.boj_11724;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_UnionFind {
+public class Main3 {
 
     // 부모 배열
     static int[] p;

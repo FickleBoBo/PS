@@ -1,4 +1,4 @@
-package day_30.BOJ_S3_2108;
+package day_30.boj_2108;
 
 import java.io.BufferedReader;
 import java.io.IOException;

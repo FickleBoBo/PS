@@ -1,4 +1,4 @@
-package day_05.SWEA_D3_1216;
+package day_05.swea_1216;
 
 import java.io.*;
 
@@ -6,7 +6,7 @@ public class Solution {
 	public static void main(String[] args) throws IOException {
 
 		// 그동안 왜 안된건지 모르겠다
-//		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("day_04/src/swea_1216_회문2/input.txt")));
+//		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src/day_05/swea_1216/input.txt")));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		for(int tc=1 ; tc<=10 ; tc++){

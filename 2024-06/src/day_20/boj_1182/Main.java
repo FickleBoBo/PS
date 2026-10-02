@@ -1,9 +1,9 @@
-package day_20.BOJ_S2_1182;
+package day_20.boj_1182;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main_Combination {
+public class Main {
 
     static int N;
     static int[] arr;

@@ -1,4 +1,4 @@
-package day_26.BOJ_S3_1966;
+package day_26.boj_1966;
 
 import java.util.LinkedList;
 import java.util.List;

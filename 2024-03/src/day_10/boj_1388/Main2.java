@@ -1,8 +1,8 @@
-package day_10.BOJ_S4_1388;
+package day_10.boj_1388;
 
 import java.util.Scanner;
 
-public class Main_DFS {
+public class Main2 {
 
     static int N;
     static int M;

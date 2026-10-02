@@ -1,6 +1,6 @@
 https://www.acmicpc.net/problem/1238
 
-<img src="./사진1.jpg">
+<img src="assets/photo1.jpg">
 
 # 🔍 파티
 - 설계 시간 : 1min

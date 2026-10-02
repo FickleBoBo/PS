@@ -1,9 +1,9 @@
-package day_27.BOJ_2294;
+package day_27.boj_2294;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_2D {
+public class Main {
 
     private static final int MAX = 10001;
 

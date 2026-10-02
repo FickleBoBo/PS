@@ -1,4 +1,4 @@
-package day_05.BOJ_S2_1912_Fail;
+package day_05.boj_1912_fail;
 
 import java.util.Arrays;
 import java.util.Scanner;

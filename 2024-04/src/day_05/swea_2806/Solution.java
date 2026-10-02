@@ -1,4 +1,4 @@
-package day_05.SWEA_D3_2806;
+package day_05.swea_2806;
 
 import java.util.HashSet;
 import java.util.Scanner;

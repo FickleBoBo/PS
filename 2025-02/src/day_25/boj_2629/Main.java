@@ -1,9 +1,9 @@
-package day_25.BOJ_2629;
+package day_25.boj_2629;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BottomUp_DP {
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

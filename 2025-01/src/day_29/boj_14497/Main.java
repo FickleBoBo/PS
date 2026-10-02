@@ -1,9 +1,9 @@
-package day_29.BOJ_14497;
+package day_29.boj_14497;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Dijkstra {
+public class Main {
 
     private static class Node implements Comparable<Node> {
         int r;

@@ -1,4 +1,4 @@
-package day_26.PRMS_42579;
+package day_26.prms_42579;
 
 import java.util.*;
 

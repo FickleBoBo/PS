@@ -1,4 +1,4 @@
-package day_28.BOJ_G5_15681_Fail;
+package day_28.boj_15681_fail;
 
 import java.io.BufferedReader;
 import java.io.IOException;

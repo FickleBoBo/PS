@@ -1,9 +1,9 @@
-package day_02.BOJ_11723;
+package day_02.boj_11723;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Bitmask {
+public class Main2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

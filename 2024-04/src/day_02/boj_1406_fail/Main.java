@@ -1,4 +1,4 @@
-package day_02.BOJ_S2_1406_Fail;
+package day_02.boj_1406_fail;
 
 import java.io.*;
 import java.util.*;

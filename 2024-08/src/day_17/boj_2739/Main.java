@@ -1,4 +1,4 @@
-package day_17.BOJ_B5_2739;
+package day_17.boj_2739;
 
 import java.io.*;
 

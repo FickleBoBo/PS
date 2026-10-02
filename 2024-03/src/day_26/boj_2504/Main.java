@@ -1,4 +1,4 @@
-package day_26.BOJ_G5_2504;
+package day_26.boj_2504;
 
 import java.util.Scanner;
 import java.util.Stack;

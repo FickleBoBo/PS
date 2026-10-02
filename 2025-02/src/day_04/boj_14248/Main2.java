@@ -1,9 +1,9 @@
-package day_04.BOJ_14248;
+package day_04.boj_14248;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DFS {
+public class Main2 {
 
     private static int N;
     private static int[] jump;

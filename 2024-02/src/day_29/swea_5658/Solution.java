@@ -1,4 +1,4 @@
-package day_29.SWEA_모의SW역량테스트_5658;
+package day_29.swea_5658;
 
 import java.io.BufferedReader;
 import java.io.IOException;

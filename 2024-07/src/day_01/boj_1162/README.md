@@ -1,6 +1,6 @@
 https://www.acmicpc.net/problem/1162
 
-<img src="./photo1.jpg" width="100%" />
+<img src="assets/photo1.jpg" width="100%" />
 
 # 🔍 도로포장
 - 설계 시간 : ? min
@@ -15,8 +15,8 @@ https://www.acmicpc.net/problem/1162
 
 # 🔍 예제 입출력
 
-<img src="./photo3.jpg" width="100%"/>
-<img src="./photo4.jpg" width="100%"/>
+<img src="assets/photo2.jpg" width="100%"/>
+<img src="assets/photo3.jpg" width="100%"/>
 
 ------------------------------
 

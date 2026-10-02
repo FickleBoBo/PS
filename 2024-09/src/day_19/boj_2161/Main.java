@@ -1,4 +1,4 @@
-package day_19.BOJ_S5_2161;
+package day_19.boj_2161;
 
 import java.io.*;
 import java.util.ArrayDeque;

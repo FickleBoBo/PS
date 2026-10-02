@@ -1,4 +1,4 @@
-package day_27.BOJ_P5_2887_Fail;
+package day_27.boj_2887_fail;
 
 import java.io.*;
 import java.util.*;

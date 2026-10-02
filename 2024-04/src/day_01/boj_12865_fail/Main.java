@@ -1,4 +1,4 @@
-package day_01.BOJ_G5_12865_Fail;
+package day_01.boj_12865_fail;
 
 import java.util.Scanner;
 

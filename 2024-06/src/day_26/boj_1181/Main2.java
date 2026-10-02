@@ -1,9 +1,9 @@
-package day_26.BOJ_S5_1181;
+package day_26.boj_1181;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Comparator2 {
+public class Main2 {
 
     static class MyComparator implements Comparator<String>{
 

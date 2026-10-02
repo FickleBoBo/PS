@@ -1,8 +1,8 @@
 https://www.acmicpc.net/problem/1388
 
-![alt text](사진1.png)
-![alt text](사진2.png)
-![alt text](사진3.png)
+![alt text](assets/photo1.png)
+![alt text](assets/photo2.png)
+![alt text](assets/photo3.png)
 
 # 🔍 바닥 장식
 - 설계 시간 : 3min / 1min
@@ -39,4 +39,4 @@ https://www.acmicpc.net/problem/1388
 
 # 🧐 좋은 풀이
 
-- Main_DFS로 만들어 봄
+- Main2로 만들어 봄

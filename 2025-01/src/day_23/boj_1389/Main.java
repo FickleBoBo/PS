@@ -1,9 +1,9 @@
-package day_23.BOJ_1389;
+package day_23.boj_1389;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BFS {
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());

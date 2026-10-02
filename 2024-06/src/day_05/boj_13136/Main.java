@@ -1,4 +1,4 @@
-package day_05.BOJ_B4_13136;
+package day_05.boj_13136;
 
 import java.util.Scanner;
 

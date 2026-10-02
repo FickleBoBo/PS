@@ -1,9 +1,9 @@
-package day_23.BOJ_1389;
+package day_23.boj_1389;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Floyd_Warshall {
+public class Main2 {
 
     private static final int INF = 1_000_000_000;
 

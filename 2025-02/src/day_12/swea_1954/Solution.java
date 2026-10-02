@@ -1,4 +1,4 @@
-package day_12.SWEA_1954;
+package day_12.swea_1954;
 
 import java.io.*;
 

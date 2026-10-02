@@ -1,9 +1,9 @@
-package day_27.BOJ_1463;
+package day_27.boj_1463;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BFS {
+public class Main {
 
     private static class Node implements Comparable<Node> {
         int num;

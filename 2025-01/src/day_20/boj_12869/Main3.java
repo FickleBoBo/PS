@@ -1,9 +1,9 @@
-package day_20.BOJ_12869;
+package day_20.boj_12869;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DP {
+public class Main3 {
 
     // 공격 조합에 대한 탐색 배열
     private static final int[] d1 = {1, 1, 3, 3, 9, 9};

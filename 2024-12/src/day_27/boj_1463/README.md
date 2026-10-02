@@ -1,7 +1,7 @@
 https://www.acmicpc.net/problem/1463
 
-<img src="photo1.png" width="100%" />
-<img src="photo2.png" width="100%" />
+<img src="assets/photo1.png" width="100%" />
+<img src="assets/photo2.png" width="100%" />
 
 # 🔍 1로 만들기
 

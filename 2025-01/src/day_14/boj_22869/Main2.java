@@ -1,9 +1,9 @@
-package day_14.BOJ_22869;
+package day_14.boj_22869;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DFS {
+public class Main2 {
 
     private static int N;
     private static int K;

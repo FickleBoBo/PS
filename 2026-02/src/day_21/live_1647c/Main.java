@@ -1,4 +1,4 @@
-package day_21.ksa_c;
+package day_21.live_1647c;
 
 import java.io.BufferedReader;
 import java.io.IOException;

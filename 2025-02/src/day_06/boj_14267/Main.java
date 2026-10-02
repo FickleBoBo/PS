@@ -1,9 +1,9 @@
-package day_06.BOJ_14267;
+package day_06.boj_14267;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DP1 {
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

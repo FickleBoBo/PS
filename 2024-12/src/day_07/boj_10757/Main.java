@@ -1,4 +1,4 @@
-package day_07.BOJ_10757;
+package day_07.boj_10757;
 
 import java.io.*;
 import java.math.BigInteger;

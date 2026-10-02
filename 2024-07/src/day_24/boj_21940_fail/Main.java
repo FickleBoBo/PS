@@ -1,4 +1,4 @@
-package day_24.BOJ_G4_21940_Fail;
+package day_24.boj_21940_fail;
 
 import java.io.*;
 import java.util.*;

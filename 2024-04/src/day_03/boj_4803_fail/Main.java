@@ -1,4 +1,4 @@
-package day_03.BOJ_G4_4803_Fail;
+package day_03.boj_4803_fail;
 
 import java.util.Arrays;
 import java.util.Scanner;

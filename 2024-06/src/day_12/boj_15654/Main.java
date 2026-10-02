@@ -1,4 +1,4 @@
-package day_12.BOJ_S3_15654;
+package day_12.boj_15654;
 
 import java.io.*;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package day_19.BOJ_S2_1927;
+package day_19.boj_1927;
 
 import java.io.*;
 import java.util.PriorityQueue;

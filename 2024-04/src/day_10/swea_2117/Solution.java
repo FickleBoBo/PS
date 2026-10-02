@@ -1,4 +1,4 @@
-package day_10.SWEA_모의SW역량테스트_2117;
+package day_10.swea_2117;
 
 import java.util.LinkedList;
 import java.util.Queue;

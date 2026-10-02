@@ -1,4 +1,4 @@
-package day_02.SWEA_D4_3289;
+package day_02.swea_3289;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

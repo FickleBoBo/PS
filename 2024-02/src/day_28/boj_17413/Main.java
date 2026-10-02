@@ -1,4 +1,4 @@
-package day_28.BOJ_S3_17413;
+package day_28.boj_17413;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;

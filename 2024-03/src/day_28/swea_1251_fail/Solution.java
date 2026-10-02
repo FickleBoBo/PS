@@ -1,4 +1,4 @@
-package day_28.SWEA_D4_1251_Fail;
+package day_28.swea_1251_fail;
 
 import java.util.Arrays;
 import java.util.Scanner;

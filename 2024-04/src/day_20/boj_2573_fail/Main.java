@@ -1,4 +1,4 @@
-package day_20.BOJ_G4_2573_Fail;
+package day_20.boj_2573_fail;
 
 import java.util.LinkedList;
 import java.util.Queue;

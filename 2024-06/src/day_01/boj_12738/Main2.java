@@ -1,9 +1,9 @@
-package day_01.BOJ_G2_12738;
+package day_01.boj_12738;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main_fin {
+public class Main2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());

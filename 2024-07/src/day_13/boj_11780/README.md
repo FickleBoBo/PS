@@ -1,7 +1,7 @@
 https://www.acmicpc.net/problem/11780
 
-<img src="./photo1.jpg" width="100%" />
-<img src="./photo4.jpg" width="100%" />
+<img src="assets/photo1.jpg" width="100%" />
+<img src="assets/photo2.jpg" width="100%" />
 
 - 출력은 플로이드 워셜 알고리즘의 dp 테이블을 먼저 출력
 - 이후 각 도시에 대해 다른 도시로 가는 최단 거리에 포함된 도시의 수 출력(없으면 0 출력)

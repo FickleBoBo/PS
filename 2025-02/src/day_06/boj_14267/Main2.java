@@ -1,9 +1,9 @@
-package day_06.BOJ_14267;
+package day_06.boj_14267;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DP2 {
+public class Main2 {
 
     private static final List<List<Integer>> adj = new ArrayList<>();
     private static int[] arr;

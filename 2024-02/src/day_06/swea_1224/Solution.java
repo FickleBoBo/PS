@@ -1,4 +1,4 @@
-package day_06.SWEA_D4_1224;
+package day_06.swea_1224;
 
 import java.util.HashMap;
 import java.util.Map;

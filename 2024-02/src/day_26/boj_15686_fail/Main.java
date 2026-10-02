@@ -1,4 +1,4 @@
-package day_26.BOJ_G5_15686_Fail;
+package day_26.boj_15686_fail;
 
 import java.util.ArrayList;
 import java.util.List;

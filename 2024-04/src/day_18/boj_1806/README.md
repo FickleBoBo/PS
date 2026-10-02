@@ -1,6 +1,6 @@
 https://www.acmicpc.net/problem/1806
 
-<img src="./사진1.jpg">
+<img src="assets/photo1.jpg">
 
 <hr>
 

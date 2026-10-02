@@ -1,9 +1,9 @@
-package day_19.BOJ_S2_11724;
+package day_19.boj_11724;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DFS {
+public class Main2 {
 
     static int N;
     static List<Integer>[] adj;

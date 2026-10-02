@@ -1,7 +1,7 @@
 https://www.acmicpc.net/problem/13414
 
-<img src="photo1.png" width="100%" />
-<img src="photo2.png" width="100%" />
+<img src="assets/photo1.png" width="100%" />
+<img src="assets/photo2.png" width="100%" />
 
 # 🔍 수강신청
 

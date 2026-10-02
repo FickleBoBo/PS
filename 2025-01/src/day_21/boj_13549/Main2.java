@@ -1,9 +1,9 @@
-package day_21.BOJ_13549;
+package day_21.boj_13549;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BFS01 {
+public class Main2 {
 
     private static final int MAX = 100_000;
 

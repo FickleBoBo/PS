@@ -1,9 +1,9 @@
-package day_13.BOJ_G2_11780;
+package day_13.boj_11780;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_beforeDp {
+public class Main {
 
     // 오버플로우 주의
     static final int INF = 1_000_000_000;

@@ -1,6 +1,6 @@
 https://www.acmicpc.net/problem/4195
 
-<img src="./photo1.jpg" width="100%" />
+<img src="assets/photo1.jpg" width="100%" />
 
 # 🔍 친구 네트워크
 - 설계 시간 : ? min
@@ -42,4 +42,4 @@ https://www.acmicpc.net/problem/4195
 
 # 🧐 좋은 풀이
 
-- Main_fin이 정석
+- Main2가 정석

@@ -1,8 +1,8 @@
 https://www.acmicpc.net/problem/17370
 
-<img src="사진1.png">
-<img src="사진2.png">
-<img src="사진3.jpg">
+<img src="assets/photo1.png">
+<img src="assets/photo2.png">
+<img src="assets/photo3.jpg">
 
 # 🔍 육각형 우리 속의 개미
 - 설계 시간 : 8min

@@ -1,8 +1,8 @@
 https://www.acmicpc.net/problem/11438
 
-<img src="./photo1.jpg" width="100%" />
-<img src="./photo2.jpg" width="100%" />
-<img src="./photo3.jpg" width="100%" />
+<img src="assets/photo1.jpg" width="100%" />
+<img src="assets/photo2.jpg" width="100%" />
+<img src="assets/photo3.jpg" width="100%" />
 
 # 🔍 LCA 2
 

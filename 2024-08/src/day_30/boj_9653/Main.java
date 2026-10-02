@@ -1,4 +1,4 @@
-package day_30.BOJ_B5_9653;
+package day_30.boj_9653;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

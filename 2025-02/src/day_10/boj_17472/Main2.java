@@ -1,9 +1,9 @@
-package day_10.BOJ_17472;
+package day_10.boj_17472;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DFS {
+public class Main2 {
 
     private static class Edge implements Comparable<Edge> {
         int a;

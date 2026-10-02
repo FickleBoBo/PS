@@ -1,4 +1,4 @@
-package day_01.SWEA_D3_1216_Fail;
+package day_01.swea_1216_fail;
 
 import java.util.Scanner;
 

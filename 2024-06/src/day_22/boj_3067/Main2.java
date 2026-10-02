@@ -1,9 +1,9 @@
-package day_22.BOJ_G5_3067;
+package day_22.boj_3067;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main_1D {
+public class Main2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;

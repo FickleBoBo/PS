@@ -1,4 +1,4 @@
-package day_27.SWEA_D4_7465;
+package day_27.swea_7465;
 
 import java.util.LinkedList;
 import java.util.Queue;

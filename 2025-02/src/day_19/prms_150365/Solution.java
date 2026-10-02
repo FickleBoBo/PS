@@ -1,4 +1,4 @@
-package day_19.PRMS_150365;
+package day_19.prms_150365;
 
 class Solution {
     public String solution(int n, int m, int x, int y, int r, int c, int k) {

@@ -1,9 +1,9 @@
-package day_25.BOJ_2629;
+package day_25.boj_2629;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_TopDown_DP {
+public class Main2 {
 
     private static int N;
     private static int[] weight;

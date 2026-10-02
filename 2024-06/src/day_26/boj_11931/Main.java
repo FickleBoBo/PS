@@ -1,8 +1,8 @@
-package day_26.BOJ_S5_11931;
+package day_26.boj_11931;
 
 import java.io.*;
 
-public class Main_counting {
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

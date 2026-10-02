@@ -11,7 +11,7 @@ https://www.acmicpc.net/problem/13549
 - 실행 시간 : 140ms(제한 2초)
 - 메모리 : 17372KB
 
-<img src="./assets/사진1.jpg">
+<img src="assets/photo1.jpg">
 
 ------------------------------
 
@@ -22,7 +22,7 @@ https://www.acmicpc.net/problem/13549
   - 일반적인 BFS로는 풀 수 없다?!
 - 0 ~ 100,000까지 위치할 수 있는 곳이 있는데, 대충 풀면 시간초과, 메모리 초과 발생
   - Queue에 위치랑 시간을 같이 넣는 식(객체 생성)으로 구현했는데도 안됐는데 그렇게 풀어서 된 사람 코드도 있긴 함(C++)
-<img src="./assets/사진2.jpg">
+<img src="assets/photo2.jpg">
 
 ------------------------------
 
@@ -33,7 +33,7 @@ https://www.acmicpc.net/problem/13549
 - 그래프의 최단 경로에서 0-1 BFS가 적용 가능할 경우 O(V+E)의 시간복잡도로 해결 가능하여 O(V²+E) or O(VlogV+ElogV) or O(ElogE)로 해결하는 다익스트라 알고리즘보다 빠른듯
 - 별건 없고 BFS에서 노드를 관리하기 위해 Queue를 사용했다면 0-1 BFS에서는 Deque을 사용하는듯
 - 메커니즘은 가중치가 0인 간선을 타면 first, 1인 간선을 타면 last에 삽입하는듯
-<img src="./assets/사진3.jpg">
+<img src="assets/photo3.jpg">
 
 2. 다익스트라 알고리즘
 - BFS는 간선에 가중치 없을 때 or 가중치가 모두 같을 때 적용하는 알고리즘이라 가중치가 다르면 다익스트라 알고리즘이 무난빵인듯

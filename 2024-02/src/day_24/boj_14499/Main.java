@@ -1,4 +1,4 @@
-package day_24.BOJ_G4_14499;
+package day_24.boj_14499;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;

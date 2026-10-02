@@ -1,4 +1,4 @@
-package day_08.PGMS_LV2_두_큐_합_같게_만들기;
+package day_08.prms_118667;
 
 import java.util.*;
 

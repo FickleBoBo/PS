@@ -1,4 +1,4 @@
-package day_28.SWEA_모의SW역량테스트_4014;
+package day_28.swea_4014;
 
 import java.util.Scanner;
 

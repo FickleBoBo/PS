@@ -1,4 +1,4 @@
-package day_21.PGMS_LV3_산_모양_타일링;
+package day_21.prms_258705;
 
 class Solution {
     public int solution(int n, int[] tops) {

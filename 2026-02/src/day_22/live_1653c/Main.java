@@ -1,4 +1,4 @@
-package day_22.monthly_c;
+package day_22.live_1653c;
 
 import java.io.*;
 import java.util.*;

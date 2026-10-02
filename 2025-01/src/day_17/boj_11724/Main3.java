@@ -1,9 +1,9 @@
-package day_17.BOJ_11724;
+package day_17.boj_11724;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Union_Find {
+public class Main3 {
 
     private static int[] p;
 

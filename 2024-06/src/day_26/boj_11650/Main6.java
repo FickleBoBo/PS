@@ -1,9 +1,9 @@
-package day_26.BOJ_S5_11650;
+package day_26.boj_11650;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Lambda_pq {
+public class Main6 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

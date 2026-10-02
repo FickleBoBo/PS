@@ -1,4 +1,4 @@
-package day_15.BOJ_S2_5397_Fail;
+package day_15.boj_5397_fail;
 
 import java.io.BufferedReader;
 import java.io.IOException;

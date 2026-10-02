@@ -1,9 +1,9 @@
-package day_07.BOJ_1941;
+package day_07.boj_1941;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_Bitmask {
+public class Main2 {
 
     private static final int[] dr = {-1, 0, 1, 0};
     private static final int[] dc = {0, 1, 0, -1};

@@ -1,9 +1,9 @@
-package day_03.BOJ_11051;
+package day_03.boj_11051;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_BottomUp_DP {
+public class Main {
 
     private static final int MOD = 10007;
 

@@ -1,8 +1,8 @@
-package day_20.PGMS_LV3_보석_쇼핑;
+package day_20.prms_67258;
 
 import java.util.*;
 
-class Solution_Fail2 {
+class Solution_fail2 {
     public int[] solution(String[] gems) {
         Set<String> total = new HashSet<>();
         for(String gem : gems) total.add(gem);

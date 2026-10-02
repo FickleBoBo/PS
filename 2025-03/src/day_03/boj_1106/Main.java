@@ -1,9 +1,9 @@
-package day_03.BOJ_1106;
+package day_03.boj_1106;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_2D {
+public class Main {
 
     private static class Item {
         int cost;

@@ -1,6 +1,6 @@
 https://www.acmicpc.net/problem/2805
 
-<img src="./photo1.jpg" />
+<img src="assets/photo1.jpg" />
 
 # 🔍 나무 자르기
 - 설계 시간 : ? min

@@ -1,4 +1,4 @@
-package day_14.BOJ_S5_9626;
+package day_14.boj_9626;
 
 import java.io.*;
 import java.util.StringTokenizer;

@@ -1,4 +1,4 @@
-package day_04.BOJ_G3_1520_Fail;
+package day_04.boj_1520_fail;
 
 import java.util.*;
 

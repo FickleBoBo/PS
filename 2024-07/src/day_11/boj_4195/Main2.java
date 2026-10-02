@@ -1,9 +1,9 @@
-package day_11.BOJ_G2_4195;
+package day_11.boj_4195;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_fin {
+public class Main2 {
 
     // 유니온 파인드 알고리즘 부모 배열
     static int[] p;

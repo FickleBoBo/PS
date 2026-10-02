@@ -1,4 +1,4 @@
-package day_24.BOJ_S3_10972_Fail;
+package day_24.boj_10972_fail;
 
 import java.io.BufferedReader;
 import java.io.IOException;

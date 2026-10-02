@@ -1,4 +1,4 @@
-package day_29.BOJ_G5_10026;
+package day_29.boj_10026;
 
 import java.util.LinkedList;
 import java.util.Queue;

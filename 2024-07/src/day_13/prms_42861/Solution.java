@@ -1,4 +1,4 @@
-package day_13.PGMS_LV3_섬_연결하기;
+package day_13.prms_42861;
 
 import java.util.*;
 

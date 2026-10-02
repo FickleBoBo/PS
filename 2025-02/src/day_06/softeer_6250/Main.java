@@ -1,4 +1,4 @@
-package day_06.Softeer_6250;
+package day_06.softeer_6250;
 
 import java.io.*;
 import java.util.*;

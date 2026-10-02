@@ -1,9 +1,9 @@
-package day_27.BOJ_1463;
+package day_27.boj_1463;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DP2 {
+public class Main3 {
 
     private static final Map<Integer, Integer> dp = new HashMap<>();
 

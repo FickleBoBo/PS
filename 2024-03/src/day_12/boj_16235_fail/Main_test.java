@@ -1,4 +1,4 @@
-package day_12.BOJ_G3_16235_Fail;
+package day_12.boj_16235_fail;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -19,7 +19,7 @@ class Node implements Comparable<Node> {
     }
 }
 
-public class test {
+public class Main_test {
     public static void main(String[] args) {
 
         Queue<Node> q = new LinkedList<>();

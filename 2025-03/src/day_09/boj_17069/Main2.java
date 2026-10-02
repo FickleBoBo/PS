@@ -1,9 +1,9 @@
-package day_09.BOJ_17069;
+package day_09.boj_17069;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_TopDown_DP {
+public class Main2 {
 
     private static int N;
     private static int[][] map;

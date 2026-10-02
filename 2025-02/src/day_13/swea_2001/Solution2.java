@@ -1,11 +1,11 @@
-package day_13.SWEA_2001;
+package day_13.swea_2001;
 
 import java.io.*;
 import java.util.*;
 
-public class Solution_DP {
+public class Solution2 {
     public static void main(String[] args) throws IOException {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(Solution_DP.class.getResourceAsStream("input.txt")));
+//        BufferedReader br = new BufferedReader(new InputStreamReader(Solution2.class.getResourceAsStream("input.txt")));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();

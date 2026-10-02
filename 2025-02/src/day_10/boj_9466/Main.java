@@ -1,9 +1,9 @@
-package day_10.BOJ_9466;
+package day_10.boj_9466;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_DFS {
+public class Main {
 
     private static int[] adj;
     private static boolean[] visited;  // 임시 방문 체크 배열

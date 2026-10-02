@@ -1,7 +1,7 @@
 https://www.acmicpc.net/problem/21276
 
-<img src="./photo1.jpg" />
-<img src="./photo2.jpg" />
+<img src="assets/photo1.jpg" />
+<img src="assets/photo2.jpg" />
 
 # 🔍 계보 복원가 호석
 - 설계 시간 : ? min

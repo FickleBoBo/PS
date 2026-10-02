@@ -1,4 +1,4 @@
-package day_02.PRMS_43105;
+package day_02.prms_43105;
 
 class Solution {
     public int solution(int[][] triangle) {

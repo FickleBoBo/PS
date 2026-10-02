@@ -1,6 +1,6 @@
 https://www.acmicpc.net/problem/2206
 
-<img src="./photo1.jpg" />
+<img src="assets/photo1.jpg" />
 
 # 🔍 벽 부수고 이동하기
 - 설계 시간 : ? min
@@ -21,7 +21,7 @@ https://www.acmicpc.net/problem/2206
 - 근데 벽을 한 번 부수고 이동하는게 더 짧으면 그렇게 이동해야해서 일반적인 boolean 방문 체크로는 해결이 안됨
 - 방문 체크 배열을 int 배열로 만들어 더 많은 정보를 저장할 수 있게 바꿈
 
-<img src="./photo2.jpg" />
+<img src="assets/photo2.jpg" />
 
 ------------------------------
 

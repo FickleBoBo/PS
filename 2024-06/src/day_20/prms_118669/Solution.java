@@ -1,4 +1,4 @@
-package day_20.PGMS_LV3_등산코스_정하기;
+package day_20.prms_118669;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package day_18.PRMS_150368;
+package day_18.prms_150368;
 
 class Solution {
 
