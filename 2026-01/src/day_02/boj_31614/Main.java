@@ -8,7 +8,6 @@ public class Main {
 
         int h = Integer.parseInt(br.readLine());
         int m = Integer.parseInt(br.readLine());
-
         System.out.println(h * 60 + m);
     }
 }
