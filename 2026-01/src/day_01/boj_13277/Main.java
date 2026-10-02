@@ -11,7 +11,6 @@ public class Main {
 
         BigInteger a = new BigInteger(st.nextToken());
         BigInteger b = new BigInteger(st.nextToken());
-
         System.out.println(a.multiply(b));
     }
 }
