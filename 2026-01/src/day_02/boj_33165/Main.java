@@ -8,7 +8,6 @@ public class Main {
 
         int t = Integer.parseInt(br.readLine());
         int v = Integer.parseInt(br.readLine());
-
         System.out.println(t * v);
     }
 }
