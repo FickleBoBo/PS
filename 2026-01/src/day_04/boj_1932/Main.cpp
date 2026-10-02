@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int arr[501][501];
-int dp[501][501];
+int arr[1 + 500][1 + 500];
+int dp[1 + 500][1 + 500];
 
 int main() {
     ios::sync_with_stdio(0);
