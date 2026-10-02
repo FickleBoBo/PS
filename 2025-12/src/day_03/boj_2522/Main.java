@@ -11,12 +11,8 @@ public class Main {
 
         int pivot = n;
         for (int i = 1; i <= 2 * n - 1; i++) {
-            for (int j = 1; j < pivot; j++) {
-                sb.append(" ");
-            }
-            for (int j = pivot; j <= n; j++) {
-                sb.append("*");
-            }
+            sb.repeat(" ", pivot - 1);
+            sb.repeat("*", n - pivot + 1);
             sb.append("\n");
 
             if (i < n) {
