@@ -9,7 +9,6 @@ public class Main {
 
         BigInteger a = new BigInteger(br.readLine());
         BigInteger b = new BigInteger(br.readLine());
-
         System.out.println(a.add(b));
     }
 }
