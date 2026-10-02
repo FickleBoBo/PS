@@ -8,7 +8,6 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         String s = br.readLine();
-
         for (int i = 0; i < s.length(); i++) {
             if (i != 0 && i % 10 == 0) {
                 sb.append("\n");
