@@ -6,7 +6,6 @@ int main() {
     cin.tie(0);
 
     int sum = 0;
-
     while (true) {
         int x;
         cin >> x;

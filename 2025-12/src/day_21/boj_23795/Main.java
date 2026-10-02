@@ -7,7 +7,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int sum = 0;
-
         while (true) {
             int x = Integer.parseInt(br.readLine());
             if (x == -1) break;
