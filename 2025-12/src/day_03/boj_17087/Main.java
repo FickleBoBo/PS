@@ -17,12 +17,12 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int gcd = Math.abs(s - arr[0]);
+        int g = Math.abs(s - arr[0]);
         for (int i = 1; i < n; i++) {
-            gcd = gcd(gcd, Math.abs(s - arr[i]));
+            g = gcd(g, Math.abs(s - arr[i]));
         }
 
-        System.out.println(gcd);
+        System.out.println(g);
     }
 
     static int gcd(int a, int b) {
