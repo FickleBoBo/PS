@@ -10,12 +10,8 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n - i; j++) {
-                sb.append(" ");
-            }
-            for (int j = 1; j <= i; j++) {
-                sb.append("*");
-            }
+            sb.repeat(" ", n - i);
+            sb.repeat("*", i);
             sb.append("\n");
         }
 
