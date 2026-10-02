@@ -10,12 +10,10 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n - i; j++) {
-                sb.append(" ");
-            }
+            sb.repeat(" ", n - i);
 
             for (int j = 1; j <= 2 * i - 1; j++) {
-                if (j % 2 == 1) {
+                if (j % 2 != 0) {
                     sb.append("*");
                 } else {
                     sb.append(" ");
