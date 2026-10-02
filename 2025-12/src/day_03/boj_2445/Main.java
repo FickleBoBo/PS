@@ -9,26 +9,20 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
 
-        int left = 1;
-        int right = 2 * n;
+        int l = 1;
+        int r = 2 * n;
         for (int i = 1; i <= 2 * n - 1; i++) {
-            for (int j = 1; j <= left; j++) {
-                sb.append("*");
-            }
-            for (int j = left + 1; j < right; j++) {
-                sb.append(" ");
-            }
-            for (int j = right; j <= 2 * n; j++) {
-                sb.append("*");
-            }
+            sb.repeat("*", l);
+            sb.repeat(" ", r - l - 1);
+            sb.repeat("*", 2 * n - r + 1);
             sb.append("\n");
 
             if (i < n) {
-                left++;
-                right--;
+                l++;
+                r--;
             } else {
-                left--;
-                right++;
+                l--;
+                r++;
             }
         }
 
