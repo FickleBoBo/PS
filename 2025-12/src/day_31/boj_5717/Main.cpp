@@ -10,7 +10,6 @@ int main() {
         cin >> a >> b;
 
         if (a == 0) break;
-
         cout << a + b << '\n';
     }
 }
