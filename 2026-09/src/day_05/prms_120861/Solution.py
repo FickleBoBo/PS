@@ -1,15 +1,15 @@
 def solution(keyinput, board):
-    pos = [0, 0]
+    x, y = 0, 0
     maxx, maxy = board[0] // 2, board[1] // 2
 
-    for key in keyinput:
-        if key == "up":
-            pos[1] = min(pos[1] + 1, maxy)
-        elif key == "down":
-            pos[1] = max(pos[1] - 1, -maxy)
-        elif key == "left":
-            pos[0] = max(pos[0] - 1, -maxx)
+    for s in keyinput:
+        if s == "up":
+            y = min(y + 1, maxy)
+        elif s == "down":
+            y = max(y - 1, -maxy)
+        elif s == "left":
+            x = max(x - 1, -maxx)
         else:
-            pos[0] = min(pos[0] + 1, maxx)
+            x = min(x + 1, maxx)
 
-    return pos
+    return [x, y]
