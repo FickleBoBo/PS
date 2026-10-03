@@ -3,20 +3,20 @@ using namespace std;
 
 string solution(string polynomial) {
     stringstream ss(polynomial);
-    string token;
+    string s;
     vector<int> cnt(2);
 
-    while (ss >> token) {
-        if (token == "+") continue;
+    while (ss >> s) {
+        if (s == "+") continue;
 
-        if (token.ends_with("x")) {
-            if (token.size() == 1) {
+        if (s.ends_with("x")) {
+            if (s.size() == 1) {
                 cnt[0]++;
             } else {
-                cnt[0] += stoi(token.substr(0, token.size() - 1));
+                cnt[0] += stoi(s.substr(0, s.size() - 1));
             }
         } else {
-            cnt[1] += stoi(token);
+            cnt[1] += stoi(s);
         }
     }
 

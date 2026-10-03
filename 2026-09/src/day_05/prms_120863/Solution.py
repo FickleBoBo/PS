@@ -1,10 +1,10 @@
 def solution(polynomial):
     cnt = [0, 0]
-    for token in polynomial.split(" + "):
-        if token.endswith("x"):
-            cnt[0] += int(token[:-1] or 1)
+    for s in polynomial.split(" + "):
+        if s.endswith("x"):
+            cnt[0] += int(s[:-1] or 1)
         else:
-            cnt[1] += int(token)
+            cnt[1] += int(s)
 
     res = []
     if cnt[0]:
