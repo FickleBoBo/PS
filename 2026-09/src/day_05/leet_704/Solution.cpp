@@ -3,9 +3,8 @@ using namespace std;
 
 class Solution {
    public:
-    int binarySearch(vector<int>& v, int target) {
-        int lo = 0;
-        int hi = v.size() - 1;
+    int bin_search(vector<int>& v, int target) {
+        int lo = 0, hi = v.size() - 1;
 
         while (lo <= hi) {
             int mid = (lo + hi) / 2;
@@ -23,6 +22,6 @@ class Solution {
     }
 
     int search(vector<int>& nums, int target) {
-        return binarySearch(nums, target);
+        return bin_search(nums, target);
     }
 };
