@@ -4,12 +4,12 @@ class Solution {
     public int solution(int[] money) {
         int n = money.length;
 
-        int case1 = solve(money, 1, n - 1);
-        int case2 = solve(money, 2, n);
+        int case1 = robRange(money, 1, n - 1);
+        int case2 = robRange(money, 2, n);
         return Math.max(case1, case2);
     }
 
-    static int solve(int[] money, int l, int r) {
+    static int robRange(int[] money, int l, int r) {
         int n = money.length;
         int[] dp = new int[1 + n];
 

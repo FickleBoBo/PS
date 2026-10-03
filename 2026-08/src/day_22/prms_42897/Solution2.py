@@ -1,7 +1,7 @@
 def solution(money):
     n = len(money)
 
-    def solve(l, r):
+    def rob_range(l, r):
         prv2, prv1 = 0, 0
 
         for i in range(l, r):
@@ -9,6 +9,6 @@ def solution(money):
 
         return prv1
 
-    case1 = solve(0, n - 1)
-    case2 = solve(1, n)
+    case1 = rob_range(0, n - 1)
+    case2 = rob_range(1, n)
     return max(case1, case2)
