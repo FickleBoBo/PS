@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 100;
+const int MAX_N = 101;
 const int MOD = 1'000'000'007;
-bool chk[1 + MAXN][1 + MAXN];
-int dp[1 + MAXN][1 + MAXN];
+bool chk[MAX_N][MAX_N];
+int dp[MAX_N][MAX_N];
 
 int solution(int m, int n, vector<vector<int>> puddles) {
     for (auto& p : puddles) {
