@@ -12,7 +12,7 @@ class Solution {
             digits[i] = 0;
         }
 
-        vector<int> ans(digits.size() + 1);
+        vector<int> ans(1 + digits.size());
         ans[0] = 1;
         return ans;
     }
