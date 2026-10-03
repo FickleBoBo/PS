@@ -13,7 +13,6 @@ class Solution {
                 while (n % x == 0) {
                     n /= x;
                 }
-                continue;
             }
 
             x++;

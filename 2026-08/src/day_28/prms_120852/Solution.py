@@ -7,7 +7,6 @@ def solution(n):
             res.append(x)
             while n % x == 0:
                 n //= x
-            continue
 
         x += 1
 

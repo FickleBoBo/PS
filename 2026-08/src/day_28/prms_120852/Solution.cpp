@@ -11,7 +11,6 @@ vector<int> solution(int n) {
             while (n % x == 0) {
                 n /= x;
             }
-            continue;
         }
 
         x++;
