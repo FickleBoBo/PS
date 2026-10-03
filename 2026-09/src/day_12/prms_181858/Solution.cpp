@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool seen[1 + 100000];
+bool seen[1 + 100'000];
 
 vector<int> solution(vector<int> arr, int k) {
     vector<int> ans(k, -1);
