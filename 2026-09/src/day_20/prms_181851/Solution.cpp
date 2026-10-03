@@ -8,5 +8,5 @@ int solution(vector<int> rank, vector<bool> attendance) {
     }
     sort(v.begin(), v.end());
 
-    return 10000 * v[0].second + 100 * v[1].second + v[2].second;
+    return 10'000 * v[0].second + 100 * v[1].second + v[2].second;
 }

@@ -10,6 +10,6 @@ class Solution {
         }
         list.sort((o1, o2) -> Integer.compare(o1[0], o2[0]));
 
-        return 10000 * list.get(0)[1] + 100 * list.get(1)[1] + list.get(2)[1];
+        return 10_000 * list.get(0)[1] + 100 * list.get(1)[1] + list.get(2)[1];
     }
 }
