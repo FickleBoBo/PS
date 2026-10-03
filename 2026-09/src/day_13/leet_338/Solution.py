@@ -1,6 +1,6 @@
 class Solution:
     def countBits(self, n: int) -> list[int]:
-        ans = [0] * (1 + n)
+        ans = [0] * (n + 1)
         for i in range(1, n + 1):
             x = i
             cnt = 0
