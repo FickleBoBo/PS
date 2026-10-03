@@ -5,12 +5,12 @@ class Solution {
         int n = nums.length;
         if (n == 1) return nums[0];
 
-        int case1 = solve(nums, 1, n - 1);
-        int case2 = solve(nums, 2, n);
+        int case1 = robRange(nums, 1, n - 1);
+        int case2 = robRange(nums, 2, n);
         return Math.max(case1, case2);
     }
 
-    static int solve(int[] nums, int l, int r) {
+    static int robRange(int[] nums, int l, int r) {
         int n = nums.length;
         int[] dp = new int[1 + n];
 
