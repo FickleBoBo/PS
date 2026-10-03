@@ -15,8 +15,8 @@ class Solution2 {
             buckets[i] = new ArrayList<>();
         }
 
-        for (Map.Entry<Integer, Integer> entry : cnt.entrySet()) {
-            buckets[entry.getValue()].add(entry.getKey());
+        for (Map.Entry<Integer, Integer> e : cnt.entrySet()) {
+            buckets[e.getValue()].add(e.getKey());
         }
 
         List<Integer> list = new ArrayList<>();

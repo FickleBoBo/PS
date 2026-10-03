@@ -9,7 +9,7 @@ class Solution {
 
         int len = nums.size();
         vector<vector<int>> buckets(1 + len);
-        for (auto& [x, c] : cnt) buckets[c].push_back(x);
+        for (auto [x, c] : cnt) buckets[c].push_back(x);
 
         vector<int> res;
         for (int i = len; i > 0; i--) {
