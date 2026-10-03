@@ -7,8 +7,10 @@ def solution(n, computers):
     def bfs(start):
         q = deque([start])
         vis[start] = True
+
         while q:
             cur = q.popleft()
+
             for nxt in range(n):
                 if computers[cur][nxt] == 0 or vis[nxt]:
                     continue
@@ -16,6 +18,7 @@ def solution(n, computers):
                 vis[nxt] = True
 
     cnt = 0
+
     for i in range(n):
         if vis[i]:
             continue

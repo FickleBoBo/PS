@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 200;
-int p[MAXN];
+const int MAX_N = 200;
+int p[MAX_N];
 
 int find(int x) {
     if (x == p[x]) return x;
@@ -10,7 +10,8 @@ int find(int x) {
 }
 
 bool unite(int x, int y) {
-    x = find(x), y = find(y);
+    x = find(x);
+    y = find(y);
     if (x == y) return false;
     p[x] = y;
     return true;

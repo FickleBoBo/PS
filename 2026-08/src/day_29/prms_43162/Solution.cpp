@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 200;
-bool vis[MAXN];
+const int MAX_N = 200;
+bool vis[MAX_N];
 
 void bfs(int start, int n, vector<vector<int>>& computers) {
     queue<int> q;
