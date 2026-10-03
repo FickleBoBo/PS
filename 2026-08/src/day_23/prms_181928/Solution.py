@@ -1,5 +1,5 @@
 def solution(num_list):
-    odd = even = 0
+    odd, even = 0, 0
 
     for x in num_list:
         if x % 2:
