@@ -2,7 +2,7 @@ package day_13.leet_338;
 
 class Solution {
     public int[] countBits(int n) {
-        int[] ans = new int[n + 1];
+        int[] ans = new int[1 + n];
         for (int i = 1; i <= n; i++) {
             int x = i;
             int cnt = 0;

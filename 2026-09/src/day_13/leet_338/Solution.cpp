@@ -4,7 +4,7 @@ using namespace std;
 class Solution {
    public:
     vector<int> countBits(int n) {
-        vector<int> ans(n + 1);
+        vector<int> ans(1 + n);
         for (int i = 1; i <= n; i++) {
             int x = i;
             int cnt = 0;
