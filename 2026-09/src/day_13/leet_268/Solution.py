@@ -4,5 +4,3 @@ class Solution:
         for i in range(len(nums) + 1):
             if i not in seen:
                 return i
-
-        return -1
