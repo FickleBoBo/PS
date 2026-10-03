@@ -1,5 +1,7 @@
 package day_22.prms_43105;
 
+import java.util.*;
+
 class Solution {
     public int solution(int[][] triangle) {
         int n = triangle.length;
@@ -11,11 +13,6 @@ class Solution {
             }
         }
 
-        int max = 0;
-        for (int x : dp[n]) {
-            max = Math.max(max, x);
-        }
-
-        return max;
+        return Arrays.stream(dp[n]).max().getAsInt();
     }
 }
