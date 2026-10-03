@@ -13,7 +13,6 @@ class Solution {
 
         vector<vector<string>> res;
         for (auto& [_, v] : mp) res.push_back(v);
-
         return res;
     }
 };
