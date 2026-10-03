@@ -2,8 +2,7 @@ package day_11.leet_202;
 
 class Solution2 {
     public boolean isHappy(int n) {
-        int slow = n;
-        int fast = step(n);
+        int slow = n, fast = step(n);
         while (slow != fast) {
             slow = step(slow);
             fast = step(step(fast));
