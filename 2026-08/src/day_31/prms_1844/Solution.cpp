@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 100;
-int dist[MAXN][MAXN];
+const int MAX_N = 100;
+int dist[MAX_N][MAX_N];
 int dr[4] = {-1, 0, 1, 0};
 int dc[4] = {0, 1, 0, -1};
 

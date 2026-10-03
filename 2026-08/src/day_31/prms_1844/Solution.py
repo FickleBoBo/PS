@@ -3,9 +3,9 @@ from collections import deque
 
 def solution(maps):
     n, m = len(maps), len(maps[0])
-    dist = [[0] * m for _ in range(n)]
 
     q = deque([(0, 0)])
+    dist = [[0] * m for _ in range(n)]
     dist[0][0] = 1
 
     while q:
