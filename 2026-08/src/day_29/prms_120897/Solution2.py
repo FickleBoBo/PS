@@ -2,11 +2,11 @@ import math
 
 
 def solution(n):
-    seen = set()
+    st = set()
 
     for i in range(1, math.isqrt(n) + 1):
         if n % i == 0:
-            seen.add(i)
-            seen.add(n // i)
+            st.add(i)
+            st.add(n // i)
 
-    return sorted(seen)
+    return sorted(st)
