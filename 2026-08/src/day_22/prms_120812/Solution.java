@@ -9,18 +9,18 @@ class Solution {
 
         int ans = -1;
         int max = 0;
-        boolean uniq = false;
+        boolean flag = false;
 
         for (int i = 0; i < 1000; i++) {
             if (cnt[i] > max) {
                 ans = i;
                 max = cnt[i];
-                uniq = true;
+                flag = true;
             } else if (cnt[i] == max) {
-                uniq = false;
+                flag = false;
             }
         }
 
-        return uniq ? ans : -1;
+        return flag ? ans : -1;
     }
 }

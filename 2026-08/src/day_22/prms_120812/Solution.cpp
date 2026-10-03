@@ -8,17 +8,17 @@ int solution(vector<int> array) {
 
     int ans = -1;
     int mx = 0;
-    bool uniq = false;
+    bool flag = false;
 
     for (int i = 0; i < 1000; i++) {
         if (cnt[i] > mx) {
             ans = i;
             mx = cnt[i];
-            uniq = true;
+            flag = true;
         } else if (cnt[i] == mx) {
-            uniq = false;
+            flag = false;
         }
     }
 
-    return uniq ? ans : -1;
+    return flag ? ans : -1;
 }
