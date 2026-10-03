@@ -1,5 +1,7 @@
 package day_20.prms_181855;
 
+import java.util.*;
+
 class Solution {
     public int solution(String[] strArr) {
         int[] cnt = new int[1 + 30];
@@ -7,11 +9,6 @@ class Solution {
             cnt[s.length()]++;
         }
 
-        int max = 0;
-        for (int x : cnt) {
-            max = Math.max(max, x);
-        }
-
-        return max;
+        return Arrays.stream(cnt).max().getAsInt();
     }
 }
