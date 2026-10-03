@@ -1,15 +1,21 @@
 package day_28.prms_120853;
 
+import java.util.*;
+
 class Solution {
     public int solution(String s) {
-        String[] arr = s.split(" ");
+        StringTokenizer st = new StringTokenizer(s);
         int sum = 0;
+        int prv = 0;
 
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equals("Z")) {
-                sum -= Integer.parseInt(arr[i - 1]);
+        while (st.hasMoreTokens()) {
+            String token = st.nextToken();
+            if (token.equals("Z")) {
+                sum -= prv;
             } else {
-                sum += Integer.parseInt(arr[i]);
+                int x = Integer.parseInt(token);
+                sum += x;
+                prv = x;
             }
         }
 

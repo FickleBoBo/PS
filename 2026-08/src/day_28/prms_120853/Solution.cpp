@@ -3,16 +3,17 @@ using namespace std;
 
 int solution(string s) {
     stringstream ss(s);
-    vector<string> tokens;
     string token;
-    while (ss >> token) tokens.push_back(token);
-
     int sum = 0;
-    for (int i = 0; i < tokens.size(); i++) {
-        if (tokens[i] == "Z") {
-            sum -= stoi(tokens[i - 1]);
+    int prv = 0;
+
+    while (ss >> token) {
+        if (token == "Z") {
+            sum -= prv;
         } else {
-            sum += stoi(tokens[i]);
+            int x = stoi(token);
+            sum += x;
+            prv = x;
         }
     }
 

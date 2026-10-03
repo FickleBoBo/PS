@@ -1,11 +1,11 @@
 def solution(s):
-    tokens = s.split()
-    total = 0
-
-    for i, token in enumerate(tokens):
+    total, prv = 0, 0
+    for token in s.split():
         if token == "Z":
-            total -= int(tokens[i - 1])
+            total -= prv
         else:
-            total += int(token)
+            x = int(token)
+            total += x
+            prv = x
 
     return total
