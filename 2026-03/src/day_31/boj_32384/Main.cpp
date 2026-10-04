@@ -7,8 +7,5 @@ int main() {
 
     int n;
     cin >> n;
-
-    while (n--) {
-        cout << "LoveisKoreaUniversity ";
-    }
+    while (n--) cout << "LoveisKoreaUniversity ";
 }
