@@ -6,11 +6,12 @@ int main() {
     cin.tie(0);
 
     int t;
-    scanf("%d", &t);
+    cin >> t;
 
     while (t--) {
         int a, b;
-        scanf("%d,%d", &a, &b);
+        char c;
+        cin >> a >> c >> b;
         cout << a + b << '\n';
     }
 }
