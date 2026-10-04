@@ -9,7 +9,7 @@ int main() {
     cin >> a >> b >> c;
 
     if (a == b && b == c) {
-        cout << 10000 + a * 1000;
+        cout << 10'000 + a * 1000;
     } else if (a == b) {
         cout << 1000 + a * 100;
     } else if (b == c) {
