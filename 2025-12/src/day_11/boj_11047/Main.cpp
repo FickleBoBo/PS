@@ -13,10 +13,8 @@ int main() {
 
     int cnt = 0;
     for (int i = n - 1; i >= 0; i--) {
-        if (coins[i] <= k) {
-            cnt += k / coins[i];
-            k %= coins[i];
-        }
+        cnt += k / coins[i];
+        k %= coins[i];
     }
 
     cout << cnt;
