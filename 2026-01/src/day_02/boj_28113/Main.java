@@ -8,13 +8,13 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int n = Integer.parseInt(st.nextToken());
+        st.nextToken();
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
 
-        if (a < Math.max(n, b)) {
+        if (a < b) {
             System.out.println("Bus");
-        } else if (a > Math.max(n, b)) {
+        } else if (a > b) {
             System.out.println("Subway");
         } else {
             System.out.println("Anything");
