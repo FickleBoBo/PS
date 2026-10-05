@@ -1,443 +1,455 @@
 # PS 코딩 컨벤션
 
-FickleBoBo의 알고리즘 문제풀이 아카이브(프로그래머스 중심)의 풀이 코드 규칙.
+> 사용자가 확정한 규칙만 적는 정본이다.
 
-**이 문서 = 규칙의 정본(canonical).** 에이전트·리뷰어가 이 문서 하나로 (1) 각 언어 PS 네이티브 고수 스타일 + (2) 레포 주인의 개인 스타일을 정확히 파악해 일관된 리뷰·작성·변환을 하도록.
+## 0. 상위 원칙
 
-- 규칙의 **경위·날짜·철회 이력**은 개인 메모리 `ps_solution_audit_2026-08`(감사 로그·세션 산출). **외부 권위 소스 조사**(KACTL·tourist·jiangly 등)는 `ps_language_style_guide`. 이 문서는 **결론만**.
-- **감사(날짜별 전수 재점검) 실행 절차**는 `/ps-audit` 스킬. 이 문서는 절차가 아니라 기준.
+- 이 문서의 규칙이 언어 일반 관례와 CP 관례보다 우선한다. 규칙이 없는 곳에서는 두 관례를 동급으로 본다.
+- 이 문서는 소스 코드 규칙만 다룬다. 파일·폴더 구성은 다루지 않는다.
 
----
+### 0.1 규칙 단계
 
-## 0. 읽는 법
+모든 규칙은 아래 단계 중 하나의 태그를 단다. 단계는 규칙을 어길 때 얼마나 무겁게 다루는지를 정한다.
 
-### 0.1 우선순위 — 이 순서로
+| 단계     | 지적           | 수정   |
+| -------- | -------------- | ------ |
+| `[필수]` | 반드시         | 반드시 |
+| `[권장]` | 반드시         | 선택   |
+| `[허용]` | 지적 대상 아님 | -      |
 
-1. **정답성·문법·복잡도** (§2). 네이밍·관용구를 보기 전에 통과시킨다. 볼 것은 딱 셋: (1) 로직 정답성, (2) 언어 문법 오류, (3) 제약 내 TLE.
-2. 그 위에 **"고수 티" 광택** — 네이밍(§3), 문법 표현(§4), 표준 라이브러리(§5), 언어 관용(§6), 알고리즘 형태(§7). 이 레포는 아카이브라 사용자가 요청하면 여기까지 본다.
-3. **일반 소프트웨어 클린코드 체크리스트(이름 길이·캡슐화·방어·DRY·SRP)는 적용 안 함.** PS 코드는 일회용.
+- **필수·권장**은 수정 대상 목록에 올린다. 권장은 수정하지 않아도 된다.
+- **허용**은 해도 된다는 뜻이다. 하지 않아도 위반이 아니고, 지적하지 않는다.
+- 규칙이 충돌하면 필수 > 권장 > 허용 순으로 적용하고, 같은 등급이면 더 구체적인 규칙이 우선한다. 다른 규칙의 예외로 적힌 `[허용]`은 그 규칙을 한정하는 것이라 충돌로 보지 않는다.
 
-### 0.2 강도 태그
+### 0.2 적용 범위
+
+- 규칙은 `{플랫폼}_{문제번호}` 구조의 풀이 폴더(`boj_` `prms_` `leet_` `cofo_` `swea_` `softeer_`)의 소스(`.java` `.cpp` `.py`)에 적용한다. 표준 입출력 저지(`boj_` `cofo_` `swea_` `softeer_`)와 함수형 저지(`prms_` `leet_`)로 나뉜다. 입출력 코드를 규정하는 규칙(3~5장의 입출력·템플릿 항목)은 함수형 저지에 해당 없다. 함수형 저지에도 적용된다고 명시한 항목(예: 4.1 `StringTokenizer`)은 예외다.
+- `live_` 폴더는 대회 종료 순간의 코드를 그대로 박제한 것이라 적용 대상이 아니다. 학습·정리는 `cofo_` 폴더에서 한다.
+- `.sql` 풀이(프로그래머스 SQL)는 적용 대상이 아니다.
 
-모든 규칙에 붙는다. 없으면 `[통용]`으로 간주.
+### 0.3 범용 원칙 (자유로 정한 것)
 
-- `[합의]` — 확정. 벗어나면 지적(등급은 사안별).
-- `[통용]` — 여러 스타일이 다 정상. **단일 답을 지어내지 말고, 불일치 자체를 지적 사유로 삼지 말 것.**
-- `[취향]` — 🟢. 사용자가 물을 때만 의견.
+아래는 정답에 문제가 없으면 자유다. 정답성·복잡도 문제는 별도다.
 
-리뷰 산출 등급: 🔴 정답성/컴파일 · 🟡 관례상 고칠 만함 · 🟢 취향/사소.
+- `[허용]` 함수로 나눌지, `main` 하나에 쓸지 (그때그때 다르다).
+- `[허용]` 리터럴을 상수로 빼도 되고 인라인으로 써도 된다.
+- `[허용]` 입력 배열·리스트를 제자리에서 정렬·수정해도 된다.
+- `[허용]` 재귀와 반복 중 무엇을 쓸지. 통과하면 상관없다 (재귀 깊이로 인한 오류는 정답성 문제).
+- `[허용]` 약간의 중복 코드. 가독성이 나을 수 있다.
+- `[허용]` `-1` 같은 값을 반환해 예외 케이스를 표시하는 관용.
+- `[허용]` 같은 문제의 언어별 풀이가 서로 달라도 된다 (내장 라이브러리 차이, 언어 특성).
+
+## 1. 네이밍
 
-### 0.3 지적 전 판단
+### 1.1 변수·상수·타입
 
-- **"번역 티/실수인가, 의도된 선택인가"** 한 번 더. 지적 적중률이 낮았음 — 의식적 선택을 오지적한 전례 다수.
-- 단 **self-filter 금지** — "너무 사소해서 언급 안 함" X. 애매하면 "이렇게 볼 수도 있는데 의도면 무시" 형태로 올린다.
-- **채점기 동작(뭐가 AC 나나)은 사용자 실제 제출 경험 > 통설.** 확실하지 않으면 단언 X.
-- 크로스언어 3풀이는 **로직·구조·변수명이 달라도 정상**(부록 A). 먼저 "각 언어에서 그게 관용인가"를 확인.
-
----
-
-## 1. 채점기 환경 (프로그래머스, 2026-08)
-
-| 언어   | 버전                            | 리뷰 baseline     |
-| ------ | ------------------------------- | ----------------- |
-| C++    | Clang++ 20, C++20               | C++20 전부        |
-| Java   | 채점기 OpenJDK 25 / 로컬 21 LTS | **21을 하한으로** |
-| Python | 3.13                            | 3.13 전부         |
-
-- **C++20 전부 됨**: `std::erase`/`erase_if`, `<ranges>` views, `starts_with`/`ends_with`, `<bit>`(`popcount`), `<numeric>` 확장, 지정 초기화. `bits/stdc++.h`는 g++ 확장이나 프로그래머스 clang에 셋업됨(사용자가 계속 AC). `std::ranges::iota`는 C++23 → C++20은 `iota(v.begin(), v.end(), x)`만.
-- **Java는 21에서 컴파일되면 25에서 무조건 돌아감**(역 아님). 21까지 OK: `StringBuilder.isEmpty()`(15)·`repeat(int codePoint, int)`/`repeat(CharSequence, int)`(21)·records·`var`·switch expression·text block·`List.of`·`stream().toList()`. **Java 22~25 전용 문법 금지.** `assert`는 런타임 `-ea` 없음 → 로직에 쓰지 말 것.
-- **Python 3.13 전부**: `math.isqrt`/`comb`/`prod`, `itertools.pairwise`/`groupby`, `match`, `str.removeprefix`/`removesuffix`, walrus. `int(초대형_문자열)`은 4300자 초과 시 `ValueError`(3.11+).
-- **채점기는 테스트케이스마다 `solution()`을 독립 프로세스로 실행** → 전역 배열을 `solution()` 진입 시 리셋 안 해도 AC. "프로그래머스 전역변수 초기화하세요"는 이 케이스에 안 맞음 — 그걸 근거로 "버그"라 하지 말 것.
-- 위치 인자 호출 → 파라미터명 검사 안 됨(개명 기술적으로 가능). 단 지문이 준 파라미터명은 유지(§4).
-- 출력의 후행 공백/개행은 trim됨.
-
-로컬 실행(VSCode, g++-16)은 채점기와 별개.
-
----
-
-## 2. 정답성·복잡도 (기계 체크 — 최우선)
-
-### 2.1 복잡도 (TLE)
-
-1. 제약 fetch — `n`, `m`, 원소 범위, 쿼리 수, 문자열 길이 상한을 **실제로 읽는다**. 넘겨짚지 말 것.
-2. 최악 시간복잡도 손계산 — 중첩 루프 상한 곱, 재귀 분기·깊이, 반복 문자열/배열 복사(`Arrays.copyOfRange`를 쿼리마다 = O(쿼리·n)).
-3. 프로그래머스 ~1e8 연산/초. `n ≤ 1e5`에 O(n²) 위험, O(n log n) 안전.
-
-### 2.2 정수 오버플로
-
-- 결과값·중간 누적값의 상한을 제약에서 계산 → int `2.1e9` / long `9.2e18` 대조. 넘으면 🔴.
-- **C++/Java**: `int` 곱/합이 2³¹ 넘으면 `long long`/`long`. 곱 전에 `1LL * a * b` / `(long) a * b` 승격. `int` 배열 합도 원소 많으면 승격.
-- **Python**: 정수 무제한 — 단 `int(문자열)` 4300자 초과 `ValueError`.
-- 함정: 누적합, 곱/팩토리얼/조합, 문자열 concat 후 파싱, 좌표 제곱 거리, 전체 원소 합.
-
-### 2.3 정답성
-
-- **제약 의존 지름길(지적 X)** vs **약한 테스트로 우연히 AC 난 진짜 오답(지적 O)** 구분.
-- 엣지: 빈 입력, 원소 1개, 전부 같은 값, 음수, 최대치, 경계 인덱스(`0`, `n-1`).
-- 센티넬·초기값이 제약 범위를 확실히 벗어나는지 (`diff = 100`이 `|x - n|`의 실제 상한보다 큰지).
-- 튜플/구조분해가 "항상 그 개수"인지 제약으로 보장되는지 (`(a, b), (c, d) = intervals`).
-
----
-
-## 3. 네이밍 ⭐
-
-> 사용자는 변수명 일관성에 **극도로** 민감. `prv nxt cnt ans res` 축약형만 보고 즉시 꽂히길 원함. 자릿수는 `d` 한 글자. **표준에서 벗어난 이름은 아무리 사소해도 지적.**
-
-### 3.1 표준 이름 `[합의]`
-
-| 역할                                               | 이름                                           |
-| -------------------------------------------------- | ---------------------------------------------- |
-| 크기·개수                                          | `n` `m` `k` `t`(테스트 수)                     |
-| 개수 세기 (스칼라·카운팅 배열·카운팅 맵 전부)      | `cnt`                                          |
-| 길이                                               | `len`                                          |
-| 루프 인덱스                                        | `i` `j` `k`                                    |
-| 임의 인덱스/포인터                                 | `idx`(기본) · `pos`                            |
-| 최종 답                                            | `ans`                                          |
-| 만들어 나가는 결과·누적                            | `res`                                          |
-| 수치 합계 (누적 스칼라)                            | C++·Java `sum` / Python `total`                |
-| dedup / membership 집합 (값 자체의 존재·중복)      | `seen` (세 언어 공통)                          |
-| 구조적 위치 마킹 (정점 / 격자좌표 / 백트래킹 슬롯) | `vis` (또는 `visited`)                         |
-| 출력 버퍼                                          | `out`                                          |
-| 이전 / 다음 / 현재                                 | `prv` / `nxt` / `cur`                          |
-| 롤링 DP                                            | `prv2` / `prv1` / `cur`                        |
-| 구간 양끝                                          | `l` / `r` (반개구간 `[l, r)`)                  |
-| 이분탐색                                           | `lo` / `hi` / `mid` (닫힌·반개 공통 — n10)     |
-| 시작 / 끝 (지문 어휘면)                            | `s` / `e`                                      |
-| 최소 / 최대 값                                     | C++ `mn` / `mx` · Java `min` / `max`           |
-| 자릿수                                             | `d`                                            |
-| 정점                                               | `u` `v`                                        |
-| 인접 리스트 / 그래프                               | `adj` `g`                                      |
-| 간선 / 가중치 / 차수                               | `e` / `w` / `deg` (진입차수 `indeg`)           |
-| 거리 배열                                          | `dist` (짧게 `d`)                              |
-| 부모 (union-find)                                  | `p` (또는 `par`)                               |
-| BFS 큐                                             | `q`                                            |
-| 그리드 방향 델타                                   | `dx` / `dy` (또는 `dr` / `dc`)                 |
-| 그리드 다음 좌표                                   | `nx` / `ny` (또는 `nr` / `nc`)                 |
-| 행 / 열                                            | `r` / `c`                                      |
-| DP 테이블 / 메모                                   | `dp` / `memo`                                  |
-| 장애물 격자 (bool)                                 | `wall` (도메인명 우선, 단순 차단은 `chk` — n7) |
-| 잡 bool 마커 (더 나은 단어 없을 때)                | `chk`                                          |
-| 범용 해시맵                                        | Java `map` / C++ `mp`                          |
-| 무한대 / 모듈러 / 배열 상한                        | `INF` / `MOD` / `MAX`·`MAXN`                   |
-| 좌표 페어 스크래치                                 | `x` / `y` (혼동 없을 때만)                     |
-| 분수                                               | `p` / `q`                                      |
-| gcd 결과                                           | `g`                                            |
-| 지문이 "ret 반환"이라 하면                         | `ret` (지문 어휘 매칭)                         |
-
-### 3.2 표 노트
-
-1. **`cnt`** — 배열/맵/스칼라 구분은 선언부에서 보이니 이름으로 안 함. 도메인 이름 있으면 우선(`indeg` 등). 한 풀이에 스칼라+테이블 둘 다면 하나를 `freq`. **카운팅인데 `mp`/`map` 금지.** Python은 손수 안 세고 `Counter`→`cnt`, `Counter(a)-Counter(b)`면 `diff`.
-2. **`ans` vs `res`** — `ans` = 반환/출력할 그 값(스칼라, 또는 유도 과정이 있어 결과임을 드러낼 컨테이너/문자열). `res` = 채워지는 컨테이너/누적자. 단순히 조건 맞는 원소 모아 바로 반환하면 언어별 컨테이너명(§3.3)도 OK — `res`/`ans`/`v` 케바케, 크로스파일 불일치 지적 X.
-3. **`sum` / `total`** — Python `sum`은 빌트인 섀도잉 → `total`(또는 `acc`). `sum(...)` 제너레이터로 누산기 자체 제거가 1순위.
-4. **`seen` vs `vis`** — 기준은 자료형(int냐 string이냐)도 "BFS/DFS 큐·재귀가 실제로 있나"도 아니라 **"그 키가 그래프/탐색공간의 정점(위치)으로 쓰이는가, 아니면 그냥 값으로서 존재·중복만 확인되는가"**. 정점이 정수 인덱스든(그래프), `(r, c)` 격자 좌표든, 순열의 "이 자리 썼다" 슬롯이든, **`prms_43163`처럼 단어 자체가 그래프 정점인 BFS**든 — 그 키로 인접 관계를 타고 옮겨 다니며(전체 큐/재귀 탐색이든, 격자처럼 한 번의 중첩 루프로 인접칸을 마킹하는 것이든) 방문 상태를 추적하면 전부 `vis`. 반대로 인접 관계 없이 "이 값이 이미 나왔는가/중복인가"만 플랫하게 확인하면(카드 숫자, grundy 값, 약수, missing number의 0..n, Two Sum의 숫자, 사이클 감지의 상태값 등) 자료구조·자료형과 무관하게 `seen`. dedup 목적으로 `Set`을 결과 컨테이너 겸용으로 쓰는 것도(예: 약수 모으기에서 `i==n/i` 중복 방지) `seen`으로 정당함 — `if x in seen` 게이트가 없어도 "삽입 시 자동 중복 제거"가 dedup 역할 그 자체임. 타입 기반 이름(§3.3)에 C++·Python이 마찰해서 세 언어 다 `seen`. Java `set`(타입 `Set`)은 제네릭 폴백 허용, C++ `st`는 스택, Python `set`은 섀도잉이라 못 씀. 미리 만든 상수 집합은 도메인명 우선. ↔ 금지: 정점/격자좌표인데 "탐색 알고리즘이 없으니까" 식으로 `seen`으로 바꾸기, 반대로 인접관계 없는 값 존재 확인인데 "boolean 배열/문자열 키니까" 식으로 `vis` 쓰기 (2026-09-13 day_13 감사 중 정립 — `leet_268`은 값 기반이라 `vis`→`seen`이 맞는 교정, `prms_120866`은 격자 좌표라 `vis` 그대로가 맞음/오지적 철회, `prms_120897` `seen`도 dedup 역할 정당/오지적 철회, `prms_43163`은 단어=그래프 정점이라 `vis`가 정확).
-5. **`mn` / `mx` vs `min` / `max`** — C++는 `using namespace std`로 `std::min`/`max` 섀도잉 → 축약. Java는 `Math.max`가 정규화돼 충돌 없음 → 풀네임. `st`/`stack`·`mp`/`map`과 같은 부록 A 케이스. ↔ 금지: "언어 간 맞춰라".
-6. **`d`** — 자릿수. 한 글자 그대로. ↔ 금지: `r`·`digit`로 바꾸기. gcd 결과는 `d` 아님 → `g`(§3.1, `d`=자릿수와 충돌).
-7. **`chk`** — 데이터(bool 배열) 이름으로만. 헬퍼 함수명은 `check`(§3.4). 구조적 위치(정점/격자좌표) 마킹이면 `vis`(n4). 장애물 격자는 도메인이 뚜렷하면 도메인명/`wall`, 단순 차단 체크 격자는 `chk` 허용.
-8. **`idx` > `pos`** — 찾은 위치 변수 기본은 `idx`.
-9. **`INF`** — Java `0x3f3f3f3f`(더해도 안 넘침), C++ `long long`엔 `1e18`, Python `10**18`. `float('inf')`/`Float.MAX` 지양. **`MOD`** = `1'000'000'007`.
-10. **이분탐색 `lo` / `hi` / `mid`** — `while (lo <= hi)` 닫힌구간이든 `while (lo < hi)` 반개구간이든 이분탐색은 `lo`/`hi`/`mid`. 위 "구간 양끝 `l`/`r`"은 투포인터·슬라이딩 윈도우·반개구간 인덱스 전용 — 이분탐색엔 `l`/`r` 안 씀. Python `bisect(lo, hi)` 파라미터명·USACO Guide·TopCoder 표준과 정렬(단, `l`/`r`도 대회 코드에 흔해 외부 국룰은 아님 — 이 레포 선택). ↔ 금지: 이분탐색을 `l`/`r`로 되돌리기. leet_704 에서 확립.
-
-### 3.3 언어별 컨테이너 이름
-
-- **C++**: `v`(벡터), `st`(스택 — `stk` 아님), `pq`(우선순위 큐), `ss`(stringstream), `dq`(deque), `mp`(범용 맵 — `map`은 `std::map` 회피), `s`(만들어 나가는 결과 문자열, 기본값), `seen`.
-  - **지문형 저지(CF·AtCoder·BOJ)에서 지문이 배열을 `a` 로 부르면 `v` 대신 `a`** — §4 "지문 / 템플릿 어휘 유지" 참조. 타입 기반 기본값보다 지문 이름 우선.
-  - `string s` vs `string ans`: 기본 `s`. 유도 과정이 길거나 헷갈리면(맵 디코드 등) `ans`도 허용 — 케바케, 크로스파일 갈려도 지적 X.
-- **Java**: 타입 기반 — `arr`(배열), `list`(리스트), `stack`(소문자라 `java.util.Stack`과 안 겹침), `dq`/`deque`(ArrayDeque), `sb`(StringBuilder), `pq`, `map`(범용 맵, 풀네임).
-- **Python**: 타입 기반 안 통함(전부 list) → **역할 이름** `res`/`ans`/`out`, 스택 `stack`, 집합 `seen`. 문자열→가변 문자 리스트는 `chars` 또는 `s = list(my_string)` 재사용.
-- **스택 = C++ `st` / Java·Python `stack`.** 단 지문이 이름 주면 그대로(지문이 `stk`면 세 언어 다 `stk`).
-
-### 3.4 헬퍼 함수 `[합의]`
-
-- 불리언 술어(bool 반환) — 도메인 개념이 뚜렷하면 `is<X>` / `has<X>` (`isAnagram`, `isPrime`, `hasCycle`). 마땅한 도메인어가 없을 때만 제네릭 `ok` / `check` / `valid`.
-  - **다중 단어 술어의 표기 케이스는 언어 관례를 따른다** — Java는 camelCase(`isAnagram`), **C++은 snake_case**(`is_parallel`) — STL 자체가 술어를 snake_case로 짓는 관례(`is_sorted`, `is_same`, `is_permutation`)라 `is_parallel`이 오히려 더 STL스러움. Python은 PEP8 snake_case(§3.5). 단어 하나짜리 이름(`ok`, `chk`, `gcd`)은 케이스 갈림이 애초에 없어 해당 없음. (prms_120875 `isParallel`(Java) / `is_parallel`(C++·Python) 에서 확립, 2026-09-11.)
-- 산출물을 만드는 함수(배열·리스트·값 반환)는 기법 명사 OK — `sieve`, `dijkstra`, `bfs`, `gcd`. (명사 = 만드는 것 / 술어 = 묻는 것.)
-- 재귀·부분문제 풀이: `solve`
-- 그래프/DSU: `bfs` / `dfs` / `find` / `union`(C++은 키워드 → `unite`) (§7)
-- 원소별 변환: `transform`(Python) / `step`(Java·C++) (§7)
-- **`func` 금지** (재발 습관). `flag` 금지 (→ 의미 있는 이름).
-- `computeIfAbsent` 람다 파라미터 — Java `k -> new ArrayList<>()` 고정 (§6.2).
-- 비교자 람다 파라미터 — Java `(o1, o2)` 고정(`Comparator.compare` 시그니처 매칭). C++ `a, b` (값 비교·인덱스 정렬 공통). Python은 2-인자 비교 람다 거의 안 씀(`key=lambda x:` 단일).
-
-### 3.5 네이밍 안티패턴 (지적 대상)
-
-- 서술형 긴 이름: `numberOfVertices`, `adjacencyList` — "번역 티" 1순위.
-- `lst`(잘라 쓴 티), Python `list`(섀도잉), Python 억지 camelCase.
-- 모든 변수를 `long`/`long long` 선언 (C++ `#define int long long` 습관의 번역 티).
-- Java에서 0..N 인덱스 매핑에 `HashMap` (Python dict 습관).
-- 카운팅 전용 맵인데 `mp`/`map` (→ `cnt`).
-- Python 모듈 레벨 헬퍼 + 전 상태를 재귀 파라미터로 스레딩 ("Java 하다 왔네", §6.3).
-- **C++ `std::` 충돌 이름을 비일관 회피**: `mx`로 `std::max`는 피하면서 `end`/`next`/`count`/`distance`는 파라미터로 그냥 씀. 경계는 `l`/`r`·`lo`/`hi`로 통일.
-
-**리뷰 시 특히 볼 습관 (A-리스트)**:
-
-- **A1** — 관례 이름(분수 `p`/`q`, 자릿수 `d`, gcd 결과 `g`)이 있는데 버리고 `x`/`y`/`r` 스크래치로. _좌표 혼동 없는 순수 스크래치 2개는 OK_; 관례 이름을 버릴 때만 지적.
-- **A2** — 자리표시자 이름(`flag`, `func`, borderline `chk`).
-- **A3** — 위 C++ `std::` 충돌 비일관 회피.
-
----
-
-## 4. 문법·표현 `[확정 — 이대로면 지적 X]`
-
-- **홀짝** `[합의]` — `% 2`. C++/Python truthy (`if (n % 2)`, `if n % 2:`), **Java만 `n % 2 != 0`** (NOT `== 1`, NOT `& 1`). `& 1`은 저난도에 도입 안 함.
-  - **truthy/falsy 일반 원칙** `[합의]` — C++/Python 은 값이 참거짓 의미를 직접 담을 때(엣지 존재, 남은 자릿수 등) truthy 를 **적극 활용**, Java 는 항상 명시. 명시가 의도를 더 드러내면 그때그때 명시 — 한 파일 안에서 갈려도 지적 X(개별 판단).
-  - **음성 가드는 명시 비교 유지** — 배열/맵 값을 스킵 조건으로 쓸 때 `== 0` / `!= 0`, 옆 조건과 대칭으로: `if (maps[nr][nc] == 0 || dist[nr][nc] != 0) continue;` (NOT `|| !dist[nr][nc]`). 카운트다운 루프 조건 `while (x > 0)` / `while (x)` 은 C++/Python 재량.
-- **삼항 극성** `[합의]` — 찾음/성공/양성 케이스를 **먼저**: `idx != -1 ? idx + 1 : -1` (NOT `idx == -1 ? -1 : idx + 1`). 세 언어 공통.
-- **불리언 결과를 0/1 로 반환** `[통용]` — "조건이면 1, 아니면 0/-1" 류: C++ `return cond;` (묵시적 bool→int) · Java `return cond ? 1 : 0;` · Python `return int(cond)`. 언어별로 갈리는 게 정상(부록 A).
-- **3-way 비교(-1/0/1) 반환** `[통용]` — 순위·정렬 비교에서 기준이 여러 겹이면 비교 가능한 값(또는 튜플)로 만들어 `(a > b) - (a < b)`로 부호만 뽑는다. C++ 스칼라 직접(`(sum1 > sum2) - (sum1 < sum2)`), Python은 튜플이 사전식 비교라 다중 기준을 그대로 튜플로 묶어 같은 식(`(len(arr), sum(arr))`). 단일 스칼라 비교면 그냥 `if`/삼항이 더 읽기 쉬울 수도 있음 — 케바케. (`prms_181856`에서 확립, 2026-09-21.)
-- **중괄호** `[합의]` —
-  - `if` 단문(짧은 단일 문장 하나) = 한 줄, 중괄호 X. `continue`/`return`/`break` guard 뿐 아니라 `cnt++`류 일반 단문도 포함 — Java 도 마찬가지(prms_181871 `if (...) cnt++;`, 2026-09-11 확인). 몸통이 여러 문장이거나 길어지면 중괄호.
-  - Java 반복문 = 항상 중괄호.
-  - C++ 반복문 = 재량("진짜 짧으면" 생략). 소프트 — 한 파일 안에서 대놓고 엇갈리거나 긴 body를 중괄호 없이 둘 때만 지적.
-- **가드 클로즈 vs 대칭 분할 if/else** `[합의]` — 엣지 먼저 걸러 빠져나오면 guard. 분기가 대등한 N-way 분류(홀/짝, 2×2, "전부같음/둘같음/다다름", 각도 임계값)는 `if/else if/else` 대칭 구조도, 각 분기가 `return`이면 early-return 래더도 둘 다 정당 — **어느 쪽도 강제하지 않는다.** **"return 뒤 redundant else" 지적 X.** (Python도 대칭 분기에 `else:` 유지 정당 — §7.5.)
-- **`const` / `final`** `[합의]` — 전역 상수에만 (C++ `const int`/`constexpr int`, Java `static final int`). 로컬 X, `for (const auto&)` X.
-  - 읽기 전용 전역 룩업 테이블 배열(`string words[10]`)은 **non-const 소문자 유지 OK** — `const` 붙이면 대문자 네이밍이 따라와 과함. ↔ 금지: `const` 강제.
-  - **Java도 동일 원칙(표기-불변성 짝)** — `static final` + `UPPER_SNAKE_CASE`는 진짜 전역 상수(`TABLE`, `INF`, `MOD`류)에만. 방향 델타(`dr`/`dc`) 같은 가벼운 로컬성 배열은 소문자 유지 + `final` 생략 OK — 레포 전체 실측(`static int[] dr = {...}`, C++도 동형 `int dr[4] = {...}`)과 일치. 대문자로 격식 차릴 거면 `final`도 같이, 소문자면 둘 다 생략. (leet_191 `Solution3` TABLE 에서 확립, 2026-09-13.)
-- **`auto` (C++)** `[합의]` — 산술 타입(특히 `long long` — 오버플로 가시성)·단순 컨테이너는 명시. 이터레이터·구조분해·pair/tuple 반환·맵 lookup은 `auto`.
-- **방어 캐스트 생략 (C++)** `[합의]` — 묵시적 변환이 값을 안 바꾸는 게 제약상 보장되면 캐스트 X: `for (int i = 0; i < v.size(); i++)`, `int n = v.size();`, `ans += i + 'a'`(`char` 범위).
-  - 예외(지적 O): 값이 뒤집히거나 넘치면 지름길이 아니라 오답 — 빈 컨테이너 `v.size() - 1`(unsigned 언더플로), 음수 `int` × `unsigned`, `int` 곱/합 오버플로(→ §2.2).
-  - ↔ 금지: `(int)v.size()`/`static_cast` 강요. 제약상 불가능한 케이스에 방어 코드. (`(int)` 캐스트한 값을 다시 `size_t` 파라미터에 넘겨 언더플로 재발한 전례 — 캐스트가 오히려 화근.)
-  - Java 대응: `sb.append((char)(i + 'a'))`의 `(char)`는 **필수** — `append(int)` vs `append(char)` 오버로드 갈림. (→ 부록 A)
-  - **`std::min`/`std::max` 인자 타입 불일치는 캐스트 필수** — 템플릿 인자 추론이라 두 인자가 정확히 같은 타입이어야 함. `min(v.size(), k + 1)`(`size_t` vs `int`)는 컴파일 에러. `int n = v.size();` 로 미리 받아 통일하거나 `min((int)v.size(), k + 1)` — 값을 안 바꿔도 방어캐스트가 아니라 컴파일 요구사항, `popcount((unsigned)n)` 필수캐스트와 같은 성격. (`prms_181829`, 2026-09-28)
-- **올림 나눗셈** `[합의]` — 상수 제수는 접어서 (`(n + 6) / 7`), 변수 제수는 일반형 (`(n + k - 1) / k`). 불일치 아님.
-- **같은 우선순위 연쇄** (`hp % 5 / 3`) `[합의]` — `%`/`/` 동일 우선순위 좌결합. 괄호를 **일부만** 치면 비대칭 지적 — 전부 치거나 전부 빼거나 택1.
-- **폐형식은 끝까지 정리** `[합의]` — `SolutionN` 폐형식 파일이면 공식 대입 중간단계로 두지 말 것 (`(2 + n/2*2)*(n/2)/2` → `m = n/2; m*(m+1)`).
-- **`1 + n` 사이징 표기** `[취향]` — "n은 제약, +1은 1-인덱싱" 의도. 유지.
-- **지문 / 템플릿 어휘 유지** `[합의]` — 프로그래머스·LeetCode 가 준 파라미터명은 `std` 충돌·빌트인 섀도잉이 있어도 안 바꿈 (`slice`, `flag`, "ret 반환").
-  - **Codeforces·AtCoder·BOJ 등 지문형 저지도 지문이 이름을 주면 그대로 쓴다** — 수열 `a`/`b`, 길이 `n`/`m`, 쿼리 수 `q`, 주어진 파라미터 `k` 등. 지문 이름이 §3.3 타입 기반 기본값(벡터 `v` 등)보다 **우선**. 에디토리얼과 변수명이 정렬돼 대조 마찰이 없어짐 — §3.1 표의 "(지문 어휘면) `s`/`e`", "'ret 반환'이면 `ret`" 게이트의 일반화. CF 단문자 이름(`n m k a b q`)은 거의 항상 `std` 충돌 없음.
-  - **폴백**: 지문이 이름을 안 주거나("the grid" 처럼 지칭만), 그 이름이 실제 `std` 심볼과 충돌하면 §3.1·§3.3. 배열 하나만 `a` 로 명명됐으면 그것만 맞추고 나머지는 역할/타입 이름.
-  - 다중 풀이 파일 간 불일치는 지적 X (§3.2 노트 2 의 `res`/`ans`/`v` 와 같은 취급). 이미 커밋된 `live_*` 박제엔 소급 안 함.
-- **`solution` 시그니처는 fetch된 템플릿 그대로** `[통용]` — 구형(12xxx대)은 `public` 없이, 신형(120xxx·181xxx대)은 `public` 붙어 내려옴. 파일마다 갈려도 지적 X.
-- **`.find()` 결과 비교 (C++)** `[합의]` — `!= -1` 이 기본. 사용자 상용 트릭이고 KR PS 관용. `string::npos == (string::size_type)-1` 이라 정확. ↔ 금지: `!= string::npos` 로 바꾸라고 강요.
-  - `str.find(x) != -1` 을 **반환값에 직접** 비교하면 `-Wsign-compare` (unsigned `size_type` vs `int`) — 동작은 정확, 경고만. 감사 컴파일 단계(`-Wextra`)에서 뜨는 이 경고는 **결함으로 취급 X**.
-  - 스윕/컴파일 경고를 0으로 두고 싶으면 `int pos = str.find(x); pos != -1` 로 받는다 (이것도 KR PS 관용, 경고 없음). 직접 비교 vs `int pos` 수령은 취향 — 둘 다 지적 X.
-
----
-
-## 5. 표준 라이브러리 활용
-
-축: **"수동 루프 vs 라이브러리 함수".** 알고리즘 빌딩블록을 손으로 재구현하지 말 것. (자료구조 선택은 §6, 완성 패턴은 §7.)
-
-### 5.1 C++ `[합의]`
-
-- **변환·탐색·생성 알고리즘은 stdlib** — "C++11식 수동 말고 그레이더 C++20 도구":
-  - `iota(v.begin(), v.end(), 0)` — 0,1,2… 채우기 (`<numeric>`)
-  - `rotate(v.begin(), 시작지점, v.end())` — 컨테이너 회전 (`<algorithm>`). 레포 전체 실측 4회(day_03·day_26·day_29·`prms_120921`) — 이미 굳은 관용인데 문서 누락돼 있었음, 2026-09-22 보강.
-  - `v.erase(unique(v.begin(), v.end()), v.end())` — 연속 중복 제거
-  - `std::erase(cont, val)` / `std::erase_if` — 값 제거 (C++20)
-  - `s.starts_with(p)` / `s.ends_with(p)` (C++20)
-  - `s.append(other, pos, n)` 오버로드 — 임시 substring 회피
-  - `std::gcd` / `std::lcm` (`<numeric>`)
-  - `set`/`unordered_set`/`map` membership은 `.contains(x)` (C++20) — `.count(x)`를 `if`에 흘리는 것보다 의도 직결. `.count`는 multiset 개수용.
-- **이미 라이브러리 함수면 그대로** — `*max_element`, `sort` 등을 `std::ranges::` 버전으로 바꾸라고 하지 말 것. `*max_element(v.begin(), v.end())`는 영구 표준. 기존 `.count` membership도 🟢 현대화지 결함 아님.
-- **예외: 리덕션(합·곱)은 `std::accumulate` 안 씀** — 명시적 `for` 루프. 레포 전체에 `accumulate` 0회. `int sum = 0; for (int x : v) sum += x;` / `int mul = 1; for (...) mul *= x;`. (`*max_element`는 argmax=탐색이라 OK, `accumulate`만 뺀다.) ↔ 금지: `accumulate` 제안. Python은 반대(§5.3).
-- **`erase_if`로 필터 루프 대체는 강요 X** — 가독성 나빠지면 필터 루프 유지.
-- 안티패턴: 직접 짠 gcd/popcount, `pow(2, k)`.
-
-### 5.2 Java `[합의]`
-
-- **토큰화는 보통 `StringTokenizer`** — stdin이 아니어도. `"3 + 5 - 1"` 파싱 기본은 `new StringTokenizer(s)` + `nextToken()`. 단 고정 포맷을 `split(" ")` 후 곧장 순회/위치 접근하는 게 확연히 깔끔하면 `split` 도 쓴다 — `arr[i-1]` 되돌아보며 **재파싱**하는 패턴만 피한다(직전 값을 `prv` 로).
-- **스트림은 IO 경계에서만** — 입력 파싱, 최종 리덕션/변환. `IntStream.rangeClosed`류 생성 스트림도 "로직성"으로 보고 수동 루프 선호.
-- `List<Integer>` → 즉시 `.stream().mapToInt(Integer::intValue).toArray()`. 정렬이 끼면 `.mapToInt(...).sorted().toArray()` — **`.sorted()`는 `mapToInt` 뒤**(primitive 정렬). 별도 `list.sort(...)` 선행 금지.
-- 리덕션도 C++처럼 명시 루프 (스트림 `.sum()`은 IO 경계 변환일 때만).
-- gcd는 직접 구현 (표준 `Math.gcd` 없음) — 재귀 2줄 가드형 (§7.3).
-
-### 5.3 Python `[합의]`
-
-**대전제: CP-pythonic = 성능.** 내장함수가 C레벨이라 빠름. 프로그래머스는 시간 널널 → 가독성 우선.
-
-- **적극 활용**: `Counter`/`deque`/`defaultdict`, `heapq`(튜플 정렬키 `(dist, node)`), `bisect`, `itertools`(`accumulate`/`combinations`/`permutations`/`product`/`pairwise`/`groupby`/`chain.from_iterable` — 중첩 리스트 평탄화, `reversed()`와 조합해 역순 평탄화), `math`(`isqrt`/`comb`/`prod`/`gcd`), 슬라이싱(`s[::-1]`, `s[a:b]`), `string.ascii_*`.
-- **리덕션도 적극** — `sum()` / `math.prod()` / `accumulate` + `next()`. (C++/Java와 반대, 부록 A.)
-- **인덱스 순회 안 함** — `for i in range(len(arr))` 지양. `enumerate`/`zip`/`reversed`/직접 순회. 슬라이스에 쓸 인덱스가 진짜 필요하거나, **인덱스 자체가 반환값**(회전 횟수·경과 스텝 등)일 때만 `range(len)`. **파이썬 고수 단일 최강 지표.** (`prms_120921` — 문자열 회전 시도 횟수를 그대로 반환하는 경우, 2026-09-22 카브아웃 명문화.)
-- **C 전사 안 함**:
-  - `while i*i <= n` + `i += 1` → `math.isqrt` + `for i in range(1, isqrt(n) + 1)` (`int(n**0.5)`는 float 오차)
-  - if/elif 문자 치환 루프 → `str.translate(str.maketrans(a, b))`
-  - `% 10` + reverse로 자릿수 → `str(x)` 순회
-  - 수동 카운팅 → `Counter`, 딕셔너리 키 3단 체크 → `defaultdict`, 수동 swap → `a, b = b, a`
-  - **경계**: 위는 "수학적 양(√·자릿수·빈도)을 관용구로". **"연산 X를 몇 번 적용했나"의 카운트를 닫힌 형/비트트릭으로 대체는 안 함** — 서술된 연산은 루프로 시뮬레이션. "2로 나눠 1 될 때까지 횟수"는 `x.bit_length() - 1`이 아니라 `while x > 1: x //= 2; cnt += 1`. (루프 *안*의 미시 단순화 — 짝/홀 두 규칙이 `//= 2` 하나로 — 는 OK. 루프 자체를 없애는 게 선.)
-- **import 스타일**: 하드 룰 둘 — `from collections import deque`(절대 `import collections` X), `import sys`(절대 `from sys import` X). 그 사이:
-  - **bare `import`**: `sys`·`math`·`heapq` — 호출이 구별되거나(`sys.setrecursionlimit`, `heapq.heappush`) 모듈명이 문서 역할(`math.isqrt`)
-  - **`from ... import`**: `collections`·`itertools`·`functools`·`bisect` — 이름을 맨으로 반복, 접두사가 노이즈
-  - `import math` + `math.isqrt`는 정합 — from으로 바꾸라 지적 X.
-- `.split()` (무인자 = 공백 collapse + strip) vs `.split(" ")` (리터럴, 빈 토큰). 의도에 맞게.
-- `sum(x > k for x in a)` (bool = int), `-heapq.heappop(h)` (최대 힙), `2D`는 `[[0] * m for _ in range(n)]` (`[[0] * m] * n` 함정).
-- 제자리 `.reverse()`/`.sort()` 후 반환 OK.
-- walrus `:=` (컴프리헨션 필터값 재사용)는 PS 관용이지만 **소프트** — 안 와닿으면 평범한 루프.
-- 타입힌트·docstring·`@functools.cache`(핸드메모보다 느림) = CP에선 군더더기.
-- **중첩 함수(재귀 헬퍼 등) 정의 앞엔 빈 줄** `[합의]` — 바깥 함수 정의 줄이나 그 앞 코드에 바로 붙이지 않는다. `leet_704/Solution.py` 2026-09-12 정정(`binarySearch`가 `search` 정의 줄 바로 다음 줄에 붙어 있던 걸 빈 줄 삽입으로 수정) — 이후 관례로 확정.
-- **지양** `[합의]`: 3중+ 중첩 컴프리헨션, `reduce` 체이닝으로 로직 전체, walrus+컴프리헨션+unpacking 한 줄, `from collections import *`.
-
-### 5.4 연산별 3언어 대조 (참고 — §5.1~5.3·§3에서 파생, 정본 아님)
-
-| 연산               | C++                                     | Java                                             | Python                                    |
-| ------------------ | --------------------------------------- | ------------------------------------------------ | ----------------------------------------- |
-| 뒤집기             | `std::reverse`                          | 수동 swap 루프                                   | `[::-1]`                                  |
-| 합 / 곱 리덕션     | 명시 `for` 루프 (`accumulate` X)        | 명시 `for` 루프                                  | `sum()` / `math.prod()` / `accumulate`    |
-| "첫 초과 누적합"   | 명시 조기반환 루프                      | 명시 조기반환 루프                               | `next(s for s in accumulate(a) if s > k)` |
-| gcd                | `std::gcd`                              | 손수 재귀 2줄                                    | `math.gcd`                                |
-| 자릿수 순회        | `% 10` 루프                             | `% 10` 루프                                      | `str(x)`                                  |
-| 조합 `C(n, k)`     | 곱셈식                                  | 곱셈식                                           | `math.comb`                               |
-| `char` 산술 캐스트 | 생략 (`s += i + 'a'`)                   | `(char)` 필수 (`append` 오버로드)                | N/A                                       |
-| dedup 집합         | `seen`                                  | `seen`                                           | `seen`                                    |
-| union-find `find`  | 재귀 2줄                                | 재귀 2줄                                         | 반복 절반압축                             |
-| 재귀 헬퍼 위치     | 자유 함수(전역 참조)                    | `static` 메서드(파라미터)                        | 중첩 클로저(캡처)                         |
-| 누적합 / 차분 복원 | 명시 `for` 루프                         | 명시 `for` 루프                                  | `itertools.accumulate`                    |
-| 부분배열 추출      | `vector<int>(v.begin()+l, v.begin()+r)` | `Arrays.copyOfRange(a, l, r)` (List면 `subList`) | `a[l:r]`                                  |
-| 불리언 → 0/1 반환  | `return cond;`                          | `return cond ? 1 : 0;`                           | `return int(cond)`                        |
-
----
-
-## 6. 언어별 자료구조·관용
-
-"어떤 컨테이너·구조를 쓰나" + 언어 고유 관용. (이름은 §3, stdlib 함수는 §5.)
-
-### 6.1 C++
-
-- `#include <bits/stdc++.h>` + `using namespace std;`
-- 표준입출력 문제면 `ios::sync_with_stdio(0); cin.tie(0);` + 출력 `'\n'` (**`endl` 금지** — 인터랙티브 제외, 10배 저하). `0` 은 사용자 고정 컨벤션 — `false`/`nullptr` 과 동작 동일, 타이핑 절약. ↔ 금지: `false`/`nullptr` 로 바꾸기.
-- **Codeforces 멀티테스트** `[합의]` — 로직을 `void solve()` 로 분리, `int main()` 은 `ios::sync_with_stdio(0); cin.tie(0); int t; cin >> t; while (t--) solve();`. 테스트가 하나뿐인 문제면 `t` 루프만 생략. 프로그래머스는 `solution()` 직접 호출이라 해당 없음. `ps-new-problem` 스킬의 CF 보일러플레이트가 이 형태.
-- **대회 문제 폴더명** — 대회 실전 풀이는 `live_{contest}{x}`, 그 외 모든 Codeforces 풀이(일반 풀이·나중 업솔빙·복기)는 `cofo_{contest}{x}` (둘 다 문제 letter 소문자). `contest` 는 대회 시작 시점에 URL 로 바로 아는 숫자 ID (CF `codeforces.com/contest/2259` → `live_2259a`). `cofo_`·`prms_`·`leet_` 만 블로그 레포 자동 포스팅에 걸리므로 실전분은 그와 안 겹치는 `live_` 를 씀. `live_` 는 CF 외 다른 대회 플랫폼(AtCoder·백준 등)에도 같은 접두어로 재사용.
-  - **`live_` 는 대회 종료 순간의 코드를 그대로 박제** — 이후 수정·리팩터 안 함, `ps-audit` 대상도 아님(§0 필터 이전에 스코프에서 제외). 실제 학습·재구현·스타일 정리는 `cofo_` 폴더에서 백지부터.
-- **전역 고정 배열 OK** (`bool vis[MAX]`, `int p[MAX]`), 매직넘버 상한(`vis[200]`, n ≤ 200)도 CP 표준. `main` 안 지역 `vector`도 fluent (멀티테스트 초기화 버그 회피) — **둘 다 OK** `[통용]`.
-- **순수 membership 집합은 `unordered_set`** (`set` 아님) `[합의]` — 프로그래머스는 해시 해킹 없음. 정렬을 실제로 쓰면 `set`. `set<char>`처럼 알파벳 유계면 어느 쪽이든 무의미하나 기본은 `unordered_set`. `unordered_map`도 동일(CF는 지양, 프로그래머스 허용).
-- `emplace_back` (> `push_back(make_pair(...))`), digit separator (`1'000'001`).
-- `vector<bool>` 봤다고 초보 판정 금지 (tourist/neal도 씀). `std::` 접두사도 elite 마커.
-- 안티패턴: `while (!cin.eof())`, `system("pause")`, `endl`, `#define int long long`, `signed main()`.
-
-### 6.2 Java
-
-- 프로그래머스 포맷 `class Solution` 고정. 헬퍼는 `static` 메서드. **전역 배열 안 씀** — `static` 필드 또는 파라미터 전달.
-- 표준입출력 문제면 `public static void main(...) throws IOException` (**try-catch로 감싸면 초보 티**), 입력 `BufferedReader` + `StringTokenizer`, 출력 `StringBuilder` 모아서 `System.out.print(sb)`. **`Scanner` 금지** (14배 느림).
-- **배열 우선 / 오토박싱 회피가 핵심 유창성 마커** `[합의]`:
-  - `Arrays.copyOf`(리사이즈 복사) / `System.arraycopy`(목적지·시프트 제어)
-  - `Map<Integer, Integer>` 카운팅 → `int[]`
-  - 결과를 루프로 채울 때: 길이가 사전에 정확히 계산되더라도 `list.stream().mapToInt(Integer::intValue).toArray()` 가 깔끔하면 그대로 둔다. `int[]` 선할당은 성능 차이가 실측으로 체감될 때(프로그래머스에선 드묾)나 오버할당 + `Arrays.copyOf(res, idx)` 가 자연스러울 때. 케바케 — 지적 X.
-- 스택·큐는 `ArrayDeque`(`Deque` 인터페이스)로 일원화. `Stack<Integer>` / `Queue q = new LinkedList<>()`는 "학교에서 배운 대로" 마커. `int[]` + `idx` 포인터 스택은 지문이 배열을 요구하거나("배열 `stk` 를 만든다") 박싱이 성능에 실측으로 걸릴 때만 — 프로그래머스는 대개 `ArrayDeque`.
-  - **예외 — 지문이 "배열"로 프레이밍하면 `List`(+ JDK21 `removeLast()`/`addLast()`)도 정당**: 끝에서 추가/제거하는 동작 자체는 같아도, 문제가 스택 알고리즘(짝 제거·매칭 등)이 아니라 "배열에 원소를 더하고 뺀다"는 지문이면 `List<Integer>`가 더 자연스럽다. (`181860` "빈 배열에 추가, 삭제하기" vs `181859` "배열 만들기 6"=지문이 `stk`란 이름까지 준 진짜 스택 문제 — 같은 끝-조작이어도 문제 프레이밍에 따라 자료구조가 갈리는 게 정상, 2026-09-12.)
-- **Map 값이 단일 문자면 `Map<String, String>`** (1글자 문자열) `[합의]` — `Map<String, Character>`는 `sb.append(map.get(k))`가 `append(Object)`로 바인딩돼 박싱+`toString`. `String` 값이면 `append(String)` 직결, Python `dict` 구조와도 일치.
-- `Arrays.fill(dp, -1)`.
-- **값이 컬렉션인 맵의 그룹핑은 `computeIfAbsent`** `[합의]` — `map.computeIfAbsent(key, k -> new ArrayList<>()).add(v)`. `containsKey`/`get`/`put` 분기로 풀지 않는다. 람다 파라미터는 `k` 고정(자바 국룰 관용 — §3.1 `k`=크기와 겹치나 키라는 뜻이 뚜렷해 예외). (leet_49 에서 확립, 2026-09-21.)
-- **제네릭 배열 `List<Integer>[] adj = new ArrayList[n]`은 그냥 쓴다** `[합의]` — 인접 리스트·버킷 배열의 PS 관용. `-Xlint`의 rawtypes/unchecked 경고는 결함으로 취급 X, `@SuppressWarnings`도 안 붙임. `List<List<Integer>>`로 바꾸라고 강요 X. ↔ 금지: 경고를 근거로 재지적. (leet_347 `Solution2` 에서 확립, 2026-09-21.)
-- **`StringBuilder`에 단일문자 리터럴 String append** (`sb.append("\n")`, `append(" ")`, `append("5")`) = 굳은 습관, **지적 X** (리터럴은 할당 없음). 단 `String.valueOf(c).repeat(n)`·`sb.append("a" + x)`는 별개로 지적. i글자 반복은 `sb.repeat("*", i)` (JDK 21+).
-- **`return "" + n` / 삼항 `String`↔`int` 결합으로 int→String 형변환** — 사용자 선택, 지적 X. `String.valueOf(n)` 가 정석이나(C++ `to_string` 과 대칭) 강제 아님. `↔ 금지: 재감사 때 재지적.` (prms_120863 에서 종결.)
-- 안티패턴: `String +=` 누적(O(n²)), 루프 안 `System.out.println`(30배), `List<Integer>`로 인덱스 접근, 데이터 클래스에 getter/`toString`.
-
-### 6.3 Python
-
-- 프로그래머스/LeetCode의 **`solution()` 함수형** 문제는 `input = sys.stdin.readline` 같은 IO 셋업이 **아예 없음** (있으면 백준 템플릿 무지성 복붙 티). **예외** — 프로그래머스 "입출력" 트레이닝처럼 `main`/stdin 으로 직접 읽는 유형은 Python 도 **항상** `import sys` + `input = sys.stdin.readline` (Java `BufferedReader`, C++ `cin.tie` 와 평행, §8).
-- **헬퍼 위치** — 기준은 "그 헬퍼가 문제별 상태(`graph`·입력 배열·`n`·`memo`)에 걸리냐" 하나. `global` 재대입으로 Java `static` 필드 흉내내지 말 것.
-  - **상태 무는 헬퍼(DFS·BFS·find)** → `solution`/메서드 안 **중첩 클로저**로 입력을 **캡처**. 매 재귀 호출에 파라미터로 스레딩하지 말 것 — 재귀 인자는 실제로 변하는 것만(`cur`, `depth`).
-  - **범용 유틸(`gcd`·`binarySearch`·소수판정 — 자기 인자만 받고 다른 문제에 그대로 복붙됨)** → 프로그래머스(`def solution()`, 클래스 없음)는 **모듈 레벨 `def`**(파일 최상단).
-  - **LeetCode 예외** — `class Solution`이 주어지므로 범용 유틸도 **메서드 안 중첩**으로 통일. 클래스 밖 모듈 함수는 붕 떠 보이고, 인스턴스 재사용 시 클래스/인스턴스 속성으로 상태가 샐 수 있음(§7.1). 한 파일은 전부 중첩.
-  - 한 문제가 상태 헬퍼 + 범용 유틸을 둘 다 쓰면 위치가 갈려도 정상(프로그래머스). 통일하려고 억지로 맞추지 말 것.
-- **재귀 풀이**는 `import sys` + `sys.setrecursionlimit(10**6)`를 보일러플레이트로 넣는다 `[합의]` — 위치 자유, 값은 `10**6`으로 고정. 재귀 깊이가 기본 1000 미만이어도 지적하지 말 것 — 런타임 환경 세팅이지 §4 "제약상 불가능 케이스 방어 코드"가 아니다(그 규칙은 로직 레벨 과방어 — bounds 체크·불가능 null 가드·`(int)` 캐스트 — 에만).
-- `for i in range(len(x))` 안 씀 → §5.3.
-- **`seen`(값 기반 dedup/membership) 자료구조는 항상 `set()`** — 값이 우연히 `0..n` 같은 밀집 범위라 배열 인덱싱이 가능해 보여도 `[False] * n` 리스트로 흉내내지 않는다. C++ `vector<bool>`/Java `boolean[]`가 이 경우 정석인 이유(오토박싱 회피·해시 오버헤드 회피)가 Python엔 적용 안 됨 — 리스트도 결국 `PyObject*` 배열이라 `set` 대비 이득이 없고, 오히려 자바를 그대로 옮긴 티가 남. `vis`(그래프/격자 방문, §7.1)는 예외 없이 배열 유지 — 이건 값 존재확인이 아니라 좌표/정점 슬롯이라 다른 카테고리. (2026-09-13 `leet_268` 감사에서 실측 — 자바 `boolean[] seen`을 그대로 옮긴 게 유일한 예외였고 레포의 다른 모든 `seen`은 이미 `set`.)
-
----
-
-## 7. 알고리즘 형태 (언어 공통)
-
-### 7.1 BFS / DFS 순회
-
-- `vis` 방문 배열, `cur` 현재 정점, `nxt` 후보 정점, `cnt` 컴포넌트 수.
-- guard `continue`로 스킵: `if (computers[cur][nxt] == 0 || vis[nxt]) continue;`
-- 방문 배열 위치 — **C++** 전역 `bool vis[MAXN]` / **Java** `boolean[] vis` 파라미터 or `static` 필드 / **Python** `vis = [False] * n`을 `solution` 안에서 클로저 캡처.
-- **C++ 그래프 헬퍼 입력** — `vis` 뿐 아니라 인접구조·`n` 도 파일 스코프 전역으로 두는 걸 선호(헬퍼 시그니처는 변하는 인자만: `bfs(int cur)`). 애매하면 ref 파라미터로 넘겨도 됨. **LeetCode 는 전역 배열 지양**(멀티 인스턴스), 프로그래머스/CF 는 프로세스 독립이라 무해.
-- 큐 — **C++** `queue<int>` (`front`/`pop`) / **Java** `ArrayDeque` (`offer`/`poll`) / **Python** `deque` (`append`/`popleft`).
-- BFS 레벨 순회 — **C++** `int sz = q.size(); while (sz--) { ... }` · **Java** `int sz = q.size(); while (sz-- > 0) { ... }` · **Python** `for _ in range(len(q)):`. (C++ `sz` 는 `int` 라 `while (sz--)` 안전 — §4 truthy.)
-- **enqueue 후 mark 순서** `[합의]` — `q.push(nxt); vis[nxt] = true;` (또는 `dist[nxt] = dist[cur] + 1;`). mark 먼저 아님. 세 언어·모든 BFS 파일 공통.
-- **격자(2D) BFS** `[합의]` — 거리 배열은 **C++** 전역 `int dist[MAXN][MAXN]` (`MAXN` = 제약 상한 정확값, 지역 `vector<vector<int>>` 아님) / **Java** `int[][] dist = new int[n][m]` 지역 / **Python** `dist = [[0] * m for _ in range(n)]` 지역. 방향 순회 — **C++/Java** `dr`/`dc` 크기 명시 배열(C++는 전역) + `for (int d = 0; d < 4; d++)` / **Python** `for dr, dc in ((-1, 0), (0, 1), (1, 0), (0, -1)):` 델타 튜플 순회 후 `nr, nc = r + dr, c + dc` — 이웃 좌표 직접 튜플(`for nr, nc in ((r - 1, c), ...)`)이나 `dx`/`dy` 리스트 + `range(4)`(C 전사, §5.3) 아님. 시작칸 `dist = 1`로 두고 "칸 수" 세면 미방문 = `dist[..] == 0`. 큐 enqueue는 `q.push({r, c})` (`emplace` 아님) `[취향]`.
-- Dijkstra는 lazy deletion (`if (d > dist[u]) continue;`) — 없으면 decrease-key 잘못 흉내낸 초보 신호.
-
-### 7.2 union-find (DSU) `[합의]`
-
-- 부모 배열 `p` — 세 언어 공통.
-- `find` = **재귀 2줄 가드형**: `if (x == p[x]) return x; return p[x] = find(p[x]);`
-- `union` / `unite` = **`bool` 반환을 템플릿 기본값으로** — void의 순수 상위호환(사이클 감지·Kruskal 간선 선택 공짜, KACTL `join`도 bool). 호출부에서 안 써도 유지. ↔ 금지: "미사용이니 void로".
-- 컴포넌트 수 = `find(i) == i` (또는 union 후엔 `i == p[i]`) 순회.
-- **Java**: `static int[] p` 필드 + `static` 헬퍼.
-- **C++**: 자유 함수 + **전역 raw 배열** `int p[MAXN]` (전역 `vector` X) + `iota(p, p + n, 0)` 초기화. `union`은 키워드라 `unite`.
-- **Python**: 중첩 클로저 + **반복 절반압축** `while x != p[x]: p[x] = p[p[x]]; x = p[x]` (재귀 아님 → `setrecursionlimit` 불필요). `p = list(range(n))`, `sum(find(i) == i for i in range(n))`.
-- union by rank/size는 N ≤ 수천이면 안 넣음.
-- 프로그래머스는 프로세스 독립이라(§1) 전역 `p` 멀티테스트 초기화 버그 없음.
-
-### 7.3 hand-rolled 재귀 헬퍼 (gcd, find 등) `[합의]`
-
-- 2줄 가드형 고정: `static int gcd(int a, int b) { if (b == 0) return a; return gcd(b, a % b); }`. 삼항 한 줄형도 통용이나 이 레포는 2줄형(§4 가드 클로즈).
-- C++는 `std::gcd`, Python은 `math.gcd` (§5.4). 직접 구현은 Java만.
-
-### 7.4 재귀 깊이 처리
-
-- **Python**: `setrecursionlimit(10**6)` 보일러플레이트 (§6.3).
-- **C++**: 기본 스택 넉넉 — 대부분 OK. 선형 재귀 체인이 10⁶급이면 반복 전환.
-- **Java**: 기본 스택 얕음(~512KB) — n이 10⁴~10⁵급 선형 재귀 체인이면 스택오버플로 위험 → 반복 전환 or `new Thread(null, task, "solve", 1 << 26).start()`. (현재까지 프로그래머스 저난도는 안 걸림.)
-
-### 7.5 원소별 변환 (조건부 배열 변환 / 변환 반복-until-stable) `[합의]`
-
-- **Python**: 원소 하나 받는 헬퍼 `transform(x)` (가드 리턴, §4) + `[transform(x) for x in arr]` 컴프리헨션. 전체 배열 받는 `step` 아님. 반복형이면 `cnt = 0; while True: cur = [transform(x) for x in prv]; if cur == prv: return cnt; prv = cur; cnt += 1` (카운터 `cnt`, §3.1).
-- **Java**: `static int[] step(int[] arr)` — `int[] res = arr.clone();` 후 인덱스 루프로 `res[i]` 변형, `return res`.
-- **C++**: 자유 함수 `vector<int> step(vector<int> v)` — 값 전달(암묵 복사), `for (int& x : v)` 변형, `return v`.
-- 1회성 변환(반복 아님)이면 Python은 위 그대로, C++/Java는 입력 배열 제자리 변형 후 반환.
-- 대칭 2분기(`len >= 11`이면 합, 아니면 곱)는 Python도 `else:` 유지 — Java/C++ 블록 구조 미러, §4 "redundant else 지적 X"를 넘어 능동적으로 원함.
-
-### 7.6 차분 배열 (imos) / 누적합 복원 `[합의]`
-
-구간 업데이트 `[l, r] += v`를 여러 번 한 뒤 **최종 배열만** 읽을 때. O(n + q). (업데이트·조회가 번갈아 오면 불가 → 펜윅/세그.)
-
-- 배열 이름 **`diff`** (`imos`도 통용). 복원 중 러닝 누적자는 **`sum`** (§3.1) — `diff` 배열이 아니라 스칼라.
-- 크기 **`n + 1`**(최소 — `r + 1` 최대 `n`) 또는 **`n + 2`**(경계 안 보는 안전빵). 둘 다 통용, 하나로 안 정해짐.
-- 업데이트: `diff[l] += v; diff[r + 1] -= v;` — **전부 수집한 뒤** 복원 1회. 2단계 분리가 핵심.
-- 복원 두 방식 (둘 다 국룰):
-  - **러닝 누적 단일 루프** — `diff` 안 건드리고 `sum += diff[i]; arr[i] += sum;`. 기존 배열에 얹을 때 더 흔함.
-  - **`diff` 제자리 누적합** — `for i in 1..n-1: diff[i] += diff[i-1]`, `diff`가 곧 답. 반환값이 `diff` 자체일 때.
-- **C++/Java**: 복원은 명시 `for` 루프 (`partial_sum`/`accumulate` X — §5.1 리덕션 규칙). 값 누적이 int 넘치면 `long`/`long long`.
-- **Python**: 복원은 `itertools.accumulate` — `list(accumulate(diff))[:n]` 또는 `[b + d for b, d in zip(base, accumulate(diff))]` (`zip`이 `base` 길이에서 잘라줌). `range(len)` 수동 누적 X.
-- **2D**: 네 꼭짓점 이벤트 `diff[r1][c1] += v` · `diff[r1][c2+1] -= v` · `diff[r2+1][c1] -= v` · `diff[r2+1][c2+1] += v` + 2D 누적합. 크기 `(n+2) × (m+2)`.
-
-### 7.7 이분탐색 `[합의]`
-
-- **먼저 표준 라이브러리** — "존재하냐 / 어디 있냐"면 손으로 안 짬: C++ `binary_search` / `lower_bound` / `upper_bound`, Java `Arrays.binarySearch`, Python `bisect_left` / `bisect_right`. 손구현은 (1) 문제가 이분탐색 구현 자체를 요구하거나(leet_704), (2) 파라메트릭 서치(정답 위 단조 술어)일 때.
-- **이름**: `lo` / `hi` / `mid` (§3.1, §3.2 n10). `l` / `r` 안 씀 — 그건 투포인터·슬라이딩 윈도우 전용.
-- **exact-match (정렬 배열에서 값의 위치, 없으면 -1)** — 닫힌구간 `[lo, hi]`:
-  - `lo = 0`, `hi = n - 1`, `while (lo <= hi)`
-  - `mid = (lo + hi) / 2` — `lo + hi` 가 int 넘칠 크기면 `lo + (hi - lo) / 2` (이 레포 제약 n ≤ 1e5 급이면 무관)
-  - `v[mid] < target` → `lo = mid + 1` / `v[mid] > target` → `hi = mid - 1` / else → `return mid`
-  - 루프 탈출 = 못 찾음 → `return -1`
-  - 헬퍼 위치: C++ 멤버 or 자유 함수(`v`/`nums` 인자), Java `static`(`arr` 인자), Python 은 §6.3 (LeetCode 는 메서드 안 중첩, 프로그래머스는 모듈 레벨)
-- **파라메트릭 서치 (정답에 대한 이분)** — 반개구간 `[lo, hi)`:
-  - `while (lo < hi)`, `mid = (lo + hi) / 2`, `ok(mid)` 면 `hi = mid` 아니면 `lo = mid + 1`, 끝나면 `return lo` (첫 true)
-  - 술어 헬퍼는 `ok` / `check` (§3.4), 상태 캡처는 §6.3/§7.1 과 동일
-  - (레포 실측 전 — 실제로 나오면 3언어 예시 채운다.)
-
----
-
-## 8. IO·출력 `[확정]`
-
-- **echo면 파싱 안 함**: 읽은 토큰을 그대로 되뱉기만 하면 문자열로 받음. 연산 필요할 때만 파싱.
-- **rstrip / 이중 개행**: Python `readline` 통째로 읽고 `print` → 개행 2번 / Java 매 줄 `\n` 붙이고 `println(sb)` → 끝에 빈 줄. **채점기가 trim해서 AC면 그대로 둠.** `print(sb)`/`rstrip` 강요 X, AC 지장 있을 때만.
-- 출력 모아서 한 번에 (루프 안 개별 출력 = 초보 마커) — **단 이건 출력량 많을 때 규칙**(flush/호출 오버헤드). n이 작아 몇 줄 안 되는 소형 고정 출력이면 루프 안 `print`/`cout` 그대로 둬도 됨.
-
----
-
-## 9. 파일 컨벤션
-
-- **폴더**: `{저지}_{번호}` 전부 소문자 — `boj_`·`prms_`·`leet_`·`cofo_`·`swea_`·`softeer_`·`live_` (`cofo_`·`live_` 는 `{대회}{문제 letter 소문자}`). 실패한 시도는 접미사 `_fail` (`boj_16235_fail`).
-- **소스 파일**: 표준입출력 채점(BOJ·Codeforces·SWEA·Softeer)은 `Main.{java,cpp,py}`, 함수형 채점(프로그래머스·LeetCode)은 `Solution.{java,cpp,py}`. 대체 접근이면 `MainN`/`SolutionN`. (프로그래머스 SQL 문제만 `Solution.sql` 하나 — SQL 은 컨벤션·감사 대상 아님.) Java 는 `package day_XX.{폴더};` + public class 명 = 파일명.
-- `SolutionN`의 **끝자리가 같으면 같은 풀이 원리** (Solution = 루프, Solution2 = 폐형식 등).
-- **다중 풀이 번호는 "기본 → 심화" 순** — 더 개념이 깊거나 최적화된 쪽이 뒤. 번호 없는 `Main` 은 가장 기본형. 예: BFS → DFS, BFS → DP, 2D → 1D, Dijkstra → BFS01, DP → DP2, Comparator → Lambda, List → PriorityQueue. 이분탐색·해시맵·TreeSet 이면 그 순서.
-- **보조 파일**: 제출물이 아닌 테스트·실패 시도는 `{Main|Solution}_{test|fail}` (+ 숫자). 예 `Main_test.java`, `Solution_fail2.java`.
-- **이미지·PDF**: 풀이 폴더 아래 `assets/` 안에 `photo1.png`, `photo2.jpg` … (확장자 소문자, 번호는 1부터 빈 번호 없이). README 는 `assets/photoN.ext` 로 참조.
-- SWEA 의 입출력 txt(`sample_input.txt` 등)는 내려받은 원본 이름 그대로 둔다 — 통일 대상 아님.
-- 어떤 언어에서 관용적으로 안 되는 접근은 스킵 → 파일 갭은 의도적 (예: Python `Solution2`/`Solution4`만).
-- **소스 포맷은 사용자가 직접** — 배치 포맷·포맷 훅 먼저 제안 금지(사용자가 요청할 때만). `.clang-format`(Google 베이스, indent 4, col 120)은 커밋돼 있고 유지 — CP 통상보다 보수적으로 세로로 펼치는 건 **의도적**(아카이브 가독성). `AllowShortLambdas/Functions/Blocks` 비활성도 의도. Java 는 IntelliJ 기본 스타일, README 는 Prettier 기본 옵션.
-
----
-
-## 부록 A. 크로스언어 비통일이 정상 `[합의]`
-
-같은 문제의 C++/Java/Python 3풀이는 **로직·구조·변수명이 서로 달라도 된다.** 목표는 "각 언어로 PS 많이 해본 사람이 쓴 것처럼"이지 3파일을 나란히 맞추는 게 아니다. **불일치 자체를 지적 사유로 삼지 말 것** — 먼저 "각 언어에서 그게 관용인가"를 확인.
-
-대조표는 §5.4. 핵심 갈림: 리덕션(C++/Java 루프 vs Python 내장), 최소/최대 이름(`mn`/`mx` vs `min`/`max`), 스택 이름(`st` vs `stack`), 해시맵 이름(`mp` vs `map`), `char` 캐스트(생략 vs `(char)` 필수), 재귀 헬퍼 위치(자유함수 vs static vs 클로저), 그래프 방문 배열 위치(전역 vs 파라미터 vs 캡처).
-
-- "Java에 맞춰 C++도 지역 vector로" 같은 제안 금지 (사용자가 명시적으로 거부).
-- dedup/membership 집합은 예외적으로 세 언어 다 `seen`.
+- `[필수]` 변수 이름은 소문자로 시작한다. 이름 전체가 대문자인 것은 상수뿐이다.
+- `[필수]` 상수는 단일 값(스칼라)만 전 언어 `UPPER_SNAKE_CASE`로 쓴다 (`MOD`, `INF`, `MAX_N`).
+- `[필수]` 스칼라 상수는 C++ `const`, Java `static final`로 선언한다 (`const int MOD = 1'000'000'007;`, `static final int MOD = 1_000_000_007;`). Python은 해당 없음. `constexpr`는 쓰지 않는다.
+- `[필수]` `const`/`final`은 스칼라 상수에만 붙인다. 읽기 전용 배열·룩업 테이블(`dr`, `dc` 등)은 소문자로 쓰고 붙이지 않는다. 일반 변수·함수 인자에도 붙이지 않는다 (`const auto&`, `const T&` 인자도 쓰지 않고 `auto&`로 쓴다).
+- `[필수]` 타입·클래스는 전 언어 `PascalCase`로 쓴다 (`Edge`, `Main`).
+
+### 1.2 여러 단어 이름의 표기
+
+- `[필수]` 언어별로 아래 표기를 쓴다.
+
+| 언어   | 표기         |
+| ------ | ------------ |
+| Java   | `camelCase`  |
+| Python | `snake_case` |
+| C++    | `snake_case` |
+
+### 1.3 지문이 준 이름
+
+- `[허용]` 문제 지문이 변수명을 주면 그대로 쓸 수 있다. 의무는 아니다.
+- `[필수]` 저지(프로그래머스·LeetCode)가 정해 준 함수 시그니처(함수명·매개변수명)는 바꾸지 않는다. 1.1(소문자)·1.2(표기)·1.4·8.4보다 항상 우선하며, 이 규칙과 부딪히는 이름은 지적하지 않는다 (`def solution(slice, n)`, `solution(String A, String B)`). 본문 변수에는 적용되지 않는다.
+- `[필수]` 지문이 본문 변수 이름을 주고 그것이 1.4와 충돌하면 1.4가 우선한다 (등급도 1.4를 따른다).
+
+### 1.4 예약어·라이브러리 충돌 금지
+
+- `[필수]` 언어 예약어는 쓰지 않는다 (컴파일러가 잡는다).
+- `[필수]` C++ 전역 스코프(전역 변수·배열)에서 아래 전역 목록의 이름을 쓰지 않는다. `using namespace std`나 C 라이브러리의 이름과 겹쳐 모호성·재정의 컴파일 오류가 난다.
+- `[권장]` C++ 지역 변수·매개변수에서 아래 지역 목록의 이름을 쓰지 않는다. 오류는 아니지만 같은 스코프에서 그 이름의 std 함수·타입을 가려서 나중에 코드를 고칠 때 깨진다.
+- `[필수]` Python 변수·매개변수·함수 이름으로 아래 Python 목록의 내장 이름을 쓰지 않는다. 가려진 내장을 나중에 호출하면 그 경로가 실행될 때만 런타임 오류가 난다.
+- `[허용]` 예외 1: Python의 `input = sys.stdin.readline`은 내장 `input`을 덮어쓰지만 CP 관용구라 허용한다.
+- `[허용]` 예외 2: C++ 유니온 파인드의 자유 함수 `find`는 `std::find`와 이름이 같지만 허용한다. 인자 개수가 달라 오버로드로 해결된다.
+- `[허용]` Java는 예약어만 피하면 된다. 변수와 메서드의 이름 공간이 분리돼 있어 `max` 같은 이름은 충돌이 아니다.
+- 구조체·클래스 멤버, 메서드, 속성, 키워드 인자, 딕셔너리 키는 섀도잉이 아니므로 대상이 아니다. 목록에는 변수 이름으로 쓰일 법하고 실제로 충돌하는 이름만 둔다. 전역 목록은 g++-16 기준이라 저지 환경과 다를 수 있다.
+  - C++ 전역 목록: `abs` `any` `array` `begin` `ceil` `clock` `copy` `count` `data` `deque` `distance` `div` `empty` `end` `equal` `exit` `exp` `fill` `floor` `get` `hash` `index` `j0` `j1` `left` `list` `log` `map` `max` `merge` `min` `minus` `move` `next` `partition` `plus` `pow` `prev` `queue` `random` `rank` `ref` `remove` `replace` `reverse` `right` `rotate` `round` `search` `set` `size` `sort` `stack` `swap` `time` `unique` `wait` `y0` `y1`
+  - C++ 지역 목록: `abs` `array` `copy` `count` `deque` `distance` `fill` `list` `map` `max` `min` `move` `next` `pow` `prev` `queue` `reverse` `set` `sort` `stack` `swap` `unique`
+  - Python 목록: `abs` `all` `any` `bin` `bool` `chr` `dict` `dir` `divmod` `enumerate` `exit` `filter` `float` `format` `hash` `hex` `id` `input` `int` `iter` `len` `list` `map` `max` `min` `next` `oct` `open` `ord` `pow` `print` `range` `reversed` `round` `set` `sorted` `str` `sum` `type` `zip`
+
+## 2. 숫자 리터럴
+
+- `[필수]` 정수 리터럴에는 천 단위 구분자를 넣는다. C++ `1'000'000`, Java `1_000_000`, Python `1_000_000`.
+- `[필수]` 5자리(10,000) 이상부터 넣는다. 4자리 이하(`1000`, `9999`)는 그대로 둔다.
+- `[필수]` 적용 범위는 코드 안의 모든 10진 정수 리터럴이다 (상수 선언, 배열 크기, 비교 임계값, 루프 상한 등).
+- `[허용]` 지수 표기(`1e9`, `1e-9` 등)는 정수·실수 모두 쓸 수 있다. 위 구분자 규칙은 정수 리터럴에만 적용되고 지수 표기에는 적용되지 않는다. 단 `INF`의 값은 8.5가 정한다. 주의: `1e9`는 C++·Java에서 `double`, Python에서 `float`이다 (Java `int n = 1e9;`는 컴파일 오류, Python `range(1e9)`는 오류).
+- `[허용]` Python `**`(`10**9`)와 `pow`/`Math.pow`도 쓸 수 있다.
+
+## 3. C++ 템플릿·IO
+
+- `[필수]` 파일 첫머리는 아래 두 줄 다음에 빈 줄 하나를 둔다.
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+```
+
+- `[필수]` 표준 입출력을 쓰는 풀이는 입력이나 출력 중 하나만 있어도 `main` 첫머리에 `ios::sync_with_stdio(0); cin.tie(0);`를 쓴다. 인자는 `false`/`nullptr`이 아니라 `0`으로 고정한다. (입출력이 아예 없는 함수형 `solution()` 풀이는 해당 없음.)
+- `[필수]` 줄바꿈은 `'\n'`이다. `endl`은 예외 없이 쓰지 않는다. 인터랙티브 문제처럼 flush가 꼭 필요하면 `cout << flush`를 쓴다.
+- `[허용]` 문자열 리터럴 안의 `\n`(`cout << "Yes\n";`)도 줄바꿈으로 쓸 수 있다.
+- `[필수]` 입출력은 `cin`/`cout`만 쓴다. C 입출력(`scanf`/`printf`/`puts` 등)은 쓰지 않는다. (섞어 쓰는 것도 당연히 금지.)
+- `[필수]` `main`에서 빼도 동작이 같은 `return 0;`은 쓰지 않는다 (끝의 `return 0;`). 중간에 일찍 끝내려고 쓰는 `return 0;`처럼 동작에 필요한 `return`은 그대로 둔다.
+- `[필수]` C++ 표준은 저지별로 다르다. 프로그래머스는 C++20, 코포·LeetCode는 C++23, BOJ는 C++20 기준으로 쓴다 (해당 저지에서 컴파일되지 않는 기능은 쓰지 않는다).
+
+## 4. Java 템플릿·컬렉션
+
+### 4.1 템플릿·입출력
+
+- `[필수]` Java는 전 저지 공통으로 21 기준으로 쓴다. 21에서 컴파일되지 않는 기능은 쓰지 않는다.
+- `[필수]` Java 클래스 이름은 SWEA는 `Solution`, 그 밖의 저지는 `Main`이다 (프로그래머스·LeetCode는 저지가 준 `Solution`).
+- `[필수]` 입력은 `BufferedReader br = new BufferedReader(new InputStreamReader(System.in))`로 받는다.
+- `[필수]` 출력을 모아서 낼 때는 `StringBuilder sb`에 모으고 마지막에 `System.out.println(sb)`로 한 번에 낸다.
+- `[필수]` `StringBuilder`에 붙이는 줄바꿈·공백 구분자는 `char`가 아니라 문자열 리터럴이다 (`sb.append(x).append("\n")`, `.append(" ")`). 변수로 붙이는 `char`(`sb.append(c)`)는 해당 없다.
+- `[허용]` 포매팅이 필요할 때 `System.out.printf`·`String.format`을 쓸 수 있다. 최종 `println(sb)`의 앞뒤에 소량의 직접 `print`/`printf`가 붙는 것도 허용한다 (출력 순서 주의). 루프 안에서는 `sb.append(String.format(...))`를 쓴다.
+- `[허용]` `sb`의 마지막이 이미 `"\n"`으로 끝나 있으면 `System.out.print(sb)`로 내도 된다. (`println(sb)`는 끝에 빈 줄이 하나 더 붙는다. 출력 끝 개행 차이는 위반이 아니다.)
+- `[허용]` 입력을 가공 없이 그대로, 또는 간단히 출력할 때와 메모리가 걱정될 때는 `StringBuilder` 대신 `BufferedWriter bw`로 낼 수 있다.
+- `[권장]` 한 풀이 안에서 `BufferedWriter`와 `StringBuilder`를 섞어 쓰지 않는다.
+- `[필수]` `BufferedWriter`를 쓰면 `flush`(또는 `close`)로 출력이 나가게 한다 (정답성).
+- `[권장]` 루프 안에서 `System.out.print`·`println`을 직접 호출하지 않고 `sb`에 모아 한 번에 낸다. 출력이 소량이어도 지적은 하되 수정은 선택이다.
+- `[필수]` `main`은 `throws IOException`으로 선언하고 try-catch로 감싸지 않는다.
+- `[권장]` 한 줄을 나눠 읽을 때, 그리고 함수형 저지에서 문자열을 토큰으로 쪼갤 때도 `StringTokenizer st`를 쓴다. `split`은 `StringTokenizer`보다 확실히 나을 때만 쓴다. (`split`을 쓴 곳은 지적하되 수정은 선택이다. `Arrays.stream(br.readLine().split(" "))...`처럼 `split` 결과를 스트림으로 변환하는 형태도 같은 규칙에 포함한다.)
+- `[필수]` `Scanner`는 쓰지 않는다. 예외: 문제 지문이 `Scanner` 사용을 권장·요구하는 경우(아주 드묾).
+- `[필수]` import는 패키지 단위 와일드카드로 쓴다 (`import java.io.*;`, `import java.util.*;`). 개별 클래스 import는 쓰지 않는다. 실제로 쓰는 패키지만 import한다.
+
+### 4.2 큐·덱·스택
+
+- `[필수]` `Queue`·`PriorityQueue`는 `offer`/`poll`/`peek`만 쓴다. `add`/`remove`/`element`는 쓰지 않는다. `remove(Object)`로 임의 원소를 지우는 것도 쓰지 않는다 (지연 삭제 등 다른 설계로 푼다). (`List`·`Set`·`Map`의 `add`/`remove`는 해당 없음.)
+- `[필수]` `Deque`(`ArrayDeque`)도 같은 계열을 쓴다: `offerFirst`/`offerLast`/`pollFirst`/`pollLast`/`peekFirst`/`peekLast`. `addFirst`/`removeFirst` 등은 쓰지 않는다.
+- `[필수]` 큐·덱·스택의 구현체는 항상 `ArrayDeque`다 (`PriorityQueue` 제외). `LinkedList`를 큐·덱으로 쓰지 않는다 (`Queue<Integer> q = new ArrayDeque<>();`).
+- `[필수]` 레거시 `java.util.Stack`은 쓰지 않는다. 스택도 `ArrayDeque`를 쓰고, 스택으로 쓸 때는 `push`/`pop`/`peek`을 쓴다. 스택임을 드러내는 이름이라 위 `offer`/`poll` 계열의 예외다 (큐·덱으로 쓸 때는 그 계열).
+
+### 4.3 스트림·박싱·기타
+
+- `[허용]` 스트림은 아래 경우에 쓸 수 있다.
+  - `List`↔배열 변환 (`mapToInt(...).toArray()`, `boxed()` 등). 반복문 안이 아닐 때.
+  - 입력 이후 한 번 쓰는 기본형 스트림 집계 (`Arrays.stream(arr).sum()`·`max()` 등).
+- `[권장]` 위에 해당하지 않는 스트림은 지적한다 (수정은 선택). 반복문·DP·BFS 안쪽, 박싱 스트림으로 큰 컬렉션을 `collect`·`sorted`하는 코드, 단순 루프로 쓸 수 있는데 스트림으로 쓴 코드.
+- `[허용]` Java `var`를 쓸 수 있다. 단 13.5 인접 리스트는 선언 타입을 명시해야 하므로 `var`를 쓰지 않는다.
+- `[필수]` 박싱 타입(`Integer`·`Long` 등) 값의 비교에 `==`를 쓰지 않는다 (캐시 범위 -128~127 밖에서 오답이 나는 것을 원천 차단). `equals`를 쓰거나 기본형으로 풀어서 비교한다.
+- `[필수]` `List<Integer>`에서 값을 지울 때는 `list.remove(Integer.valueOf(x))`로, 인덱스로 지울 때는 `list.remove(i)`로 써서 `remove(int)`/`remove(Object)` 혼동이 없게 한다.
+
+## 5. Python 템플릿·IO
+
+- `[필수]` 표준 입력을 읽는 풀이는 `import sys`와 `input = sys.stdin.readline`을 쓴다. (`from sys import ...`는 쓰지 않는다. import와 from은 아래 표대로 엄격히 구분한다. 섀도잉 예외는 1.4 참고.)
+- `[필수]` 출력을 모아서 낼 때는 결과를 리스트 `out`에 모으고 마지막에 `print("\n".join(out))`으로 한 번에 낸다.
+- `[권장]` 루프 안에서 `print`를 직접 호출하지 않고 `out`에 모아 한 번에 낸다. 출력이 소량이어도 지적은 하되 수정은 선택이다.
+- `[필수]` import 방식은 모듈별로 고정한다.
+
+| 방식                    | 모듈                                           | 예                                                                           |
+| ----------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------- |
+| `import 모듈`           | `sys` `math` `heapq` `string`                  | `sys.stdin.readline`, `math.gcd`, `heapq.heappush`, `string.ascii_uppercase` |
+| `from 모듈 import 이름` | `collections` `itertools` `functools` `bisect` | `from collections import deque`, `from bisect import bisect_left`            |
+
+- `[필수]` `from 모듈 import *`는 쓰지 않는다.
+- `[필수]` 재귀 함수를 쓰는 풀이는 `sys.setrecursionlimit(10**6)`을 항상 설정한다.
+- `[권장]` 여러 변수를 같은 값으로 초기화할 때 연쇄 대입(`a = b = 0`)을 쓰지 않고 `a, b = 0, 0`으로 쓴다 (`a = b = []`는 같은 객체를 가리키는 함정이 있다).
+- `[필수]` Python 문자열 포매팅은 f-string만 쓴다 (`%`·`.format()` 금지).
+
+## 6. 포맷
+
+- `[필수]` 코드 포맷(들여쓰기, 중괄호 위치, 줄 길이, 공백, 빈 줄 등)은 이 문서가 정하지 않고 포매터가 정한다. 포매터가 낸 결과는 규칙 위반으로 지적하지 않는다. (중괄호를 쓸지 생략할지는 포맷이 아니라 7.3 규칙이고, 3장 파일 첫머리의 빈 줄 하나는 이 문서가 정한다.)
+
+| 언어   | 포매터                       | 설정                                                                    |
+| ------ | ---------------------------- | ----------------------------------------------------------------------- |
+| Java   | IntelliJ                     | IntelliJ 기본 스타일                                                    |
+| C++    | VS Code `ms-vscode.cpptools` | 레포 `.clang-format` (Google 기반, 들여쓰기 4, 줄 길이 120)             |
+| Python | VS Code `charliermarsh.ruff` | 레포 `ruff.toml` (줄 길이 120). 저장 시 `fixAll`·`organizeImports` 적용 |
+
+- 포매터 설정이 바뀌면 이 표를 같이 고친다.
+
+## 7. 제어 흐름
+
+### 7.1 홀짝 판정과 조건식 표기
+
+- `[필수]` Java의 홀수 판정은 `n % 2 != 0`으로 쓴다.
+- `[필수]` 홀수 판정에 `== 1`은 전 언어에서 쓰지 않는다 (C++·Java는 음수에서 `-3 % 2 == -1`이라 오답이 된다. Python은 `-3 % 2 == 1`이라 정확하지만 전 언어 통일을 위해 쓰지 않는다).
+- `[필수]` 홀짝 판정에 `& 1`은 쓰지 않는다 (`% 2`로 통일. `& 1`이 틀려서가 아니라 표기를 맞추기 위한 규칙이다). 비트 연산 자체가 목적인 `& 1`(최하위 비트 추출 등)은 홀짝 판정이 아니므로 해당 없음.
+- `[허용]` 짝수 판정(`n % 2 == 0`)은 전 언어에서 쓸 수 있다. 홀수는 위 `!= 0` 규칙을 따른다.
+- `[허용]` C++·Python은 정수·컨테이너를 조건에 그대로 쓰는 것(`if (n % 2)`, `if cnt`, `if stack:`)과 명시 비교(`!= 0`, `len(...) > 0`)를 둘 다 쓸 수 있다. 홀수 판정도 같다. 의미를 드러내려고 명시 비교를 쓰는 것도 허용한다. 한 파일 안에서 섞여도 지적하지 않는다.
+
+### 7.2 조기 반환
+
+- `[권장]` 조건 하나가 함수나 루프 본문 전체를 감싸면, 조건을 뒤집어 조기 탈출(`return`/`break`/`continue`)로 바꿔 중첩을 줄인다.
+- `[허용]` 분기가 대등하거나 여러 개가 이어질 때는 조기 반환 대신 `if / else if / else` 체이닝을 쓸 수 있다.
+
+### 7.3 중괄호
+
+- `[권장]` 본문이 단문 하나인 `if`(`else` 없음)는 한 줄로 쓰고 중괄호를 생략한다 (`if (x < 0) continue;`). 전 언어(Java·C++).
+- `[필수]` `else`(`else if` 포함)가 붙는 `if`는 모든 분기에 중괄호를 쓴다. 한 분기만 중괄호를 쓰는 것도 금지.
+- `[필수]` Java의 반복문(`for`/`while`)은 본문이 단문이어도 항상 중괄호를 쓴다.
+- `[허용]` C++의 반복문은 본문이 단문 하나일 때 중괄호를 생략해도 되고 써도 된다.
+
+### 7.4 삼항 연산자
+
+- `[허용]` 두 값 중 하나를 고를 때 삼항 연산자(Python은 `a if cond else b`)를 쓸 수 있다.
+- `[권장]` 삼항 연산자는 긍정 케이스(찾음·성공·조건 참)를 앞에, 아닌 쪽을 뒤에 쓴다 (`idx != -1 ? idx + 1 : -1`, `idx == -1 ? -1 : idx + 1`은 쓰지 않는다). 두 값이 대등하면(`a > b ? a : b`) 순서를 정하지 않는다.
+- `[필수]` 삼항 연산자는 중첩하지 않는다. `a ? b : c ? d : e` 같은 연쇄도 중첩이다. 셋 이상 분기는 `if / else if / else`로 쓴다.
+
+## 8. 타입·오버플로
+
+### 8.0 정수 타입 크기
+
+- `[필수]` 값이나 중간 결과가 `int` 범위를 넘을 수 있으면 `long long`(C++)·`long`(Java)을 쓴다. (Python은 해당 없음.) 정답성 문제다.
+- `[허용]` 중간 결과의 형변환을 피하려고 변수를 미리 큰 타입으로 선언할 수 있다.
+- `[권장]` 그 외에는 값 범위에 맞는 크기로 선언한다. 필요 없는 변수까지 습관적으로 큰 타입으로 선언하지 않는다.
+
+### 8.1 곱셈 승격
+
+- `[필수]` `int` 곱이 넘칠 수 있을 때 큰 타입으로 올리는 표기는 C++ `1LL * a * b`, Java `1L * a * b`로 쓴다. `(long long) a * b`, `(long) a * b`는 쓰지 않는다.
+- `[필수]` 승격은 첫 곱셈보다 앞에서 한다. `(long long)(a * b)`, `a * b * 1LL`처럼 곱한 뒤에 올리는 형태는 이미 넘친 값을 올리는 것이라 쓰지 않는다.
+
+### 8.2 `auto` (C++)
+
+- `[필수]` 기본 타입(`int`, `long long`, `double`, `char`, `bool` 등)과 `string`은 `auto`를 쓰지 않고 타입을 명시한다. 범위 `for`도 포함한다 (`for (int x : v)`, `for (int& x : v)`. `for (auto x : v)`는 쓰지 않는다).
+- `[허용]` 그 외(컨테이너 행 `auto& row`, 이터레이터, 구조적 바인딩, `pair`/`tuple`, 람다 등)는 `auto`를 쓸 수 있다. 행이 `string`이면 `string& row`로 명시한다.
+- `[허용]` 정렬 비교자 람다의 인자는 13.6이 `auto&`로 정하며, 기본 타입 원소여도 8.2의 `auto` 금지보다 13.6이 우선한다.
+
+### 8.3 `accumulate` (C++)
+
+- `[필수]` `accumulate`의 초깃값 타입은 결과 타입과 같게 쓴다. 합이 `int`를 넘을 수 있으면 `0LL`을 쓴다 (`accumulate(v.begin(), v.end(), 0)`은 `int`로 누적한다).
+- `[허용]` `accumulate`를 쓰는 것도, 직접 루프로 합을 구하는 것도 지적하지 않는다.
+
+### 8.4 참조로 받기 (C++)
+
+- `[권장]` 값을 바꾸지 않고 읽기만 하는 순회 변수·함수 인자는 복사 비용이 작으면 값으로, 크면 `&`로 받는다. 기본 타입(8.2의 산술 타입)과 기본 타입으로만 이루어진 `pair`·`tuple`(맵의 키·값 포함)은 값으로, `string`·컨테이너는 `&`로 받는다. 사용자 정의 `struct`는 실제 크기를 보고 정한다. `const`는 붙이지 않는다 (1.1).
+- `[허용]` 저지가 정해 준 함수 시그니처는 이 규칙의 대상이 아니다. 정렬 비교자 람다는 13.6을 따른다.
+- `[허용]` 값을 바꾸는 것이 목적인 `&`(`for (int& x : v) cin >> x;` 등)는 이 규칙과 무관하다 (14장).
+
+### 8.5 무한대·나머지·실수·포매팅
+
+- `[필수]` 더해지는 값이 있을 수 있는 무한대 상수 `INF`는 `int`는 `1'000'000'000`(10억), `long long`·`long`은 `1'000'000'000'000'000'000`(10^18)로 쓴다 (2장 구분자 규칙 적용). `INF + INF`가 넘치지 않는 값이다.
+- `[허용]` 더하거나 빼지 않는 최솟값·최댓값 초기화에는 `INT_MAX`·`Integer.MAX_VALUE`·`LLONG_MAX`·`Long.MAX_VALUE` 등을 쓸 수 있고, 그 값을 `INF` 같은 상수 이름에 담아도 된다. 문제 값 범위를 확실히 넘는 안전한 값(예: 값 상한 + 1)을 `INF`·`MAX`·`MIN` 같은 상수로 두는 것도 허용한다. 더하거나 빼는 경우가 있으면 위 `[필수]` 값을 쓴다.
+- `[허용]` Python은 오버플로가 없어 위 `INF` 값 규칙의 대상이 아니다. `float("inf")`든 큰 정수든 문제에 맞게 쓴다.
+- `[필수]` 음수가 될 수 있는 값의 나머지는 일반형 `((x % m) + m) % m`으로 쓴다. `x % m`을 그대로 쓰거나 `(x + m) % m`처럼 한 번만 더하는 보정은 쓰지 않는다. Python은 `%` 결과가 음수가 되지 않아 해당 없음. 9장의 표준 라이브러리 우선보다 이 규칙이 우선하므로 Java `Math.floorMod`는 쓰지 않는다.
+- `[필수]` `double`·`float` 값을 `==`·`!=`로 비교하지 않고 오차 허용 비교를 쓴다. 오차 상수 이름은 `EPS` (`const double EPS = 1e-9;`, `static final double EPS = 1e-9;`). 값은 문제 정밀도에 맞춘다.
+- `[허용]` C++ 실수 출력은 `cout << fixed << setprecision(n)`.
+
+## 9. 표준 라이브러리 vs 직접 구현
+
+- `[권장]` 표준 라이브러리에 같은 기능이 있으면 그것을 쓴다 (C++ `std::gcd`·`sort`·`lower_bound`, Python `math.gcd`·`bisect`, Java `computeIfAbsent`). 직접 구현한 것은 지적하되 고치지 않아도 된다.
+- `[허용]` 표준에 없을 때(Java `gcd`·`lcm`), 문제가 구현 자체를 요구할 때, 표준 쪽이 제약상 쓸 수 없거나 확실히 느릴 때의 직접 구현은 지적하지 않는다.
+- `[허용]` 잘 알려지지 않은 표준 기능을 쓰지 않는 것은 지적하지 않는다.
+- `[허용]` 문자를 숫자·인덱스로 바꾸는 ASCII 산술(`c - '0'`, `c - 'a'`)을 쓸 수 있다.
+- `[권장]` 대소문자 변환은 내장을 쓴다 (C++ `toupper`·`tolower`, Java `Character.toUpperCase`·`String.toUpperCase`, Python `upper`·`lower`·`swapcase`). `c - 'a' + 'A'`, `c ^ 32` 같은 산술 변환은 내장이 있음을 지적한다.
+- `[권장]` Codeforces 풀이에서는 해킹에 취약한 C++ `unordered_map`/`unordered_set`의 기본 해시를 피한다. 지적은 하되 수정은 선택이다. 구체적인 회피 방법(커스텀 해시 등)은 해당 풀이가 나올 때 정한다. 다른 저지와 Java에는 적용하지 않는다 (Java `HashMap`은 버킷 트리화가 있고, Java로 코포를 풀지 않는다).
+- `[필수]` `lcm`은 나눗셈을 먼저 한다 (`a / gcd(a, b) * b`). `a * b / gcd`는 쓰지 않는다.
+
+## 10. 전역·지역 변수
+
+- `[필수]` C++에서 원소 수 10만 이상의 고정 크기 배열(C 배열, `std::array`. 다차원은 원소 수의 곱으로 센다: `int a[1000][1000]`은 100만)은 지역으로 선언하지 않고 전역에 둔다. 스택 오버플로 방지(정답성). `vector`는 힙이라 해당 없음.
+- `[허용]` BOJ·Codeforces 등 입출력 직접 처리 저지의 C++은 위 `[필수]`(대형 고정 배열)를 제외하면 전역·지역을 자유롭게 쓴다. 작은 배열을 전역에 두는 것도 허용한다 (초기화 편의, 다른 전역과의 상호 접근).
+- `[허용]` Java `static` 필드를 재귀·보조 메서드의 공유 상태로 쓴다.
+- `[허용]` 프로그래머스 C++은 고정 크기 배열을 전역에 둘 수 있고, 호출마다 초기화하지 않아도 된다. 채점기가 테스트케이스마다 새로 실행되는 것으로 본다 (AC 결과 근거, 공식 확인은 아님).
+- `[허용]` 프로그래머스·LeetCode에서 읽기 전용 테이블(`dr`, `dc` 등)을 Java `static` 필드로 두는 것. 바뀌는 상태가 아니라 호출 사이 오염이 없다.
+- `[권장]` 그 밖의 프로그래머스·LeetCode 전역·`static` 상태는 피하고 함수·클래스 안에 둔다. LeetCode `Solution`의 멤버 필드는 허용한다.
+- Python BOJ는 15장 TODO (미정).
+
+## 11. 주석·방어 코드·잔여 코드
+
+- `[허용]` 주석은 쓰지 않는 것이 기본이다. 쓰는 것도 지적하지 않는다.
+- `[권장]` 문제 제약상 불가능한 입력(빈 배열, `n == 0` 등)에 대한 방어 코드는 넣지 않는다.
+- `[필수]` 디버그 출력(`cerr`, `System.err`, `sys.stderr`, 디버그용 `print`)을 제출 코드에 남기지 않는다.
+- `[필수]` 제거해도 동작이 같은 군더더기 중 알려진 패턴을 남기지 않는다: `System.out.println(sb.toString())`(→ `println(sb)`), `== true`·`!= false` 같은 불리언 비교. 새 패턴이 발견되면 이 항목에 추가한다.
+- `[권장]` 그 밖의 군더더기(불필요한 변수·임시 변수·형변환·괄호 등)도 남기지 않는다. 연산 우선순위를 읽기 쉽게 하려고 둔 괄호(`n &= (n - 1)` 등)와, 컴파일이나 정답성에 필요한 형변환(`min`의 인자 타입 통일, `sb.append((char)…)`, `1LL *` 승격)은 군더더기가 아니다.
+- `[필수]` 쓰지 않는 코드를 남기지 않는다: 주석 처리한 옛 코드, 안 쓰는 변수·함수·`import`. 단 3장의 `#include <bits/stdc++.h>`와 13.4의 `_`(미사용 루프 변수)는 제외.
+
+## 12. 표준 변수명
+
+- `[권장]` 아래 의미에는 표의 이름을 쓴다. 충돌 이름은 1.4가 별도로 다룬다.
+- `[권장]` 표에 이름이 있는 의미를 다른 이름으로 쓴 경우(`chk` 대신 `erased`, `flag` 대신 `found_zero` 등)에도 표 이름이 있다는 사실은 지적한다. 그 변수의 구체적 의미를 잘 드러내는 이름이면 수정하지 않아도 된다.
+
+### 12.1 입력·출력
+
+| 의미                 | 이름                | 비고                                                                                            |
+| -------------------- | ------------------- | ----------------------------------------------------------------------------------------------- |
+| 테스트케이스 수·번호 | `t` `tc`            | `tc`는 1부터. 번호가 필요할 때만 쓰는 지역 변수                                                 |
+| 입력 크기            | `n` `m` `k`         | 지문이 이름을 주면 그 이름(소문자)도 허용 (1.3)                                                 |
+| 쿼리 수              | `q`                 | 큐 `q`와 겹치면 `queries`                                                                       |
+| 입력 배열            | `arr`               | C++ `vector`로 받으면 `v` (12.4)                                                                |
+| 문자열               | `s`                 |                                                                                                 |
+| 문자                 | `c`                 |                                                                                                 |
+| 격자                 | `grid`              |                                                                                                 |
+| Java 입출력 객체     | `br` `bw` `st` `sb` | `BufferedReader` `BufferedWriter` `StringTokenizer` `StringBuilder`. Python 출력 리스트는 `out` |
+| C++ 문자열 스트림    | `ss`                | `stringstream`                                                                                  |
+
+### 12.2 결과·값
+
+| 의미                  | 이름                                                                    | 비고                                                                                                                                                                         |
+| --------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 최종 답               | `ans`                                                                   | 문제가 요구하는 값                                                                                                                                                           |
+| 결과·중간 결과        | `res`                                                                   | 보조 함수의 반환값, 최종 답이 되기 전의 중간 결과. `ans`와 한 풀이에 같이 있으면 `ans`가 최종 답이다. 둘 중 하나만 쓸 때는 어느 쪽이든 되고 끝에서 그대로 반환·출력해도 된다 |
+| 최솟값·최댓값·합      | Java `min` `max` `sum` / C++ `mn` `mx` `sum` / Python `mn` `mx` `total` | 1.4 충돌 회피                                                                                                                                                                |
+| 누적곱                | `mul`                                                                   | 합 `sum`과 짝. 모든 언어 공통                                                                                                                                                |
+| 길이                  | `len`                                                                   | Python은 `length`                                                                                                                                                            |
+| 임시 변수             | `tmp`                                                                   |                                                                                                                                                                              |
+| 범위 `for` 원소       | `x`                                                                     | 문자열이면 `s`                                                                                                                                                               |
+| 플래그                | `flag`                                                                  |                                                                                                                                                                              |
+| 상수                  | `MIN` `INF` `MOD`                                                       | 1.1 규칙                                                                                                                                                                     |
+| 입력 최댓값 상수      | `MAX_` + 해당 변수 이름의 대문자 (`MAX_N` `MAX_M` `MAX_V` `MAX_LEN` 등) | 입력 값의 상한은 `MAX_V`. 주로 C++ 배열 크기용. 값은 여유분을 포함해 직접 쓴다 (`const int MAX_N = 100'001;`). 크기 식에는 그대로 쓴다 (`adj[MAX_N]`)                        |
+| 문제의 임의 상한 상수 | `MAX`                                                                   | 입력 크기·값과 무관한 상한                                                                                                                                                   |
+
+### 12.3 인덱스·좌표
+
+| 의미                 | 이름              | 비고                                                                                         |
+| -------------------- | ----------------- | -------------------------------------------------------------------------------------------- |
+| 루프 인덱스          | `i` `j` `k`       | 행·열을 강조할 때 `r` `c`                                                                    |
+| 외부에서 갖는 인덱스 | `idx`             |                                                                                              |
+| 이전·현재·다음       | `prv` `cur` `nxt` |                                                                                              |
+| 좌표                 | `x` `y`           |                                                                                              |
+| 행·열                | `r` `c`           |                                                                                              |
+| 방향 배열            | `dr` `dc`         |                                                                                              |
+| 방향 인덱스          | `d`               | `dr` `dc`의 인덱스 (`for (int d = 0; d < 4; d++)`). `dir`은 Python 내장과 충돌해 쓰지 않는다 |
+| 다음 행·열 좌표      | `nr` `nc`         |                                                                                              |
+| 시작·끝              | `s` `e`           |                                                                                              |
+| 좌·우                | `l` `r`           | Python 포함 모든 언어                                                                        |
+| 느린·빠른 포인터     | `slow` `fast`     | 플로이드 사이클 탐지, 연결 리스트의 중간 찾기 등 한 칸씩·두 칸씩 움직이는 두 포인터          |
+| 이분 탐색            | `lo` `hi` `mid`   | 이분 탐색은 `lo`/`hi`, 그 외 구간·투 포인터는 `l`/`r`                                        |
+
+### 12.4 자료구조·그래프
+
+| 의미                                          | 이름                                 | 비고                                                                                                                                                                                                                |
+| --------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 일반 순차 컨테이너                            | C++ `v` / Java `list` / Python `lst` | 1.4 충돌 회피 (Python `list` 내장)                                                                                                                                                                                  |
+| 집합                                          | Java `set` / C++·Python `st`         | C++·Python `set` 충돌                                                                                                                                                                                               |
+| 다중 집합                                     | C++ `ms`                             | `multiset`                                                                                                                                                                                                          |
+| 맵                                            | Java `map` / C++·Python `mp`         | C++·Python `map` 충돌                                                                                                                                                                                               |
+| 맵 순회의 키·값                               | `k` `v` / Java 엔트리 `e`            | `for (auto [k, v] : mp)` (값이 `string`·컨테이너면 `auto& [k, v]`, 8.4), `for k, v in d.items()`, `for (Map.Entry<Integer, Integer> e : map.entrySet())`. Java `e`는 시작·끝 `e`와 겹치면 12.6 충돌 규칙으로 바꾼다 |
+| 큐                                            | `q`                                  |                                                                                                                                                                                                                     |
+| 덱·우선순위 큐                                | `dq` `pq`                            |                                                                                                                                                                                                                     |
+| 스택                                          | Java·Python `stack` / C++ `st`       | `std::stack` 충돌. C++에서 집합 `st`와 한 스코프에 같이 쓰면 스택을 `stk`로 바꾼다 (12.6 충돌 규칙)                                                                                                                 |
+| 스택 최상단 값                                | `top`                                | `st.top()`·`stack.peek()`으로 받은 값. 배열로 직접 만든 스택의 인덱스는 해당 없음                                                                                                                                   |
+| 간선·정점·가중치                              | `edges` `u` `v` `w`                  |                                                                                                                                                                                                                     |
+| 정점 수·간선 수                               | `n` `m`                              | 지문이 주는 이름(소문자, 1.1)을 따른다. 전용 이름 `v` `e`는 두지 않는다                                                                                                                                             |
+| 인접 리스트·행렬                              | `adj`                                |                                                                                                                                                                                                                     |
+| 유니온 파인드·트리 부모                       | `p`                                  |                                                                                                                                                                                                                     |
+| 거리·비용                                     | `dist`                               |                                                                                                                                                                                                                     |
+| 깊이                                          | `depth`                              |                                                                                                                                                                                                                     |
+| 진입 차수 배열                                | `indegree`                           |                                                                                                                                                                                                                     |
+| 방문 체크 (배열·셋)                           | `vis` `seen`                         | 탐색 대상(노드·칸·상태)의 방문은 `vis`, 값이 이미 나왔는지 확인하는 용도는 `seen`                                                                                                                                   |
+| 방문이 아닌 표시 여부 (삭제됨·막힘·선택됨 등) | `chk`                                | 방문은 `vis`, 값 등장은 `seen`. 둘에 해당하지 않는 일반 표시 배열·셋만 `chk`.                                                                                                                                       |
+| 레벨 BFS의 큐 크기                            | `sz`                                 |                                                                                                                                                                                                                     |
+
+### 12.5 수학·DP
+
+| 의미                                | 이름                                   | 비고          |
+| ----------------------------------- | -------------------------------------- | ------------- |
+| 최대공약수                          | `g`                                    |               |
+| 분자·분모                           | `p` `q`                                |               |
+| 자릿수                              | `d`                                    |               |
+| 에라토스테네스의 체                 | `sieve`                                | 함수명        |
+| 소수 판정 bool 배열                 | C++·Python `is_prime` / Java `isPrime` | 1.2 표기 규칙 |
+| 누적합·차분 배열                    | `psum` `diff`                          |               |
+| DP 테이블 (바텀업)                  | `dp`                                   |               |
+| 메모이제이션 (탑다운 캐시, 배열·맵) | `memo`                                 |               |
+| 카운팅 (배열·맵)                    | `cnt`                                  |               |
+
+### 12.6 표 사용 규칙
+
+- `[권장]` 컨테이너 이름은 컨테이너 종류보다 용도를 따른다. 표에 용도 이름이 있으면 배열·셋·맵 등 종류와 관계없이 그 이름을 쓰고 (`cnt`, `vis`), 용도 이름이 없을 때만 종류 이름(`v`, `list`/`lst`, `st`, `mp`)을 쓴다.
+- `[허용]` 범위 `for` 원소의 이름은 표의 `x`·`s` 대신, 순회하는 컬렉션 이름에서 딴 약어를 쓸 수 있다 (`participant` → `p`, `words` → `w`). 약어는 컬렉션 이름에서 유도되어야 하고, 같은 스코프에 표의 이름이 같은 다른 변수가 있으면 쓰지 않는다. 유도되지 않는 이름은 이 허용에 해당하지 않으므로 표의 `x`·`s`를 따르지 않으면 `[권장]`으로 지적한다.
+- `[허용]` 입력에서 파생한 배열의 이름은 자유다 (`arr`로 바로 받아도 된다).
+- `[허용]` Python에서 문자열을 가변으로 쓰려고 `list(...)`로 만든 문자 리스트는 `s`로 써도 된다 (`s = list(my_string)`). 같은 스코프의 다른 `s`와는 겹치지 않아야 한다.
+- `[허용]` `find` 계열이 돌려준 위치는 `pos`로 써도 된다 (`idx`도 허용). 표준 라이브러리 인자명을 따른 이름이다.
+- `[권장]` 4방향·8방향 탐색 배열은 위쪽부터 시계 방향으로 쓴다 (4방향 `dr = {-1, 0, 1, 0}`, `dc = {0, 1, 0, -1}`. 8방향 `dr = {-1, -1, 0, 1, 1, 1, 0, -1}`, `dc = {0, 1, 1, 1, 0, -1, -1, -1}`). 문제가 방향 순서를 정하면 그 순서를 따른다.
+- `[허용]` 문자열이 토큰의 의미를 가질 때는 `token`, 그 모음은 `tokens`로 써도 된다 (`stringstream`·`StringTokenizer`·`split`으로 나눈 조각 등).
+- `[허용]` 같은 이름이 풀이마다 다른 의미로 쓰이는 것(`p`·`q`·`r` 등)은 지적하지 않는다.
+- `[허용]` 표에 없는 의미의 이름은 규칙으로 정하지 않고 표도 넓히지 않는다. 1.4 충돌은 1.4가 정한다.
+- `[필수]` 한 스코프에서 두 의미가 동시에 필요하면 한쪽을 바꾼다. 바꿀 쪽은 자유, 새 이름은 표·1.4와 겹치지 않는 의미 있는 이름으로 한다.
+
+## 13. 함수·타입·기타
+
+### 13.1 함수 이름
+
+- `[권장]` 알고리즘별 표준 이름을 쓴다. 표기는 Java `camelCase`, C++·Python `snake_case` (1.2).
+
+| 알고리즘                      | Java                                     | C++·Python                                                        |
+| ----------------------------- | ---------------------------------------- | ----------------------------------------------------------------- |
+| 테스트케이스 한 건 처리       | `solve`                                  | `solve`                                                           |
+| 깊이·너비 우선 탐색, 백트래킹 | `dfs` `bfs` (백트래킹도 `dfs`)           | 같음                                                              |
+| 최단 경로                     | `dijkstra` `bellmanFord` `floydWarshall` | `dijkstra` `bellman_ford` `floyd_warshall`                        |
+| 위상 정렬                     | `topologicalSort`                        | `topological_sort`                                                |
+| 최소 신장 트리                | `kruskal` `prim`                         | 같음                                                              |
+| 유니온 파인드                 | `find` `union`                           | C++ `find` `unite` (`union`은 C++ 예약어) / Python `find` `union` |
+| 최대공약수·최소공배수         | `gcd` `lcm`                              | C++·Python은 표준 라이브러리 (9장)                                |
+| 모듈러 거듭제곱               | `modPow`                                 | `mod_pow`                                                         |
+| 이진 거듭제곱 (일반·행렬)     | `binPow`                                 | `bin_pow`                                                         |
+| 소수 (에라토스테네스의 체)    | `sieve`                                  | `sieve`                                                           |
+| 조합·팩토리얼                 | `comb` `fact`                            | 같음                                                              |
+| 세그먼트 트리                 | `build` `update` `query`                 | 같음                                                              |
+| 이분 탐색 함수                | `lowerBound` `upperBound`                | C++ `std::lower_bound` 등 / Python `bisect`                       |
+
+### 13.2 타입
+
+- `[필수]` 타입 별칭과 매크로를 쓰지 않는다 (`using ll = long long`, `typedef`, `#define`). 나중에 쓰게 되면 이 규칙을 고친다.
+- `[필수]` C++ 보조 타입은 `struct`로 쓰고 `class`는 직접 정의하지 않는다. 단 LeetCode가 템플릿으로 주는 `class Solution`은 예외다. Java는 `static class`. 타입 이름은 `PascalCase` (1.1).
+
+### 13.3 크기 식·인덱스
+
+- `[필수]` 배열·`vector`·리스트 크기를 정하는 식(`new int[...]`, `vector<int> v(...)`, 배열 선언 `[...]`, Python `[0] * (...)`)에 여유분이 들어가면 칸이 놓이는 순서대로 쓴다. 앞쪽 칸(1-indexed의 0번 칸, 값 `0`을 담는 `0..n` 테이블의 0번 칸)은 `1 + n`, 끝의 보조 칸(`diff[e + 1]`처럼 `n`번 칸이 보조인 경우)은 `n + 1`, 앞뒤 모두면 `1 + n + 1` (`new int[1 + n]`, `vector<int> diff(n + 1)`, `vector<int> dp(1 + n + 1)`).
+- `[허용]` 음수를 포함하는 구간(`-n ~ n`)을 담는 배열 크기는 0을 가운데 두고 `n + 1 + n`으로 쓴다. 양쪽이 같은 크기이고 가운데의 `+ 1`이 0 자리를 뜻하므로 위 `1`을 앞에 쓰는 규칙의 대상이 아니다.
+- `[허용]` C++ `v.size() - 1`처럼 `size()`(부호 없음)에서 뺄셈하는 식을 쓸 수 있다 (제약상 빈 컨테이너가 없다는 전제. 빈 경우 언더플로는 정답성 문제다).
+- `[권장]` 크기 식이 아닌 곳의 `+ 1`(경계, 다음 값 등)은 일반 순서(`r + 1`)로 쓴다.
+- `[필수]` 끝에서부터 세는 인덱스 식은 기준값을 앞에, 반복 변수를 맨 뒤에 쓴다 (`n - 1 - i`, `n - i`. `n - i - 1`은 쓰지 않는다).
+
+### 13.4 기타 이름·관용
+
+- `[허용]` 불리언 이름은 의미가 분명하면 `is`/`has` 접두사 (Java `isPrime`, C++·Python `is_prime`), 아니면 `flag`.
+- `[허용]` 같은 의미가 둘 이상 필요하면 첫 번째는 접미사 없이, 두 번째부터 `2`, `3`을 붙인다 (`dp`, `dp2`). 별도 이름(`ndp` 등)을 짓는 것도 허용한다.
+- `[허용]` 쓰지 않는 루프 변수는 Python과 C++에서 `_`를 쓸 수 있다 (C++은 지역 변수에 한함). Java는 `_`를 쓰지 않는다 (JDK 21 기본 설정에서 컴파일 오류).
+- `[필수]` C++ `string::find` 계열(`find`·`rfind` 등)의 "없음" 판정에 `string::npos`를 쓰지 않고 `-1`로 비교한다 (`s.find(x) == -1`).
+
+### 13.5 인접 리스트
+
+- `[필수]` 인접 리스트는 리스트의 배열로 만든다.
+  - Java: 제네릭 배열. 왼쪽 타입은 인터페이스 `List`로 쓰고 `@SuppressWarnings`는 붙이지 않는다 (`List<Integer>[] adj = new ArrayList[1 + n];`). unchecked 경고는 지적하지 않는다.
+  - C++: 벡터 배열 (`vector<int> adj[MAX_N];`). 크기가 10만 이상이면 10장에 따라 전역에 둔다.
+  - `List<List<Integer>>`, `vector<vector<int>> adj`로 인접 리스트를 만들지 않는다. (격자 등 다른 용도의 2차원 컨테이너는 해당 없음.)
+  - Python은 해당 없음 (리스트의 리스트가 유일한 형태).
+
+### 13.6 정렬
+
+- `[허용]` C++ 오름차순은 `sort(v.begin(), v.end())`. 안정 정렬이 필요하면 `stable_sort`.
+- `[필수]` C++ 내림차순 정렬은 `sort(v.rbegin(), v.rend())` 또는 정렬 후 `reverse`로 한다. 정렬에 `greater`를 쓰지 않는다.
+- `[허용]` C++ 최소 힙은 `priority_queue<int, vector<int>, greater<int>> pq;`로 만든다 (정렬 한정 `greater` 금지의 대상이 아니다).
+- `[허용]` Java 기본형 배열은 `Arrays.sort(arr)`, 리스트는 `list.sort(...)`. 보조 클래스는 `Comparable`을 구현해도 된다 (`compareTo`에서도 뺄셈 비교 금지).
+- `[필수]` Java 비교자에서 뺄셈 비교(`(a, b) -> a - b`, `a[0] - b[0]`)를 쓰지 않는다 (오버플로 시 오답). `Integer.compare`·`Long.compare`·`Double.compare` 또는 `Comparator.comparingInt` 계열을 쓴다.
+- `[허용]` Python `lst.sort()`(제자리)와 `sorted(lst)`(새 리스트) 모두.
+- `[필수]` Java 최대 힙·역순 비교자는 `Comparator.reverseOrder()`로 쓴다 (`new PriorityQueue<>(Comparator.reverseOrder())`). `Comparator`로 대체할 수 있는 곳에 `Collections.reverseOrder()`를 쓰지 않는다.
+- `[필수]` C++ 정렬 비교자 람다의 인자는 `auto&`로 받는다 (`[](auto& a, auto& b) { ... }`). `const`는 붙이지 않는다 (1.1).
+- `[권장]` 비교 함수·람다를 변수에 담아야 하면 이름은 `cmp`로 한다 (이름 붙일 일이 드물다). 비교자 람다의 인자는 C++ `a`, `b` / Java `o1`, `o2`.
+
+## 14. 짧은 관용구
+
+- `[필수]` C++에서 컨테이너의 원소 전체를 입력받을 때는 `for (int& x : v) cin >> x;`로 쓴다 (참조 범위 `for`, 중괄호 없는 한 줄). 컨테이너가 정확한 크기로 만들어져 있고 인덱스가 필요 없을 때 적용한다. 1-indexed `v(n + 1)`처럼 `cin >> v[i]` 형태가 꼭 필요한 경우에만 인덱스 `for`를 쓰고, 그 외에는 `&` 범위 `for`를 쓴다. 원소 변수 이름은 `x`, 문자열 컨테이너만 `s` (`for (string& s : v) cin >> s;`).
+- `[허용]` C++ 출력 `for (int x : v) cout << x << ' ';`.
+- `[허용]` C++ 2차원 컨테이너 순회 `for (auto& row : grid)`. 행이 `string`이면 `string& row` (8.2).
+- `[권장]` 인덱스가 필요 없는 문자열 문자 순회는 향상된 `for`를 쓴다 (C++ `for (char c : s)`, Java `for (char c : s.toCharArray())`, Python `for c in s`). 원소 변수는 `c` (12장). 인덱스가 필요하면 인덱스 `for`를 쓴다.
+- `[허용]` 테스트케이스 루프는 `while (t--)` (Java `while (t-- > 0)`, Python `for _ in range(t)`)로 쓸 수 있다.
+- `[권장]` 테스트케이스 번호가 필요하면 `tc`를 for 문의 지역 변수로 둔다 (C++·Java `for (int tc = 1; tc <= t; tc++)`, Python `for tc in range(1, t + 1)`). 외부에 번호 변수를 따로 두지 않는다.
+- `[권장]` Java `StringBuilder`에 연속으로 `append`할 때는 체이닝한다 (`sb.append(a).append(" ").append(b).append("\n")`).
+
+## 15. 미정 · TODO
+
+- 알고리즘 형태(BFS/DFS, union-find, 차분 배열, 이분탐색 등): 이 문서의 규칙으로 정리된 코드에서 사용자가 로직을 맞춘 뒤 추출해 새로 쓴다.
+- Python BOJ 구조(모듈 레벨 vs `main()` 감싸기): 사용자가 아직 풀어 본 적이 없어 미정.
+- Python `sys.stdin.read().split()`로 입력을 한 번에 읽는 방식의 허용 여부: 사용자가 아직 모르는 방식이라 보류.
+- Python 5장 표에 없는 모듈(`re` `random` `copy` `operator` `decimal` `fractions`): 써 본 적이 없어 처음 쓸 때 정한다.
+- Python 출력: 숫자 리스트를 `"\n".join(map(str, out))`처럼 변환할지, 처음부터 문자열로 모을지.
+- Python 저지별 버전 기준: 미정.
+- Java 깊은 재귀(스레드 스택 크기 확장) 처리 방식: 규칙 없음, 처음 필요할 때 정한다.
+- 파라메트릭 서치 판정 함수 이름, 비트마스크 이름은 미정.
+- 기존 풀이에 새 규칙을 적용할지 여부: 2025-12 이후 기존 풀이는 미정 (새 풀이에만 적용 / 일괄 수정 대상). 이 구간 위반이 대량(천 단위 구분자, 중괄호 등)이라 정책이 필요하다.
+- SWEA·Softeer의 `Scanner`: 4.1 예외(지문이 요구하는 경우)가 SWEA 제공 템플릿에도 해당하는지 미정.
+- 7.3 "단문 `if`는 한 줄"이 포매터에서 유지되는지: C++은 `.clang-format`의 `AllowShortIfStatementsOnASingleLine: WithoutElse`로 유지됨(확인). Java(IntelliJ)는 미확인.
