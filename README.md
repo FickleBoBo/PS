@@ -74,14 +74,14 @@ _One day One Problem_
 
 이 레포의 반복 작업은 Claude Code 스킬로 자동화해 뒀다. (`.claude/skills/`)
 
-| 스킬             | 역할                                                                                                     |
-| ---------------- | -------------------------------------------------------------------------------------------------------- |
-| `ps-new-month`   | 새 달이 시작되면 `{year}-{month}/` 모듈 폴더와 `.iml`을 만들고 IDE 모듈에 등록, 세팅 커밋까지            |
-| `ps-new-problem` | 열려 있는 Chrome 탭의 문제 URL(Programmers·LeetCode·Codeforces)로 `day_XX/` 폴더와 언어별 시작 코드 생성 |
-| `ps-audit`       | 날짜별(`day_XX`) 풀이를 `CONVENTIONS.md` 기준으로 점검 — 정답성·복잡도·네이밍·관용구, 🔴🟡🟢 등급        |
+| 스킬             | 역할                                                                                                        |
+| ---------------- | ----------------------------------------------------------------------------------------------------------- |
+| `ps-new-month`   | 새 달이 시작되면 `{year}-{month}/` 모듈 폴더와 `.iml`을 만들고 IDE 모듈에 등록, 세팅 커밋까지               |
+| `ps-new-problem` | 열려 있는 Chrome 탭의 문제 URL(Programmers·LeetCode·Codeforces)로 `day_XX/` 폴더와 언어별 시작 코드 생성    |
+| `ps-audit`       | 풀이를 `CONVENTIONS.md` 기준으로 감사 — 정답성·해법 품질·컨벤션(`[필수]`/`[권장]`), 기계 검사 스크립트 포함 |
 
 ## 📖 Conventions
 
-풀이 스타일(네이밍, 언어별 관용구, 채점기 baseline)은 [`CONVENTIONS.md`](CONVENTIONS.md)에 정리한다.
+풀이 스타일(네이밍, 언어별 템플릿·입출력, 제어 흐름, 타입 등)은 [`CONVENTIONS.md`](CONVENTIONS.md)에 정리한다.
 
 ---
