@@ -4,7 +4,7 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] arr, int k) {
-        boolean[] seen = new boolean[1 + 100_000];
+        boolean[] seen = new boolean[1 + 100000];
         int[] ans = new int[k];
         Arrays.fill(ans, -1);
 
