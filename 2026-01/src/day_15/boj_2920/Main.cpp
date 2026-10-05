@@ -8,17 +8,17 @@ int main() {
     vector<int> v(8);
     for (int& x : v) cin >> x;
 
-    bool isAsc = true;
-    bool isDesc = true;
+    bool is_asc = true;
+    bool is_desc = true;
 
     for (int i = 1; i < 8; i++) {
-        if (v[i] < v[i - 1]) isAsc = false;
-        if (v[i] > v[i - 1]) isDesc = false;
+        if (v[i] < v[i - 1]) is_asc = false;
+        if (v[i] > v[i - 1]) is_desc = false;
     }
 
-    if (isAsc) {
+    if (is_asc) {
         cout << "ascending";
-    } else if (isDesc) {
+    } else if (is_desc) {
         cout << "descending";
     } else {
         cout << "mixed";
