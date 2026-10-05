@@ -18,7 +18,7 @@ description: PS 알고리즘 문제풀이 레포에서 프로그래머스·LeetC
   - 문제 URL 그대로 (`https://leetcode.com/problems/two-sum/`)
   - 프로그래머스 = 숫자 (`42578`), LeetCode = slug (`two-sum`), Codeforces = `2148A` (대소문자 아무거나)
   - 모호하면 접두사: `prms:42578` `leet:two-sum` `cofo:2148A`
-- 이번 달(`{year}-{month}`) 모듈이 없으면 에러 종료 — `ps-new-month` 먼저 실행하라고 안내.
+- 이번 달(`{year}-{month}`) 모듈(`.iml`)이 없으면 에러 종료 — `ps-new-month` 먼저 실행하라고 안내. `.iml` 은 있는데 `src/` 가 없으면(clone 직후) `src/` 를 만든다.
 - day_XX 번호 = **스킬 실행 시각의 '일'**(`date.today().day`, zero-pad). 같은 날 재실행하면 같은 `day_XX`에 누적되고, 안 푼 날은 폴더가 안 생겨 자연히 건너뛴다. 달이 바뀌면 모듈이 갈리므로 리셋. Claude가 계산할 필요 없음.
 - 이미 존재하는 `{judge}_{id}/` 폴더는 건너뛴다(skipped 보고) — **오늘 day_XX 안에서만** 검사. 예전 day에 같은 문제가 있어도 오늘 다시 지정하면 새로 만든다(다른 날 재도전 워크플로 허용).
 - **git add/commit은 하지 않는다** — 스캐폴딩만. 풀이 커밋은 블로그 레포 담당(`PS/CLAUDE.md` 작업 범위 참조).
@@ -35,8 +35,8 @@ description: PS 알고리즘 문제풀이 레포에서 프로그래머스·LeetC
 
 - **프로그래머스**: Java엔 `package day_XX.prms_{id};`, cpp는 `#include`/`using` 줄을 `bits/stdc++.h` 고정 헤더로 교체. 표준입출력(`main`) 스타일 문제면 cpp `main()` 동기화 해제 + py `input = sys.stdin.readline`을 덧붙인다.
 - **프로그래머스 SQL**: 문제 페이지 언어 목록에 `mysql` 이 있으면 SQL 문제로 보고 `Solution.sql` 하나만 만든다(Java/C++/Python 안 만듦). 내용은 페이지가 주는 기본 템플릿 그대로 — 구형은 `-- 코드를 입력하세요\nSELECT`, 신형은 `-- 코드를 작성해주세요` 만. 판별은 `?language=mysql` 요청 1회로 하고, 일반 문제면 기존 3언어 흐름으로 넘어간다. SQL 은 감사·`CONVENTIONS.md` 대상이 아니다(그때그때 점검). 언어 목록을 안 가르면 java/cpp/python3 어느 쪽으로 받아도 SQL 템플릿이 내려와 `prms_lang_ok` 가 python 을 오통과시켜 `Solution.py` 에 SQL 이 들어간다.
-- **LeetCode**: 항상 `class Solution` 시그니처 스타일. Java는 `package` + (시그니처가 `java.util` 타입을 참조하면) `import java.util.*;`, cpp는 `bits/stdc++.h` 헤더 프리펜드, py는 스니펫을 그대로(typing import 안 붙임 — 구형 `List[..]` 표기는 저장 시 에디터 포매팅이 정리).
-- **Codeforces**: `Main.cpp` 하나만 — `#include <bits/stdc++.h>` + 빈 `void solve()` + `int main()`(`ios::sync_with_stdio(0); cin.tie(0);` 후 `int t; cin >> t; while (t--) solve();`). 멀티테스트가 기본형이라 `CONVENTIONS.md` §6.1 과 같고, 단일 테스트 문제면 `t` 루프만 지운다. (Java/Python 은 안 만든다 — 사용자 방침)
+- **LeetCode**: 저지가 주는 클래스 그대로(대개 `class Solution`, design 문제는 `MyCircularQueue` 등 문제별 클래스). Java는 `package` + (시그니처가 `java.util` 타입을 참조하면) `import java.util.*;`, cpp는 `bits/stdc++.h` 헤더 프리펜드, py는 스니펫을 그대로(LeetCode 가 이미 `list[int]`·`TreeNode | None` 표기를 줘서 typing import 불필요).
+- **Codeforces**: `Main.cpp` 하나만 — `#include <bits/stdc++.h>` + 빈 `void solve()` + `int main()`(`ios::sync_with_stdio(0); cin.tie(0);` 후 `int t; cin >> t; while (t--) solve();`). 멀티테스트가 기본형이라 `CONVENTIONS.md` 3장·13.1 과 같고, 단일 테스트 문제면 `t` 루프만 지운다. (Java/Python 은 안 만든다 — 사용자 방침)
 - 원본이 CRLF여도 전부 LF로 정규화. 로그인 없이 받는 **기본** 스켈레톤이라 과거에 풀어놨어도 항상 깨끗하게 생성된다.
 
 ## 실패 시

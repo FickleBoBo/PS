@@ -24,14 +24,13 @@ import pathlib
 import re
 import subprocess
 import sys
-import urllib.error
 import urllib.request
 
 LANGS = ("java", "cpp", "python3")
 
 # --- 저지 URL 패턴 ----------------------------------------------------------
 PRMS_URL_RE = re.compile(r"school\.programmers\.co\.kr/learn/courses/30/lessons/(\d+)")
-LEET_URL_RE = re.compile(r"leetcode\.com/problems/([a-z0-9][a-z0-9-]*)")
+LEET_URL_RE = re.compile(r"leetcode\.com/problems/([a-z0-9][a-z0-9-]*)", re.IGNORECASE)
 COFO_CONTEST_RE = re.compile(r"codeforces\.com/(?:contest|gym)/(\d+)/problem/([A-Za-z]\d*)")
 COFO_PSET_RE = re.compile(r"codeforces\.com/problemset/problem/(\d+)/([A-Za-z]\d*)")
 
@@ -54,7 +53,7 @@ def http_get(url: str, *, data: bytes | None = None, headers: dict | None = None
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return resp.read().decode("utf-8", errors="replace")
-    except (urllib.error.URLError, TimeoutError):
+    except OSError:  # URLError·HTTPError·TimeoutError·ConnectionResetError 모두 OSError 계열
         return None
 
 
@@ -75,7 +74,7 @@ def specs_from_text(text: str) -> list[tuple]:
     """텍스트(탭 목록이든 인자 URL 이든)에서 (judge, key) 스펙을 뽑는다."""
     specs: list[tuple] = []
     specs += [("prms", pid) for pid in PRMS_URL_RE.findall(text)]
-    specs += [("leet", slug) for slug in LEET_URL_RE.findall(text)]
+    specs += [("leet", slug.lower()) for slug in LEET_URL_RE.findall(text)]
     for cid, idx in COFO_CONTEST_RE.findall(text) + COFO_PSET_RE.findall(text):
         specs.append(("cofo", (cid, idx.lower())))
     return specs
@@ -94,14 +93,14 @@ def parse_arg(a: str) -> list[tuple]:
             if not m:
                 sys.exit(f"error: cofo 형식 오류 (예: cofo:2148a): {a}")
             return [("cofo", (m.group(1), m.group(2).lower()))]
-        return [(judge, rest)]
+        return [(judge, rest.lower() if judge == "leet" else rest)]
     if a.isdigit():
         return [("prms", a)]
     m = re.fullmatch(r"(\d+)([A-Za-z]\d*)", a)
     if m:
         return [("cofo", (m.group(1), m.group(2).lower()))]
-    if re.fullmatch(r"[a-z0-9][a-z0-9-]*", a):
-        return [("leet", a)]
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9-]*", a):
+        return [("leet", a.lower())]
     sys.exit(f"error: 해석 불가한 인자: {a}")
 
 
@@ -246,14 +245,13 @@ def build_leet_cpp(code: str) -> str:
 
 
 def build_leet_python(code: str) -> str:
-    # 스니펫을 그대로 쓴다 — typing import 를 넣지 않는다.
-    # (List[int] 등 구형 표기는 저장 시 에디터 포매팅이 list[int] 로 바꿔줌)
+    # 스니펫을 그대로 쓴다. LeetCode 가 이미 list[int]·TreeNode | None 표기로 줘서 typing import 가 필요 없다.
     return code.rstrip("\n") + "\n"
 
 
 # --- Codeforces --------------------------------------------------------------
 # Codeforces 는 C++ 만 만든다(사용자 방침). 시작 코드 개념이 없어 고정 보일러플레이트.
-# CONVENTIONS.md §6.1 멀티테스트 형태 — 로직은 solve(), main 은 t 루프. 단일 테스트 문제면 t 루프만 지운다.
+# CONVENTIONS.md 3장·13.1 멀티테스트 형태 — 로직은 solve(), main 은 t 루프. 단일 테스트 문제면 t 루프만 지운다.
 # 문제 이름을 가볍게 조회할 공개 엔드포인트가 없다(standings 는 8MB, 문제 페이지는 403).
 # 이름은 cosmetic 이라 조회하지 않고 폴더명(cofo_{c}{x})만 쓴다.
 COFO_CPP_TMPL = """#include <bits/stdc++.h>
@@ -353,9 +351,11 @@ def main() -> None:
     root = repo_root()
     today = datetime.date.today()
     year_month = today.strftime("%Y-%m")
-    src_dir = root / year_month / "src"
-    if not src_dir.is_dir():
+    module_dir = root / year_month
+    src_dir = module_dir / "src"
+    if not (module_dir / f"{year_month}.iml").is_file():
         sys.exit(f"error: {year_month} 모듈이 없음 — ps-new-month 먼저 실행 필요")
+    src_dir.mkdir(exist_ok=True)  # 빈 src/ 는 git 이 추적하지 않아 clone 직후엔 없다
 
     # day 번호 = 실행 시각의 '일'. 같은 날 재실행하면 같은 폴더에 누적되고, 안 푼 날은 자연히 건너뛴다.
     day_name = f"day_{today.day:02d}"
@@ -376,7 +376,7 @@ def main() -> None:
             pkg_dir = day_dir / label
             pkg_dir.mkdir(parents=True)
             for fname, content in files.items():
-                (pkg_dir / fname).write_text(content)
+                (pkg_dir / fname).write_text(content, encoding="utf-8")
             created.append((label, extra))
 
     print(f"day: {day_name}")
