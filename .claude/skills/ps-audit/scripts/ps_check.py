@@ -254,18 +254,36 @@ def r_debug(ctx):
     return grep(ctx, pat, "제출 코드에 디버그/오류 스트림 출력이 남음")
 
 
-@rule("num-sep", "필수", ALL, "5자리 이상 정수 리터럴 구분자 (2장)")
+@rule("num-sep", "필수", ALL, "7자리 이상 정수 리터럴 구분자 (2장)")
 def r_numsep(ctx):
     res = []
     if ctx.lang == "py":
         for t in ctx.tokens:
-            if t.type == tokenize.NUMBER and re.fullmatch(r"\d{5,}", t.string):
+            if t.type == tokenize.NUMBER and re.fullmatch(r"\d{7,}", t.string):
                 res.append((t.start[0], f"구분자 없는 정수 리터럴 {t.string}"))
         return res
-    rx = re.compile(r"(?<![\w.'])(\d{5,})[uUlL]{0,3}(?![\w.'])")
+    rx = re.compile(r"(?<![\w.'])(\d{7,})[uUlL]{0,3}(?![\w.'])")
     for ln, l in enumerate(ctx.lines, 1):
         for m in rx.finditer(l):
             res.append((ln, f"구분자 없는 정수 리터럴 {m.group(1)}"))
+    return res
+
+
+@rule("num-sep-short", "필수", ALL, "6자리 이하 정수 리터럴에 구분자 금지 (2장)")
+def r_numsep_short(ctx):
+    res = []
+    if ctx.lang == "py":
+        for t in ctx.tokens:
+            if t.type == tokenize.NUMBER and re.fullmatch(r"\d{1,3}(?:_\d{3})+", t.string):
+                if len(t.string.replace("_", "")) <= 6:
+                    res.append((t.start[0], f"6자리 이하 정수 리터럴에 구분자 {t.string}"))
+        return res
+    sep = "_" if ctx.lang == "java" else "'"
+    rx = re.compile(r"(?<![\w.'])(\d{1,3}(?:" + sep + r"\d{3})+)[uUlL]{0,3}(?![\w.'])")
+    for ln, l in enumerate(ctx.lines, 1):
+        for m in rx.finditer(l):
+            if len(m.group(1).replace(sep, "")) <= 6:
+                res.append((ln, f"6자리 이하 정수 리터럴에 구분자 {m.group(1)}"))
     return res
 
 
