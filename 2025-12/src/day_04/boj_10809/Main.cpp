@@ -10,11 +10,6 @@ int main() {
 
     for (int i = 0; i < 26; i++) {
         int pos = s.find((char)(i + 'a'));
-
-        if (pos == -1) {
-            cout << -1 << ' ';
-        } else {
-            cout << pos << ' ';
-        }
+        cout << pos << ' ';
     }
 }
