@@ -11,7 +11,6 @@ public class Main {
 
         int d1 = Integer.parseInt(br.readLine());
         int d2 = Integer.parseInt(br.readLine());
-
         System.out.println(d1 * 2 + 2 * d2 * PI);
     }
 }
