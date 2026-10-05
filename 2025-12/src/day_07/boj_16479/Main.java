@@ -14,6 +14,6 @@ public class Main {
         int d1 = Integer.parseInt(st.nextToken());
         int d2 = Integer.parseInt(st.nextToken());
 
-        System.out.println(k * k - Math.pow((d1 - d2), 2) / 4);
+        System.out.println(k * k - Math.pow(d1 - d2, 2) / 4);
     }
 }
