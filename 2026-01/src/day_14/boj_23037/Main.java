@@ -10,8 +10,8 @@ public class Main {
         int sum = 0;
 
         for (char c : s.toCharArray()) {
-            int x = c - '0';
-            sum += x * x * x * x * x;
+            int d = c - '0';
+            sum += d * d * d * d * d;
         }
 
         System.out.println(sum);

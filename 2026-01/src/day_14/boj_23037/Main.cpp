@@ -10,8 +10,8 @@ int main() {
 
     int sum = 0;
     for (char c : s) {
-        int x = c - '0';
-        sum += x * x * x * x * x;
+        int d = c - '0';
+        sum += d * d * d * d * d;
     }
 
     cout << sum;
