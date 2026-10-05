@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 10000000;
-bool vis[MAX + 1 + MAX];
+const int MAX = 10'000'000;
+bool seen[MAX + 1 + MAX];
 
 int main() {
     ios::sync_with_stdio(0);
@@ -14,7 +14,7 @@ int main() {
     while (n--) {
         int x;
         cin >> x;
-        vis[x + MAX] = true;
+        seen[x + MAX] = true;
     }
 
     int m;
@@ -23,6 +23,6 @@ int main() {
     while (m--) {
         int x;
         cin >> x;
-        cout << vis[x + MAX] << ' ';
+        cout << seen[x + MAX] << ' ';
     }
 }

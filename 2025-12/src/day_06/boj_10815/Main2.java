@@ -6,7 +6,7 @@ import java.util.*;
 public class Main2 {
 
     static final int MAX = 10_000_000;
-    static boolean[] vis = new boolean[MAX + 1 + MAX];
+    static boolean[] seen = new boolean[MAX + 1 + MAX];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,7 +18,7 @@ public class Main2 {
         st = new StringTokenizer(br.readLine());
         while (n-- > 0) {
             int x = Integer.parseInt(st.nextToken());
-            vis[x + MAX] = true;
+            seen[x + MAX] = true;
         }
 
         int m = Integer.parseInt(br.readLine());
@@ -26,7 +26,7 @@ public class Main2 {
         while (m-- > 0) {
             int x = Integer.parseInt(st.nextToken());
 
-            if (vis[x + MAX]) {
+            if (seen[x + MAX]) {
                 sb.append("1 ");
             } else {
                 sb.append("0 ");
