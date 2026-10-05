@@ -29,36 +29,32 @@ public class Main {
     }
 
     static int lowerBound(int[] arr, int key) {
-        int left = 0;
-        int right = arr.length;
+        int lo = 0, hi = arr.length;
 
-        while (left < right) {
-            int mid = (left + right) / 2;
-
+        while (lo < hi) {
+            int mid = (lo + hi) / 2;
             if (arr[mid] < key) {
-                left = mid + 1;
+                lo = mid + 1;
             } else {
-                right = mid;
+                hi = mid;
             }
         }
 
-        return right;
+        return hi;
     }
 
     static int upperBound(int[] arr, int key) {
-        int left = 0;
-        int right = arr.length;
+        int lo = 0, hi = arr.length;
 
-        while (left < right) {
-            int mid = (left + right) / 2;
-
+        while (lo < hi) {
+            int mid = (lo + hi) / 2;
             if (arr[mid] <= key) {
-                left = mid + 1;
+                lo = mid + 1;
             } else {
-                right = mid;
+                hi = mid;
             }
         }
 
-        return right;
+        return hi;
     }
 }

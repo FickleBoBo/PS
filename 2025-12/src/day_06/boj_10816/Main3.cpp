@@ -22,11 +22,6 @@ int main() {
     while (m--) {
         int x;
         cin >> x;
-
-        if (mp.count(x)) {
-            cout << mp[x] << ' ';
-        } else {
-            cout << "0 ";
-        }
+        cout << mp[x] << ' ';
     }
 }
