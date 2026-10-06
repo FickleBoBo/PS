@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 2000000;
+const int MAX = 2'000'000;
 int q[MAX];
 int s = 0, e = 0;
 

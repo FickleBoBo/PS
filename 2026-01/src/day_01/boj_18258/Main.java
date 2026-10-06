@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static final int MAX = 2000000;
+    static final int MAX = 2_000_000;
     static int[] queue = new int[MAX];
     static int front = 0, rear = 0;
 
