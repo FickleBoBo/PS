@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static final int MAX = 1000000;
+    static final int MAX = 1_000_000;
     static int[] stack = new int[MAX];
     static int pos = 0;
 

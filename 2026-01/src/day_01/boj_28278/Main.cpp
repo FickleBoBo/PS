@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 1000000;
+const int MAX = 1'000'000;
 int st[MAX];
 int pos = 0;
 
