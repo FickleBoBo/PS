@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static final int MAX = 2000000;
+    static final int MAX = 2_000_000;
     static int[] deque = new int[MAX];
     static int front = MAX / 2, rear = MAX / 2;
 

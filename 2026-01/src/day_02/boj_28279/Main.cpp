@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 2000000;
+const int MAX = 2'000'000;
 int dq[MAX];
 int s = MAX / 2, e = MAX / 2;
 
