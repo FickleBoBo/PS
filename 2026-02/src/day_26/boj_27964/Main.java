@@ -14,9 +14,7 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         while (n-- > 0) {
             String s = st.nextToken();
-            if (s.endsWith("Cheese")) {
-                set.add(s);
-            }
+            if (s.endsWith("Cheese")) set.add(s);
         }
 
         if (set.size() >= 4) {
