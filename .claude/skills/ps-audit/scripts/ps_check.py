@@ -33,7 +33,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 STDIN_JUDGES = ("boj_", "cofo_", "swea_", "softeer_")
 SKIP_PREFIXES = ("live_",)  # 대회 박제 폴더는 감사 대상 아님 (CONVENTIONS 0.2)
-FIRST_AUDIT_MONTH = "2025-12"  # 이전 월 폴더는 디렉터리를 훑을 때만 건너뜀. 경로로 직접 지정하면 감사 (CONVENTIONS 0.2)
+FIRST_AUDIT_MONTH = "2025-12"  # 이전 월 폴더는 디렉터리를 훑을 때만 건너뜀. 경로로 직접 지정하면 감사 (SKILL A1)
 EXT_LANG = {".java": "java", ".cpp": "cpp", ".py": "py"}
 SKIP_DIRS = {".git", "__pycache__", ".idea", ".venv", "node_modules"}
 ALL = ("java", "cpp", "py")
@@ -68,7 +68,7 @@ GAPS = {
     "9": "표준 라이브러리 우선(직접 구현), ASCII 산술 변환, Codeforces 해시",
     "10": "프로그래머스·LeetCode의 전역·static 상태 (읽기 전용 테이블 여부 판단)",
     "11": "방어 코드, 알려진 패턴 밖의 군더더기(괄호·변수·형변환)",
-    "12": "이름 표 대부분(rename-hint 는 일부), `MAX_N` 형식, 한 스코프의 이름 충돌",
+    "12": "이름 표 대부분(rename-hint 는 일부), `MAX_N` 형식(const-mix 가 용도 혼용만), 한 스코프의 이름 충돌",
     "13.1": "알고리즘별 함수명",
     "13.3": "크기 식 앞/뒤 여유분 판정, 리터럴이 여유분을 합친 값인지(size-pad 는 후보), `while` 안 역순 인덱스, 크기 식이 아닌 `+ 1` 순서",
     "13.6": "비교자 람다 변수의 이름 `cmp`",
@@ -467,6 +467,57 @@ def size_exprs(lang, l):
     return out
 
 
+CONST_ANY = {
+    "cpp": r"\bconst\s+(?:int|long long)\s+([A-Z][A-Z0-9_]*)\s*=\s*([^;]+);",
+    "java": r"\bstatic\s+final\s+(?:int|long)\s+([A-Z][A-Z0-9_]*)\s*=\s*([^;]+);",
+    "py": r"^([A-Z][A-Z0-9_]*)\s*=\s*(.+?)\s*$",
+}
+
+
+def mask_sizes(lang, l, name):
+    """크기 식 자리에 있는 name 을 지운 줄 (남은 name 이 로직에서 쓰인 것)"""
+    for e in size_exprs(lang, l):
+        l = l.replace("[" + e + "]", "[]").replace("(" + e, "(")
+    if lang == "py":
+        l = re.sub(r"\]\s*\*\s*" + name + r"\b", "]", l)
+    return l
+
+
+@rule(
+    "const-mix",
+    "필수",
+    ALL,
+    "MAX·MAX_X 용도 혼용: 로직이 쓰는 MAX 의 선언 여유분, MAX_X 의 대응 변수 부재·로직 사용 (12.6, 용도 판정은 사람이 → 후보)",
+)
+def r_constmix(ctx):
+    res, decls = [], {}
+    for ln, l in enumerate(ctx.lines, 1):
+        m = re.search(CONST_ANY[ctx.lang], l)
+        if m:
+            decls[m.group(1)] = (ln, m.group(2).strip())
+    for name, (dl, expr) in decls.items():
+        if name == "MAX" and "+" in expr:
+            for ln, l in enumerate(ctx.lines, 1):
+                if ln != dl and re.search(r"\bMAX\b", mask_sizes(ctx.lang, l, name)):
+                    res.append(
+                        (
+                            dl,
+                            f"MAX 는 로직({ln}줄)에서도 쓰이므로 선언에 여유분 없이 지문 값 그대로, 여유분은 쓰는 자리에서 1 + MAX",
+                            True,
+                        )
+                    )
+                    break
+        if name.startswith("MAX_"):
+            var = name[4:].lower()
+            if not re.search(r"(?<![\w])" + re.escape(var) + r"(?![\w])", ctx.code):
+                res.append((dl, f"{name}: 상한을 가진 변수 {var} 가 이 파일에 없음", True))
+            for ln, l in enumerate(ctx.lines, 1):
+                if ln != dl and re.search(r"\b" + name + r"\b", mask_sizes(ctx.lang, l, name)):
+                    res.append((ln, f"{name} 는 크기용: 순회·비교에는 변수 {var} 를 쓴다", True))
+                    break
+    return res
+
+
 @rule("lcm-order", "필수", ALL, "lcm은 나눗셈 먼저 (9장)")
 def r_lcm(ctx):
     return grep(
@@ -547,7 +598,7 @@ def r_revindex(ctx):
     return res
 
 
-DIR_STD = {4: ([-1, 0, 1, 0], [0, 1, 0, -1]), 8: ([-1, -1, 0, 1, 1, 1, 0, -1], [0, 1, 1, 1, 0, -1, -1, -1])}
+DIR_STD = {4: ([-1, 0, 1, 0], [0, 1, 0, -1]), 8: ([-1, -1, -1, 0, 1, 1, 1, 0], [-1, 0, 1, 1, 1, 0, -1, -1])}
 DIR_RX = {
     "py": re.compile(r"\b(dr|dc)\b\s*=\s*[\[(]([^\[\]()]*)[\])]"),
     "java": re.compile(r"\b(dr|dc)\b\s*(?:\[\s*\d*\s*\])?\s*=\s*(?:new\s+int\s*\[\s*\]\s*)?\{([^{}]*)\}"),
@@ -560,7 +611,9 @@ PY_DIR_PAIRS_RX = re.compile(
 )
 
 
-@rule("dir-order", "권장", ALL, "4·8방향 배열은 위쪽부터 시계 방향 (12장, 문제가 순서를 정하면 예외 → 후보)")
+@rule(
+    "dir-order", "권장", ALL, "4방향은 위쪽부터, 8방향은 좌상단부터 시계 방향 (12장, 문제가 순서를 정하면 예외 → 후보)"
+)
 def r_dirorder(ctx):
     res = []
     for m in DIR_RX[ctx.lang].finditer(ctx.code):
@@ -576,7 +629,7 @@ def r_dirorder(ctx):
             res.append(
                 (
                     ln,
-                    f"방향 배열 `{m.group(1)}` {vals}: 위쪽부터 시계 방향이면 {want} (문제가 순서를 정했으면 예외)",
+                    f"방향 배열 `{m.group(1)}` {vals}: 표준 시계 방향 순서는 {want} (문제가 순서를 정했으면 예외)",
                     True,
                 )
             )
@@ -595,7 +648,7 @@ def r_dirorder(ctx):
                     res.append(
                         (
                             ln,
-                            f"방향 튜플 `{name}` {vals}: 위쪽부터 시계 방향이면 {want} (문제가 순서를 정했으면 예외)",
+                            f"방향 튜플 `{name}` {vals}: 표준 시계 방향 순서는 {want} (문제가 순서를 정했으면 예외)",
                             True,
                         )
                     )
@@ -1069,6 +1122,11 @@ def r_jloopprint(ctx):
         if LOOP_RE.match(l) or re.match(r"\s*do\b", l):
             pending = True
         if any(stack) and re.search(r"\bSystem\s*\.\s*out\s*\.\s*(?:println|print|printf)\s*\(", l):
+            nxt = nb(ctx.lines, ln - 1)
+            if re.search(r"\b(?:return|break)\b", l) or (
+                nxt is not None and re.match(r"\s*(?:return|break)\b", ctx.lines[nxt])
+            ):
+                continue  # 출력 직후 루프를 빠져나가면 한 번만 출력된다
             out.append((ln, "루프 안 직접 출력: StringBuilder 에 모아 마지막에 한 번 (소량이어도 지적, 수정은 선택)"))
         for ch in l:
             if ch == "{":
@@ -1307,11 +1365,19 @@ def r_cadj(ctx):
 def r_readloop(ctx):
     res, L = [], ctx.lines
     one = re.compile(
-        r"\bfor\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\1\s*<\s*[\w.()+\-]+\s*;\s*\1\s*\+\+\s*\)\s*\{?\s*cin\s*>>\s*\w+\s*\[\s*\1\s*\]\s*;"
+        r"\bfor\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\1\s*<\s*[\w.()+\-]+\s*;\s*\1\s*\+\+\s*\)\s*\{?\s*cin\s*>>\s*(\w+)\s*\[\s*\1\s*\]\s*;"
     )
+    src = "\n".join(L)
+
+    def char_rows(name):  # char grid[N][M] 의 행 입력(cin >> grid[i])은 원소 순회가 아니다
+        return re.search(r"\bchar\s+%s\s*\[[^\]]*\]\s*\[" % re.escape(name), src)
+
     head = re.compile(r"\bfor\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\1\s*<\s*[\w.()+\-]+\s*;\s*\1\s*\+\+\s*\)\s*\{\s*$")
     for i, l in enumerate(L):
-        if one.search(l):
+        mo = one.search(l)
+        if mo and char_rows(mo.group(2)):
+            continue
+        if mo:
             res.append(
                 (
                     i + 1,
@@ -1328,6 +1394,7 @@ def r_readloop(ctx):
                 k is not None
                 and re.match(r"^\s*cin\s*>>\s*\w+\s*\[\s*%s\s*\]\s*;\s*$" % re.escape(m.group(1)), L[j])
                 and L[k].strip() == "}"
+                and not char_rows(re.match(r"\s*cin\s*>>\s*(\w+)", L[j]).group(1))
             ):
                 res.append(
                     (
@@ -1336,6 +1403,41 @@ def r_readloop(ctx):
                         True,
                     )
                 )
+    return res
+
+
+@rule(
+    "level-bfs",
+    "필수",
+    ("cpp", "java", "py"),
+    "레벨 BFS 는 큐 크기를 잡고 C++ while (sz--), Java while (sz-- > 0), Python for _ in range(len(q)) (14장)",
+)
+def r_levelbfs(ctx):
+    src = "\n".join(ctx.lines)
+    if ctx.lang == "py":
+        dqs = set(re.findall(r"\b(\w+)\s*=\s*(?:collections\.)?deque\(", src))
+        res = []
+        for ln, l in enumerate(ctx.lines, 1):
+            m = re.search(r"\bfor\s+(\w+)\s+in\s+range\(\s*len\(\s*(\w+)\s*\)\s*\)", l)
+            if m and m.group(2) in dqs and m.group(1) != "_":
+                res.append((ln, "레벨 BFS 반복은 for _ in range(len(%s))" % m.group(2)))
+        return res
+    qs = set(re.findall(r"\b(?:queue|deque|Queue|Deque|ArrayDeque)\s*<[^;=(]*?>\s+(\w+)", src))
+    sizes = {
+        m.group(1) for m in re.finditer(r"\b(?:int|auto)\s+(\w+)\s*=\s*(\w+)\.size\(\)\s*;", src) if m.group(2) in qs
+    }
+    want = "while (%s--)" if ctx.lang == "cpp" else "while (%s-- > 0)"
+    res = []
+    for ln, l in enumerate(ctx.lines, 1):
+        m = re.search(r"\bwhile\s*\(\s*(\w+)--\s*(>\s*0\s*)?\)", l)
+        if m and m.group(1) in sizes:
+            ok = (not m.group(2)) if ctx.lang == "cpp" else bool(m.group(2))
+            if not ok:
+                res.append((ln, "레벨 BFS 반복은 " + want % m.group(1)))
+            continue
+        m = re.search(r"\bfor\s*\(\s*int\s+\w+\s*=\s*0\s*;\s*\w+\s*<\s*(\w+)\s*;", l)
+        if m and m.group(1) in sizes:
+            res.append((ln, "레벨 BFS 를 인덱스 for 로 돌지 말고 " + want % m.group(1)))
     return res
 
 
