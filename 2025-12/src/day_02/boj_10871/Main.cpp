@@ -12,8 +12,6 @@ int main() {
         int x;
         cin >> x;
 
-        if (x < k) {
-            cout << x << ' ';
-        }
+        if (x < k) cout << x << ' ';
     }
 }
