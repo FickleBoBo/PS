@@ -10,8 +10,8 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
 
-        int min = 1000000;
-        int max = -1000000;
+        int min = 1_000_000;
+        int max = -1_000_000;
         st = new StringTokenizer(br.readLine());
         while (n-- > 0) {
             int x = Integer.parseInt(st.nextToken());
