@@ -10,7 +10,6 @@ public class Main {
 
         long a = Long.parseLong(st.nextToken());
         long b = Long.parseLong(st.nextToken());
-
         System.out.println((a + b) * (a - b));
     }
 }
