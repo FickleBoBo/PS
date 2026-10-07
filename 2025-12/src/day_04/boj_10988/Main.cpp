@@ -9,6 +9,5 @@ int main() {
     cin >> s;
 
     string rs = string(s.rbegin(), s.rend());
-
     cout << (s == rs);
 }
