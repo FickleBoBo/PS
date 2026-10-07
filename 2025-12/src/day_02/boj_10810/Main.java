@@ -15,10 +15,10 @@ public class Main {
         int[] arr = new int[n];
         while (m-- > 0) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
             int x = Integer.parseInt(st.nextToken());
-            Arrays.fill(arr, start - 1, end, x);
+            Arrays.fill(arr, s - 1, e, x);
         }
 
         for (int x : arr) {
