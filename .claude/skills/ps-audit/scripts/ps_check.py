@@ -1019,17 +1019,50 @@ def r_jboxed(ctx):
 # ---------------------------------------------------------------- 오버플로 승격 (Java·C++)
 
 
-@rule("mul-cast", "필수", ("java", "cpp"), "곱셈 승격 표기 (8.1)")
+def paren_span(l, i):
+    """l[i] 가 `(` 일 때 짝이 맞는 `)` 의 위치. 없으면 -1."""
+    depth = 0
+    for j in range(i, len(l)):
+        depth += (l[j] == "(") - (l[j] == ")")
+        if depth == 0:
+            return j
+    return -1
+
+
+def cast_groups(ctx):
+    """`(long)(...)` 형태마다 (줄, 괄호 안에 곱셈이 있는가, 괄호 뒤가 곱셈인가)."""
+    ty = "long" if ctx.lang == "java" else r"long long|long"
+    out = []
+    for ln, l in enumerate(ctx.lines, 1):
+        for m in re.finditer(r"\(\s*(?:%s)\s*\)\s*\(" % ty, l):
+            end = paren_span(l, m.end() - 1)
+            if end < 0:
+                continue
+            out.append((ln, "*" in l[m.end() : end], bool(re.match(r"\s*\*", l[end + 1 :]))))
+    return out
+
+
+@rule("mul-cast", "필수", ("java", "cpp"), "곱셈 승격 위치 (8.1)")
 def r_mulcast(ctx):
     one = "1L" if ctx.lang == "java" else "1LL"
-    ty = "long" if ctx.lang == "java" else r"long long|long"
-    res = grep(ctx, r"\(\s*(?:%s)\s*\)\s*\(" % ty, "(long)(a * b): 곱한 뒤 승격. %s * a * b 로" % one)
-    res += grep(ctx, r"\(\s*(?:%s)\s*\)\s*[\w.\[\]]+\s*\*" % ty, "(long) a * b 캐스트: %s * a * b 로" % one)
+    res = [
+        (ln, "(long)(a * b): 곱한 뒤 승격. %s * a * b 로" % one) for ln, inner_mul, _ in cast_groups(ctx) if inner_mul
+    ]
     res += grep(
         ctx,
         r"[\w\])]\s*\*\s*[\w.\[\]()]+\s*\*\s*1(?:L|LL)\b",
-        "a * b * 1L: 승격은 첫 곱셈 앞에",
+        "a * b * %s: 승격은 첫 곱셈 앞에" % one,
     )
+    return res
+
+
+@rule("mul-cast-style", "권장", ("java", "cpp"), "곱셈 승격 표기 (8.1)")
+def r_mulcast_style(ctx):
+    one = "1L" if ctx.lang == "java" else "1LL"
+    ty = "long" if ctx.lang == "java" else r"long long|long"
+    msg = "(long) a * b 캐스트: 오버플로는 없으나 표기는 %s * a * b 로" % one
+    res = grep(ctx, r"\(\s*(?:%s)\s*\)\s*[\w.\[\]]+\s*\*" % ty, msg)
+    res += [(ln, msg) for ln, inner_mul, after_mul in cast_groups(ctx) if after_mul and not inner_mul]
     return res
 
 
