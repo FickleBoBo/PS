@@ -421,8 +421,8 @@ using namespace std;
 ### 13.6 정렬
 
 - `[허용]` C++ 오름차순은 `sort(v.begin(), v.end())`. 안정 정렬이 필요하면 `stable_sort`.
-- `[필수]` C++ 내림차순 정렬은 `sort(v.rbegin(), v.rend())` 또는 정렬 후 `reverse`로 한다. 정렬에 `greater`를 쓰지 않는다.
-- `[허용]` C++ 최소 힙은 `priority_queue<int, vector<int>, greater<int>> pq;`로 만든다 (정렬 한정 `greater` 금지의 대상이 아니다).
+- `[필수]` C++ 내림차순 정렬은 `sort(v.rbegin(), v.rend())` 또는 정렬 후 `reverse`로 한다. 정렬 알고리즘(`sort` 등)에 `greater`를 쓰지 않는다.
+- `[허용]` 정렬 알고리즘이 아닌 정렬 컨테이너의 비교자에는 `greater`를 쓴다 (`priority_queue<int, vector<int>, greater<int>> pq;` 최소 힙, `set<string, greater<>> st;`). 정렬 한정 `greater` 금지의 대상이 아니다.
 - `[허용]` Java 기본형 배열은 `Arrays.sort(arr)`, 리스트는 `list.sort(...)`. 보조 클래스는 `Comparable`을 구현해도 된다 (`compareTo`에서도 뺄셈 비교 금지).
 - `[필수]` Java 비교자에서 뺄셈 비교(`(a, b) -> a - b`, `a[0] - b[0]`)를 쓰지 않는다 (오버플로 시 오답). `Integer.compare`·`Long.compare`·`Double.compare` 또는 `Comparator.comparingInt` 계열을 쓴다.
 - `[허용]` Python `lst.sort()`(제자리)와 `sorted(lst)`(새 리스트) 모두.
