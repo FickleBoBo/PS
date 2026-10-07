@@ -13,7 +13,7 @@ public class Main {
         int c = Integer.parseInt(br.readLine());
         int n0 = Integer.parseInt(br.readLine());
 
-        if (a1 * n0 + a0 <= c * n0 && (a1 < c || a1 == c && a0 <= 0)) {
+        if (a1 * n0 + a0 <= c * n0 && (a1 < c || (a1 == c && a0 <= 0))) {
             System.out.println(1);
         } else {
             System.out.println(0);
