@@ -15,7 +15,6 @@ int main() {
 
     for (int i = 1; i <= 30; i++) {
         if (vis[i]) continue;
-
         cout << i << '\n';
     }
 }

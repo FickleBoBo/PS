@@ -14,7 +14,6 @@ public class Main {
 
         for (int i = 1; i <= 30; i++) {
             if (vis[i]) continue;
-
             System.out.println(i);
         }
     }
