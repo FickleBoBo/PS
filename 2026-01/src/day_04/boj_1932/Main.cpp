@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX_N = 501;
+const int MAX_N = 1 + 500;
 int arr[MAX_N][MAX_N];
 int dp[MAX_N][MAX_N];
 
