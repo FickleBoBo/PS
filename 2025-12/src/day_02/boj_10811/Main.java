@@ -19,16 +19,15 @@ public class Main {
 
         while (m-- > 0) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken()) - 1;
-            int end = Integer.parseInt(st.nextToken()) - 1;
+            int s = Integer.parseInt(st.nextToken()) - 1;
+            int e = Integer.parseInt(st.nextToken()) - 1;
 
-            while (start < end) {
-                int tmp = arr[start];
-                arr[start] = arr[end];
-                arr[end] = tmp;
-
-                start++;
-                end--;
+            while (s < e) {
+                int tmp = arr[s];
+                arr[s] = arr[e];
+                arr[e] = tmp;
+                s++;
+                e--;
             }
         }
 
