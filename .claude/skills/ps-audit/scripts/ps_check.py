@@ -353,6 +353,61 @@ def r_sizepad(ctx):
     return res
 
 
+@rule(
+    "magic-repeat",
+    "권장",
+    ALL,
+    "반복되는 정수 리터럴·선언한 상수와 같은 값의 리터럴 (2장, 같은 의미인지는 사람이 판정 → 후보)",
+)
+def r_magic(ctx):
+    occ, consts = {}, {}
+    for ln, l in enumerate(ctx.lines, 1):
+        d = const_decl(ctx.lang, l)
+        if d:
+            consts[d[1]] = d[0]
+    if ctx.lang == "py":
+        toks = [(t.start[0], t.string) for t in ctx.tokens if t.type == tokenize.NUMBER]
+    else:
+        rx = re.compile(r"(?<![\w.'])(\d[\d'_]*)(?![\w.'])")
+        toks = [
+            (ln, m.group(1))
+            for ln, l in enumerate(ctx.lines, 1)
+            if not l.lstrip().startswith("#")
+            for m in rx.finditer(l)
+        ]
+    decl_lines = {ln for ln, l in enumerate(ctx.lines, 1) if const_decl(ctx.lang, l)}
+    for ln, tok in toks:
+        if ln in decl_lines or not re.fullmatch(r"\d[\d'_]*", tok):
+            continue
+        v = int(re.sub(r"['_]", "", tok))
+        if v >= 10:
+            occ.setdefault(v, []).append(ln)
+    # 여유분을 합친 값(101, 102)은 같은 파일의 기준값(100)과 같은 수로 묶는다. 기준값이 리터럴이나 상수로 있을 때만.
+    merged = {}
+    for v in sorted(occ):
+        for pad in (1, 2):
+            base = v - pad
+            if looks_padded(v) and base >= 10 and (base in occ or base in consts) and (pad == 1 or v % 10 == 2):
+                merged[v] = base
+                break
+    groups = {}
+    for v, lns in occ.items():
+        b = merged.get(v, v)
+        while b in merged:  # 1002 -> 1001 -> 1000 처럼 연쇄를 끝까지 따라간다
+            b = merged[b]
+        groups.setdefault(b, []).append((v, lns))
+    res = []
+    for b, items in sorted(groups.items()):
+        lns = sorted(ln for _, ls in items for ln in ls)
+        forms = sorted({v for v, _ in items})
+        label = str(b) if forms == [b] else f"{b}({'·'.join(map(str, forms))} 포함)"
+        if b in consts:
+            res.append((lns[0], f"상수 {consts[b]} 와 같은 값 {label} 의 리터럴이 {len(lns)}회: 상수를 쓴다", True))
+        elif len(lns) >= 3:
+            res.append((lns[0], f"정수 리터럴 {label} 가 {len(lns)}회 반복: 같은 의미면 상수로", True))
+    return res
+
+
 @rule("redundant", "필수", ALL, "제거해도 동작이 같은 군더더기 (11장, 알려진 패턴만)")
 def r_redundant(ctx):
     res = []
