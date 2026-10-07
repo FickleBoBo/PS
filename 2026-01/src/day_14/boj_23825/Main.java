@@ -10,7 +10,6 @@ public class Main {
 
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-
         System.out.println(Math.min(n, m) / 2);
     }
 }
