@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 10001;
+const int MAX = 1 + 10000;
 int cnt[MAX];
 
 int main() {

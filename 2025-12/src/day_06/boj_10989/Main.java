@@ -4,7 +4,7 @@ import java.io.*;
 
 public class Main {
 
-    static final int MAX = 10001;
+    static final int MAX = 1 + 10000;
     static int[] cnt = new int[MAX];
 
     public static void main(String[] args) throws IOException {
