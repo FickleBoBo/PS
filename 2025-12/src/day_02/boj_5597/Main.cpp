@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool vis[31];
+bool vis[1 + 30];
 
 int main() {
     ios::sync_with_stdio(0);

@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        boolean[] vis = new boolean[31];
+        boolean[] vis = new boolean[1 + 30];
         for (int i = 0; i < 28; i++) {
             int n = Integer.parseInt(br.readLine());
             vis[n] = true;
