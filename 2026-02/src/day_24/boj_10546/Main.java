@@ -19,9 +19,9 @@ public class Main {
             map.put(s, map.get(s) - 1);
         }
 
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == 1) {
-                System.out.println(entry.getKey());
+        for (Map.Entry<String, Integer> e : map.entrySet()) {
+            if (e.getValue() == 1) {
+                System.out.println(e.getKey());
                 return;
             }
         }
