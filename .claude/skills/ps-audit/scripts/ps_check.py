@@ -70,7 +70,7 @@ GAPS = {
     "11": "방어 코드, 알려진 패턴 밖의 군더더기(괄호·변수·형변환)",
     "12": "이름 표 대부분(rename-hint 는 일부), `MAX_N` 형식, 한 스코프의 이름 충돌",
     "13.1": "알고리즘별 함수명",
-    "13.3": "크기 식 앞/뒤 여유분 판정, `while` 안 역순 인덱스, 크기 식이 아닌 `+ 1` 순서",
+    "13.3": "크기 식 앞/뒤 여유분 판정, 리터럴이 여유분을 합친 값인지(size-pad 는 후보), `while` 안 역순 인덱스, 크기 식이 아닌 `+ 1` 순서",
     "13.6": "비교자 람다 변수의 이름 `cmp`",
     "14": "문자열 순회, 테스트케이스 번호 `tc`, StringBuilder 체이닝",
 }
@@ -308,6 +308,48 @@ def r_sizeplus(ctx):
                 continue  # n + 1 + n: 음수 포함 구간의 0 자리 (13.3 허용)
             if re.search(r"[\w)\]]\s*\+\s*[12]\b", e) and not re.match(r"\s*1\s*\+", e):
                 res.append((ln, f"크기 식 `{e.strip()}`: 앞쪽 여유분(1-indexed 등)이면 1 + n, 뒤쪽이면 그대로", True))
+    return res
+
+
+CONST_DECL = {
+    "cpp": r"\bconst\s+(?:int|long long)\s+([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d']*)\s*;",
+    "java": r"\bstatic\s+final\s+(?:int|long)\s+([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d_]*)\s*;",
+    "py": r"^([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d_]*)\s*$",
+}
+
+
+def const_decl(lang, l):
+    m = re.search(CONST_DECL[lang], l)
+    return (m.group(1), int(re.sub(r"['_]", "", m.group(2)))) if m else None
+
+
+def looks_padded(v):
+    return v >= 11 and v % 10 in (1, 2)
+
+
+@rule("size-pad", "필수", ALL, "여유분을 합친 크기·상수 리터럴 (13.3, 합친 값인지는 사람이 판정 → 후보)")
+def r_sizepad(ctx):
+    res = []
+    for ln, l in enumerate(ctx.lines, 1):
+        for e in size_exprs(ctx.lang, l):
+            m = re.fullmatch(r"\s*(\d[\d'_]*)\s*", e)
+            if m:
+                v = int(re.sub(r"['_]", "", m.group(1)))
+                if looks_padded(v):
+                    res.append(
+                        (
+                            ln,
+                            f"크기 리터럴 {v}: 여유분을 합친 값이면 위치를 표시 (1 + {v - 1}"
+                            + (f", 1 + {v - 2} + 1" if v % 10 == 2 else "")
+                            + ")",
+                            True,
+                        )
+                    )
+        d = const_decl(ctx.lang, l)
+        if d and looks_padded(d[1]):
+            res.append(
+                (ln, f"상수 {d[0]} = {d[1]}: 여유분을 합친 값이면 {d[1] - 1} 로 두고 크기 식에서 1 + {d[0]}", True)
+            )
     return res
 
 
