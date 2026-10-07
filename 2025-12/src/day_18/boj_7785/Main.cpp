@@ -21,7 +21,7 @@ int main() {
         }
     }
 
-    for (const string& name : st) {
+    for (auto& name : st) {
         cout << name << '\n';
     }
 }
