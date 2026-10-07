@@ -347,9 +347,7 @@ def r_sizepad(ctx):
                     )
         d = const_decl(ctx.lang, l)
         if d and looks_padded(d[1]):
-            res.append(
-                (ln, f"상수 {d[0]} = {d[1]}: 여유분을 합친 값이면 {d[1] - 1} 로 두고 크기 식에서 1 + {d[0]}", True)
-            )
+            res.append((ln, f"상수 {d[0]} = {d[1]}: 여유분을 합친 값이면 1 + {d[1] - 1} 로 위치를 표시", True))
     return res
 
 
