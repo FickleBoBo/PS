@@ -7,7 +7,7 @@ int drh[8] = {-1, -2, -2, -1, 1, 2, 2, 1};
 int dch[8] = {-2, -1, 1, 2, 2, 1, -1, -2};
 int k, h, w;
 int grid[200][200];
-bool vis[200][200][31];
+bool vis[200][200][1 + 30];
 
 int bfs() {
     queue<tuple<int, int, int>> q;
