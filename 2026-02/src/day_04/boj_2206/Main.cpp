@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX = 1000 + 1;
 int dr[4] = {-1, 0, 1, 0};
 int dc[4] = {0, 1, 0, -1};
 int n, m;
-char grid[1001][1001];
-bool vis[1001][1001][2];
+char grid[MAX][MAX];
+bool vis[MAX][MAX][2];
 
 int bfs() {
     queue<tuple<int, int, int>> q;
