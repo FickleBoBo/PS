@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> p(1001, -1);
+vector<int> p(1 + 1000, -1);
 
 int find(int x) {
     if (p[x] < 0) return x;

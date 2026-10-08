@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> adj[1001];
-bool vis[1001];
+const int MAX_N = 1 + 1000;
+vector<int> adj[MAX_N];
+bool vis[MAX_N];
 
 void dfs(int cur) {
     vis[cur] = true;
