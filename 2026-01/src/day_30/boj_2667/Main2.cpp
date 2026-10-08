@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX_N = 25 + 1;
 int dr[4] = {-1, 0, 1, 0};
 int dc[4] = {0, 1, 0, -1};
 int n;
-char grid[26][26];
+char grid[MAX_N][MAX_N];
 
 int dfs(int r, int c) {
     grid[r][c] = '0';
