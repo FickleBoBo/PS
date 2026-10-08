@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 10000;
-bool vis[MAX];
-int prv[MAX];
-char type[MAX];
+bool vis[10000];
+int prv[10000];
+char type[10000];
 string ans;
 
 void bfs(int a, int b) {
