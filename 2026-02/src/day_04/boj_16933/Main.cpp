@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX = 1000 + 1;
 int dr[4] = {-1, 0, 1, 0};
 int dc[4] = {0, 1, 0, -1};
 int n, m, k;
-char grid[1001][1001];
-bool vis[1001][1001][11][2];
+char grid[MAX][MAX];
+bool vis[MAX][MAX][1 + 10][2];
 
 struct Node {
     int r, c, x, day;
