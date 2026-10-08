@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 1001;
-bool vis[MAX][MAX];
+const int MAX = 1000;
+bool vis[1 + MAX][1 + MAX];
 
 int bfs(int s) {
     queue<pair<int, int>> q;
@@ -15,7 +15,7 @@ int bfs(int s) {
     while (!q.empty()) {
         int sz = q.size();
 
-        while (sz-- > 0) {
+        while (sz--) {
             auto [a, b] = q.front();
             q.pop();
 
@@ -26,7 +26,7 @@ int bfs(int s) {
                 vis[a][a] = true;
             }
 
-            if (a + b < MAX && !vis[a + b][b]) {
+            if (a + b <= MAX && !vis[a + b][b]) {
                 q.push({a + b, b});
                 vis[a + b][b] = true;
             }
