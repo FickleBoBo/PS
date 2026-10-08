@@ -1,12 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX = 30 + 1;
 int dz[6] = {0, 0, 0, 0, -1, 1};
 int dr[6] = {-1, 0, 1, 0, 0, 0};
 int dc[6] = {0, 1, 0, -1, 0, 0};
 int h, n, m;
-char grid[31][31][31];
-bool vis[31][31][31];
+char grid[MAX][MAX][MAX];
+bool vis[MAX][MAX][MAX];
 
 int bfs(auto s, auto e) {
     auto [sz, sr, sc] = s;
