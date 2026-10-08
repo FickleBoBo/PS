@@ -1,12 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX = 1000 + 1;
 int dr[4] = {-1, 0, 1, 0};
 int dc[4] = {0, 1, 0, -1};
 int n, m;
-char grid[1001][1001];
-bool vis[1001][1001];
-int chk[1001][1001];
+char grid[MAX][MAX];
+bool vis[MAX][MAX];
+int chk[MAX][MAX];
 
 void bfs(int sr, int sc) {
     queue<pair<int, int>> q;
