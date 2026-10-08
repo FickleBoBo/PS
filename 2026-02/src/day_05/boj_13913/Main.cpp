@@ -36,7 +36,7 @@ void bfs(int n, int k) {
     while (!q.empty()) {
         int sz = q.size();
 
-        while (sz-- > 0) {
+        while (sz--) {
             int cur = q.front();
             q.pop();
 
