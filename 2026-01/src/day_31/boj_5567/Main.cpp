@@ -1,9 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX_N = 1 + 500;
 int n;
-vector<int> adj[501];
-bool vis[501];
+vector<int> adj[MAX_N];
+bool vis[MAX_N];
 
 int bfs() {
     queue<int> q;
