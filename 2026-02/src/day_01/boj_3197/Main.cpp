@@ -101,20 +101,18 @@ bool bfs(int mx) {
 }
 
 int lower_bound_param(int mx) {
-    int left = 0;
-    int right = mx;
+    int lo = 0, hi = mx;
 
-    while (left < right) {
-        int mid = (left + right) / 2;
-
+    while (lo < hi) {
+        int mid = (lo + hi) / 2;
         if (!bfs(mid)) {
-            left = mid + 1;
+            lo = mid + 1;
         } else {
-            right = mid;
+            hi = mid;
         }
     }
 
-    return right;
+    return hi;
 }
 
 int main() {

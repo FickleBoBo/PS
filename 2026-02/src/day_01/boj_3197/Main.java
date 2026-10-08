@@ -108,20 +108,18 @@ public class Main {
     }
 
     static int lowerBound(int max, int[][] mark) {
-        int left = 0;
-        int right = max;
+        int lo = 0, hi = max;
 
-        while (left < right) {
-            int mid = (left + right) / 2;
-
+        while (lo < hi) {
+            int mid = (lo + hi) / 2;
             if (!bfs(mid, mark)) {
-                left = mid + 1;
+                lo = mid + 1;
             } else {
-                right = mid;
+                hi = mid;
             }
         }
 
-        return right;
+        return hi;
     }
 
     static boolean bfs(int max, int[][] mark) {
