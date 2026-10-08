@@ -5,7 +5,7 @@ const int MAX = 100000;
 int dist[1 + MAX];
 int ways[1 + MAX];
 
-void bfs(int n, int k) {
+void bfs(int n) {
     queue<int> q;
     q.push(n);
 
@@ -39,7 +39,7 @@ int main() {
     int n, k;
     cin >> n >> k;
 
-    bfs(n, k);
+    bfs(n);
 
     cout << dist[k] << '\n';
     cout << ways[k] << '\n';
