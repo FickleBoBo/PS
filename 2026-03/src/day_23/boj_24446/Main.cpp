@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 100000;
-vector<int> adj[1 + MAX];
-int dist[1 + MAX];
+const int MAX_N = 1 + 100000;
+vector<int> adj[MAX_N];
+int dist[MAX_N];
 
 void bfs(int start) {
     queue<int> q;
