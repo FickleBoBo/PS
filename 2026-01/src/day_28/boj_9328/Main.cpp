@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX = 1 + 100 + 1;
 int dr[4] = {-1, 0, 1, 0};
 int dc[4] = {0, 1, 0, -1};
-char grid[102][102];
-bool vis[102][102];
-bool hasKey[26];
+char grid[MAX][MAX];
+bool vis[MAX][MAX];
+bool has_key[26];
 
 int bfs(int n, int m) {
     queue<pair<int, int>> q;
@@ -31,7 +32,7 @@ int bfs(int n, int m) {
             if (grid[nr][nc] == '*' || vis[nr][nc]) continue;
 
             if ('A' <= grid[nr][nc] && grid[nr][nc] <= 'Z') {
-                if (!hasKey[grid[nr][nc] - 'A']) {
+                if (!has_key[grid[nr][nc] - 'A']) {
                     doors[grid[nr][nc] - 'A'].push({nr, nc});
                     vis[nr][nc] = true;
                     continue;
@@ -39,7 +40,7 @@ int bfs(int n, int m) {
             }
 
             if ('a' <= grid[nr][nc] && grid[nr][nc] <= 'z') {
-                hasKey[grid[nr][nc] - 'a'] = true;
+                has_key[grid[nr][nc] - 'a'] = true;
                 while (!doors[grid[nr][nc] - 'a'].empty()) {
                     q.push(doors[grid[nr][nc] - 'a'].front());
                     doors[grid[nr][nc] - 'a'].pop();
@@ -88,10 +89,10 @@ int main() {
         string s;
         cin >> s;
 
-        memset(hasKey, 0, sizeof(hasKey));
-        if (!(s == "0")) {
+        memset(has_key, 0, sizeof(has_key));
+        if (s != "0") {
             for (char c : s) {
-                hasKey[c - 'a'] = true;
+                has_key[c - 'a'] = true;
             }
         }
 
