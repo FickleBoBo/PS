@@ -1,19 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX_N = 100 + 1;
 int dr[4] = {-1, 0, 1, 0};
 int dc[4] = {0, 1, 0, -1};
 int n;
-char grid[101][101];
-bool vis[101][101];
+char grid[MAX_N][MAX_N];
+bool vis[MAX_N][MAX_N];
 
-bool isSame(char c1, char c2, bool isBlind) {
-    if (!isBlind) return c1 == c2;
+bool same_color(char c1, char c2, bool is_blind) {
+    if (!is_blind) return c1 == c2;
     if (c1 == 'B' || c2 == 'B') return c1 == c2;
     return true;
 }
 
-void bfs(int sr, int sc, bool isBlind) {
+void bfs(int sr, int sc, bool is_blind) {
     queue<pair<int, int>> q;
     q.push({sr, sc});
 
@@ -28,7 +29,7 @@ void bfs(int sr, int sc, bool isBlind) {
             int nc = c + dc[d];
 
             if (nr < 0 || nr >= n || nc < 0 || nc >= n) continue;
-            if (!isSame(grid[sr][sc], grid[nr][nc], isBlind) || vis[nr][nc]) continue;
+            if (!same_color(grid[sr][sc], grid[nr][nc], is_blind) || vis[nr][nc]) continue;
 
             q.push({nr, nc});
             vis[nr][nc] = true;
@@ -46,7 +47,7 @@ int main() {
         cin >> grid[i];
     }
 
-    bool isBlind = false;
+    bool is_blind = false;
     for (int tc = 1; tc <= 2; tc++) {
         memset(vis, 0, sizeof(vis));
         int cnt = 0;
@@ -55,11 +56,11 @@ int main() {
             for (int j = 0; j < n; j++) {
                 if (vis[i][j]) continue;
 
-                bfs(i, j, isBlind);
+                bfs(i, j, is_blind);
                 cnt++;
             }
         }
         cout << cnt << ' ';
-        isBlind = !isBlind;
+        is_blind = !is_blind;
     }
 }
