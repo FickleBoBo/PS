@@ -2,7 +2,7 @@
 using namespace std;
 
 int k;
-int arr[13];
+int arr[12];
 int sel[6];
 
 void dfs(int idx, int sidx) {
