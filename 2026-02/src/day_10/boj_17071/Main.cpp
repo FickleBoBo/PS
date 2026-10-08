@@ -18,16 +18,16 @@ int bfs(int n, int k) {
 
         if (vis[bro][time % 2]) return time;
 
-        int nextParity = (time + 1) % 2;
+        int next_parity = (time + 1) % 2;
         int sz = q.size();
-        while (sz-- > 0) {
+        while (sz--) {
             int cur = q.front();
             q.pop();
 
             for (int nxt : {cur - 1, cur + 1, cur * 2}) {
-                if (0 <= nxt && nxt <= MAX && !vis[nxt][nextParity]) {
+                if (0 <= nxt && nxt <= MAX && !vis[nxt][next_parity]) {
                     q.push(nxt);
-                    vis[nxt][nextParity] = true;
+                    vis[nxt][next_parity] = true;
                 }
             }
         }
