@@ -8,7 +8,7 @@ int n;
 char grid[MAX_N][MAX_N];
 bool vis[MAX_N][MAX_N];
 
-bool same_color(char c1, char c2, bool is_blind) {
+bool is_same_color(char c1, char c2, bool is_blind) {
     if (!is_blind) return c1 == c2;
     if (c1 == 'B' || c2 == 'B') return c1 == c2;
     return true;
@@ -29,7 +29,7 @@ void bfs(int sr, int sc, bool is_blind) {
             int nc = c + dc[d];
 
             if (nr < 0 || nr >= n || nc < 0 || nc >= n) continue;
-            if (!same_color(grid[sr][sc], grid[nr][nc], is_blind) || vis[nr][nc]) continue;
+            if (!is_same_color(grid[sr][sc], grid[nr][nc], is_blind) || vis[nr][nc]) continue;
 
             q.push({nr, nc});
             vis[nr][nc] = true;
