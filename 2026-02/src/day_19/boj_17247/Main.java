@@ -16,10 +16,7 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
                 int x = Integer.parseInt(st.nextToken());
-
-                if (x == 1) {
-                    pos.add(new int[]{i, j});
-                }
+                if (x == 1) pos.add(new int[]{i, j});
             }
         }
 
