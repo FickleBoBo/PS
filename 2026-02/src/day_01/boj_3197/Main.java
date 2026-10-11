@@ -111,7 +111,7 @@ public class Main {
         int lo = 0, hi = max;
 
         while (lo < hi) {
-            int mid = (lo + hi) / 2;
+            int mid = lo + (hi - lo) / 2;
             if (!bfs(mid, mark)) {
                 lo = mid + 1;
             } else {
@@ -119,7 +119,7 @@ public class Main {
             }
         }
 
-        return hi;
+        return lo;
     }
 
     static boolean bfs(int max, int[][] mark) {

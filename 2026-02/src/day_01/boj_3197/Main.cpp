@@ -104,7 +104,7 @@ int lower_bound_param(int mx) {
     int lo = 0, hi = mx;
 
     while (lo < hi) {
-        int mid = (lo + hi) / 2;
+        int mid = lo + (hi - lo) / 2;
         if (!bfs(mid)) {
             lo = mid + 1;
         } else {
@@ -112,7 +112,7 @@ int lower_bound_param(int mx) {
         }
     }
 
-    return hi;
+    return lo;
 }
 
 int main() {
