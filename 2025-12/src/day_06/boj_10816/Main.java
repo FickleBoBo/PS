@@ -32,7 +32,7 @@ public class Main {
         int lo = 0, hi = arr.length;
 
         while (lo < hi) {
-            int mid = (lo + hi) / 2;
+            int mid = lo + (hi - lo) / 2;
             if (arr[mid] < key) {
                 lo = mid + 1;
             } else {
@@ -40,14 +40,14 @@ public class Main {
             }
         }
 
-        return hi;
+        return lo;
     }
 
     static int upperBound(int[] arr, int key) {
         int lo = 0, hi = arr.length;
 
         while (lo < hi) {
-            int mid = (lo + hi) / 2;
+            int mid = lo + (hi - lo) / 2;
             if (arr[mid] <= key) {
                 lo = mid + 1;
             } else {
@@ -55,6 +55,6 @@ public class Main {
             }
         }
 
-        return hi;
+        return lo;
     }
 }
