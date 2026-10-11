@@ -10,7 +10,6 @@ public class Main {
 
         String n = st.nextToken();
         int b = Integer.parseInt(st.nextToken());
-
         System.out.println(Integer.parseInt(n, b));
     }
 }
