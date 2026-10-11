@@ -5,12 +5,12 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    unordered_set<int> st;
+    unordered_set<int> seen;
     for (int i = 0; i < 10; i++) {
         int x;
         cin >> x;
-        st.insert(x % 42);
+        seen.insert(x % 42);
     }
 
-    cout << st.size();
+    cout << seen.size();
 }

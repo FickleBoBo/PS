@@ -7,12 +7,12 @@ public class Main2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> seen = new HashSet<>();
         for (int i = 0; i < 10; i++) {
             int x = Integer.parseInt(br.readLine());
-            set.add(x % 42);
+            seen.add(x % 42);
         }
 
-        System.out.println(set.size());
+        System.out.println(seen.size());
     }
 }
