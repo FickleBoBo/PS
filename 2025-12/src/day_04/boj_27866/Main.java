@@ -8,7 +8,6 @@ public class Main {
 
         String s = br.readLine();
         int i = Integer.parseInt(br.readLine());
-
         System.out.println(s.charAt(i - 1));
     }
 }
