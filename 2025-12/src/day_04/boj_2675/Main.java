@@ -16,7 +16,7 @@ public class Main {
             String s = st.nextToken();
 
             for (char c : s.toCharArray()) {
-                sb.append(String.valueOf(c).repeat(r));
+                sb.repeat(c, r);
             }
             sb.append("\n");
         }
