@@ -4,11 +4,6 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int n, int[] numlist) {
-        List<Integer> list = new ArrayList<>();
-        for (int x : numlist) {
-            if (x % n == 0) list.add(x);
-        }
-
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return Arrays.stream(numlist).filter(x -> x % n == 0).toArray();
     }
 }
