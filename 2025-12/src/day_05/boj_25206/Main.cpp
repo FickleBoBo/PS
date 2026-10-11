@@ -5,8 +5,8 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    double totalSum = 0;
-    double creditSum = 0;
+    double total_sum = 0;
+    double credit_sum = 0;
     for (int i = 0; i < 20; i++) {
         string s, grade;
         double credit;
@@ -15,24 +15,24 @@ int main() {
         if (grade == "P") continue;
 
         if (grade == "A+") {
-            totalSum += credit * 4.5;
+            total_sum += credit * 4.5;
         } else if (grade == "A0") {
-            totalSum += credit * 4.0;
+            total_sum += credit * 4.0;
         } else if (grade == "B+") {
-            totalSum += credit * 3.5;
+            total_sum += credit * 3.5;
         } else if (grade == "B0") {
-            totalSum += credit * 3.0;
+            total_sum += credit * 3.0;
         } else if (grade == "C+") {
-            totalSum += credit * 2.5;
+            total_sum += credit * 2.5;
         } else if (grade == "C0") {
-            totalSum += credit * 2.0;
+            total_sum += credit * 2.0;
         } else if (grade == "D+") {
-            totalSum += credit * 1.5;
+            total_sum += credit * 1.5;
         } else if (grade == "D0") {
-            totalSum += credit;
+            total_sum += credit;
         }
-        creditSum += credit;
+        credit_sum += credit;
     }
 
-    cout << totalSum / creditSum;
+    cout << total_sum / credit_sum;
 }
