@@ -9,11 +9,6 @@ class Solution {
             seen[x] = true;
         }
 
-        List<Integer> list = new ArrayList<>();
-        for (int x : arr) {
-            if (!seen[x]) list.add(x);
-        }
-
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return Arrays.stream(arr).filter(x -> !seen[x]).toArray();
     }
 }
