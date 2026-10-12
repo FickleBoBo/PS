@@ -1284,7 +1284,13 @@ def r_cconst(ctx):
 def r_cauto(ctx):
     res = grep(ctx, r"\bauto\s+\w+\s*=\s*(?:-?\d|true\b|false\b)", "리터럴 초기화에 auto: 타입 명시")
     res += grep(ctx, r"\bfor\s*\(\s*auto\s+\w+\s*:", "범위 for 원소 auto (값): 기본형이면 타입 명시", cand=True)
-    res += grep(ctx, r"\bfor\s*\(\s*auto\s*&\s*\w+\s*:", "범위 for 원소 auto&: 기본형이면 타입 명시", cand=True)
+    # set/map 계열 원소는 const 라 `string&` 로 받을 수 없으므로 auto& 를 허용한다 (8.2)
+    assoc = set(re.findall(r"\b(?:unordered_)?(?:multi)?(?:set|map)\s*<[^;()]*?>\s+(\w+)", ctx.code))
+    rx = re.compile(r"\bfor\s*\(\s*auto\s*&\s*\w+\s*:\s*(\w+)?")
+    for ln, l in enumerate(ctx.lines, 1):
+        m = rx.search(l)
+        if m and m.group(1) not in assoc:
+            res.append((ln, "범위 for 원소 auto&: 기본형이면 타입 명시", True))
     return res
 
 
