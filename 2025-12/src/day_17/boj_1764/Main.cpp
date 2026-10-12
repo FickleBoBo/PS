@@ -25,12 +25,12 @@ int main() {
     set<string> inter;
     if (st1.size() > st2.size()) swap(st1, st2);
 
-    for (const string& s : st1) {
+    for (auto& s : st1) {
         if (st2.count(s)) inter.insert(s);
     }
 
     cout << inter.size() << '\n';
-    for (const string& s : inter) {
+    for (auto& s : inter) {
         cout << s << '\n';
     }
 }
