@@ -17,7 +17,6 @@ public class Main {
 
     static long modPow(long a, long b, long c) {
         long res = 1;
-
         while (b > 0) {
             if ((b & 1) > 0) res = res * a % c;
             a = a * a % c;

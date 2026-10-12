@@ -19,7 +19,7 @@ public class Main2 {
         if (b == 0) return 1;
 
         long half = modPow(a, b / 2, c);
-        if (b % 2 == 1) {
+        if (b % 2 != 0) {
             return half * half % c * a % c;
         } else {
             return half * half % c;

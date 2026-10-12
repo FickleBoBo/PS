@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long long modpow(long long a, long long b, long long c) {
+long long mod_pow(long long a, long long b, long long c) {
     if (b == 0) return 1;
 
-    long long half = modpow(a, b / 2, c);
+    long long half = mod_pow(a, b / 2, c);
     if (b % 2) {
         return half * half % c * a % c;
     } else {
@@ -18,5 +18,5 @@ int main() {
 
     int a, b, c;
     cin >> a >> b >> c;
-    cout << modpow(a, b, c);
+    cout << mod_pow(a, b, c);
 }
