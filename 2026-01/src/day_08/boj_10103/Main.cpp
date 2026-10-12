@@ -5,8 +5,8 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    int sumA = 100;
-    int sumB = 100;
+    int sum_a = 100;
+    int sum_b = 100;
 
     int n;
     cin >> n;
@@ -16,12 +16,12 @@ int main() {
         cin >> a >> b;
 
         if (a > b) {
-            sumB -= a;
+            sum_b -= a;
         } else if (a < b) {
-            sumA -= b;
+            sum_a -= b;
         }
     }
 
-    cout << sumA << '\n';
-    cout << sumB << '\n';
+    cout << sum_a << '\n';
+    cout << sum_b << '\n';
 }
