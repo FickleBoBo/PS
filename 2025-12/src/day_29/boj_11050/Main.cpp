@@ -1,11 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int nCr(int n, int r) {
+int comb(int n, int r) {
     if (r == 0 || n == r) return 1;
     if (r == 1) return n;
-
-    return nCr(n - 1, r) + nCr(n - 1, r - 1);
+    return comb(n - 1, r) + comb(n - 1, r - 1);
 }
 
 int main() {
@@ -14,5 +13,5 @@ int main() {
 
     int n, k;
     cin >> n >> k;
-    cout << nCr(n, k);
+    cout << comb(n, k);
 }

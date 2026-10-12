@@ -10,14 +10,12 @@ public class Main {
 
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
-
-        System.out.println(nCr(n, k));
+        System.out.println(comb(n, k));
     }
 
-    static int nCr(int n, int r) {
+    static int comb(int n, int r) {
         if (r == 0 || n == r) return 1;
         if (r == 1) return n;
-
-        return nCr(n - 1, r) + nCr(n - 1, r - 1);
+        return comb(n - 1, r) + comb(n - 1, r - 1);
     }
 }
