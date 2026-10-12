@@ -9,10 +9,9 @@ public class Main {
         int max = 0;
         int idx = 0;
         for (int i = 1; i <= 9; i++) {
-            int num = Integer.parseInt(br.readLine());
-
-            if (num > max) {
-                max = num;
+            int x = Integer.parseInt(br.readLine());
+            if (x > max) {
+                max = x;
                 idx = i;
             }
         }

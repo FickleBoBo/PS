@@ -7,13 +7,12 @@ int main() {
 
     int mx = 0;
     int idx = 0;
-
     for (int i = 1; i <= 9; i++) {
-        int num;
-        cin >> num;
+        int x;
+        cin >> x;
 
-        if (num > mx) {
-            mx = num;
+        if (x > mx) {
+            mx = x;
             idx = i;
         }
     }
