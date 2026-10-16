@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static final int INF = 10_001;
+    static final int INF = 10001;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

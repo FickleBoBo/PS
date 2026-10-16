@@ -2,7 +2,7 @@
 using namespace std;
 
 const int INF = 10001;
-int dp[101][10001];
+int dp[1 + 100][1 + 10000];
 
 int main() {
     ios::sync_with_stdio(0);
