@@ -7,7 +7,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         long n = Long.parseLong(br.readLine());
-        if (n % 2 == 1) {
+        if (n % 2 != 0) {
             System.out.println("SK");
         } else {
             System.out.println("CY");
