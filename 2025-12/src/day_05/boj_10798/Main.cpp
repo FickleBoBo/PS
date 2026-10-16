@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-char grid[5][15];
+char grid[5][15 + 1];
 
 int main() {
     ios::sync_with_stdio(0);

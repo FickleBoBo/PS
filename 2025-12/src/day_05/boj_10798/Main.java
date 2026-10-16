@@ -9,9 +9,9 @@ public class Main {
 
         char[][] grid = new char[5][15];
         for (int i = 0; i < 5; i++) {
-            String input = br.readLine();
-            for (int j = 0; j < input.length(); j++) {
-                grid[i][j] = input.charAt(j);
+            String line = br.readLine();
+            for (int j = 0; j < line.length(); j++) {
+                grid[i][j] = line.charAt(j);
             }
         }
 
