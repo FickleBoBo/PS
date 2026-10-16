@@ -12,14 +12,14 @@ int main() {
     int cnt = 0;
 
     while (n--) {
-        string input;
-        cin >> input;
+        string line;
+        cin >> line;
 
-        if (input == "ENTER") {
+        if (line == "ENTER") {
             cnt += st.size();
             st.clear();
         } else {
-            st.insert(input);
+            st.insert(line);
         }
     }
     cnt += st.size();

@@ -12,13 +12,13 @@ public class Main {
         int cnt = 0;
 
         while (n-- > 0) {
-            String input = br.readLine();
+            String line = br.readLine();
 
-            if (input.equals("ENTER")) {
+            if (line.equals("ENTER")) {
                 cnt += set.size();
                 set.clear();
             } else {
-                set.add(input);
+                set.add(line);
             }
         }
         cnt += set.size();
