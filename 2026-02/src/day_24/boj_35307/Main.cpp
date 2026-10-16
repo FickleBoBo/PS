@@ -12,13 +12,13 @@ int main() {
         long long n, m, l, r, u, d;
         cin >> n >> m >> l >> r >> u >> d;
 
-        long long ht = (u + d == 0) ? 0 : (n - 1 + u + d - 1) / (u + d);
-        long long wt = (l + r == 0) ? 0 : (m - 1 + l + r - 1) / (l + r);
+        long long ht = (u + d != 0) ? (n - 1 + u + d - 1) / (u + d) : 0;
+        long long wt = (l + r != 0) ? (m - 1 + l + r - 1) / (l + r) : 0;
 
-        long long fill = 1;
-        if (ht != 0) fill *= n;
-        if (wt != 0) fill *= m;
+        long long cnt = 1;
+        if (ht != 0) cnt *= n;
+        if (wt != 0) cnt *= m;
 
-        cout << fill << ' ' << ht + wt << '\n';
+        cout << cnt << ' ' << ht + wt << '\n';
     }
 }

@@ -19,14 +19,14 @@ public class Main {
             long u = Long.parseLong(st.nextToken());
             long d = Long.parseLong(st.nextToken());
 
-            long ht = (u + d == 0) ? 0 : (n - 1 + u + d - 1) / (u + d);
-            long wt = (l + r == 0) ? 0 : (m - 1 + l + r - 1) / (l + r);
+            long ht = (u + d != 0) ? (n - 1 + u + d - 1) / (u + d) : 0;
+            long wt = (l + r != 0) ? (m - 1 + l + r - 1) / (l + r) : 0;
 
-            long fill = 1;
-            if (ht != 0) fill *= n;
-            if (wt != 0) fill *= m;
+            long cnt = 1;
+            if (ht != 0) cnt *= n;
+            if (wt != 0) cnt *= m;
 
-            sb.append(fill).append(" ").append(ht + wt).append("\n");
+            sb.append(cnt).append(" ").append(ht + wt).append("\n");
         }
 
         System.out.println(sb);
