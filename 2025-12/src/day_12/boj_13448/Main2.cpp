@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long long dp[100001];
+long long dp[1 + 100000];
 
 struct Item {
     int m;
@@ -20,7 +20,7 @@ int main() {
     for (int i = 0; i < n; i++) cin >> items[i].m;
     for (int i = 0; i < n; i++) cin >> items[i].p;
     for (int i = 0; i < n; i++) cin >> items[i].r;
-    sort(items.begin(), items.end(), [](Item& a, Item& b) {
+    sort(items.begin(), items.end(), [](auto& a, auto& b) {
         return a.r * b.p < a.p * b.r;
     });
 
