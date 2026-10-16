@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static final int MAX = 3000000;
+    static final int MAX = 3_000_000;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,16 +18,17 @@ public class Main {
         }
 
         int[] g = new int[1 + MAX];
-        boolean[] vis = new boolean[16];  // 전처리로 미리 크기 계산
+        boolean[] seen = new boolean[16];  // 전처리로 미리 크기 계산
         for (int i = 1; i <= MAX; i++) {
-            Arrays.fill(vis, false);
-
+            Arrays.fill(seen, false);
             for (int x : fibo) {
-                if (i >= x) vis[g[i - x]] = true;
+                if (i >= x) seen[g[i - x]] = true;
             }
 
             int mex = 0;
-            while (vis[mex]) mex++;
+            while (seen[mex]) {
+                mex++;
+            }
             g[i] = mex;
         }
 
