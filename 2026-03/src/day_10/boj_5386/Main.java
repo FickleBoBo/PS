@@ -15,7 +15,7 @@ public class Main {
             int s = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
 
-            if (k % 2 == 1) {
+            if (k % 2 != 0) {
                 sb.append(s % 2).append("\n");
             } else {
                 if (s % (k + 1) == k) {
