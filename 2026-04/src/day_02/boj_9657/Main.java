@@ -8,7 +8,7 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
 
-        boolean[] dp = new boolean[1001];
+        boolean[] dp = new boolean[1 + 1000];
         dp[1] = dp[3] = dp[4] = true;
         for (int i = 5; i <= n; i++) {
             if (!dp[i - 1] || !dp[i - 3] || !dp[i - 4]) {
