@@ -17,7 +17,8 @@
   `-Wsign-compare` 는 결함으로 치지 않아 끈다. Java `unchecked`·`rawtypes` 경고는 13.5 에 따라 무시한다.
   C++ 표준은 `prms_` C++20, `cofo_`·`leet_` C++23, BOJ 등 그 외는 C++20 이다 (CONVENTIONS 3장).
 - 종료 코드: 후보가 아닌 [필수] 위반이 하나라도 있으면 1, 아니면 0. `--check-docs` 는 불일치가 있으면 1.
-- 검사 범위: 디렉터리를 훑을 때 `live_` 폴더와 2025-12 이전 월 폴더는 건너뛴다. 경로로 직접 지정하면 검사한다.
+  경로가 없거나 알 수 없는 규칙 ID 를 주면 2.
+- 검사 범위: 디렉터리를 훑을 때 `live_` 폴더와 2025-12 이전 월 폴더는 건너뛴다. 이전 월 폴더는 경로로 직접 지정하면 검사하지만 `live_` 폴더는 파일을 직접 지정해도 건너뛴다.
 """
 
 import argparse
@@ -54,6 +55,8 @@ GAPS = {
     "1.4": "C++은 기본 타입·string·vector·표준 컨테이너·pair/tuple 선언만 본다(사용자 정의 타입 선언, 함수명은 못 봄). 멤버/지역/전역 판정은 중괄호 추적이라 근사",
     "1.2": "함수명 표기 (name-case 는 변수·상수만 본다)",
     "1.3": "저지가 준 시그니처(함수명·매개변수명)를 바꾸지 않았는지, 지문의 변수명과 대조",
+    "3": "C++ 표준(저지별 기준에서 컴파일되지 않는 기능을 쓰지 않았는지)",
+    "4.1": "클래스명·`public` 사용, `println(sb)` 한 번 출력, `BufferedWriter` flush, `BufferedWriter`·`StringBuilder` 혼용",
     "4.2": "Queue API 는 변수 타입이 필요해 일부만 본다",
     "4.3": "스트림 허용 범위, list.remove 혼동, 박싱 == (변수 타입이 필요해 일부만)",
     "5": "연쇄 대입(a = b = 0), 5장 표에 없는 모듈",
@@ -67,9 +70,10 @@ GAPS = {
     "8.4": "참조로 받기 (타입 크기를 알아야 한다)",
     "9": "표준 라이브러리 우선(직접 구현), ASCII 산술 변환, Codeforces 해시",
     "10": "프로그래머스·LeetCode의 전역·static 상태 (읽기 전용 테이블 여부 판단)",
-    "11": "방어 코드, 알려진 패턴 밖의 군더더기(괄호·변수·형변환)",
+    "11": "방어 코드, 알려진 패턴 밖의 군더더기(괄호·변수·형변환), Java·Python 미사용 변수·함수·import 와 주석 처리한 옛 코드(컴파일러가 못 잡는 것)",
     "12": "이름 표 대부분(rename-hint 는 일부), `MAX_N` 형식(const-mix 가 용도 혼용만), 한 스코프의 이름 충돌",
     "13.1": "알고리즘별 함수명",
+    "13.2": "Java 보조 타입 `static class` (C++ `struct`/`class` 는 c-class 가 본다)",
     "13.3": "크기 식 앞/뒤 여유분 판정, 리터럴이 여유분을 합친 값인지(size-pad 는 후보), `while` 안 역순 인덱스, 크기 식이 아닌 `+ 1` 순서",
     "13.6": "비교자 람다 변수의 이름 `cmp`",
     "14": "문자열 순회, 테스트케이스 번호 `tc`, StringBuilder 체이닝",
@@ -303,7 +307,12 @@ def r_ternary(ctx):
 def r_sizeplus(ctx):
     res = []
     for ln, l in enumerate(ctx.lines, 1):
+        nul = {  # char 배열 마지막 차원의 뒤쪽 `+ 1` 은 NUL 칸이라 규칙대로다 (13.3)
+            re.findall(r"\[([^\]]*)\]", m.group(1))[-1] for m in re.finditer(r"\bchar\s+\w+\s*((?:\[[^\]]*\])+)", l)
+        }
         for e in size_exprs(ctx.lang, l):
+            if e in nul:
+                continue
             if re.fullmatch(r"\s*(.+?)\s*\+\s*1\s*\+\s*\1\s*", e):
                 continue  # n + 1 + n: 음수 포함 구간의 0 자리 (13.3 허용)
             if re.search(r"[\w)\]]\s*\+\s*[12]\b", e) and not re.match(r"\s*1\s*\+", e):
@@ -312,8 +321,8 @@ def r_sizeplus(ctx):
 
 
 CONST_DECL = {
-    "cpp": r"\bconst\s+(?:int|long long)\s+([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d']*)\s*;",
-    "java": r"\bstatic\s+final\s+(?:int|long)\s+([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d_]*)\s*;",
+    "cpp": r"\bconst\s+(?:int|long long|long)\s+([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d']*)[uUlL]*\s*;",
+    "java": r"\bstatic\s+final\s+(?:int|long)\s+([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d_]*)[lL]?\s*;",
     "py": r"^([A-Z][A-Z0-9_]*)\s*=\s*(\d[\d_]*)\s*$",
 }
 
@@ -346,7 +355,8 @@ def r_sizepad(ctx):
                         )
                     )
         d = const_decl(ctx.lang, l)
-        if d and looks_padded(d[1]):
+        # INF 는 값 상한 + 1 센티널이지 크기가 아니다 (13.3)
+        if d and looks_padded(d[1]) and not d[0].startswith("INF"):
             res.append((ln, f"상수 {d[0]} = {d[1]}: 여유분을 합친 값이면 1 + {d[1] - 1} 로 위치를 표시", True))
     return res
 
@@ -1111,7 +1121,11 @@ def r_jio(ctx):
     m = re.search(r"static\s+void\s+main\s*\([^)]*\)\s*(throws\s+[\w., ]+)?\s*\{", code)
     if m and re.search(r"\bBufferedReader\b", code) and not (m.group(1) and "IOException" in m.group(1)):
         res.append((code[: m.start()].count("\n") + 1, "main 에 throws IOException 없음"))
-    res += grep(ctx, r"\bcatch\s*\(", "try-catch 사용 (main 은 throws IOException 만)")
+    res += grep(
+        ctx,
+        r"\bcatch\s*\(\s*(?:final\s+)?(?:java\s*\.\s*io\s*\.\s*)?(?:IOException|Exception|Throwable)\b",
+        "IOException try-catch 사용 (main 은 throws IOException 만)",
+    )
     return res
 
 
@@ -1341,7 +1355,10 @@ def r_accum(ctx):
 
 @rule("c-npos", "필수", ("cpp",), "string::npos 금지 (13.4)")
 def r_npos(ctx):
-    return grep(ctx, r"\bnpos\b", "string::npos 대신 -1 비교")
+    # "없음" 판정(비교)만 본다. substr(i, string::npos) 같은 인자 용법은 13.4 의 대상이 아니다
+    return grep(
+        ctx, r"(?:==|!=)\s*(?:std\s*::\s*)?(?:string\s*::\s*)?npos\b|\bnpos\s*(?:==|!=)", "string::npos 대신 -1 비교"
+    )
 
 
 @rule("c-greater-sort", "필수", ("cpp",), "정렬에 greater 금지 (13.6)")
@@ -1365,6 +1382,35 @@ def r_cadj(ctx):
         r"\bvector\s*<\s*vector\s*<[^;]*?>\s*>\s+adj\w*\b",
         "인접 리스트를 vector<vector<>> 로: vector<int> adj[N] 배열로",
     )
+
+
+@rule(
+    "c-char-nul",
+    "필수",
+    ("cpp",),
+    "한 줄을 cin >> 으로 읽는 char 배열은 NUL 칸 포함 (13.3, 줄 길이 상한과 같은 크기인지는 사람이 판정)",
+)
+def r_charnul(ctx):
+    res = []
+    reads = [l for l in ctx.lines if "cin" in l]
+    consts = {m.group(1): m.group(2) for m in re.finditer(CONST_ANY["cpp"], "\n".join(ctx.lines))}
+    for ln, l in enumerate(ctx.lines, 1):
+        for m in re.finditer(r"\bchar\s+(\w+)\s*((?:\[[^\]]*\])+)", l):
+            name, dims = m.group(1), re.findall(r"\[([^\]]*)\]", m.group(2))
+            # 문자 하나를 읽는 cin >> grid[i][j] 는 제외: 첨자 수가 차원 수 - 1 인 행 입력만 본다
+            if not any(
+                len(re.findall(r"\[", r.group(1))) == len(dims) - 1
+                for rl in reads
+                for r in re.finditer(r">>\s*%s\b((?:\s*\[[^\]]*\])*)" % re.escape(name), rl)
+            ):
+                continue
+            last = dims[-1].strip()
+            v = consts.get(last, "") if re.fullmatch(r"[A-Z][A-Z0-9_]*", last) else last
+            if "+" in v:
+                continue
+            msg = f"char 배열 `{name}` 마지막 차원 `{last}`에 NUL 칸(`+ 1`)이 안 보임: C++20 `cin >> char[N]`은 N-1자만 읽는다"
+            res.append((ln, msg, True))
+    return res
 
 
 @rule("c-readloop", "필수", ("cpp",), "원소 전체 입력은 for (int& x : v) (14장)")
@@ -1771,6 +1817,10 @@ def main():
     counts, cand_counts, hard = Counter(), Counter(), 0
     files = collect(a.paths)
     do_compile = a.compile or a.compile_only
+    if do_compile and sys.version_info < (3, 10) and any(lang_of(p) == "py" for p in files):
+        print(
+            "경고: python3 가 3.10 미만이라 Python 3.10+ 문법이 compile-error 로 잘못 보고될 수 있다", file=sys.stderr
+        )
     compiled = {}
     if do_compile:
         with ThreadPoolExecutor(max_workers=max(1, a.j)) as ex:
