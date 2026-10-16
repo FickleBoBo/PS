@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
 
-    static final int MAX = 100_000;
+    static final int INF = 100000;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,7 +13,7 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         int[] dp = new int[1 + n * 3];
-        Arrays.fill(dp, MAX);
+        Arrays.fill(dp, INF);
         dp[1] = 0;
 
         for (int i = 1; i <= n; i++) {

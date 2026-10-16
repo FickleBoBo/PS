@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 100000;
+const int INF = 100000;
 
 int main() {
     ios::sync_with_stdio(0);
@@ -10,7 +10,7 @@ int main() {
     int n;
     cin >> n;
 
-    vector<int> dp(1 + n * 3, MAX);
+    vector<int> dp(1 + n * 3, INF);
     dp[1] = 0;
 
     for (int i = 1; i <= n; i++) {
