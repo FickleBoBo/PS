@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool dp[1001];
+bool dp[1 + 1000];
 
 int main() {
     ios::sync_with_stdio(0);
