@@ -2,7 +2,7 @@
 using namespace std;
 
 const int MOD = 15746;
-int dp[1000001] = {0, 1, 2};
+int dp[1 + 1'000'000] = {0, 1, 2};
 
 int main() {
     ios::sync_with_stdio(0);
