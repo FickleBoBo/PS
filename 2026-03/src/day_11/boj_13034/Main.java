@@ -10,16 +10,17 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         int[] g = new int[1 + n];
-        boolean[] vis = new boolean[16];  // 전처리로 미리 크기 계산
+        boolean[] seen = new boolean[16];  // 전처리로 미리 크기 계산
         for (int i = 2; i <= n; i++) {
-            Arrays.fill(vis, false);
-
+            Arrays.fill(seen, false);
             for (int j = 0; j <= (i - 1) / 2; j++) {
-                vis[g[j] ^ g[i - 2 - j]] = true;
+                seen[g[j] ^ g[i - 2 - j]] = true;
             }
 
             int mex = 0;
-            while (vis[mex]) mex++;
+            while (seen[mex]) {
+                mex++;
+            }
             g[i] = mex;
         }
 
