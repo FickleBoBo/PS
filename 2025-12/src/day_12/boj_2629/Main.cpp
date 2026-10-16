@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool dp[31][1 + 500 * 30];
+bool dp[1 + 30][1 + 500 * 30];
 
 int main() {
     ios::sync_with_stdio(0);
