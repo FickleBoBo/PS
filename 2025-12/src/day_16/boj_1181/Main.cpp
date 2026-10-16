@@ -10,12 +10,12 @@ int main() {
 
     vector<string> v(n);
     for (string& x : v) cin >> x;
-    sort(v.begin(), v.end(), [](string& a, string& b) {
+    sort(v.begin(), v.end(), [](auto& a, auto& b) {
         if (a.size() != b.size()) return a.size() < b.size();
         return a < b;
     });
 
-    string prv = "";
+    string prv;
     for (string& s : v) {
         if (s == prv) continue;
 
