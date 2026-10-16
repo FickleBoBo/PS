@@ -16,16 +16,16 @@ public class Main {
             int x = Integer.parseInt(st.nextToken());
             nimsum ^= x - 2;
         }
-        boolean isWhiteKingName = br.readLine().equals("Whiteking");
+        boolean whiteFirst = br.readLine().equals("Whiteking");
 
         if (nimsum != 0) {
-            if (isWhiteKingName) {
+            if (whiteFirst) {
                 System.out.println("Whiteking");
             } else {
                 System.out.println("Blackking");
             }
         } else {
-            if (isWhiteKingName) {
+            if (whiteFirst) {
                 System.out.println("Blackking");
             } else {
                 System.out.println("Whiteking");

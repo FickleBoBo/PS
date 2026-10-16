@@ -18,16 +18,16 @@ int main() {
 
     string s;
     cin >> s;
-    bool is_white_king_name = s == "Whiteking";
+    bool white_first = s == "Whiteking";
 
     if (nimsum) {
-        if (is_white_king_name) {
+        if (white_first) {
             cout << "Whiteking";
         } else {
             cout << "Blackking";
         }
     } else {
-        if (is_white_king_name) {
+        if (white_first) {
             cout << "Blackking";
         } else {
             cout << "Whiteking";
