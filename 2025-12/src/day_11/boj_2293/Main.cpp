@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dp[2][10001];  // 롤링 배열
+int dp[2][1 + 10000];  // 롤링 배열
 
 int main() {
     ios::sync_with_stdio(0);
