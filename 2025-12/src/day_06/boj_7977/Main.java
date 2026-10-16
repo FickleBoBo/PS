@@ -17,10 +17,10 @@ public class Main {
         int min = Math.min(Math.min(cnt[0], cnt[2]), Math.min(cnt[6], cnt[19]));
 
         System.out.println(min);
-        System.out.println(getDNA(n, cnt, min));
+        System.out.println(getDna(n, cnt, min));
     }
 
-    static String getDNA(int n, int[] cnt, int min) {
+    static String getDna(int n, int[] cnt, int min) {
         if (cnt[0] == min) return "A".repeat(n);
         if (cnt[2] == min) return "C".repeat(n);
         if (cnt[6] == min) return "G".repeat(n);
