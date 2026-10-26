@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX_N = 101;
 const int MOD = 1'000'000'007;
+const int MAX_N = 1 + 100;
 bool chk[MAX_N][MAX_N];
 int dp[MAX_N][MAX_N];
 
