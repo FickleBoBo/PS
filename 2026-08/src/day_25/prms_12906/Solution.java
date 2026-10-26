@@ -4,15 +4,11 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int[] arr) {
-        List<Integer> list = new ArrayList<>();
-        int prv = -1;
-
+        Deque<Integer> dq = new ArrayDeque<>();
         for (int x : arr) {
-            if (x == prv) continue;
-            list.add(x);
-            prv = x;
+            if (dq.isEmpty() || dq.peekLast() != x) dq.offerLast(x);
         }
 
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return dq.stream().mapToInt(Integer::intValue).toArray();
     }
 }
