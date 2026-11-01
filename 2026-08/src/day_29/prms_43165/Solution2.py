@@ -4,10 +4,9 @@ sys.setrecursionlimit(10**6)
 
 
 def solution(numbers, target):
-    n = len(numbers)
 
     def dfs(cur, depth):
-        if depth == n:
+        if depth == len(numbers):
             return int(cur == target)
         return dfs(cur + numbers[depth], depth + 1) + dfs(cur - numbers[depth], depth + 1)
 
