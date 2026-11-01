@@ -18,20 +18,17 @@ class Solution {
 
         while (!q.isEmpty()) {
             int[] cur = q.poll();
-            int r = cur[0];
-            int c = cur[1];
-
-            if (r == n - 1 && c == m - 1) return dist[r][c];
+            if (cur[0] == n - 1 && cur[1] == m - 1) return dist[cur[0]][cur[1]];
 
             for (int d = 0; d < 4; d++) {
-                int nr = r + dr[d];
-                int nc = c + dc[d];
+                int nr = cur[0] + dr[d];
+                int nc = cur[1] + dc[d];
 
                 if (nr < 0 || nr >= n || nc < 0 || nc >= m) continue;
                 if (maps[nr][nc] == 0 || dist[nr][nc] != 0) continue;
 
                 q.offer(new int[]{nr, nc});
-                dist[nr][nc] = dist[r][c] + 1;
+                dist[nr][nc] = dist[cur[0]][cur[1]] + 1;
             }
         }
 
