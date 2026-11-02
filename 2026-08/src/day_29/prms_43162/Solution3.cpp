@@ -2,7 +2,7 @@
 using namespace std;
 
 const int MAX_N = 200;
-int p[MAX_N];
+vector<int> p(MAX_N);
 
 int find(int x) {
     if (x == p[x]) return x;
@@ -18,9 +18,9 @@ bool unite(int x, int y) {
 }
 
 int solution(int n, vector<vector<int>> computers) {
-    iota(p, p + n, 0);
+    iota(p.begin(), p.end(), 0);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
             if (computers[i][j]) unite(i, j);
         }

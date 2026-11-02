@@ -14,7 +14,7 @@ def solution(n, computers):
         p[x] = y
         return True
 
-    for i in range(n):
+    for i in range(n - 1):
         for j in range(i + 1, n):
             if computers[i][j]:
                 union(i, j)
