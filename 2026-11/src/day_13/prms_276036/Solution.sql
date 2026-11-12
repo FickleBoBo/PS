@@ -1,0 +1,13 @@
+SELECT
+    CASE
+        WHEN MAX(s.CATEGORY = 'Front End') AND MAX(s.NAME = 'Python') THEN 'A'
+        WHEN MAX(s.NAME = 'C#') THEN 'B'
+        WHEN MAX(s.CATEGORY = 'Front End') THEN 'C'
+    END AS GRADE,
+    d.ID,
+    d.EMAIL
+FROM DEVELOPERS d
+JOIN SKILLCODES s ON d.SKILL_CODE & s.CODE = s.CODE
+GROUP BY d.ID
+HAVING GRADE IS NOT NULL
+ORDER BY GRADE, d.ID
