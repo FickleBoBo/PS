@@ -315,6 +315,10 @@ def r_sizeplus(ctx):
                 continue
             if re.fullmatch(r"\s*(.+?)\s*\+\s*1\s*\+\s*\1\s*", e):
                 continue  # n + 1 + n: 음수 포함 구간의 0 자리 (13.3 허용)
+            if re.fullmatch(r"\s*[\w.()\[\]]+\s*-\s*[\w.()\[\]]+\s*\+\s*1\s*", e) or re.search(r"\(.*\+\s*1\)\s*/", e):
+                continue  # b - a + 1(구간 길이)·(n + 1) / 2(올림)는 여유분이 아니다
+            if re.search(r"\b(?:begin|end)\s*\(\s*\)", e):
+                continue  # 이터레이터 + 1 은 크기가 아니다
             if re.search(r"[\w)\]]\s*\+\s*[12]\b", e) and not re.match(r"\s*1\s*\+", e):
                 res.append((ln, f"크기 식 `{e.strip()}`: 앞쪽 여유분(1-indexed 등)이면 1 + n, 뒤쪽이면 그대로", True))
     return res
@@ -388,14 +392,14 @@ def r_magic(ctx):
         if ln in decl_lines or not re.fullmatch(r"\d[\d'_]*", tok):
             continue
         v = int(re.sub(r"['_]", "", tok))
-        if v >= 10:
+        if v >= 100:
             occ.setdefault(v, []).append(ln)
     # 여유분을 합친 값(101, 102)은 같은 파일의 기준값(100)과 같은 수로 묶는다. 기준값이 리터럴이나 상수로 있을 때만.
     merged = {}
     for v in sorted(occ):
         for pad in (1, 2):
             base = v - pad
-            if looks_padded(v) and base >= 10 and (base in occ or base in consts) and (pad == 1 or v % 10 == 2):
+            if looks_padded(v) and base >= 100 and (base in occ or base in consts) and (pad == 1 or v % 10 == 2):
                 merged[v] = base
                 break
     groups = {}
@@ -497,7 +501,7 @@ def mask_sizes(lang, l, name):
     "const-mix",
     "필수",
     ALL,
-    "MAX·MAX_X 용도 혼용: 로직이 쓰는 MAX 의 선언 여유분, MAX_X 의 대응 변수 부재·로직 사용 (12.6, 용도 판정은 사람이 → 후보)",
+    "MAX·MAX_X 용도 혼용: 로직이 쓰는 MAX 의 선언 여유분, 로직에 쓰인 MAX_X (12.6, 용도 판정은 사람이 → 후보)",
 )
 def r_constmix(ctx):
     res, decls = [], {}
@@ -518,12 +522,9 @@ def r_constmix(ctx):
                     )
                     break
         if name.startswith("MAX_"):
-            var = name[4:].lower()
-            if not re.search(r"(?<![\w])" + re.escape(var) + r"(?![\w])", ctx.code):
-                res.append((dl, f"{name}: 상한을 가진 변수 {var} 가 이 파일에 없음", True))
             for ln, l in enumerate(ctx.lines, 1):
                 if ln != dl and re.search(r"\b" + name + r"\b", mask_sizes(ctx.lang, l, name)):
-                    res.append((ln, f"{name} 는 크기용: 순회·비교에는 변수 {var} 를 쓴다", True))
+                    res.append((ln, f"{name} 는 크기용: 순회·비교에는 입력 변수나 MAX 를 쓴다", True))
                     break
     return res
 
@@ -963,13 +964,15 @@ def r_collision(ctx):
             for b in n.body:
                 if isinstance(b, (ast.FunctionDef, ast.AsyncFunctionDef)):
                     in_class_methods.add(id(b))
-    # 저지가 정한 함수 시그니처의 매개변수명은 바꾸지 않는다 (1.3): 최상위 solution, class Solution 메서드
+    # 저지가 정한 함수 시그니처의 매개변수명은 바꾸지 않는다 (1.3): 최상위 solution, class Solution 메서드,
+    # leet_ 폴더의 클래스 메서드(설계 문제 포함. Java·C++ 의 judge_given 과 같은 기준)
+    is_leet = any(p.startswith("leet_") for p in ctx.path.replace(os.sep, "/").split("/"))
     sig_args = set()
     for n in ast.walk(ctx.tree):
         fns = []
         if isinstance(n, ast.FunctionDef) and n.name == "solution" and n in ctx.tree.body:
             fns.append(n)
-        elif isinstance(n, ast.ClassDef) and n.name == "Solution":
+        elif isinstance(n, ast.ClassDef) and (n.name == "Solution" or is_leet):
             fns.extend(b for b in n.body if isinstance(b, ast.FunctionDef))
         for fn in fns:
             a = fn.args
@@ -1021,7 +1024,13 @@ def r_jsplit(ctx):
 
 @rule("j-append-sep", "필수", ("java",), 'StringBuilder 구분자는 문자열 리터럴 "\\n"·" " (4.1)')
 def r_jappendsep(ctx):
-    return grep(ctx, r"\.append\(\s*'(?:\\n| )'\s*\)", '구분자를 char 로 붙임: "\\n"·" " 문자열로')
+    # 문자 리터럴 내용은 ctx.lines 에서 공백으로 지워지므로 원문 줄로 본다 (주석 안은 ctx.lines 로 걸러냄)
+    rx = re.compile(r"\.append\(\s*'(?:\\n| )'\s*\)")
+    return [
+        (ln, '구분자를 char 로 붙임: "\\n"·" " 문자열로')
+        for ln, (raw, code) in enumerate(zip(ctx.rawlines, ctx.lines), 1)
+        if ".append(" in code and rx.search(raw)
+    ]
 
 
 @rule("j-import", "필수", ("java",), "와일드카드 import (4.1)")
@@ -1211,26 +1220,27 @@ def cast_groups(ctx):
 
 @rule("mul-cast", "필수", ("java", "cpp"), "곱셈 승격 위치 (8.1)")
 def r_mulcast(ctx):
-    one = "1L" if ctx.lang == "java" else "1LL"
-    res = [
-        (ln, "(long)(a * b): 곱한 뒤 승격. %s * a * b 로" % one) for ln, inner_mul, _ in cast_groups(ctx) if inner_mul
-    ]
+    one = "(long) a * b" if ctx.lang == "java" else "1LL * a * b"
+    res = [(ln, "(long)(a * b): 곱한 뒤 승격. %s 로" % one) for ln, inner_mul, _ in cast_groups(ctx) if inner_mul]
     res += grep(
         ctx,
         r"[\w\])]\s*\*\s*[\w.\[\]()]+\s*\*\s*1(?:L|LL)\b",
-        "a * b * %s: 승격은 첫 곱셈 앞에" % one,
+        "a * b * 1L(L): 승격은 첫 곱셈 앞에, %s 로" % one,
     )
     return res
 
 
-@rule("mul-cast-style", "권장", ("java", "cpp"), "곱셈 승격 표기 (8.1)")
+@rule("mul-cast-style", "권장", ("cpp",), "C++ 곱셈 승격 표기 (8.1)")
 def r_mulcast_style(ctx):
-    one = "1L" if ctx.lang == "java" else "1LL"
-    ty = "long" if ctx.lang == "java" else r"long long|long"
-    msg = "(long) a * b 캐스트: 오버플로는 없으나 표기는 %s * a * b 로" % one
-    res = grep(ctx, r"\(\s*(?:%s)\s*\)\s*[\w.\[\]]+\s*\*" % ty, msg)
+    msg = "(long long) a * b 캐스트: 오버플로는 없으나 표기는 1LL * a * b 로"
+    res = grep(ctx, r"\(\s*(?:long long|long)\s*\)\s*[\w.\[\]]+\s*\*", msg)
     res += [(ln, msg) for ln, inner_mul, after_mul in cast_groups(ctx) if after_mul and not inner_mul]
     return res
+
+
+@rule("java-1l", "필수", ("java",), "Java 곱셈 승격 표기 (8.1)")
+def r_java1l(ctx):
+    return grep(ctx, r"\b1L\s*\*", "1L * a * b: Java 는 (long) a * b 로")
 
 
 # ---------------------------------------------------------------- C++ 전용
@@ -1296,16 +1306,9 @@ def r_cconst(ctx):
 
 @rule("c-auto-basic", "필수", ("cpp",), "기본형·string 은 auto 금지 (8.2)")
 def r_cauto(ctx):
-    res = grep(ctx, r"\bauto\s+\w+\s*=\s*(?:-?\d|true\b|false\b)", "리터럴 초기화에 auto: 타입 명시")
-    res += grep(ctx, r"\bfor\s*\(\s*auto\s+\w+\s*:", "범위 for 원소 auto (값): 기본형이면 타입 명시", cand=True)
-    # set/map 계열 원소는 const 라 `string&` 로 받을 수 없으므로 auto& 를 허용한다 (8.2)
-    assoc = set(re.findall(r"\b(?:unordered_)?(?:multi)?(?:set|map)\s*<[^;()]*?>\s+(\w+)", ctx.code))
-    rx = re.compile(r"\bfor\s*\(\s*auto\s*&\s*\w+\s*:\s*(\w+)?")
-    for ln, l in enumerate(ctx.lines, 1):
-        m = rx.search(l)
-        if m and m.group(1) not in assoc:
-            res.append((ln, "범위 for 원소 auto&: 기본형이면 타입 명시", True))
-    return res
+    # 범위 for 원소가 기본형·string 인지는 타입 정보가 있어야 가려져서 기계 검사에서 뺐다 (정독 대상, --check-docs).
+    # 후보로 올리던 때 레포 전체 25건이 전부 컨테이너 행·pair 원소 오탐이었다.
+    return grep(ctx, r"\bauto\s+\w+\s*=\s*(?:-?\d|true\b|false\b)", "리터럴 초기화에 auto: 타입 명시")
 
 
 @rule("c-large-local", "필수", ("cpp",), "10만 이상 고정 배열은 전역 (10장)")
@@ -1372,6 +1375,9 @@ def r_greater(ctx):
 
 @rule("c-class", "필수", ("cpp",), "보조 타입은 struct (13.2)")
 def r_cclass(ctx):
+    # LeetCode 가 주는 클래스는 원본 그대로 둔다 (Solution, 설계 문제의 MinStack 등): leet_ 폴더는 검사하지 않는다.
+    if any(p.startswith("leet_") for p in ctx.path.replace(os.sep, "/").split("/")):
+        return []
     return grep(ctx, r"^\s*class\s+(?!Solution\b)\w+", "class 대신 struct")
 
 
@@ -1752,6 +1758,7 @@ def compile_file(path):
                 "-Wall",
                 "-Wextra",
                 "-Wno-sign-compare",
+                "-Wno-unused-parameter",  # 저지가 준 시그니처의 매개변수는 못 지운다 (1.3)
                 path,
             ]
             res = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
