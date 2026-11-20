@@ -10,7 +10,7 @@ _One day One Problem_
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 
-[![BOJ](https://img.shields.io/badge/BOJ-0076C0?style=flat-square)](https://solved.ac/qwera1997/)
+[![BOJ](https://img.shields.io/badge/BOJ-0076C0?style=flat-square)](https://solved.ac/profile/mwzz6)
 [![Programmers](https://img.shields.io/badge/Programmers-202B3D?style=flat-square)](https://school.programmers.co.kr/)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=flat-square&logo=leetcode&logoColor=white)](https://leetcode.com/FickleBoBo/)
 [![Codeforces](https://img.shields.io/badge/Codeforces-1F8ACB?style=flat-square&logo=codeforces&logoColor=white)](https://codeforces.com/profile/FickleBoBo)
@@ -32,7 +32,7 @@ _One day One Problem_
 
 <div align="center">
 
-<a href="https://solved.ac/qwera1997/"><img src="https://mazassumnida.wtf/api/v2/generate_badge?boj=qwera1997" width="400" alt="Solved.ac Profile"></a>
+<a href="https://solved.ac/profile/mwzz6"><img src="https://mazassumnida.wtf/api/v2/generate_badge?handle=mwzz6" width="400" alt="Solved.ac Profile"></a>
 
 <a href="https://leetcode.com/FickleBoBo/"><img src="https://leetcard.jacoblin.cool/FickleBoBo?theme=dark&amp;font=Nunito&amp;ext=heatmap" width="400" alt="LeetCode"></a>
 
@@ -60,7 +60,7 @@ _One day One Problem_
 
 | 접두사     | 출처                                   | 파일                                            |
 | ---------- | -------------------------------------- | ----------------------------------------------- |
-| `boj_`     | BOJ                                    | `Main.{java,cpp}`                               |
+| `boj_`     | BOJ                                    | `Main.{java,cpp,py}`                            |
 | `prms_`    | Programmers                            | `Solution.{java,cpp,py}` (SQL은 `Solution.sql`) |
 | `leet_`    | LeetCode                               | `Solution.{java,cpp,py}`                        |
 | `cofo_`    | Codeforces 문제 풀이                   | `Main.cpp`                                      |
@@ -74,11 +74,11 @@ _One day One Problem_
 
 이 레포의 반복 작업은 Claude Code 스킬로 자동화해 뒀다. (`.claude/skills/`)
 
-| 스킬             | 역할                                                                                                        |
-| ---------------- | ----------------------------------------------------------------------------------------------------------- |
-| `ps-new-month`   | 새 달이 시작되면 `{year}-{month}/` 모듈 폴더와 `.iml`을 만들고 IDE 모듈에 등록, 세팅 커밋까지               |
-| `ps-new-problem` | 열려 있는 Chrome 탭의 문제 URL(Programmers·LeetCode·Codeforces)로 `day_XX/` 폴더와 언어별 시작 코드 생성    |
-| `ps-audit`       | 풀이를 `CONVENTIONS.md` 기준으로 감사 — 정답성·해법 품질·컨벤션(`[필수]`/`[권장]`), 기계 검사 스크립트 포함 |
+| 스킬             | 역할                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| `ps-new-month`   | 새 달이 시작되면 `{year}-{month}/` 모듈 폴더와 `.iml`을 만들고 IDE 모듈에 등록, 세팅 커밋까지                |
+| `ps-new-problem` | 열려 있는 Chrome 탭의 문제 URL(BOJ·Programmers·LeetCode·Codeforces)로 `day_XX/` 폴더와 언어별 시작 코드 생성 |
+| `ps-audit`       | 풀이를 `CONVENTIONS.md` 기준으로 감사 — 정답성·해법 품질·컨벤션(`[필수]`/`[권장]`), 기계 검사 스크립트 포함  |
 
 ## 📖 Conventions
 
