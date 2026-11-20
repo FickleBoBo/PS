@@ -12,10 +12,10 @@
 
 - 경로는 파일 또는 폴더. 기본은 현재 폴더. 대상은 .java .cpp .py.
 - 출력: `파일:줄: [등급] 규칙ID (후보) 메시지`. `(후보)`는 사람이 최종 판정해야 하는 항목.
-- `--compile`: 규칙 검사에 더해 컴파일·파싱을 한다 (C++ `g++-16 -fsyntax-only`, Java `javac --release 21`, Python `ast`).
+- `--compile`: 규칙 검사에 더해 컴파일·파싱을 한다 (C++ `g++-16 -fsyntax-only`, Java `javac --release`, Python `ast`).
   컴파일 실패는 `[필수] compile-error`, `-Wunused-*` 는 `[필수] unused`, 그 밖의 경고는 `[필수] compile-warn (후보)`.
   `-Wsign-compare` 는 결함으로 치지 않아 끈다. Java `unchecked`·`rawtypes` 경고는 13.5 에 따라 무시한다.
-  C++ 표준은 `prms_` C++20, `cofo_`·`leet_` C++23, BOJ 등 그 외는 C++20 이다 (CONVENTIONS 3장).
+  컴파일 기준은 저지별로 `JUDGE_ENV` 표 하나에서 고른다 (`boj_` C++23·Java 11·Python 3.10 문법, `prms_` C++20, `leet_`·`cofo_` C++23, 그 외 C++20·Java 21). CONVENTIONS 3·4·5장.
 - 종료 코드: 후보가 아닌 [필수] 위반이 하나라도 있으면 1, 아니면 0. `--check-docs` 는 불일치가 있으면 1.
   경로가 없거나 알 수 없는 규칙 ID 를 주면 2.
 - 검사 범위: 디렉터리를 훑을 때 `live_` 폴더와 2025-12 이전 월 폴더는 건너뛴다. 이전 월 폴더는 경로로 직접 지정하면 검사하지만 `live_` 폴더는 파일을 직접 지정해도 건너뛴다.
@@ -1716,16 +1716,28 @@ def check_file(path, only_rules, tier):
     return sorted(set(found))
 
 
-CPP_STD_C23 = ("cofo_", "leet_")
 GCC_LOC = re.compile(r"^(.+?):(\d+):(?:\d+:)?\s+(error|warning|fatal error):\s+(.*)$")
 JAVAC_LOC = re.compile(r"^(.+?):(\d+):\s+(error|warning):\s+(.*)$")
 UNUSED_WARN = re.compile(r"\[-Wunused-(variable|function|but-set-variable|local-typedefs|value)\]")
 SKIP_WARN_JAVA = re.compile(r"\[(unchecked|rawtypes)\]")
 
 
-def cpp_std(path):
-    parts = path.replace(os.sep, "/").split("/")
-    return "c++23" if any(p.startswith(CPP_STD_C23) for p in parts) else "c++20"
+# 저지별 컴파일 기준: 폴더 접두사 -> (C++ 표준, Java --release, Python 문법 버전). 표에 없으면 기본값.
+JUDGE_ENV = {
+    "boj_": ("c++23", "11", (3, 10)),  # BOJ 는 PyPy3(3.10 문법)
+    "prms_": ("c++20", "21", None),
+    "leet_": ("c++23", "21", None),
+    "cofo_": ("c++23", "21", None),
+}
+JUDGE_ENV_DEFAULT = ("c++20", "21", None)
+
+
+def judge_env(path):
+    for part in path.replace(os.sep, "/").split("/"):
+        for prefix, env in JUDGE_ENV.items():
+            if part.startswith(prefix):
+                return env
+    return JUDGE_ENV_DEFAULT
 
 
 def compile_file(path):
@@ -1741,10 +1753,13 @@ def compile_file(path):
         else:
             found.append((ln, "필수", "compile-warn", True, msg))
 
+    cpp_std, java_release, py_version = judge_env(path)
     if lang == "py":
         try:
             with open(path, encoding="utf-8", errors="replace") as f:
-                ast.parse(f.read())
+                # `feature_version` 은 문법 일부(`except*`, `type` 문, 제네릭 등)만 걸러내는 근사치다.
+                # 3.12 f-string 중첩 같은 건 못 잡는다.
+                ast.parse(f.read(), feature_version=py_version)
         except SyntaxError as e:
             found.append((e.lineno or 1, "필수", "compile-error", False, f"SyntaxError: {e.msg}"))
         return found
@@ -1752,7 +1767,7 @@ def compile_file(path):
         if lang == "cpp":
             cmd = [
                 "g++-16",
-                f"-std={cpp_std(path)}",
+                f"-std={cpp_std}",
                 "-fsyntax-only",
                 "-O2",
                 "-Wall",
@@ -1773,7 +1788,7 @@ def compile_file(path):
                     "-encoding",
                     "UTF-8",
                     "--release",
-                    "21",
+                    java_release,
                     "-Xlint:all,-rawtypes,-unchecked",
                     "-proc:none",
                     "-d",

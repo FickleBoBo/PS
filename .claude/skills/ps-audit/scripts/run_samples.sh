@@ -20,9 +20,11 @@ expected=${3:-}
 [ -f "$input" ] || { echo "입력 파일 없음(일반 파일이어야 함): $input" >&2; exit 2; }
 [ -z "$expected" ] || [ -f "$expected" ] || { echo "기대 출력 파일 없음: $expected" >&2; exit 2; }
 
+# 저지별 기준 (ps_check.py 의 JUDGE_ENV 와 같다): C++ 표준, Java --release, Python 문법 버전
 case "$(basename "$dir")" in
-  cofo_*|leet_*) std=c++23 ;;
-  *) std=c++20 ;;
+  boj_*) std=c++23; jrel=11; pyfv="(3, 10)" ;;  # BOJ 는 PyPy3(3.10 문법)
+  leet_*|cofo_*) std=c++23; jrel=21; pyfv=None ;;
+  *) std=c++20; jrel=21; pyfv=None ;;
 esac
 tl=${TL:-10}
 work=${WORK:-${TMPDIR:-/tmp}/ps-audit-run}/$(basename "$dir")
@@ -64,7 +66,7 @@ for f in "$dir"/*.cpp "$dir"/*.java "$dir"/*.py; do
       [ -n "$cls" ] || cls=Main
       mkdir -p "$work/$name.d"
       sed '/^package /d' "$f" > "$work/$name.d/$cls.java"
-      if ! javac -encoding UTF-8 --release 21 -d "$work/$name.d" "$work/$name.d/$cls.java" 2> "$work/$name.cerr"; then
+      if ! javac -encoding UTF-8 --release "$jrel" -d "$work/$name.d" "$work/$name.d/$cls.java" 2> "$work/$name.cerr"; then
         row "$name" "컴파일실패" "-"; echo "    $(grep -m1 'error' "$work/$name.cerr")"; status=1; continue
       fi
       run=(java ${javaopts[@]+"${javaopts[@]}"} -cp "$work/$name.d" "$cls") ;;
@@ -72,7 +74,7 @@ for f in "$dir"/*.cpp "$dir"/*.java "$dir"/*.py; do
       if grep -Eq '^(def solution|class Solution)' "$f" && ! grep -Eq 'stdin|input\s*\(' "$f"; then
         row "$name" "건너뜀(함수형)" "-"; continue
       fi
-      python3 -B -c 'import ast,sys; ast.parse(open(sys.argv[1], encoding="utf-8").read())' "$f" 2> "$work/$name.cerr" \
+      python3 -B -c 'import ast,sys; ast.parse(open(sys.argv[1], encoding="utf-8").read(), feature_version=eval(sys.argv[2]))' "$f" "$pyfv" 2> "$work/$name.cerr" \
         || { row "$name" "컴파일실패" "-"; echo "    $(tail -1 "$work/$name.cerr")"; status=1; continue; }
       run=(python3 -B "$f") ;;
   esac

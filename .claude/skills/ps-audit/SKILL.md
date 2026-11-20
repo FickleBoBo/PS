@@ -48,7 +48,8 @@ B가 서브에이전트에 넘기는 작업 단위다. 위임하지 않으면 �
 - 제외: `live_*`(대회 박제), `.sql`, 2025-12 이전. 사용자가 명시하면 2025-12 이전도 본다 (스크립트는 디렉터리를 훑을 때만 건너뛰고 경로를 직접 주면 검사한다). 제외한 SQL 폴더 수를 센다.
 - **날짜(`day_DD`) 감사**는 `day_DD` 전체가 아니라 블로그 포스트와 대응하는 폴더만 본다. 포스트는 `~/Desktop/github/FickleBoBo.github.io/_posts/{programmers,baekjoon,codeforces,leetcode}/YYYY-MM-DD-*.md`고, 보고 제목은 포스트 front matter의 `title`을 그대로 쓴다. 먼저 포스트 목록과 폴더 목록을 대조한다. 블로그 레포를 읽을 수 없으면 사용자에게 묻는다.
 - 포스트도 폴더도 없는 날은 감사하지 않고, 포스트가 있는 다음 날짜를 알려 묻는다. 사용자가 지정하기 전에 넘어가지 않는다.
-- BOJ는 2026-04 종료로 채점이 불가하다. 정답성은 읽기·샘플·브루트포스로만 확인하고, 수정 제안은 동작이 같은 것만 한다. Java는 BOJ 포함 전 저지를 `--release 21`로 본다.
+- 컴파일 기준은 폴더 접두사로 정해진다 (`ps_check.py`의 `JUDGE_ENV`): BOJ는 Java 11·C++23·Python 3.10 문법, 프로그래머스는 C++20, LeetCode·Codeforces는 C++23, 그 밖의 Java는 21.
+- BOJ는 감사 중 제출·채점을 못 하므로 수정 제안은 동작이 같은 것만 한다.
 
 **A2. 기계 검사 (일괄).**
 
@@ -73,11 +74,10 @@ python3 -B .claude/skills/ps-audit/scripts/ps_check.py "${P[@]}" --compile
 
 **B1. 문제 확보.** 대상 문제의 제약·입출력을 원문으로 가져온다. "쉬워서 자명"으로 건너뛰지 않는다.
 
+- **BOJ(`boj_`)**: `ToolSearch select:mcp__claude_ai_TinyFish__fetch_content`로 도구를 불러 `https://acmicpc.net/problem/<번호>`를 읽는다 (한 번에 10개까지 병렬). `www`를 붙이면 301이라 붙이지 않는다. 시간·메모리 제한, 문제·입력·출력·제한·예제·힌트·출처가 본문에 나온다. 본문 중간의 긴 base64 문자열은 다국어 데이터이니 무시한다. 안 읽히면 사용자에게 지문을 요청한다.
+- **프로그래머스(`prms_`)**: 같은 도구로 `https://school.programmers.co.kr/learn/courses/30/lessons/<번호>`를 읽는다. WebFetch는 403이거나 부적합하다.
 - **LeetCode(`leet_`)**: GraphQL(`https://leetcode.com/graphql`, `question(titleSlug){ ... }`, 로그인 불필요). WebSearch·기억·미러는 쓰지 않는다 (지문이 개정되며 미러가 옛 버전인 적이 있다, `leet_191`).
-- **Codeforces(`cofo_`)·프로그래머스(`prms_`)**: WebFetch는 403이거나 부적합하다. `ToolSearch select:mcp__claude_ai_TinyFish__fetch_content`로 도구를 불러 읽는다 (한 번에 10개까지 병렬).
-  - Codeforces: `https://codeforces.com/contest/<대회>/problem/<문제>`를 `include_selectors: [".problem-statement"]`로 읽는다. 사용자에게 URL을 요청하지 않는다. 안 읽히면 사용자가 붙여넣은 본문을 쓴다.
-  - 프로그래머스: `https://school.programmers.co.kr/learn/courses/30/lessons/<번호>`.
-- **BOJ(`boj_`)**: 페이지를 받지 않고 iCloud 백업을 본다. `~/Library/Mobile Documents/com~apple~CloudDocs/baekjoon-crawling/data/problems/{번호}.json` (`title`, `info`, `description`, `input`, `output`, `limit`, `samples`). 백업에 없는 번호는 사용자에게 지문을 요청한다.
+- **Codeforces(`cofo_`)**: 같은 도구로 `https://codeforces.com/contest/<대회>/problem/<문제>`를 `include_selectors: [".problem-statement"]`로 읽는다. WebFetch는 403이다. 사용자에게 URL을 요청하지 않는다. 안 읽히면 사용자가 붙여넣은 본문을 쓴다.
 - **SWEA·Softeer(`swea_`·`softeer_`)**: 소스의 주석·시그니처에서 읽거나 사용자에게 지문을 요청한다.
 
 **B2. 풀이 읽기: 세 축을 한 번에.** 소스를 **전부 한 번 읽으면서** 아래 세 가지를 동시에 본다. 축별로 다시 읽지 않는다. 스크립트 출력만으로 "이상 없음"을 말하지 않는다. (위임 시 폴더 에이전트는 정답성·해법 품질만 하고 컨벤션 정독은 C0이 맡는다.)
