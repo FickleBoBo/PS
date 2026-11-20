@@ -2,17 +2,19 @@
 """PS 문제 스캐폴딩: day_XX/{judge}_{id}/ 폴더 + Java/C++/Python 보일러플레이트 생성(프로그래머스 SQL 은 .sql 하나).
 
 지원 저지
+  BOJ           www.acmicpc.net/problem/{n}                            -> boj_{n}/Main.{java,cpp,py}
   프로그래머스  school.programmers.co.kr/learn/courses/30/lessons/{id}  -> prms_{id}/Solution.*
   LeetCode      leetcode.com/problems/{slug}                           -> leet_{frontendId}/Solution.*
   Codeforces    codeforces.com/(contest|gym)/{c}/problem/{x}           -> cofo_{c}{x}/Main.*
                 codeforces.com/problemset/problem/{c}/{x}
 
 인자 없이 실행 -> 열려있는 Chrome 탭에서 위 URL 을 전부 추출해 한번에 처리.
-인자를 주면 그 문제만 -> URL 그대로, 또는 `42578` / `two-sum` / `2148a` / `prms:..` `leet:..` `cofo:..`.
+인자를 주면 그 문제만 -> URL 그대로, 또는 `boj:1000` / `42578` / `two-sum` / `2148a` / `prms:..` `leet:..` `cofo:..`.
+(숫자만 주면 프로그래머스라서 BOJ 는 `boj:` 접두사나 URL 로만 받는다.)
 
 프로그래머스 SQL 문제(언어 목록에 mysql)는 Solution.sql 하나만 만든다.
 프로그래머스·LeetCode 는 로그인 없이 공식 시작 코드를 받아온다.
-Codeforces 는 시작 코드가 없어 네트워크 없이 고정 보일러플레이트를 찍는다.
+BOJ·Codeforces 는 시작 코드가 없어 네트워크 없이 고정 보일러플레이트를 찍는다.
 
 git add/commit 은 하지 않는다 (실제로 풀고 나서 커밋하는 워크플로와 분리).
 """
@@ -29,6 +31,7 @@ import urllib.request
 LANGS = ("java", "cpp", "python3")
 
 # --- 저지 URL 패턴 ----------------------------------------------------------
+BOJ_URL_RE = re.compile(r"acmicpc\.net/problem/(\d+)")
 PRMS_URL_RE = re.compile(r"school\.programmers\.co\.kr/learn/courses/30/lessons/(\d+)")
 LEET_URL_RE = re.compile(r"leetcode\.com/problems/([a-z0-9][a-z0-9-]*)", re.IGNORECASE)
 COFO_CONTEST_RE = re.compile(r"codeforces\.com/(?:contest|gym)/(\d+)/problem/([A-Za-z]\d*)")
@@ -73,6 +76,7 @@ def chrome_tabs_text() -> str:
 def specs_from_text(text: str) -> list[tuple]:
     """텍스트(탭 목록이든 인자 URL 이든)에서 (judge, key) 스펙을 뽑는다."""
     specs: list[tuple] = []
+    specs += [("boj", n) for n in BOJ_URL_RE.findall(text)]
     specs += [("prms", pid) for pid in PRMS_URL_RE.findall(text)]
     specs += [("leet", slug.lower()) for slug in LEET_URL_RE.findall(text)]
     for cid, idx in COFO_CONTEST_RE.findall(text) + COFO_PSET_RE.findall(text):
@@ -86,8 +90,10 @@ def parse_arg(a: str) -> list[tuple]:
         if not got:
             sys.exit(f"error: URL 에서 지원 저지를 못 찾음: {a}")
         return got
-    if a.startswith(("prms:", "leet:", "cofo:")):
+    if a.startswith(("boj:", "prms:", "leet:", "cofo:")):
         judge, _, rest = a.partition(":")
+        if judge == "boj" and not rest.isdigit():
+            sys.exit(f"error: boj 형식 오류 (예: boj:1000): {a}")
         if judge == "cofo":
             m = re.fullmatch(r"(\d+)([A-Za-z]\d*)", rest)
             if not m:
@@ -113,6 +119,38 @@ def dedup(specs: list[tuple]) -> list[tuple]:
             seen.add(k)
             out.append((judge, key))
     return out
+
+
+# --- BOJ ---------------------------------------------------------------------
+# BOJ 는 Java·C++·Python 셋 다 만든다. 시작 코드 개념이 없어 고정 보일러플레이트(네트워크 안 씀).
+# CONVENTIONS.md 3·4·5장 템플릿 — 실제로 쓰는 import 만 두므로 `java.util` 은 필요할 때 추가한다.
+# Python 은 최상위에 바로 쓰고 main() 으로 감싸지 않으므로(구조 규칙은 CONVENTIONS 15장 미정) 입력 설정 두 줄만 둔다.
+BOJ_JAVA_TMPL = """package {package};
+
+import java.io.*;
+
+public class Main {{
+    public static void main(String[] args) throws IOException {{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    }}
+}}
+"""
+
+BOJ_CPP_TMPL = """#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+}
+"""
+
+BOJ_PY_TMPL = """import sys
+
+input = sys.stdin.readline
+"""
 
 
 # --- 프로그래머스 ---------------------------------------------------------------
@@ -276,6 +314,17 @@ int main() {
 def process(spec: tuple, day_name: str, day_dir: pathlib.Path) -> tuple:
     """반환: (status, label, title|reason, files|None). status in {ok, skip, fail}."""
     judge, key = spec
+
+    if judge == "boj":
+        folder = f"boj_{key}"
+        if (day_dir / folder).exists():
+            return ("skip", folder, None, None)
+        files = {
+            "Main.java": BOJ_JAVA_TMPL.format(package=f"{day_name}.{folder}"),
+            "Main.cpp": BOJ_CPP_TMPL,
+            "Main.py": BOJ_PY_TMPL,
+        }
+        return ("ok", folder, None, files)
 
     if judge == "prms":
         folder = f"prms_{key}"
