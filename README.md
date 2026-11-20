@@ -10,7 +10,7 @@ _One day One Problem_
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 
-[![BOJ](https://img.shields.io/badge/BOJ-0076C0?style=flat-square)](https://solved.ac/profile/mwzz6)
+[![BOJ](https://img.shields.io/badge/BOJ-0076C0?style=flat-square)](https://solved.ac/profile/FickleBoBo)
 [![Programmers](https://img.shields.io/badge/Programmers-202B3D?style=flat-square)](https://school.programmers.co.kr/)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=flat-square&logo=leetcode&logoColor=white)](https://leetcode.com/FickleBoBo/)
 [![Codeforces](https://img.shields.io/badge/Codeforces-1F8ACB?style=flat-square&logo=codeforces&logoColor=white)](https://codeforces.com/profile/FickleBoBo)
@@ -32,7 +32,7 @@ _One day One Problem_
 
 <div align="center">
 
-<a href="https://solved.ac/profile/mwzz6"><img src="https://mazassumnida.wtf/api/v2/generate_badge?handle=mwzz6" width="400" alt="Solved.ac Profile"></a>
+<a href="https://solved.ac/profile/FickleBoBo"><img src="https://mazassumnida.wtf/api/v2/generate_badge?handle=FickleBoBo" width="400" alt="Solved.ac Profile"></a>
 
 <a href="https://leetcode.com/FickleBoBo/"><img src="https://leetcard.jacoblin.cool/FickleBoBo?theme=dark&amp;font=Nunito&amp;ext=heatmap" width="400" alt="LeetCode"></a>
 
