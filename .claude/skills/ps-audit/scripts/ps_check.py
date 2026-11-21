@@ -1558,7 +1558,15 @@ def r_pyformat(ctx):
 def r_pyloopprint(ctx):
     if not ctx.tree:
         return []
-    seen = set()
+    seen, once = set(), set()
+    for node in ast.walk(ctx.tree):
+        for field in ("body", "orelse", "finalbody"):
+            stmts = getattr(node, field, None)
+            if isinstance(stmts, list):
+                # 출력 직후 break 로 루프를 빠져나가 한 번만 출력되는 경우는 제외 (5장 [허용])
+                for cur, nxt in zip(stmts, stmts[1:]):
+                    if isinstance(nxt, ast.Break) and isinstance(cur, ast.Expr):
+                        once.add(cur.value.lineno)
     for loop in ast.walk(ctx.tree):
         if not isinstance(loop, (ast.For, ast.AsyncFor, ast.While)):
             continue
@@ -1566,38 +1574,25 @@ def r_pyloopprint(ctx):
             for n in ast.walk(stmt):
                 if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "print":
                     seen.add(n.lineno)
+    seen -= once
     return [
         (ln, "루프 안 직접 출력: out 리스트에 모아 마지막에 한 번 (소량이어도 지적, 수정은 선택)")
         for ln in sorted(seen)
     ]
 
 
-@rule("py-recursion", "필수", ("py",), "재귀 시 setrecursionlimit(10**6) (5장)")
+@rule("py-recursion", "필수", ("py",), "setrecursionlimit 값은 10**6 (5장)")
 def r_pyrec(ctx):
     if not ctx.tree:
         return []
-    limit_calls = [
-        n
+    return [
+        (n.lineno, "setrecursionlimit 값이 10**6 이 아님")
         for n in ast.walk(ctx.tree)
-        if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "setrecursionlimit"
+        if isinstance(n, ast.Call)
+        and isinstance(n.func, ast.Attribute)
+        and n.func.attr == "setrecursionlimit"
+        and (not n.args or py_literal_int(n.args[0]) != 10**6)
     ]
-    for f in ast.walk(ctx.tree):
-        if not isinstance(f, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            continue
-        for c in ast.walk(f):
-            if isinstance(c, ast.Call):
-                fn = c.func
-                if (isinstance(fn, ast.Name) and fn.id == f.name) or (
-                    isinstance(fn, ast.Attribute)
-                    and isinstance(fn.value, ast.Name)
-                    and fn.value.id == "self"
-                    and fn.attr == f.name
-                ):
-                    if not limit_calls:
-                        return [(f.lineno, f"`{f.name}` 가 재귀인데 sys.setrecursionlimit 없음")]
-                    bad = [c2 for c2 in limit_calls if not c2.args or py_literal_int(c2.args[0]) != 10**6]
-                    return [(b.lineno, "setrecursionlimit 값이 10**6 이 아님") for b in bad]
-    return []
 
 
 # ---------------------------------------------------------------- 문서 대응 검사

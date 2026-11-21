@@ -143,6 +143,8 @@ using namespace std;
 - `[필수]` 표준 입력을 읽는 풀이는 `import sys`와 `input = sys.stdin.readline`을 쓴다. (`from sys import ...`는 쓰지 않는다. import와 from은 아래 표대로 엄격히 구분한다. 섀도잉 예외는 1.4 참고.)
 - `[필수]` 출력을 모아서 낼 때는 결과를 리스트 `out`에 모으고 마지막에 `print("\n".join(out))`으로 한 번에 낸다. 숫자를 모았으면 `print("\n".join(map(str, out)))`로 낸다.
 - `[권장]` 루프 안에서 `print`를 직접 호출하지 않고 `out`에 모아 한 번에 낸다. 출력이 소량이어도 지적은 하되 수정은 선택이다.
+- `[허용]` 출력 직후 `break`로 루프를 빠져나가 한 번만 출력되는 경우는 위 규칙의 대상이 아니다.
+- `[허용]` 루프 밖에서 한 번 내는 `print(*arr)`·`print(*arr, sep="\n")`는 `join`으로 모아 내는 것과 같게 본다.
 - `[필수]` import 방식은 모듈별로 고정한다.
 
 | 방식                    | 모듈                                           | 예                                                                           |
@@ -151,7 +153,7 @@ using namespace std;
 | `from 모듈 import 이름` | `collections` `itertools` `functools` `bisect` | `from collections import deque`, `from bisect import bisect_left`            |
 
 - `[필수]` `from 모듈 import *`는 쓰지 않는다.
-- `[필수]` 재귀 함수를 쓰는 풀이는 `sys.setrecursionlimit(10**6)`을 항상 설정한다.
+- `[필수]` 재귀 깊이가 기본 제한(1000)을 넘을 수 있으면 `sys.setrecursionlimit(10**6)`을 설정한다. 깊이가 확실히 얕으면(N과 M처럼 제약상 수십 이하) 설정하지 않는다.
 - `[권장]` 여러 변수를 같은 값으로 초기화할 때 연쇄 대입(`a = b = 0`)을 쓰지 않고 `a, b = 0, 0`으로 쓴다 (`a = b = []`는 같은 객체를 가리키는 함정이 있다).
 - `[필수]` Python 문자열 포매팅은 f-string만 쓴다 (`%`·`.format()` 금지).
 
@@ -313,7 +315,7 @@ using namespace std;
 | 방향 배열            | `dr` `dc`         |                                                                                              |
 | 방향 인덱스          | `d`               | `dr` `dc`의 인덱스 (`for (int d = 0; d < 4; d++)`). `dir`은 Python 내장과 충돌해 쓰지 않는다 |
 | 다음 행·열 좌표      | `nr` `nc`         |                                                                                              |
-| 시작·끝              | `s` `e`           |                                                                                              |
+| 시작·끝              | `s` `e`           | 조합 DFS에서 다음 선택을 시작할 위치는 `start` (`depth`와 함께)                              |
 | 좌·우                | `l` `r`           | Python 포함 모든 언어                                                                        |
 | 느린·빠른 포인터     | `slow` `fast`     | 플로이드 사이클 탐지, 연결 리스트의 중간 찾기 등 한 칸씩·두 칸씩 움직이는 두 포인터          |
 | 이분 탐색            | `lo` `hi` `mid`   | 이분 탐색은 `lo`/`hi`, 그 외 구간·투 포인터는 `l`/`r`                                        |
@@ -322,7 +324,7 @@ using namespace std;
 
 | 의미                                   | 이름                                 | 비고                                                                                                                                                                                                                |
 | -------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 일반 순차 컨테이너                     | C++ `v` / Java `list` / Python `lst` | 1.4 충돌 회피 (Python `list` 내장)                                                                                                                                                                                  |
+| 일반 순차 컨테이너                     | C++ `v` / Java `list` / Python `arr` | 1.4 충돌 회피 (Python `list` 내장)                                                                                                                                                                                  |
 | 집합                                   | Java `set` / C++·Python `st`         | C++·Python `set` 충돌                                                                                                                                                                                               |
 | 다중 집합                              | C++ `ms`                             | `multiset`                                                                                                                                                                                                          |
 | 맵                                     | Java `map` / C++·Python `mp`         | C++·Python `map` 충돌                                                                                                                                                                                               |
@@ -358,7 +360,7 @@ using namespace std;
 
 ### 12.6 표 사용 규칙
 
-- `[권장]` 컨테이너 이름은 컨테이너 종류보다 용도를 따른다. 표에 용도 이름이 있으면 배열·셋·맵 등 종류와 관계없이 그 이름을 쓰고 (`cnt`, `vis`), 용도 이름이 없을 때만 종류 이름(`v`, `list`/`lst`, `st`, `mp`)을 쓴다.
+- `[권장]` 컨테이너 이름은 컨테이너 종류보다 용도를 따른다. 표에 용도 이름이 있으면 배열·셋·맵 등 종류와 관계없이 그 이름을 쓰고 (`cnt`, `vis`), 용도 이름이 없을 때만 종류 이름(`v`, `list`/`arr`, `st`, `mp`)을 쓴다.
 - `[허용]` 범위 `for` 원소의 이름은 표의 `x`·`s` 대신, 순회하는 컬렉션 이름에서 딴 약어를 쓸 수 있다 (`participant` → `p`, `words` → `w`). 약어는 컬렉션 이름에서 유도되어야 하고, 같은 스코프에 표의 이름이 같은 다른 변수가 있으면 쓰지 않는다. 유도되지 않는 이름은 이 허용에 해당하지 않으므로 표의 `x`·`s`를 따르지 않으면 `[권장]`으로 지적한다.
 - `[허용]` 입력에서 파생한 배열의 이름은 자유다 (`arr`로 바로 받아도 된다).
 - `[허용]` Python에서 문자열을 가변으로 쓰려고 `list(...)`로 만든 문자 리스트는 `s`로 써도 된다 (`s = list(my_string)`). 같은 스코프의 다른 `s`와는 겹치지 않아야 한다.
@@ -432,7 +434,7 @@ using namespace std;
 - `[허용]` 정렬 알고리즘이 아닌 정렬 컨테이너의 비교자에는 `greater`를 쓴다 (`priority_queue<int, vector<int>, greater<int>> pq;` 최소 힙, `set<string, greater<>> st;`). 정렬 한정 `greater` 금지의 대상이 아니다.
 - `[허용]` Java 기본형 배열은 `Arrays.sort(arr)`, 리스트는 `list.sort(...)`. 보조 클래스는 `Comparable`을 구현해도 된다 (`compareTo`에서도 뺄셈 비교 금지).
 - `[필수]` Java 비교자에서 뺄셈 비교(`(a, b) -> a - b`, `a[0] - b[0]`)를 쓰지 않는다 (오버플로 시 오답). `Integer.compare`·`Long.compare`·`Double.compare` 또는 `Comparator.comparingInt` 계열을 쓴다.
-- `[허용]` Python `lst.sort()`(제자리)와 `sorted(lst)`(새 리스트) 모두.
+- `[허용]` Python `arr.sort()`(제자리)와 `sorted(arr)`(새 리스트) 모두.
 - `[필수]` Java 최대 힙·역순 비교자는 `Comparator.reverseOrder()`로 쓴다 (`new PriorityQueue<>(Comparator.reverseOrder())`). `Comparator`로 대체할 수 있는 곳에 `Collections.reverseOrder()`를 쓰지 않는다.
 - `[필수]` C++ 정렬 비교자 람다의 인자는 `auto&`로 받는다 (`[](auto& a, auto& b) { ... }`). `const`는 붙이지 않는다 (1.1).
 - `[권장]` 비교 함수·람다를 변수에 담아야 하면 이름은 `cmp`로 한다 (이름 붙일 일이 드물다). 비교자 람다의 인자는 C++ `a`, `b` / Java `o1`, `o2`.
