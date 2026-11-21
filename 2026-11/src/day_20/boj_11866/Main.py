@@ -6,9 +6,9 @@ input = sys.stdin.readline
 n, k = map(int, input().split())
 
 q = deque(range(1, n + 1))
-res = []
+out = []
 while q:
     q.rotate(-(k - 1))
-    res.append(q.popleft())
+    out.append(q.popleft())
 
-print("<" + ", ".join(map(str, res)) + ">")
+print("<" + ", ".join(map(str, out)) + ">")
