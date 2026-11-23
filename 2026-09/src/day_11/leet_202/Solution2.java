@@ -18,7 +18,6 @@ class Solution2 {
             sum += d * d;
             x /= 10;
         }
-
         return sum;
     }
 }
