@@ -22,7 +22,6 @@ public class Main {
             x /= div;
             cnt += x;
         }
-
         return cnt;
     }
 }

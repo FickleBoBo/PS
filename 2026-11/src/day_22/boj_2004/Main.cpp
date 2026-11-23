@@ -7,7 +7,6 @@ int count_factor(int x, int div) {
         x /= div;
         cnt += x;
     }
-
     return cnt;
 }
 

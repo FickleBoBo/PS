@@ -8,7 +8,6 @@ def count_factor(x, div):
     while x > 0:
         x //= div
         cnt += x
-
     return cnt
 
 
