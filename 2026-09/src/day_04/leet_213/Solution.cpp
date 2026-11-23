@@ -10,7 +10,6 @@ class Solution {
         for (int i = l; i <= r; i++) {
             dp[i] = max(dp[i - 1], dp[max(i - 2, 0)] + nums[i - 1]);
         }
-
         return dp[r];
     }
 
