@@ -16,7 +16,6 @@ class Solution {
             if (x % 10 == k) cnt++;
             x /= 10;
         }
-
         return cnt;
     }
 }
