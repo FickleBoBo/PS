@@ -16,7 +16,6 @@ class Solution {
             a *= a;
             n >>= 1;
         }
-
         return res;
     }
 }

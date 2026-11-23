@@ -6,7 +6,6 @@ class Solution:
                 res *= a
             a *= a
             n >>= 1
-
         return res
 
     def myPow(self, x: float, n: int) -> float:
