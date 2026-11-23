@@ -7,7 +7,6 @@ bool has_only_0_and_5(int x) {
         if (d != 0 && d != 5) return false;
         x /= 10;
     }
-
     return true;
 }
 

@@ -19,7 +19,6 @@ class Solution {
             if (d != 0 && d != 5) return false;
             x /= 10;
         }
-
         return true;
     }
 }
