@@ -3,13 +3,11 @@ using namespace std;
 
 int rob_range(vector<int>& money, int l, int r) {
     int prv2 = 0, prv1 = 0;
-
     for (int i = l; i < r; i++) {
         int cur = max(prv1, prv2 + money[i]);
         prv2 = prv1;
         prv1 = cur;
     }
-
     return prv1;
 }
 

@@ -16,7 +16,6 @@ class Solution {
         for (int i = l; i <= r; i++) {
             dp[i] = Math.max(dp[i - 1], dp[Math.max(i - 2, 0)] + money[i - 1]);
         }
-
         return dp[r];
     }
 }
