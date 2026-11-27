@@ -1,7 +1,7 @@
 def solution(arr):
-    res = []
+    ans = []
     for x in arr:
-        if not res or res[-1] != x:
-            res.append(x)
+        if not ans or ans[-1] != x:
+            ans.append(x)
 
-    return res
+    return ans
