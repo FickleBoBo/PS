@@ -1,5 +1,5 @@
 class Solution:
-    def binpow(self, a, n):
+    def bin_pow(self, a, n):
         res = 1
         while n > 0:
             if n & 1:
@@ -10,6 +10,6 @@ class Solution:
 
     def myPow(self, x: float, n: int) -> float:
         if n >= 0:
-            return self.binpow(x, n)
+            return self.bin_pow(x, n)
         else:
-            return 1 / self.binpow(x, -n)
+            return 1 / self.bin_pow(x, -n)

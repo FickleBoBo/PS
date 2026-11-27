@@ -3,7 +3,7 @@ using namespace std;
 
 class Solution {
    public:
-    double binpow(double a, long long n) {
+    double binPow(double a, long long n) {
         double res = 1;
         while (n > 0) {
             if (n & 1) res *= a;
@@ -15,9 +15,9 @@ class Solution {
 
     double myPow(double x, int n) {
         if (n >= 0) {
-            return binpow(x, n);
+            return binPow(x, n);
         } else {
-            return 1 / binpow(x, -1LL * n);
+            return 1 / binPow(x, -1LL * n);
         }
     }
 };
