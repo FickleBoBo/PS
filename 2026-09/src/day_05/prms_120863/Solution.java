@@ -8,17 +8,17 @@ class Solution {
         int[] cnt = {0, 0};
 
         while (st.hasMoreTokens()) {
-            String s = st.nextToken();
-            if (s.equals("+")) continue;
+            String token = st.nextToken();
+            if (token.equals("+")) continue;
 
-            if (s.endsWith("x")) {
-                if (s.length() == 1) {
+            if (token.endsWith("x")) {
+                if (token.length() == 1) {
                     cnt[0]++;
                 } else {
-                    cnt[0] += Integer.parseInt(s.substring(0, s.length() - 1));
+                    cnt[0] += Integer.parseInt(token.substring(0, token.length() - 1));
                 }
             } else {
-                cnt[1] += Integer.parseInt(s);
+                cnt[1] += Integer.parseInt(token);
             }
         }
 
