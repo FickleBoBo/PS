@@ -1,8 +1,3 @@
-import sys
-
-sys.setrecursionlimit(10**6)
-
-
 def solution(n, computers):
     vis = [False] * n
 
