@@ -2,10 +2,10 @@
 using namespace std;
 
 string solution(vector<string> str_list, string ex) {
-    string res;
+    string ans;
     for (string& s : str_list) {
-        if (s.find(ex) == -1) res += s;
+        if (s.find(ex) == -1) ans += s;
     }
 
-    return res;
+    return ans;
 }
