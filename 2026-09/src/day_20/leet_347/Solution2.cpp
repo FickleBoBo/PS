@@ -11,12 +11,12 @@ class Solution {
         vector<vector<int>> buckets(1 + len);
         for (auto [x, c] : cnt) buckets[c].push_back(x);
 
-        vector<int> res;
+        vector<int> ans;
         for (int i = len; i > 0; i--) {
-            res.insert(res.end(), buckets[i].begin(), buckets[i].end());
+            ans.insert(ans.end(), buckets[i].begin(), buckets[i].end());
         }
-        res.resize(k);
+        ans.resize(k);
 
-        return res;
+        return ans;
     }
 };
