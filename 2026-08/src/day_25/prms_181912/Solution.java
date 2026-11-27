@@ -5,8 +5,8 @@ import java.util.*;
 class Solution {
     public int[] solution(String[] intStrs, int k, int s, int l) {
         List<Integer> list = new ArrayList<>();
-        for (String str : intStrs) {
-            int x = Integer.parseInt(str.substring(s, s + l));
+        for (String intStr : intStrs) {
+            int x = Integer.parseInt(intStr.substring(s, s + l));
             if (x > k) list.add(x);
         }
 

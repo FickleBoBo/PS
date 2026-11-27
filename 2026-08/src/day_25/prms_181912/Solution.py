@@ -1,8 +1,8 @@
 def solution(intStrs, k, s, l):
-    res = []
-    for token in intStrs:
-        x = int(token[s : s + l])
+    ans = []
+    for int_str in intStrs:
+        x = int(int_str[s : s + l])
         if x > k:
-            res.append(x)
+            ans.append(x)
 
-    return res
+    return ans
