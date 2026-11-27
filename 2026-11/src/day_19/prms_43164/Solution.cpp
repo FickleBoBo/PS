@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX_N = 10000;
-bool vis[MAX_N];
+vector<bool> vis;
 vector<string> ans;
 
 bool dfs(string& cur, int depth, vector<vector<string>>& tickets) {
@@ -28,6 +27,7 @@ vector<string> solution(vector<vector<string>> tickets) {
     sort(tickets.begin(), tickets.end(), [](auto& a, auto& b) {
         return a[1] < b[1];
     });
+    vis.resize(tickets.size());
     string start = "ICN";
     ans.push_back(start);
 
