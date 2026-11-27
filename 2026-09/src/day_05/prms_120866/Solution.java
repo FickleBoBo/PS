@@ -17,7 +17,7 @@ class Solution {
                         int nr = r + dr[d];
                         int nc = c + dc[d];
 
-                        if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;
+                        if (nr < 0 || nr >= n || nc < 0 || nc >= n) continue;
                         vis[nr][nc] = true;
                     }
                 }
