@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int rob_range(vector<int>& money, int l, int r) {
+int robRange(vector<int>& money, int l, int r) {
     int n = money.size();
     vector<int> dp(1 + n);
 
@@ -14,7 +14,7 @@ int rob_range(vector<int>& money, int l, int r) {
 int solution(vector<int> money) {
     int n = money.size();
 
-    int case1 = rob_range(money, 1, n - 1);
-    int case2 = rob_range(money, 2, n);
+    int case1 = robRange(money, 1, n - 1);
+    int case2 = robRange(money, 2, n);
     return max(case1, case2);
 }
