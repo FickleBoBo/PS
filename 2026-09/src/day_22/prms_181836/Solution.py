@@ -1,7 +1,7 @@
 def solution(picture, k):
-    res = []
+    ans = []
     for row in picture:
         line = "".join(c * k for c in row)
-        res.extend([line] * k)
+        ans.extend([line] * k)
 
-    return res
+    return ans
