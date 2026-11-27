@@ -5,14 +5,14 @@ void solve() {
     long long x, y, k;
     cin >> x >> y >> k;
 
-    long long d = y - x;
+    long long diff = y - x;
     long long sum = 0;
 
     long long i = 0;
-    for (; i < k && x + i <= d; i++) {
-        sum += d % (x + i);
+    for (; i < k && x + i <= diff; i++) {
+        sum += diff % (x + i);
     }
-    sum += d * (k - i);
+    sum += diff * (k - i);
 
     cout << sum << '\n';
 }
