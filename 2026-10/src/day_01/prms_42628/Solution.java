@@ -7,10 +7,10 @@ class Solution {
         TreeMap<Integer, Integer> map = new TreeMap<>();
 
         for (String op : operations) {
-            String[] parts = op.split(" ");
-            int x = Integer.parseInt(parts[1]);
+            String[] tokens = op.split(" ");
+            int x = Integer.parseInt(tokens[1]);
 
-            if (parts[0].equals("I")) {
+            if (tokens[0].equals("I")) {
                 map.put(x, map.getOrDefault(x, 0) + 1);
             } else {
                 if (map.isEmpty()) continue;

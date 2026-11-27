@@ -2,7 +2,7 @@ import heapq
 
 
 def solution(operations):
-    min_h, max_h = [], []
+    min_pq, max_pq = [], []
     erased = [False] * len(operations)
 
     for i, op in enumerate(operations):
@@ -10,24 +10,24 @@ def solution(operations):
         x = int(x)
 
         if cmd == "I":
-            heapq.heappush(min_h, (x, i))
-            heapq.heappush(max_h, (-x, i))
+            heapq.heappush(min_pq, (x, i))
+            heapq.heappush(max_pq, (-x, i))
         else:
-            h = max_h if x == 1 else min_h
-            while h and erased[h[0][1]]:
-                heapq.heappop(h)
+            pq = max_pq if x == 1 else min_pq
+            while pq and erased[pq[0][1]]:
+                heapq.heappop(pq)
 
-            if not h:
+            if not pq:
                 continue
 
-            erased[h[0][1]] = True
-            heapq.heappop(h)
+            erased[pq[0][1]] = True
+            heapq.heappop(pq)
 
-    while min_h and erased[min_h[0][1]]:
-        heapq.heappop(min_h)
-    while max_h and erased[max_h[0][1]]:
-        heapq.heappop(max_h)
+    while min_pq and erased[min_pq[0][1]]:
+        heapq.heappop(min_pq)
+    while max_pq and erased[max_pq[0][1]]:
+        heapq.heappop(max_pq)
 
-    if not min_h or not max_h:
+    if not min_pq or not max_pq:
         return [0, 0]
-    return [-max_h[0][0], min_h[0][0]]
+    return [-max_pq[0][0], min_pq[0][0]]
