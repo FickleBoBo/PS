@@ -1,10 +1,10 @@
 def solution(arr, flag):
-    res = []
+    ans = []
 
     for a, f in zip(arr, flag):
         if f:
-            res += [a] * (a * 2)
+            ans += [a] * (a * 2)
         else:
-            del res[-a:]
+            del ans[-a:]
 
-    return res
+    return ans
