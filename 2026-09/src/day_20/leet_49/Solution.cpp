@@ -11,8 +11,8 @@ class Solution {
             mp[key].push_back(s);
         }
 
-        vector<vector<string>> res;
-        for (auto& [_, v] : mp) res.push_back(v);
-        return res;
+        vector<vector<string>> ans;
+        for (auto& [_, v] : mp) ans.push_back(v);
+        return ans;
     }
 };
