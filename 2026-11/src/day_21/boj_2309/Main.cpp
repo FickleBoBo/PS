@@ -16,9 +16,7 @@ int main() {
         for (int j = i + 1; j < 9; j++) {
             if (sum - v[i] - v[j] == 100) {
                 for (int k = 0; k < 9; k++) {
-                    if (k != i && k != j) {
-                        cout << v[k] << '\n';
-                    }
+                    if (k != i && k != j) cout << v[k] << '\n';
                 }
 
                 return 0;

@@ -19,9 +19,7 @@ public class Main {
             for (int j = i + 1; j < 9; j++) {
                 if (sum - arr[i] - arr[j] == 100) {
                     for (int k = 0; k < 9; k++) {
-                        if (k != i && k != j) {
-                            System.out.println(arr[k]);
-                        }
+                        if (k != i && k != j) System.out.println(arr[k]);
                     }
 
                     return;
