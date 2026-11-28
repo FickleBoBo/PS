@@ -1197,12 +1197,15 @@ def r_mulcast_style(ctx):
     msg = "(long long) a * b 캐스트: 오버플로는 없으나 표기는 1LL * a * b 로"
     res = grep(ctx, r"\(\s*(?:long long|long)\s*\)\s*[\w.\[\]]+\s*\*", msg)
     res += [(ln, msg) for ln, inner_mul, after_mul in cast_groups(ctx) if after_mul and not inner_mul]
+    res += grep(
+        ctx, r"\b(?!1(?:LL|ll)\b)\d[\d']*(?:LL|ll)\s*\*", "접미사 리터럴로 승격 (4LL * n): 표기는 1LL * a * b 로"
+    )
     return res
 
 
 @rule("java-1l", "필수", ("java",), "Java 곱셈 승격 표기 (4.2)")
 def r_java1l(ctx):
-    return grep(ctx, r"\b1L\s*\*", "1L * a * b: Java 는 (long) a * b 로")
+    return grep(ctx, r"\b\d[\d_]*[Ll]\s*\*", "접미사 리터럴로 승격 (1L * a, 4L * n): Java 는 (long) a * b 로")
 
 
 # ---------------------------------------------------------------- C++ 전용
