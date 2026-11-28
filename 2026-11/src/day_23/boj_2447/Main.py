@@ -1,6 +1,7 @@
 import sys
 
 input = sys.stdin.readline
+out = []
 
 
 def dfs(sr, sc, n):
@@ -22,7 +23,6 @@ n = int(input())
 vis = [[False] * n for _ in range(n)]
 dfs(0, 0, n)
 
-out = []
 for row in vis:
     out.append("".join("*" if x else " " for x in row))
 
