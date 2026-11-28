@@ -1,6 +1,7 @@
 import sys
 
 input = sys.stdin.readline
+out = []
 
 MAX_N = 1_000_000
 
@@ -29,22 +30,22 @@ class Stack:
 
 
 stack = Stack()
-out = []
 
 n = int(input())
 for _ in range(n):
-    q = input().split()
+    tokens = input().split()
+    op = tokens[0]
 
-    if q[0] == "1":
-        stack.push(int(q[1]))
-    elif q[0] == "2":
+    if op == "1":
+        stack.push(int(tokens[1]))
+    elif op == "2":
         if stack.empty():
             out.append(-1)
         else:
             out.append(stack.pop())
-    elif q[0] == "3":
+    elif op == "3":
         out.append(stack.size())
-    elif q[0] == "4":
+    elif op == "4":
         if stack.empty():
             out.append(1)
         else:

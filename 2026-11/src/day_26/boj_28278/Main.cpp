@@ -33,23 +33,23 @@ int main() {
     cin >> n;
 
     while (n--) {
-        int q;
-        cin >> q;
+        int op;
+        cin >> op;
 
-        if (q == 1) {
+        if (op == 1) {
             int x;
             cin >> x;
             push(x);
-        } else if (q == 2) {
+        } else if (op == 2) {
             if (empty()) {
                 cout << -1 << '\n';
             } else {
                 cout << top() << '\n';
                 pop();
             }
-        } else if (q == 3) {
+        } else if (op == 3) {
             cout << size() << '\n';
-        } else if (q == 4) {
+        } else if (op == 4) {
             cout << empty() << '\n';
         } else {
             if (empty()) {
