@@ -45,36 +45,36 @@ int main() {
     cin >> n;
 
     while (n--) {
-        int q;
-        cin >> q;
+        int op;
+        cin >> op;
 
-        if (q == 1) {
+        if (op == 1) {
             int x;
             cin >> x;
             push_front(x);
-        } else if (q == 2) {
+        } else if (op == 2) {
             int x;
             cin >> x;
             push_back(x);
-        } else if (q == 3) {
+        } else if (op == 3) {
             if (empty()) {
                 cout << -1 << '\n';
             } else {
                 cout << front() << '\n';
                 pop_front();
             }
-        } else if (q == 4) {
+        } else if (op == 4) {
             if (empty()) {
                 cout << -1 << '\n';
             } else {
                 cout << back() << '\n';
                 pop_back();
             }
-        } else if (q == 5) {
+        } else if (op == 5) {
             cout << size() << '\n';
-        } else if (q == 6) {
+        } else if (op == 6) {
             cout << empty() << '\n';
-        } else if (q == 7) {
+        } else if (op == 7) {
             if (empty()) {
                 cout << -1 << '\n';
             } else {

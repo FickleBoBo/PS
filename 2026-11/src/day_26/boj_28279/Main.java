@@ -49,35 +49,35 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         while (n-- > 0) {
             st = new StringTokenizer(br.readLine());
-            int q = Integer.parseInt(st.nextToken());
+            int op = Integer.parseInt(st.nextToken());
 
-            if (q == 1) {
+            if (op == 1) {
                 int x = Integer.parseInt(st.nextToken());
                 push_front(x);
-            } else if (q == 2) {
+            } else if (op == 2) {
                 int x = Integer.parseInt(st.nextToken());
                 push_back(x);
-            } else if (q == 3) {
+            } else if (op == 3) {
                 if (empty()) {
                     sb.append("-1\n");
                 } else {
                     sb.append(pop_front()).append("\n");
                 }
-            } else if (q == 4) {
+            } else if (op == 4) {
                 if (empty()) {
                     sb.append("-1\n");
                 } else {
                     sb.append(pop_back()).append("\n");
                 }
-            } else if (q == 5) {
+            } else if (op == 5) {
                 sb.append(size()).append("\n");
-            } else if (q == 6) {
+            } else if (op == 6) {
                 if (empty()) {
                     sb.append("1\n");
                 } else {
                     sb.append("0\n");
                 }
-            } else if (q == 7) {
+            } else if (op == 7) {
                 if (empty()) {
                     sb.append("-1\n");
                 } else {
