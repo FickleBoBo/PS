@@ -37,20 +37,20 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         while (n-- > 0) {
             st = new StringTokenizer(br.readLine());
-            String q = st.nextToken();
+            String op = st.nextToken();
 
-            if (q.equals("push")) {
+            if (op.equals("push")) {
                 int x = Integer.parseInt(st.nextToken());
                 push(x);
-            } else if (q.equals("pop")) {
+            } else if (op.equals("pop")) {
                 if (empty()) {
                     sb.append("-1\n");
                 } else {
                     sb.append(pop()).append("\n");
                 }
-            } else if (q.equals("size")) {
+            } else if (op.equals("size")) {
                 sb.append(size()).append("\n");
-            } else if (q.equals("empty")) {
+            } else if (op.equals("empty")) {
                 if (empty()) {
                     sb.append("1\n");
                 } else {
