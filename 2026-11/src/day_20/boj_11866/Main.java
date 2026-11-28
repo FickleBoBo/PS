@@ -25,9 +25,7 @@ public class Main {
 
             sb.append(q.poll());
 
-            if (!q.isEmpty()) {
-                sb.append(", ");
-            }
+            if (!q.isEmpty()) sb.append(", ");
         }
         sb.append(">");
 
