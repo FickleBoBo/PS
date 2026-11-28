@@ -2,5 +2,5 @@ import sys
 
 input = sys.stdin.readline
 
-c = input().strip()
+c = input().rstrip()
 print(ord(c))
