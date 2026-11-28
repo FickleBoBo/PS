@@ -7,7 +7,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int sum = Integer.parseInt(br.readLine());
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i <= 9; i++) {
             sum -= Integer.parseInt(br.readLine());
         }
 

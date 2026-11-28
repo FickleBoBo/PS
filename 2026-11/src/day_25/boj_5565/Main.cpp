@@ -8,7 +8,7 @@ int main() {
     int sum;
     cin >> sum;
 
-    for (int i = 1; i < 10; i++) {
+    for (int i = 1; i <= 9; i++) {
         int x;
         cin >> x;
         sum -= x;
