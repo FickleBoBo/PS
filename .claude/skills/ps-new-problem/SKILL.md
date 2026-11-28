@@ -35,11 +35,11 @@ description: PS 알고리즘 문제풀이 레포에서 BOJ·프로그래머스·
 
 ### 생성되는 파일 상세
 
-- **BOJ**: `Main.java`(`package` + `import java.io.*;` + `br` 선언, `throws IOException`), `Main.cpp`(`bits/stdc++.h` + 입출력 동기화 해제 `main`), `Main.py`(`import sys` + `input = sys.stdin.readline`). CONVENTIONS 3·4·5장 템플릿이고 쓰는 import 만 두므로 `java.util` 은 필요할 때 추가한다. Python 은 최상위에 바로 쓰고 `main()` 으로 감싸지 않으므로(구조 규칙은 CONVENTIONS 15장 미정) 두 줄만 둔다. 문제 이름은 조회하지 않는다.
+- **BOJ**: `Main.java`(`package` + `import java.io.*;` + `br` 선언, `throws IOException`), `Main.cpp`(`bits/stdc++.h` + 입출력 동기화 해제 `main`), `Main.py`(`import sys` + `input = sys.stdin.readline`). CONVENTIONS 5.1·6.1·7장 템플릿이고 쓰는 import 만 두므로 `java.util` 은 필요할 때 추가한다. Python 은 최상위에 바로 쓰고 `main()` 으로 감싸지 않으므로(CONVENTIONS 7장) 두 줄만 둔다. 문제 이름은 조회하지 않는다.
 - **프로그래머스**: Java엔 `package day_XX.prms_{id};`, cpp는 `#include`/`using` 줄을 `bits/stdc++.h` 고정 헤더로 교체. 표준입출력(`main`) 스타일 문제면 cpp `main()` 동기화 해제 + py `input = sys.stdin.readline`을 덧붙인다.
 - **프로그래머스 SQL**: 문제 페이지 언어 목록에 `mysql` 이 있으면 SQL 문제로 보고 `Solution.sql` 하나만 만든다(Java/C++/Python 안 만듦). 내용은 페이지가 주는 기본 템플릿 그대로 — 구형은 `-- 코드를 입력하세요\nSELECT`, 신형은 `-- 코드를 작성해주세요` 만. 판별은 `?language=mysql` 요청 1회로 하고, 일반 문제면 기존 3언어 흐름으로 넘어간다. SQL 은 감사·`CONVENTIONS.md` 대상이 아니다(그때그때 점검). 언어 목록을 안 가르면 java/cpp/python3 어느 쪽으로 받아도 SQL 템플릿이 내려와 `prms_lang_ok` 가 python 을 오통과시켜 `Solution.py` 에 SQL 이 들어간다.
 - **LeetCode**: 저지가 주는 클래스 그대로(대개 `class Solution`, design 문제는 `MyCircularQueue` 등 문제별 클래스). Java는 `package` + (시그니처가 `java.util` 타입을 참조하면) `import java.util.*;`, cpp는 `bits/stdc++.h` 헤더 프리펜드, py는 스니펫을 그대로(LeetCode 가 이미 `list[int]`·`TreeNode | None` 표기를 줘서 typing import 불필요).
-- **Codeforces**: `Main.cpp` 하나만 — `#include <bits/stdc++.h>` + 빈 `void solve()` + `int main()`(`ios::sync_with_stdio(0); cin.tie(0);` 후 `int t; cin >> t; while (t--) solve();`). 멀티테스트가 기본형이라 `CONVENTIONS.md` 3장·13.1 과 같고, 단일 테스트 문제면 `t` 루프만 지운다. (Java/Python 은 안 만든다 — 사용자 방침)
+- **Codeforces**: `Main.cpp` 하나만 — `#include <bits/stdc++.h>` + 빈 `void solve()` + `int main()`(`ios::sync_with_stdio(0); cin.tie(0);` 후 `int t; cin >> t; while (t--) solve();`). 멀티테스트가 기본형이라 `CONVENTIONS.md` 5.1·1.5 와 같고, 단일 테스트 문제면 `t` 루프만 지운다. (Java/Python 은 안 만든다 — 사용자 방침)
 - CRLF는 LF로 정규화한다. 로그인 없이 받는 기본 스켈레톤이라 항상 깨끗하게 생성된다.
 
 ## 실패 시

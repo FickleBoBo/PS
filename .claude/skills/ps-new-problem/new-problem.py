@@ -123,8 +123,8 @@ def dedup(specs: list[tuple]) -> list[tuple]:
 
 # --- BOJ ---------------------------------------------------------------------
 # BOJ 는 Java·C++·Python 셋 다 만든다. 시작 코드 개념이 없어 고정 보일러플레이트(네트워크 안 씀).
-# CONVENTIONS.md 3·4·5장 템플릿 — 실제로 쓰는 import 만 두므로 `java.util` 은 필요할 때 추가한다.
-# Python 은 최상위에 바로 쓰고 main() 으로 감싸지 않으므로(구조 규칙은 CONVENTIONS 15장 미정) 입력 설정 두 줄만 둔다.
+# CONVENTIONS.md 5.1·6.1·7장 템플릿 — 실제로 쓰는 import 만 두므로 `java.util` 은 필요할 때 추가한다.
+# Python 은 최상위에 바로 쓰고 main() 으로 감싸지 않으므로(CONVENTIONS 7장) 입력 설정 두 줄만 둔다.
 BOJ_JAVA_TMPL = """package {package};
 
 import java.io.*;
@@ -289,7 +289,7 @@ def build_leet_python(code: str) -> str:
 
 # --- Codeforces --------------------------------------------------------------
 # Codeforces 는 C++ 만 만든다(사용자 방침). 시작 코드 개념이 없어 고정 보일러플레이트.
-# CONVENTIONS.md 3장·13.1 멀티테스트 형태 — 로직은 solve(), main 은 t 루프. 단일 테스트 문제면 t 루프만 지운다.
+# CONVENTIONS.md 5.1·1.5 멀티테스트 형태 — 로직은 solve(), main 은 t 루프. 단일 테스트 문제면 t 루프만 지운다.
 # 문제 이름을 가볍게 조회할 공개 엔드포인트가 없다(standings 는 8MB, 문제 페이지는 403).
 # 이름은 cosmetic 이라 조회하지 않고 폴더명(cofo_{c}{x})만 쓴다.
 COFO_CPP_TMPL = """#include <bits/stdc++.h>
