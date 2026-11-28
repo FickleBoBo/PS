@@ -2,4 +2,4 @@ import sys
 
 input = sys.stdin.readline
 
-print(input().count(",") + 1)
+print(input().rstrip().count(",") + 1)
