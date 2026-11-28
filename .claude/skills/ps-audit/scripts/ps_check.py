@@ -13,19 +13,23 @@
 - 경로는 파일 또는 폴더. 기본은 현재 폴더. 대상은 .java .cpp .py.
 - 출력: `파일:줄: [등급] 규칙ID (후보) 메시지`. `(후보)`는 사람이 최종 판정해야 하는 항목.
 - `--compile`: 규칙 검사에 더해 컴파일·파싱을 한다 (C++ `g++-16 -fsyntax-only`, Java `javac --release`, Python `ast`).
-  컴파일 실패는 `[필수] compile-error`, `-Wunused-*` 는 `[필수] unused`, 그 밖의 경고는 `[필수] compile-warn (후보)`.
-  `-Wsign-compare` 는 결함으로 치지 않아 끈다. Java `unchecked`·`rawtypes` 경고는 13.5 에 따라 무시한다.
-  컴파일 기준은 저지별로 `JUDGE_ENV` 표 하나에서 고른다 (`boj_` C++23·Java 11·Python 3.10 문법, `prms_` C++20, `leet_`·`cofo_` C++23, 그 외 C++20·Java 21). CONVENTIONS 3·4·5장.
+  컴파일 실패는 `[필수] compile-error`, `-Wunused-*` 와 Python 의 안 쓰는 import·지역 변수(VS Code 확장의 `ruff` F401·F841)는 `[필수] unused`,
+        최상위에서 대입하고 읽지 않는 Python 변수는 `[필수] unused (후보)`, 그 밖의 경고는 `[필수] compile-warn (후보)`.
+  `-Wsign-compare` 는 결함으로 치지 않아 끈다. Java `unchecked`·`rawtypes` 경고는 8.2 에 따라 무시한다.
+  컴파일 기준은 저지별로 `JUDGE_ENV` 표 하나에서 고른다 (`boj_` C++23·Java 11·Python 3.10 문법, `prms_` C++20, `leet_`·`cofo_` C++23, 그 외 C++20·Java 21). CONVENTIONS 5.1·6.1·7장.
 - 종료 코드: 후보가 아닌 [필수] 위반이 하나라도 있으면 1, 아니면 0. `--check-docs` 는 불일치가 있으면 1.
   경로가 없거나 알 수 없는 규칙 ID 를 주면 2.
-- 검사 범위: 디렉터리를 훑을 때 `live_` 폴더와 2025-12 이전 월 폴더는 건너뛴다. 이전 월 폴더는 경로로 직접 지정하면 검사하지만 `live_` 폴더는 파일을 직접 지정해도 건너뛴다.
+- 검사 범위: 디렉터리를 훑을 때 `live_` 폴더와 2026-08-20 이전 폴더는 건너뛴다. 이전 폴더는 경로로 직접 지정하면 검사하지만 `live_` 폴더는 파일을 직접 지정해도 건너뛴다.
 """
 
 import argparse
 import ast
+import builtins
+import glob
 import io
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -34,9 +38,11 @@ from concurrent.futures import ThreadPoolExecutor
 
 STDIN_JUDGES = ("boj_", "cofo_", "swea_", "softeer_")
 SKIP_PREFIXES = ("live_",)  # 대회 박제 폴더는 감사 대상 아님 (CONVENTIONS 0.2)
-FIRST_AUDIT_MONTH = "2025-12"  # 이전 월 폴더는 디렉터리를 훑을 때만 건너뜀. 경로로 직접 지정하면 감사 (SKILL A1)
+# 2026-08-20(포함) 이후가 대상 (CONVENTIONS 0.2). 이전 폴더는 디렉터리를 훑을 때만 건너뛰고 경로로 직접 지정하면 검사한다
+FIRST_AUDIT_MONTH = "2026-08"
+FIRST_AUDIT_DAY = "day_20"
 EXT_LANG = {".java": "java", ".cpp": "cpp", ".py": "py"}
-SKIP_DIRS = {".git", "__pycache__", ".idea", ".venv", "node_modules"}
+SKIP_DIRS = {".git", ".claude", "out", "__pycache__", ".idea", ".venv", "node_modules"}
 ALL = ("java", "cpp", "py")
 
 RULES = {}
@@ -52,51 +58,37 @@ def rule(rid, tier, langs, doc):
 
 # 스크립트가 못 보거나 일부만 보는 절 → 감사자가 정독한다. `--check-docs` 가 이 표와 규칙 대응으로 정독 대상을 출력한다.
 GAPS = {
-    "1.4": "C++은 기본 타입·string·vector·표준 컨테이너·pair/tuple 선언만 본다(사용자 정의 타입 선언, 함수명은 못 봄). 멤버/지역/전역 판정은 중괄호 추적이라 근사",
-    "1.2": "함수명 표기 (name-case 는 변수·상수만 본다)",
-    "1.3": "저지가 준 시그니처(함수명·매개변수명)를 바꾸지 않았는지, 지문의 변수명과 대조",
-    "3": "C++ 표준(저지별 기준에서 컴파일되지 않는 기능을 쓰지 않았는지)",
-    "4.1": "클래스명·`public` 사용, `println(sb)` 한 번 출력, `BufferedWriter` flush, `BufferedWriter`·`StringBuilder` 혼용",
-    "4.2": "Queue API 는 변수 타입이 필요해 일부만 본다",
-    "4.3": "스트림 허용 범위, list.remove 혼동, 박싱 == (변수 타입이 필요해 일부만)",
-    "5": "연쇄 대입(a = b = 0), 5장 표에 없는 모듈",
-    "6": "포매터가 정한다. 포매터 결과는 지적하지 않는다",
-    "7.1": "홀짝 판정의 `& 1`",
-    "7.2": "조기 반환",
-    "7.4": "삼항 극성 (중첩만 검사)",
-    "8.0": "int 범위 초과(정답성), 습관적 큰 타입",
-    "8.5": "INF 값, 음수 나머지 일반형, 실수 비교(EPS)",
-    "8.2": "범위 for 의 auto 원소 타입 (`vector<string>` 이면 `string&`)",
-    "8.4": "참조로 받기 (타입 크기를 알아야 한다)",
-    "9": "표준 라이브러리 우선(직접 구현), ASCII 산술 변환, Codeforces 해시",
-    "10": "프로그래머스·LeetCode의 전역·static 상태 (읽기 전용 테이블 여부 판단)",
-    "11": "방어 코드, 알려진 패턴 밖의 군더더기(괄호·변수·형변환), Java·Python 미사용 변수·함수·import 와 주석 처리한 옛 코드(컴파일러가 못 잡는 것)",
-    "12": "이름 표 대부분(rename-hint 는 일부), `MAX_N` 형식(const-mix 가 용도 혼용만), 한 스코프의 이름 충돌",
-    "13.1": "알고리즘별 함수명",
-    "13.2": "Java 보조 타입 `static class` (C++ `struct`/`class` 는 c-class 가 본다)",
-    "13.3": "크기 식 앞/뒤 여유분 판정, 리터럴이 여유분을 합친 값인지(size-pad 는 후보), `while` 안 역순 인덱스, 크기 식이 아닌 `+ 1` 순서",
-    "13.6": "비교자 람다 변수의 이름 `cmp`",
-    "14": "문자열 순회, 테스트케이스 번호 `tc`, StringBuilder 체이닝",
+    "0.3": "포매터가 정한다. 포매터 결과는 지적하지 않는다",
+    "1.1": "타입 이름 PascalCase. name-case 는 변수·상수와 함수 정의 이름만 보고, leet_ Python 의 클래스 메서드 이름은 보지 않는다",
+    "1.2": "단일 값 상수의 const·final 선언 누락, 그 밖의 곳에 const·final 을 자의로 붙였는지 (name-case·c-const 는 일부)",
+    "1.3": "저지가 준 시그니처(함수명·매개변수명)를 바꾸지 않았는지, 지문의 이름과 대조",
+    "1.4": "C++ 이름 충돌은 --compile 로 본다. Python 은 name-collision 이 후보로 올린다",
+    "1.5": "함수 이름 표",
+    "1.6": "`_` 의 값을 읽지 않는지",
+    "2": "이름 표 대부분 (rename-hint 는 일부), 컨테이너의 용도 이름",
+    "3.1": "같은 뜻의 정수 반복 (magic-repeat 는 100 이상만 후보)",
+    "3.2": "홀짝 판정의 `& 1`",
+    "3.3": "조기 반환",
+    "3.5": "삼항 순서 (중첩만 검사)",
+    "3.6": "크기 식 앞/뒤 여유분 판정, 리터럴이 여유분을 합친 값인지(size-pad 는 후보), `while` 안 역순 인덱스, 크기 식이 아닌 `+ 1` 순서, `MAX_` 이름 형식",
+    "3.8": "방어 코드, 알려진 패턴 밖의 군더더기, Java·Python 미사용 변수·함수·import 와 주석 처리한 옛 코드(컴파일러가 못 잡는 것)",
+    "4.1": "int 범위 초과(정답성), 습관적 큰 타입",
+    "4.3": "음수 나머지 일반형, 실수 비교(EPS)",
+    "4.5": "Java 보조 타입 `static class`",
+    "5.1": "C++ 표준(저지별 기준에서 컴파일되지 않는 기능을 쓰지 않았는지)",
+    "5.2": "범위 for 의 auto 원소 타입 (`vector<string>` 이면 `string&`)",
+    "5.4": "참조로 받기 (타입 크기를 알아야 한다)",
+    "6.1": "클래스명·`public` 사용, `println(sb)` 한 번 출력, `StringTokenizer` 사용, StringBuilder 체이닝",
+    "6.2": "Queue API 는 변수 타입이 필요해 일부만 본다",
+    "6.3": "스트림 허용 범위, list.remove 혼동, 박싱 == (변수 타입이 필요해 일부만)",
+    "7": "`input().rstrip()`, 출력 모으기 형태, import 표에 없는 모듈, 재귀 한도 필요 여부",
+    "8.1": "표준 라이브러리 우선(직접 구현), 대소문자 변환, Codeforces 해시",
+    "8.3": "비교자 변수 이름 `cmp`·람다 인자 이름",
+    "8.4": "직접 구현한 이분 탐색의 구간·`mid`·반환·함수 이름",
+    "8.5": "문자열 순회, 테스트케이스 루프와 번호 `tc`",
+    "8.6": "표준 템플릿(`gcd`·`lcm`, `failure`, `sieve`, `find`·`union`)과 같은 모양인지",
 }
 DOC_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..", "CONVENTIONS.md")
-
-_NAME_LISTS = None
-
-
-def name_lists():
-    """1.4 의 이름 목록은 문서가 정본이다. 라벨(`C++ 전역 목록:` 등)이 붙은 줄에서 읽는다."""
-    global _NAME_LISTS
-    if _NAME_LISTS is None:
-        labels = {"cpp_global": "C++ 전역 목록:", "cpp_local": "C++ 지역 목록:", "py": "Python 목록:"}
-        lists = {k: set() for k in labels}
-        with open(DOC_PATH, encoding="utf-8") as f:
-            for l in f:
-                for k, lab in labels.items():
-                    if lab in l:
-                        lists[k] = set(re.findall(r"`(\w+)`", l.split(lab, 1)[1]))
-        _NAME_LISTS = lists
-    return _NAME_LISTS
-
 
 # ---------------------------------------------------------------- 전처리
 
@@ -178,7 +170,11 @@ class Ctx:
         self.code = strip_py(raw) if lang == "py" else strip_cstyle(raw, lang)
         self.lines = self.code.split("\n")
         parts = path.replace(os.sep, "/").split("/")
-        self.stdin_judge = any(p.startswith(STDIN_JUDGES) for p in parts)
+        # 표준 입출력으로 푸는 prms_ 풀이는 표준 입출력 저지와 같게 본다 (0.2)
+        reads = {"java": r"System\s*\.\s*in\b", "cpp": r"\bcin\b", "py": r"\binput\s*\(|\bsys\s*\.\s*stdin\b"}
+        self.stdin_judge = any(p.startswith(STDIN_JUDGES) for p in parts) or (
+            any(p.startswith("prms_") for p in parts) and re.search(reads[lang], self.code) is not None
+        )
         self.tree = None
         self.tokens = []
         if lang == "py":
@@ -245,12 +241,12 @@ def py_literal_int(node):
 # ---------------------------------------------------------------- 공통 규칙
 
 
-@rule("odd-eq-1", "필수", ALL, "홀수 판정에 == 1 (7.1)")
+@rule("odd-eq-1", "필수", ALL, "홀수 판정에 == 1 (3.2)")
 def r_odd(ctx):
     return grep(ctx, r"%\s*2\s*==\s*1\b", "홀수 판정에 == 1 사용 (!= 0 또는 truthy)")
 
 
-@rule("debug-out", "필수", ALL, "디버그 출력 잔여 (11장)")
+@rule("debug-out", "필수", ALL, "디버그 출력 잔여 (3.8)")
 def r_debug(ctx):
     pat = {"java": r"System\s*\.\s*err", "cpp": r"\b(?:cerr|clog)\b|fprintf\s*\(\s*stderr", "py": r"sys\s*\.\s*stderr"}[
         ctx.lang
@@ -258,7 +254,7 @@ def r_debug(ctx):
     return grep(ctx, pat, "제출 코드에 디버그/오류 스트림 출력이 남음")
 
 
-@rule("num-sep", "필수", ALL, "7자리 이상 정수 리터럴 구분자 (2장)")
+@rule("num-sep", "필수", ALL, "7자리 이상 정수 리터럴 구분자 (3.1)")
 def r_numsep(ctx):
     res = []
     if ctx.lang == "py":
@@ -273,7 +269,7 @@ def r_numsep(ctx):
     return res
 
 
-@rule("num-sep-short", "필수", ALL, "6자리 이하 정수 리터럴에 구분자 금지 (2장)")
+@rule("num-sep-short", "필수", ALL, "6자리 이하 정수 리터럴에 구분자 금지 (3.1)")
 def r_numsep_short(ctx):
     res = []
     if ctx.lang == "py":
@@ -291,7 +287,7 @@ def r_numsep_short(ctx):
     return res
 
 
-@rule("nested-ternary", "필수", ALL, "삼항 연산자 중첩 (7.4)")
+@rule("nested-ternary", "필수", ALL, "삼항 연산자 중첩 (3.5)")
 def r_ternary(ctx):
     if ctx.lang == "py":
         res = []
@@ -303,18 +299,18 @@ def r_ternary(ctx):
     return grep(ctx, r"\?[^?:;]*:[^?;]*\?", "삼항 연산자 중첩 의심", cand=True)
 
 
-@rule("size-plus", "필수", ("java", "cpp", "py"), "크기 식 여유분은 놓인 쪽에 (13.3, 앞/뒤는 사람이 판정 → 후보)")
+@rule("size-plus", "필수", ("java", "cpp", "py"), "크기 식 여유분은 놓인 쪽에 (3.6, 앞/뒤는 사람이 판정 → 후보)")
 def r_sizeplus(ctx):
     res = []
     for ln, l in enumerate(ctx.lines, 1):
-        nul = {  # char 배열 마지막 차원의 뒤쪽 `+ 1` 은 NUL 칸이라 규칙대로다 (13.3)
+        nul = {  # char 배열 마지막 차원의 뒤쪽 `+ 1` 은 NUL 칸이라 규칙대로다 (5.5)
             re.findall(r"\[([^\]]*)\]", m.group(1))[-1] for m in re.finditer(r"\bchar\s+\w+\s*((?:\[[^\]]*\])+)", l)
         }
         for e in size_exprs(ctx.lang, l):
             if e in nul:
                 continue
             if re.fullmatch(r"\s*(.+?)\s*\+\s*1\s*\+\s*\1\s*", e):
-                continue  # n + 1 + n: 음수 포함 구간의 0 자리 (13.3 허용)
+                continue  # n + 1 + n: 음수 포함 구간의 0 자리 (3.6)
             if re.fullmatch(r"\s*[\w.()\[\]]+\s*-\s*[\w.()\[\]]+\s*\+\s*1\s*", e) or re.search(r"\(.*\+\s*1\)\s*/", e):
                 continue  # b - a + 1(구간 길이)·(n + 1) / 2(올림)는 여유분이 아니다
             if re.search(r"\b(?:begin|end)\s*\(\s*\)", e):
@@ -340,7 +336,7 @@ def looks_padded(v):
     return v >= 11 and v % 10 in (1, 2)
 
 
-@rule("size-pad", "필수", ALL, "여유분을 합친 크기·상수 리터럴 (13.3, 합친 값인지는 사람이 판정 → 후보)")
+@rule("size-pad", "필수", ALL, "여유분을 합친 크기·상수 리터럴 (3.6, 합친 값인지는 사람이 판정 → 후보)")
 def r_sizepad(ctx):
     res = []
     for ln, l in enumerate(ctx.lines, 1):
@@ -359,7 +355,7 @@ def r_sizepad(ctx):
                         )
                     )
         d = const_decl(ctx.lang, l)
-        # INF 는 값 상한 + 1 센티널이지 크기가 아니다 (13.3)
+        # INF 는 값 상한 + 1 센티널이지 크기가 아니다 (3.6)
         if d and looks_padded(d[1]) and not d[0].startswith("INF"):
             res.append((ln, f"상수 {d[0]} = {d[1]}: 여유분을 합친 값이면 1 + {d[1] - 1} 로 위치를 표시", True))
     return res
@@ -369,7 +365,7 @@ def r_sizepad(ctx):
     "magic-repeat",
     "권장",
     ALL,
-    "반복되는 정수 리터럴·선언한 상수와 같은 값의 리터럴 (2장, 같은 의미인지는 사람이 판정 → 후보)",
+    "반복되는 정수 리터럴·선언한 상수와 같은 값의 리터럴 (3.1, 같은 의미인지는 사람이 판정 → 후보)",
 )
 def r_magic(ctx):
     occ, consts = {}, {}
@@ -420,7 +416,7 @@ def r_magic(ctx):
     return res
 
 
-@rule("redundant", "필수", ALL, "제거해도 동작이 같은 군더더기 (11장, 알려진 패턴만)")
+@rule("redundant", "필수", ALL, "제거해도 동작이 같은 군더더기 (3.8, 알려진 패턴만)")
 def r_redundant(ctx):
     res = []
     if ctx.lang == "java":
@@ -501,7 +497,7 @@ def mask_sizes(lang, l, name):
     "const-mix",
     "필수",
     ALL,
-    "MAX·MAX_X 용도 혼용: 로직이 쓰는 MAX 의 선언 여유분, 로직에 쓰인 MAX_X (12.6, 용도 판정은 사람이 → 후보)",
+    "MAX·MAX_X 용도 혼용: 로직이 쓰는 MAX 의 선언 여유분, 로직에 쓰인 MAX_X (3.6, 용도 판정은 사람이 → 후보)",
 )
 def r_constmix(ctx):
     res, decls = [], {}
@@ -529,7 +525,7 @@ def r_constmix(ctx):
     return res
 
 
-@rule("lcm-order", "필수", ALL, "lcm은 나눗셈 먼저 (9장)")
+@rule("lcm-order", "필수", ALL, "lcm은 나눗셈 먼저 (8.1)")
 def r_lcm(ctx):
     return grep(
         ctx,
@@ -539,7 +535,7 @@ def r_lcm(ctx):
     )
 
 
-@rule("sort-lambda", "필수", ("cpp",), "정렬 비교자 람다 인자는 auto& (13.6)")
+@rule("sort-lambda", "필수", ("cpp",), "정렬 비교자 람다 인자는 auto& (8.3)")
 def r_sortlambda(ctx):
     res = []
     for ln, l in enumerate(ctx.lines, 1):
@@ -571,7 +567,7 @@ def split_top(s):
     return out
 
 
-@rule("rename-hint", "권장", ALL, "표준 변수명 (12장) 일부")
+@rule("rename-hint", "권장", ALL, "표준 변수명 (2장) 일부")
 def r_rename(ctx):
     res = []
     hints = {"visited": ("vis", False), "answer": ("ans", True), "temp": ("tmp", True), "result": ("res/ans", True)}
@@ -590,7 +586,7 @@ FOR_VAR_RX = {
 }
 
 
-@rule("rev-index", "필수", ALL, "끝에서부터 세는 인덱스는 n - 1 - i (13.3, 반복 변수가 맨 뒤 → 후보)")
+@rule("rev-index", "필수", ALL, "끝에서부터 세는 인덱스는 n - 1 - i (3.6, 반복 변수가 맨 뒤 → 후보)")
 def r_revindex(ctx):
     loop_vars = set()
     for m in FOR_VAR_RX[ctx.lang].finditer(ctx.code):
@@ -623,7 +619,7 @@ PY_DIR_PAIRS_RX = re.compile(
 
 
 @rule(
-    "dir-order", "권장", ALL, "4방향은 위쪽부터, 8방향은 좌상단부터 시계 방향 (12장, 문제가 순서를 정하면 예외 → 후보)"
+    "dir-order", "권장", ALL, "4방향은 위쪽부터, 8방향은 좌상단부터 시계 방향 (2.3, 문제가 순서를 정하면 예외 → 후보)"
 )
 def r_dirorder(ctx):
     res = []
@@ -683,7 +679,7 @@ SINGLE_MSGS = ("단문 if는 같은 줄에 한 줄로", "본문이 단문 하나
 
 
 def if_findings(ctx):
-    """7.3 if 중괄호 위반 전체. 단문 if 메시지(SINGLE_MSGS)는 if-single(권장), 나머지(else 관련)는 if-braces(필수)."""
+    """3.4 if 중괄호 위반 전체. 단문 if 메시지(SINGLE_MSGS)는 if-single(권장), 나머지(else 관련)는 if-braces(필수)."""
     L, out, seen = ctx.lines, [], set()
 
     def emit(ln, msg):
@@ -733,17 +729,17 @@ def if_findings(ctx):
     return out
 
 
-@rule("if-braces", "필수", ("java", "cpp"), "else가 붙는 if는 모든 분기에 중괄호 (7.3)")
+@rule("if-braces", "필수", ("java", "cpp"), "else가 붙는 if는 모든 분기에 중괄호 (3.4)")
 def r_if(ctx):
     return [x for x in if_findings(ctx) if x[1] not in SINGLE_MSGS]
 
 
-@rule("if-single", "권장", ("java", "cpp"), "단문 if(else 없음)는 중괄호 없이 한 줄로 (7.3)")
+@rule("if-single", "권장", ("java", "cpp"), "단문 if(else 없음)는 중괄호 없이 한 줄로 (3.4)")
 def r_if_single(ctx):
     return [x for x in if_findings(ctx) if x[1] in SINGLE_MSGS]
 
 
-@rule("j-loop-brace", "필수", ("java",), "Java 반복문은 항상 중괄호 (7.3)")
+@rule("j-loop-brace", "필수", ("java",), "Java 반복문은 항상 중괄호 (3.4)")
 def r_jloop(ctx):
     L, out = ctx.lines, []
     for i, l in enumerate(L):
@@ -779,13 +775,6 @@ C_DECL = re.compile(
 )
 
 
-# 컨테이너·pair 선언은 이름 충돌(1.4)만 본다. 다른 규칙의 선언 판정은 C_DECL 그대로다.
-C_CONT_DECL = re.compile(
-    r"\b(?:set|multiset|map|multimap|unordered_set|unordered_map|stack|queue|priority_queue|deque|array|bitset"
-    r"|pair|tuple)\s*<[^;()=]*?>\s*[&*]*\s+(?P<name>[A-Za-z_]\w*)\s*(?P<after>[=;\[:{(,])"
-)
-
-
 def iter_decls(ctx):
     rx = J_DECL if ctx.lang == "java" else C_DECL
     for ln, l in enumerate(ctx.lines, 1):
@@ -793,49 +782,16 @@ def iter_decls(ctx):
             yield ln, m
 
 
-FUNC_PARAMS = re.compile(r"\s*(?:\)|[\w:<>,\s]*?[&*\s]\s*[A-Za-z_]\w*\s*[,)])")
-
-
-def iter_decls_scoped(ctx):
-    """C++ 선언을 (줄, 매치, 범위)로 순회한다. 범위는 global / member(struct·class 멤버) / local.
-    중괄호를 세는 근사다: `struct`·`class`·`union`·`enum` 머리 뒤의 `{` 안이 멤버, 그 밖의 `{` 안이 지역."""
-    stack, head = [], ""
-
-    def step(ch):
-        nonlocal head
-        if ch == "{":
-            stack.append("type" if re.search(r"\b(?:struct|class|union|enum)\b", head) else "block")
-            head = ""
-        elif ch == "}":
-            if stack:
-                stack.pop()
-            head = ""
-        elif ch == ";":
-            head = ""
-        else:
-            head += ch
-
-    for ln, l in enumerate(ctx.lines, 1):
-        pos = 0
-        for m in sorted(list(C_DECL.finditer(l)) + list(C_CONT_DECL.finditer(l)), key=lambda x: x.start()):
-            for ch in l[pos : m.start()]:
-                step(ch)
-            pos = m.start()
-            kind = "global" if not stack else ("member" if stack[-1] == "type" else "local")
-            prefix = l[: m.start()]
-            if kind == "global" and prefix.count("(") > prefix.count(")"):
-                kind = "local"  # 함수 머리의 매개변수
-            if kind == "global" and m.group("after") == "(" and FUNC_PARAMS.match(l, m.end()):
-                continue  # `pair<int, int> merge(pair<int, int> a, ...)` 같은 함수 선언은 변수가 아니다
-            yield ln, m, kind
-        for ch in l[pos:]:
-            step(ch)
-        head += " "
-
-
 UPPER_RX = re.compile(r"^[A-Z][A-Z0-9_]*$")
 SNAKE_RX = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)+$")
 CAMEL_RX = re.compile(r"^[a-z]+[A-Z]")
+FUNC_DEF_RX = re.compile(
+    r"^\s*(?:(?:static|public|private|protected|inline)\s+)*[\w:<>\[\],]+(?:\s+long)*(?:\s*[&*]+)?\s+([a-z]\w*)\s*"
+    r"\([^;{}]*\)\s*(?:const\s*)?(?:throws\s+[\w., ]+)?\{"
+)
+
+
+BINDING_RX = re.compile(r"\bauto\s*&{0,2}\s*\[([^\[\]]+)\]")
 
 
 def judge_given(path, func_name):
@@ -847,11 +803,15 @@ def judge_given(path, func_name):
     return any(p.startswith("leet_") for p in parts)
 
 
-@rule("name-case", "필수", ALL, "변수·상수 표기 (1.1~1.3)")
+@rule("name-case", "필수", ALL, "변수·상수·함수 이름 표기 (1.1)")
 def r_namecase(ctx):
     res = []
     if ctx.lang == "py":
         return py_namecase(ctx)
+    for ln, l in enumerate(ctx.lines, 1):
+        m = FUNC_DEF_RX.match(l)
+        if m and SNAKE_RX.match(m.group(1)):
+            res.append((ln, f"함수 `{m.group(1)}`는 camelCase"))
     for ln, m in iter_decls(ctx):
         d = m.groupdict()
         name, mods, typ = d["name"], d["mods"], d["type"]
@@ -891,11 +851,19 @@ def r_namecase(ctx):
             elif const and arr:
                 res.append((ln, f"`{name}`: const/final 은 스칼라 상수에만 (배열·참조·컨테이너에는 붙이지 않음)"))
             if is_param:
-                continue
-            if ctx.lang == "java" and SNAKE_RX.match(name):
-                res.append((ln, f"Java 변수 `{name}`는 camelCase"))
-            if ctx.lang == "cpp" and CAMEL_RX.match(name):
-                res.append((ln, f"C++ 변수 `{name}`는 snake_case"))
+                mname = re.search(r"(\w+)\s*\([^()]*$", prefix)
+                if mname and judge_given(ctx.path, mname.group(1)):
+                    continue
+            if SNAKE_RX.match(name):
+                res.append((ln, f"`{name}`: Java·C++ 변수는 camelCase"))
+    if ctx.lang == "cpp":
+        for ln, l in enumerate(ctx.lines, 1):
+            for m in BINDING_RX.finditer(l):
+                for name in (x.strip() for x in m.group(1).split(",")):
+                    if SNAKE_RX.match(name):
+                        res.append((ln, f"`{name}`: Java·C++ 변수는 camelCase"))
+                    elif name[:1].isupper():
+                        res.append((ln, f"`{name}`: 변수는 소문자로 시작"))
     return res
 
 
@@ -920,6 +888,8 @@ def py_namecase(ctx):
         if isinstance(node, ast.FunctionDef) and judge_given(ctx.path, node.name):
             a = node.args
             given |= {x.arg for x in a.posonlyargs + a.args + a.kwonlyargs}
+        elif isinstance(node, ast.FunctionDef) and CAMEL_RX.match(node.name):
+            res.append((node.lineno, f"Python 함수 `{node.name}`는 snake_case"))
 
     for node in ast.walk(ctx.tree):
         targets = []
@@ -946,18 +916,15 @@ def py_namecase(ctx):
     return res
 
 
-@rule("name-collision", "필수", ("cpp", "py"), "전역 선언의 std·C 이름 충돌, Python 내장 이름 가림 (1.4)")
+@rule(
+    "name-collision", "필수", ("py",), "가린 내장 이름을 파일 안에서 호출 (1.4, 동작이 깨지는지는 사람이 판정 → 후보)"
+)
 def r_collision(ctx):
     res = []
-    lists = name_lists()
-    if ctx.lang == "cpp":
-        for ln, m, kind in iter_decls_scoped(ctx):
-            if kind == "global" and m.group("name") in lists["cpp_global"]:
-                res.append((ln, f"`{m.group('name')}`: 전역 선언이 std·C 라이브러리 이름과 충돌"))
-        return res
     if not ctx.tree:
         return res
-    bad = lists["py"]
+    called = {n.func.id for n in ast.walk(ctx.tree) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}
+    bad = set(dir(builtins)) & called
     in_class_methods = set()
     for n in ast.walk(ctx.tree):
         if isinstance(n, ast.ClassDef):
@@ -995,34 +962,24 @@ def r_collision(ctx):
                 continue
             if nm == "input" and re.search(r"input\s*=\s*sys\s*\.\s*stdin\s*\.\s*readline", ctx.lines[ln - 1]):
                 continue
-            res.append((ln, f"`{nm}`: 내장 이름 섀도잉"))
+            res.append((ln, f"`{nm}`: 내장 이름을 가리고 같은 이름을 호출함", True))
     return res
-
-
-@rule("name-shadow", "권장", ("cpp",), "지역 변수의 std 이름 가림 (1.4)")
-def r_shadow(ctx):
-    local = name_lists()["cpp_local"]
-    return [
-        (ln, f"`{m.group('name')}`: 지역 변수가 std 이름을 가림")
-        for ln, m, kind in iter_decls_scoped(ctx)
-        if kind == "local" and m.group("name") in local
-    ]
 
 
 # ---------------------------------------------------------------- Java 전용
 
 
-@rule("j-scanner", "필수", ("java",), "Scanner 금지 (4.1)")
+@rule("j-scanner", "필수", ("java",), "Scanner 금지 (6.1)")
 def r_scanner(ctx):
     return grep(ctx, r"\bnew\s+Scanner\b|import\s+java\.util\.Scanner", "Scanner 사용")
 
 
-@rule("j-split", "권장", ("java",), "split 사용: StringTokenizer 우선 (4.1, 수정은 선택)")
+@rule("j-split", "권장", ("java",), "split 사용: StringTokenizer 우선 (6.1, 수정은 선택)")
 def r_jsplit(ctx):
     return grep(ctx, r"\.split\(", "split 사용: StringTokenizer 가 확실히 못한 경우만 허용")
 
 
-@rule("j-append-sep", "필수", ("java",), 'StringBuilder 구분자는 문자열 리터럴 "\\n"·" " (4.1)')
+@rule("j-append-sep", "필수", ("java",), 'StringBuilder 구분자는 문자열 리터럴 "\\n"·" " (6.1)')
 def r_jappendsep(ctx):
     # 문자 리터럴 내용은 ctx.lines 에서 공백으로 지워지므로 원문 줄로 본다 (주석 안은 ctx.lines 로 걸러냄)
     rx = re.compile(r"\.append\(\s*'(?:\\n| )'\s*\)")
@@ -1033,12 +990,12 @@ def r_jappendsep(ctx):
     ]
 
 
-@rule("j-import", "필수", ("java",), "와일드카드 import (4.1)")
+@rule("j-import", "필수", ("java",), "와일드카드 import (6.1)")
 def r_jimport(ctx):
     return grep(ctx, r"^\s*import\s+(?!static\b)[\w.]+\.[A-Za-z]\w*\s*;", "개별 클래스 import: 패키지 단위 * 로")
 
 
-@rule("j-queue-api", "필수", ("java",), "Queue/Deque API (4.2)")
+@rule("j-queue-api", "필수", ("java",), "Queue/Deque API (6.2)")
 def r_queue_api(ctx):
     res = []
     decl = re.compile(r"\b(Queue|PriorityQueue|Deque|ArrayDeque)\s*<[^;=]*?>\s+(\w+)\s*(?:=|;)")
@@ -1058,7 +1015,7 @@ def r_queue_api(ctx):
     return res
 
 
-@rule("j-queue-impl", "필수", ("java",), "큐·덱 구현체는 ArrayDeque (4.2)")
+@rule("j-queue-impl", "필수", ("java",), "큐·덱 구현체는 ArrayDeque (6.2)")
 def r_queue_impl(ctx):
     return grep(
         ctx, r"\b(?:Queue|Deque)\s*<[^;=]*?>\s+\w+\s*=\s*new\s+LinkedList", "LinkedList 를 큐/덱으로 사용"
@@ -1070,12 +1027,12 @@ def r_queue_impl(ctx):
     )
 
 
-@rule("j-stack", "필수", ("java",), "레거시 Stack 금지 (4.2)")
+@rule("j-stack", "필수", ("java",), "레거시 Stack 금지 (6.2)")
 def r_stack(ctx):
     return grep(ctx, r"\bStack\s*<|\bnew\s+Stack\b", "java.util.Stack 사용: ArrayDeque 로")
 
 
-@rule("j-cmp-sub", "필수", ("java",), "뺄셈 비교자 금지 (13.6)")
+@rule("j-cmp-sub", "필수", ("java",), "뺄셈 비교자 금지 (8.3)")
 def r_cmpsub(ctx):
     res = grep(
         ctx,
@@ -1101,12 +1058,12 @@ def r_cmpsub(ctx):
     return res
 
 
-@rule("j-reverse-order", "필수", ("java",), "Collections.reverseOrder 금지 (13.6)")
+@rule("j-reverse-order", "필수", ("java",), "Collections.reverseOrder 금지 (8.3)")
 def r_revorder(ctx):
     return grep(ctx, r"Collections\s*\.\s*reverseOrder\s*\(", "Comparator.reverseOrder() 로")
 
 
-@rule("j-adj-list", "필수", ("java",), "인접 리스트는 제네릭 배열 (13.5)")
+@rule("j-adj-list", "필수", ("java",), "인접 리스트는 제네릭 배열 (8.2)")
 def r_jadj(ctx):
     return grep(
         ctx,
@@ -1115,7 +1072,7 @@ def r_jadj(ctx):
     )
 
 
-@rule("j-io-template", "필수", ("java",), "BufferedReader / throws IOException / try-catch 금지 (4.1)")
+@rule("j-io-template", "필수", ("java",), "BufferedReader / throws IOException / try-catch 금지 (6.1)")
 def r_jio(ctx):
     res = []
     code = ctx.code
@@ -1138,7 +1095,12 @@ def r_jio(ctx):
     return res
 
 
-@rule("j-loop-print", "권장", ("java",), "루프 안 System.out 직접 출력 (4.1, 소량이어도 지적·수정은 선택)")
+@rule(
+    "j-loop-print",
+    "권장",
+    ("java",),
+    "루프 안 System.out 직접 출력 (6.1, 출력 호출이 100번 이하인지는 사람이 판정 → 후보)",
+)
 def r_jloopprint(ctx):
     out, stack, pending = [], [], False
     for ln, l in enumerate(ctx.lines, 1):
@@ -1150,7 +1112,7 @@ def r_jloopprint(ctx):
                 nxt is not None and re.match(r"\s*(?:return|break)\b", ctx.lines[nxt])
             ):
                 continue  # 출력 직후 루프를 빠져나가면 한 번만 출력된다
-            out.append((ln, "루프 안 직접 출력: StringBuilder 에 모아 마지막에 한 번 (소량이어도 지적, 수정은 선택)"))
+            out.append((ln, "루프 안 직접 출력: 제약상 100번을 넘거나 상한을 모르면 StringBuilder 에 모아 낸다", True))
         for ch in l:
             if ch == "{":
                 stack.append(pending)
@@ -1162,7 +1124,7 @@ def r_jloopprint(ctx):
     return out
 
 
-@rule("j-boxed-eq", "필수", ("java",), "박싱 타입 값 ==/!= 비교 금지 (4.3, 타입 추정이라 일부 후보)")
+@rule("j-boxed-eq", "필수", ("java",), "박싱 타입 값 ==/!= 비교 금지 (6.3, 타입 추정이라 일부 후보)")
 def r_jboxed(ctx):
     boxed, boxed_arr = set(), set()
     for ln, m in iter_decls(ctx):
@@ -1218,7 +1180,7 @@ def cast_groups(ctx):
     return out
 
 
-@rule("mul-cast", "필수", ("java", "cpp"), "곱셈 승격 위치 (8.1)")
+@rule("mul-cast", "필수", ("java", "cpp"), "곱셈 승격 위치 (4.2)")
 def r_mulcast(ctx):
     one = "(long) a * b" if ctx.lang == "java" else "1LL * a * b"
     res = [(ln, "(long)(a * b): 곱한 뒤 승격. %s 로" % one) for ln, inner_mul, _ in cast_groups(ctx) if inner_mul]
@@ -1230,7 +1192,7 @@ def r_mulcast(ctx):
     return res
 
 
-@rule("mul-cast-style", "권장", ("cpp",), "C++ 곱셈 승격 표기 (8.1)")
+@rule("mul-cast-style", "필수", ("cpp",), "C++ 곱셈 승격 표기 (4.2)")
 def r_mulcast_style(ctx):
     msg = "(long long) a * b 캐스트: 오버플로는 없으나 표기는 1LL * a * b 로"
     res = grep(ctx, r"\(\s*(?:long long|long)\s*\)\s*[\w.\[\]]+\s*\*", msg)
@@ -1238,7 +1200,7 @@ def r_mulcast_style(ctx):
     return res
 
 
-@rule("java-1l", "필수", ("java",), "Java 곱셈 승격 표기 (8.1)")
+@rule("java-1l", "필수", ("java",), "Java 곱셈 승격 표기 (4.2)")
 def r_java1l(ctx):
     return grep(ctx, r"\b1L\s*\*", "1L * a * b: Java 는 (long) a * b 로")
 
@@ -1246,14 +1208,14 @@ def r_java1l(ctx):
 # ---------------------------------------------------------------- C++ 전용
 
 
-@rule("c-header", "필수", ("cpp",), "첫 두 줄 + 빈 줄 (3장)")
+@rule("c-header", "필수", ("cpp",), "첫 두 줄 + 빈 줄 (5.1)")
 def r_cheader(ctx):
     L = ctx.rawlines
     ok = len(L) >= 3 and L[0] == "#include <bits/stdc++.h>" and L[1] == "using namespace std;" and L[2] == ""
     return [] if ok else [(1, "첫 두 줄이 `#include <bits/stdc++.h>` / `using namespace std;` + 빈 줄이 아님")]
 
 
-@rule("c-sync", "필수", ("cpp",), "sync_with_stdio(0); cin.tie(0); (3장)")
+@rule("c-sync", "필수", ("cpp",), "sync_with_stdio(0); cin.tie(0); (5.1)")
 def r_csync(ctx):
     code = ctx.code
     m = re.search(r"\bint\s+main\s*\(", code)
@@ -1267,17 +1229,17 @@ def r_csync(ctx):
     return res
 
 
-@rule("c-endl", "필수", ("cpp",), "endl 금지 (3장)")
+@rule("c-endl", "필수", ("cpp",), "endl 금지 (5.1)")
 def r_endl(ctx):
     return grep(ctx, r"\bendl\b", "endl 사용: '\\n'")
 
 
-@rule("c-cio", "필수", ("cpp",), "C 입출력 금지 (3장)")
+@rule("c-cio", "필수", ("cpp",), "C 입출력 금지 (5.1)")
 def r_cio(ctx):
     return grep(ctx, r"\b(?:scanf|printf|puts|gets|putchar|getchar|fgets|sscanf|fscanf|fprintf)\s*\(", "C 입출력 사용")
 
 
-@rule("c-return0", "필수", ("cpp",), "main 끝 return 0 생략 (3장)")
+@rule("c-return0", "필수", ("cpp",), "main 끝 return 0 생략 (5.1)")
 def r_return0(ctx):
     L, res = ctx.lines, []
     for i, l in enumerate(L):
@@ -1294,24 +1256,26 @@ def r_return0(ctx):
     return res
 
 
-@rule("c-alias", "필수", ("cpp",), "타입 별칭·매크로 금지 (13.2)")
+@rule("c-alias", "필수", ("cpp",), "타입 별칭·매크로 금지 (4.5)")
 def r_alias(ctx):
+    if any(p.startswith("cofo_") for p in ctx.path.replace(os.sep, "/").split("/")):
+        return []
     return grep(ctx, r"^\s*using\s+\w+\s*=|\btypedef\b|^\s*#\s*define\b", "타입 별칭/매크로 사용")
 
 
-@rule("c-const", "필수", ("cpp",), "const 는 스칼라 상수에만 (1.1)")
+@rule("c-const", "필수", ("cpp",), "const 는 스칼라 상수에만 (5.4)")
 def r_cconst(ctx):
     return grep(ctx, r"\bconst\s+(?:auto|[\w:<>,\s]+?)\s*&", "const 참조 인자/변수: auto& 로")
 
 
-@rule("c-auto-basic", "필수", ("cpp",), "기본형·string 은 auto 금지 (8.2)")
+@rule("c-auto-basic", "필수", ("cpp",), "기본형·string 은 auto 금지 (5.2)")
 def r_cauto(ctx):
     # 범위 for 원소가 기본형·string 인지는 타입 정보가 있어야 가려져서 기계 검사에서 뺐다 (정독 대상, --check-docs).
     # 후보로 올리던 때 레포 전체 25건이 전부 컨테이너 행·pair 원소 오탐이었다.
     return grep(ctx, r"\bauto\s+\w+\s*=\s*(?:-?\d|true\b|false\b)", "리터럴 초기화에 auto: 타입 명시")
 
 
-@rule("c-large-local", "필수", ("cpp",), "10만 이상 고정 배열은 전역 (10장)")
+@rule("c-large-local", "필수", ("cpp",), "10만 이상 고정 배열은 전역 (4.4)")
 def r_clarge(ctx):
     consts = {}
     for m in re.finditer(r"\bconst\s+(?:int|long long|long|size_t)\s+(\w+)\s*=\s*([\d']+)\s*;", ctx.code):
@@ -1351,20 +1315,20 @@ def r_clarge(ctx):
     return res
 
 
-@rule("c-accumulate", "필수", ("cpp",), "accumulate 초깃값 타입 (8.3)")
+@rule("c-accumulate", "필수", ("cpp",), "accumulate 초깃값 타입 (5.3)")
 def r_accum(ctx):
     return grep(ctx, r"\baccumulate\s*\([^;]*,\s*0\s*\)", "accumulate 초깃값 0: 합이 int 를 넘으면 0LL", cand=True)
 
 
-@rule("c-npos", "필수", ("cpp",), "string::npos 금지 (13.4)")
+@rule("c-npos", "필수", ("cpp",), "string::npos 금지 (5.5)")
 def r_npos(ctx):
-    # "없음" 판정(비교)만 본다. substr(i, string::npos) 같은 인자 용법은 13.4 의 대상이 아니다
+    # "없음" 판정(비교)만 본다. substr(i, string::npos) 같은 인자 용법은 5.5 의 대상이 아니다
     return grep(
         ctx, r"(?:==|!=)\s*(?:std\s*::\s*)?(?:string\s*::\s*)?npos\b|\bnpos\s*(?:==|!=)", "string::npos 대신 -1 비교"
     )
 
 
-@rule("c-greater-sort", "필수", ("cpp",), "정렬에 greater 금지 (13.6)")
+@rule("c-greater-sort", "필수", ("cpp",), "정렬에 greater 금지 (8.3)")
 def r_greater(ctx):
     return grep(
         ctx,
@@ -1373,7 +1337,7 @@ def r_greater(ctx):
     )
 
 
-@rule("c-class", "필수", ("cpp",), "보조 타입은 struct (13.2)")
+@rule("c-class", "필수", ("cpp",), "보조 타입은 struct (4.5)")
 def r_cclass(ctx):
     # LeetCode 가 주는 클래스는 원본 그대로 둔다 (Solution, 설계 문제의 MinStack 등): leet_ 폴더는 검사하지 않는다.
     if any(p.startswith("leet_") for p in ctx.path.replace(os.sep, "/").split("/")):
@@ -1381,7 +1345,7 @@ def r_cclass(ctx):
     return grep(ctx, r"^\s*class\s+(?!Solution\b)\w+", "class 대신 struct")
 
 
-@rule("c-adj-vec2", "필수", ("cpp",), "인접 리스트는 vector 배열 (13.5)")
+@rule("c-adj-vec2", "필수", ("cpp",), "인접 리스트는 vector 배열 (8.2)")
 def r_cadj(ctx):
     return grep(
         ctx,
@@ -1394,7 +1358,7 @@ def r_cadj(ctx):
     "c-char-nul",
     "필수",
     ("cpp",),
-    "한 줄을 cin >> 으로 읽는 char 배열은 NUL 칸 포함 (13.3, 줄 길이 상한과 같은 크기인지는 사람이 판정)",
+    "한 줄을 cin >> 으로 읽는 char 배열은 NUL 칸 포함 (5.5, 줄 길이 상한과 같은 크기인지는 사람이 판정)",
 )
 def r_charnul(ctx):
     res = []
@@ -1419,7 +1383,7 @@ def r_charnul(ctx):
     return res
 
 
-@rule("c-readloop", "필수", ("cpp",), "원소 전체 입력은 for (int& x : v) (14장)")
+@rule("c-readloop", "필수", ("cpp",), "원소 전체 입력은 for (int& x : v) (5.5)")
 def r_readloop(ctx):
     res, L = [], ctx.lines
     one = re.compile(
@@ -1468,7 +1432,7 @@ def r_readloop(ctx):
     "level-bfs",
     "필수",
     ("cpp", "java", "py"),
-    "레벨 BFS 는 큐 크기를 잡고 C++ while (sz--), Java while (sz-- > 0), Python for _ in range(len(q)) (14장)",
+    "레벨 BFS 는 큐 크기를 잡고 C++ while (sz--), Java while (sz-- > 0), Python for _ in range(len(q)) (8.5)",
 )
 def r_levelbfs(ctx):
     src = "\n".join(ctx.lines)
@@ -1502,7 +1466,7 @@ def r_levelbfs(ctx):
 # ---------------------------------------------------------------- Python 전용
 
 
-@rule("py-imports", "필수", ("py",), "import 방식 표, import * 금지 (5장)")
+@rule("py-imports", "필수", ("py",), "import 방식 표, import * 금지 (7장)")
 def r_pyimports(ctx):
     res = []
     if not ctx.tree:
@@ -1520,7 +1484,7 @@ def r_pyimports(ctx):
     return res
 
 
-@rule("py-stdin", "필수", ("py",), "input = sys.stdin.readline (5장)")
+@rule("py-stdin", "필수", ("py",), "input = sys.stdin.readline (7장)")
 def r_pystdin(ctx):
     if not ctx.stdin_judge or not ctx.tree:
         return []
@@ -1531,7 +1495,7 @@ def r_pystdin(ctx):
     return [(1, "input() 을 쓰는데 input = sys.stdin.readline 이 없음")] if uses and not has else []
 
 
-@rule("py-format", "필수", ("py",), "f-string 만 (5장)")
+@rule("py-format", "필수", ("py",), "f-string 만 (7장)")
 def r_pyformat(ctx):
     res, T = [], ctx.tokens
     for i, t in enumerate(T):
@@ -1551,10 +1515,23 @@ def r_pyformat(ctx):
             and T[i + 1].string == "("
         ):
             res.append((t.start[0], ".format() 포매팅: f-string 으로"))
+        if (
+            t.type == tokenize.NAME
+            and t.string == "format"
+            and (i == 0 or T[i - 1].string not in (".", "def"))
+            and i + 1 < len(T)
+            and T[i + 1].string == "("
+        ):
+            res.append((t.start[0], "format() 포매팅: f-string 으로"))
     return res
 
 
-@rule("py-loop-print", "권장", ("py",), "루프 안 print 직접 호출 (5장, 소량이어도 지적·수정은 선택)")
+@rule(
+    "py-loop-print",
+    "권장",
+    ("py",),
+    "루프 안 print 직접 호출 (7장, 지문 상한으로 1000줄을 넘는지는 사람이 판정 → 후보)",
+)
 def r_pyloopprint(ctx):
     if not ctx.tree:
         return []
@@ -1563,7 +1540,7 @@ def r_pyloopprint(ctx):
         for field in ("body", "orelse", "finalbody"):
             stmts = getattr(node, field, None)
             if isinstance(stmts, list):
-                # 출력 직후 break 로 루프를 빠져나가 한 번만 출력되는 경우는 제외 (5장 [허용])
+                # 출력 직후 break 로 루프를 빠져나가 한 번만 출력되는 경우는 제외 (7장)
                 for cur, nxt in zip(stmts, stmts[1:]):
                     if isinstance(nxt, ast.Break) and isinstance(cur, ast.Expr):
                         once.add(cur.value.lineno)
@@ -1576,12 +1553,11 @@ def r_pyloopprint(ctx):
                     seen.add(n.lineno)
     seen -= once
     return [
-        (ln, "루프 안 직접 출력: out 리스트에 모아 마지막에 한 번 (소량이어도 지적, 수정은 선택)")
-        for ln in sorted(seen)
+        (ln, "루프 안 직접 출력: 지문 상한으로 1000줄을 넘으면 out 리스트에 모아 낸다", True) for ln in sorted(seen)
     ]
 
 
-@rule("py-recursion", "필수", ("py",), "setrecursionlimit 값은 10**6 (5장)")
+@rule("py-recursion", "필수", ("py",), "setrecursionlimit 값은 10**6 (7장)")
 def r_pyrec(ctx):
     if not ctx.tree:
         return []
@@ -1599,7 +1575,7 @@ def r_pyrec(ctx):
 
 
 def rule_sec(doc):
-    """규칙 설명에 적힌 문서 절 번호. `(7.3)`, `(5장)` 형태에서 뽑는다."""
+    """규칙 설명에 적힌 문서 절 번호. `(3.4)`, `(7장)` 형태에서 뽑는다."""
     m = re.search(r"\((\d+장|\d+\.\d+)", doc)
     return m.group(1).rstrip("장") if m else None
 
@@ -1623,6 +1599,30 @@ def sec_family(secs, sec):
     return {k for k in secs if k == sec or k.startswith(sec + ".")}
 
 
+@rule("py-out-place", "필수", ("py",), "append 로 채우는 out 의 선언 위치 (7장)")
+def r_pyoutplace(ctx):
+    if not ctx.tree:
+        return []
+    input_end, decls = None, []
+    for node in ctx.tree.body:
+        if isinstance(node, ast.Assign):
+            targets, value = node.targets, node.value
+        elif isinstance(node, ast.AnnAssign):
+            targets, value = [node.target], node.value
+        else:
+            continue
+        names = [t.id for t in targets if isinstance(t, ast.Name)]
+        if "input" in names:
+            input_end = node.end_lineno
+        if "out" in names and isinstance(value, ast.List) and not value.elts:
+            decls.append(node.lineno)
+    if input_end is None:
+        return []
+    return [
+        (ln, "out = [] 는 input = sys.stdin.readline 바로 아랫줄에 선언") for ln in decls[:1] if ln != input_end + 1
+    ]
+
+
 def check_docs():
     with open(DOC_PATH, encoding="utf-8") as f:
         text = f.read()
@@ -1644,13 +1644,6 @@ def check_docs():
     for sec in GAPS:
         if sec not in secs:
             problems.append(f"GAPS: 문서에 {sec} 절이 없음")
-    lists = name_lists()
-    for k, lab in (("cpp_global", "C++ 전역 목록"), ("cpp_local", "C++ 지역 목록"), ("py", "Python 목록")):
-        if not lists[k]:
-            problems.append(f"문서에서 `{lab}:` 줄을 읽지 못함")
-    only_local = lists["cpp_local"] - lists["cpp_global"]
-    if only_local:
-        problems.append(f"C++ 지역 목록에만 있는 이름 {sorted(only_local)}: 전역 목록에도 있어야 함")
     print("== 문서 대응")
     print("\n".join(problems) if problems else "불일치 없음")
     print("\n== 정독 대상 (스크립트가 못 보거나 일부만 보는 절)")
@@ -1677,6 +1670,11 @@ def old_month(name):
     return re.fullmatch(r"\d{4}-\d{2}", name) is not None and name < FIRST_AUDIT_MONTH
 
 
+def old_day(root, name):
+    parts = os.path.abspath(root).split(os.sep)
+    return parts[-2:] == [FIRST_AUDIT_MONTH, "src"] and name.startswith("day_") and name < FIRST_AUDIT_DAY
+
+
 def collect(paths):
     files = []
     for p in paths:
@@ -1686,7 +1684,9 @@ def collect(paths):
             continue
         for root, dirs, names in os.walk(p):
             dirs[:] = sorted(
-                d for d in dirs if d not in SKIP_DIRS and not d.startswith(SKIP_PREFIXES) and not old_month(d)
+                d
+                for d in dirs
+                if d not in SKIP_DIRS and not d.startswith(SKIP_PREFIXES) and not old_month(d) and not old_day(root, d)
             )
             files += [os.path.join(root, n) for n in sorted(names) if lang_of(n)]
     return files
@@ -1735,6 +1735,65 @@ def judge_env(path):
     return JUDGE_ENV_DEFAULT
 
 
+def find_ruff():
+    """VS Code ruff 확장에 든 실행 파일 (format.sh 와 같은 것). 없으면 PATH 의 ruff."""
+    found = glob.glob(os.path.expanduser("~/.vscode/extensions/charliermarsh.ruff-*/bundled/libs/bin/ruff"))
+    if found:
+        return max(found, key=lambda p: [int(n) for n in re.findall(r"\d+", p.split("charliermarsh.ruff-")[1])[:3]])
+    return shutil.which("ruff")
+
+
+RUFF = find_ruff()
+RUFF_LOC = re.compile(r"^.+?:(\d+):\d+:\s+(F\d+)\s+(?:\[\*\]\s+)?(.*)$")
+
+
+def input_unpacked(tree):
+    """입력 한 줄에서 함께 받아 일부만 쓰는 이름 (`n, m = ...` 의 `n`). 3.8 [허용] 이다."""
+    loaded = {n.id for n in ast.walk(tree) if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load)}
+    res = set()
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Assign):
+            continue
+        if not any(isinstance(n, ast.Name) and n.id == "input" for n in ast.walk(node.value)):
+            continue
+        for t in node.targets:
+            if not isinstance(t, (ast.Tuple, ast.List)):
+                continue
+            names = {n.id for n in ast.walk(t) if isinstance(n, ast.Name)}
+            if names & loaded:
+                res |= {(node.lineno, nm) for nm in names - loaded}
+    return res
+
+
+def py_unused(path, tree):
+    """안 쓰는 import·지역 변수는 ruff, ruff 가 보지 않는 최상위 변수는 ast 로 본다 (3.8)."""
+    found = []
+    if RUFF:
+        cmd = [RUFF, "check", "--no-cache", "--isolated", "--select", "F401,F841", "--output-format", "concise", path]
+        res = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+        for line in res.stdout.split("\n"):
+            m = RUFF_LOC.match(line)
+            if m:
+                found.append((int(m.group(1)), "필수", "unused", False, f"{m.group(2)} {m.group(3)}"))
+    loaded = {n.id for n in ast.walk(tree) if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load)}
+    seen, stack = set(), list(tree.body)
+    while stack:
+        node = stack.pop()
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Lambda)):
+            continue
+        if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store):
+            nm = node.id
+            if nm not in loaded and nm != "_":
+                seen.add((node.lineno, nm))
+        stack.extend(ast.iter_child_nodes(node))
+    seen -= input_unpacked(tree)
+    first = {}
+    for ln, nm in sorted(seen):
+        first.setdefault(nm, ln)
+    found += [(ln, "필수", "unused", True, f"최상위 변수 `{nm}` 를 읽지 않음") for nm, ln in first.items()]
+    return found
+
+
 def compile_file(path):
     """컴파일·파싱 결과를 check_file 과 같은 형태의 튜플 목록으로 돌려준다."""
     lang = lang_of(path)
@@ -1754,7 +1813,8 @@ def compile_file(path):
             with open(path, encoding="utf-8", errors="replace") as f:
                 # `feature_version` 은 문법 일부(`except*`, `type` 문, 제네릭 등)만 걸러내는 근사치다.
                 # 3.12 f-string 중첩 같은 건 못 잡는다.
-                ast.parse(f.read(), feature_version=py_version)
+                tree = ast.parse(f.read(), feature_version=py_version)
+            found += py_unused(path, tree)
         except SyntaxError as e:
             found.append((e.lineno or 1, "필수", "compile-error", False, f"SyntaxError: {e.msg}"))
         return found
@@ -1839,6 +1899,8 @@ def main():
             "경고: python3 가 3.10 미만이라 Python 3.10+ 문법이 compile-error 로 잘못 보고될 수 있다", file=sys.stderr
         )
     compiled = {}
+    if do_compile and not RUFF and any(lang_of(p) == "py" for p in files):
+        print("경고: ruff 를 찾지 못해 Python 의 안 쓰는 import·지역 변수를 검사하지 못한다", file=sys.stderr)
     if do_compile:
         with ThreadPoolExecutor(max_workers=max(1, a.j)) as ex:
             for p, r in zip(files, ex.map(compile_file, files)):
