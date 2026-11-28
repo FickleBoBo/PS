@@ -37,25 +37,25 @@ int main() {
     cin >> n;
 
     while (n--) {
-        string q;
-        cin >> q;
+        string op;
+        cin >> op;
 
-        if (q == "push") {
+        if (op == "push") {
             int x;
             cin >> x;
             push(x);
-        } else if (q == "pop") {
+        } else if (op == "pop") {
             if (empty()) {
                 cout << -1 << '\n';
             } else {
                 cout << front() << '\n';
                 pop();
             }
-        } else if (q == "size") {
+        } else if (op == "size") {
             cout << size() << '\n';
-        } else if (q == "empty") {
+        } else if (op == "empty") {
             cout << empty() << '\n';
-        } else if (q == "front") {
+        } else if (op == "front") {
             if (empty()) {
                 cout << -1 << '\n';
             } else {
