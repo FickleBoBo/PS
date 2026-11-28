@@ -9,10 +9,7 @@ int main() {
     cin >> s;
 
     for (int i = 0; i < s.size(); i++) {
-        if (i != 0 && i % 10 == 0) {
-            cout << '\n';
-        }
-
+        if (i != 0 && i % 10 == 0) cout << '\n';
         cout << s[i];
     }
 }

@@ -9,10 +9,7 @@ public class Main {
 
         String s = br.readLine();
         for (int i = 0; i < s.length(); i++) {
-            if (i != 0 && i % 10 == 0) {
-                sb.append("\n");
-            }
-
+            if (i != 0 && i % 10 == 0) sb.append("\n");
             sb.append(s.charAt(i));
         }
 
