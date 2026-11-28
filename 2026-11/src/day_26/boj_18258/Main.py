@@ -1,6 +1,7 @@
 import sys
 
 input = sys.stdin.readline
+out = []
 
 MAX_N = 2_000_000
 
@@ -33,27 +34,27 @@ class Queue:
 
 
 queue = Queue()
-out = []
 
 n = int(input())
 for _ in range(n):
-    q = input().split()
+    tokens = input().split()
+    op = tokens[0]
 
-    if q[0] == "push":
-        queue.push(int(q[1]))
-    elif q[0] == "pop":
+    if op == "push":
+        queue.push(int(tokens[1]))
+    elif op == "pop":
         if queue.empty():
             out.append(-1)
         else:
             out.append(queue.pop())
-    elif q[0] == "size":
+    elif op == "size":
         out.append(queue.size())
-    elif q[0] == "empty":
+    elif op == "empty":
         if queue.empty():
             out.append(1)
         else:
             out.append(0)
-    elif q[0] == "front":
+    elif op == "front":
         if queue.empty():
             out.append(-1)
         else:
