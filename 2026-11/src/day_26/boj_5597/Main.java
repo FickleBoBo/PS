@@ -8,8 +8,8 @@ public class Main {
 
         boolean[] vis = new boolean[1 + 30];
         for (int i = 0; i < 28; i++) {
-            int n = Integer.parseInt(br.readLine());
-            vis[n] = true;
+            int x = Integer.parseInt(br.readLine());
+            vis[x] = true;
         }
 
         for (int i = 1; i <= 30; i++) {
