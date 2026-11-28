@@ -7,10 +7,10 @@ for _ in range(t):
     tokens = input().split()
     x = float(tokens[0])
 
-    for c in tokens[1:]:
-        if c == "@":
+    for op in tokens[1:]:
+        if op == "@":
             x *= 3
-        elif c == "%":
+        elif op == "%":
             x += 5
         else:
             x -= 7

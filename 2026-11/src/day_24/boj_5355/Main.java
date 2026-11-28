@@ -13,10 +13,10 @@ public class Main {
             double x = Double.parseDouble(st.nextToken());
 
             while (st.hasMoreTokens()) {
-                char c = st.nextToken().charAt(0);
-                if (c == '@') {
+                char op = st.nextToken().charAt(0);
+                if (op == '@') {
                     x *= 3;
-                } else if (c == '%') {
+                } else if (op == '%') {
                     x += 5;
                 } else {
                     x -= 7;

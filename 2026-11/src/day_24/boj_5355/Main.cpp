@@ -9,18 +9,18 @@ int main() {
     cin >> t >> ws;
 
     while (t--) {
-        string s;
-        getline(cin, s);
-        stringstream ss(s);
+        string line;
+        getline(cin, line);
+        stringstream ss(line);
 
         double x;
         ss >> x;
 
-        char c;
-        while (ss >> c) {
-            if (c == '@') {
+        char op;
+        while (ss >> op) {
+            if (op == '@') {
                 x *= 3;
-            } else if (c == '%') {
+            } else if (op == '%') {
                 x += 5;
             } else {
                 x -= 7;
