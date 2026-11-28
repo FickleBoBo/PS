@@ -3,7 +3,7 @@ import sys
 
 input = sys.stdin.readline
 
-n = int(input())
+input()
 arr = list(map(int, input().split()))
 
 first = arr[0]
