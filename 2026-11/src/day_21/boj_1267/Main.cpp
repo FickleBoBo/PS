@@ -5,8 +5,8 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    int ys = 0;
-    int ms = 0;
+    int ySum = 0;
+    int mSum = 0;
 
     int n;
     cin >> n;
@@ -15,15 +15,15 @@ int main() {
         int x;
         cin >> x;
 
-        ys += (x / 30 + 1) * 10;
-        ms += (x / 60 + 1) * 15;
+        ySum += (x / 30 + 1) * 10;
+        mSum += (x / 60 + 1) * 15;
     }
 
-    if (ys < ms) {
-        cout << "Y " << ys << '\n';
-    } else if (ys > ms) {
-        cout << "M " << ms << '\n';
+    if (ySum < mSum) {
+        cout << "Y " << ySum << '\n';
+    } else if (ySum > mSum) {
+        cout << "M " << mSum << '\n';
     } else {
-        cout << "Y M " << ys << '\n';
+        cout << "Y M " << ySum << '\n';
     }
 }

@@ -10,21 +10,21 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int ys = 0;
-        int ms = 0;
+        int ySum = 0;
+        int mSum = 0;
 
         while (n-- > 0) {
             int x = Integer.parseInt(st.nextToken());
-            ys += (x / 30 + 1) * 10;
-            ms += (x / 60 + 1) * 15;
+            ySum += (x / 30 + 1) * 10;
+            mSum += (x / 60 + 1) * 15;
         }
 
-        if (ys < ms) {
-            System.out.println("Y " + ys);
-        } else if (ys > ms) {
-            System.out.println("M " + ms);
+        if (ySum < mSum) {
+            System.out.println("Y " + ySum);
+        } else if (ySum > mSum) {
+            System.out.println("M " + mSum);
         } else {
-            System.out.println("Y M " + ys);
+            System.out.println("Y M " + ySum);
         }
     }
 }
