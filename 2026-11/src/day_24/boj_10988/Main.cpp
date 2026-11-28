@@ -8,6 +8,6 @@ int main() {
     string s;
     cin >> s;
 
-    string rs = string(s.rbegin(), s.rend());
+    string rs(s.rbegin(), s.rend());
     cout << (s == rs);
 }
