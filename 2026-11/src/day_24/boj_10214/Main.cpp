@@ -9,19 +9,19 @@ int main() {
     cin >> t;
 
     while (t--) {
-        int ysum = 0;
-        int ksum = 0;
+        int ySum = 0;
+        int kSum = 0;
 
         for (int i = 0; i < 9; i++) {
             int y, k;
             cin >> y >> k;
-            ysum += y;
-            ksum += k;
+            ySum += y;
+            kSum += k;
         }
 
-        if (ysum > ksum) {
+        if (ySum > kSum) {
             cout << "Yonsei\n";
-        } else if (ysum < ksum) {
+        } else if (ySum < kSum) {
             cout << "Korea\n";
         } else {
             cout << "Draw\n";

@@ -10,20 +10,20 @@ public class Main {
 
         int t = Integer.parseInt(br.readLine());
         while (t-- > 0) {
-            int ysum = 0;
-            int ksum = 0;
+            int ySum = 0;
+            int kSum = 0;
 
             for (int i = 0; i < 9; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
                 int y = Integer.parseInt(st.nextToken());
                 int k = Integer.parseInt(st.nextToken());
-                ysum += y;
-                ksum += k;
+                ySum += y;
+                kSum += k;
             }
 
-            if (ysum > ksum) {
+            if (ySum > kSum) {
                 bw.write("Yonsei\n");
-            } else if (ysum < ksum) {
+            } else if (ySum < kSum) {
                 bw.write("Korea\n");
             } else {
                 bw.write("Draw\n");
