@@ -33,6 +33,7 @@ mkdir -p "$work"
 
 cxxflags=(-std="$std" -O2 -Wall -Wextra)
 javaopts=()
+case "$(basename "$dir")" in boj_*) javaopts+=(-Xss512m) ;; esac  # BOJ 실행 옵션의 스택 크기
 [ "${FPOFF:-0}" = 1 ] && cxxflags+=(-ffp-contract=off)
 [ "${SAN:-0}" = 1 ] && { cxxflags+=(-fsanitize=address,undefined -fno-sanitize-recover=all); javaopts+=(-ea); }
 
