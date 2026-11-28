@@ -49,35 +49,35 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         while (n-- > 0) {
             st = new StringTokenizer(br.readLine());
-            String q = st.nextToken();
+            String op = st.nextToken();
 
-            if (q.equals("push_front")) {
+            if (op.equals("push_front")) {
                 int x = Integer.parseInt(st.nextToken());
                 push_front(x);
-            } else if (q.equals("push_back")) {
+            } else if (op.equals("push_back")) {
                 int x = Integer.parseInt(st.nextToken());
                 push_back(x);
-            } else if (q.equals("pop_front")) {
+            } else if (op.equals("pop_front")) {
                 if (empty()) {
                     sb.append("-1\n");
                 } else {
                     sb.append(pop_front()).append("\n");
                 }
-            } else if (q.equals("pop_back")) {
+            } else if (op.equals("pop_back")) {
                 if (empty()) {
                     sb.append("-1\n");
                 } else {
                     sb.append(pop_back()).append("\n");
                 }
-            } else if (q.equals("size")) {
+            } else if (op.equals("size")) {
                 sb.append(size()).append("\n");
-            } else if (q.equals("empty")) {
+            } else if (op.equals("empty")) {
                 if (empty()) {
                     sb.append("1\n");
                 } else {
                     sb.append("0\n");
                 }
-            } else if (q.equals("front")) {
+            } else if (op.equals("front")) {
                 if (empty()) {
                     sb.append("-1\n");
                 } else {

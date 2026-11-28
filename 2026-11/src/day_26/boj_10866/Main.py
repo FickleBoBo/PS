@@ -1,6 +1,7 @@
 import sys
 
 input = sys.stdin.readline
+out = []
 
 MAX_N = 10000
 
@@ -41,34 +42,34 @@ class Deque:
 
 
 deque = Deque()
-out = []
 
 n = int(input())
 for _ in range(n):
-    q = input().split()
+    tokens = input().split()
+    op = tokens[0]
 
-    if q[0] == "push_front":
-        deque.push_front(int(q[1]))
-    elif q[0] == "push_back":
-        deque.push_back(int(q[1]))
-    elif q[0] == "pop_front":
+    if op == "push_front":
+        deque.push_front(int(tokens[1]))
+    elif op == "push_back":
+        deque.push_back(int(tokens[1]))
+    elif op == "pop_front":
         if deque.empty():
             out.append(-1)
         else:
             out.append(deque.pop_front())
-    elif q[0] == "pop_back":
+    elif op == "pop_back":
         if deque.empty():
             out.append(-1)
         else:
             out.append(deque.pop_back())
-    elif q[0] == "size":
+    elif op == "size":
         out.append(deque.size())
-    elif q[0] == "empty":
+    elif op == "empty":
         if deque.empty():
             out.append(1)
         else:
             out.append(0)
-    elif q[0] == "front":
+    elif op == "front":
         if deque.empty():
             out.append(-1)
         else:
