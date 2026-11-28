@@ -1,10 +1,10 @@
 import sys
 
 input = sys.stdin.readline
+out = []
 
 INF = 1_000_000_000
 
-out = []
 tc = 1
 while True:
     n = int(input())
