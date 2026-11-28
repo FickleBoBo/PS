@@ -2,7 +2,7 @@ import sys
 
 input = sys.stdin.readline
 
-v = int(input())
+input()
 s = input().rstrip()
 
 a = s.count("A")

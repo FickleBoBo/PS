@@ -8,11 +8,11 @@ public class Main {
 
         int a = 0;
         int b = 0;
-        int v = Integer.parseInt(br.readLine());
+        br.readLine();
         String s = br.readLine();
 
-        for (int i = 0; i < v; i++) {
-            if (s.charAt(i) == 'A') {
+        for (char c : s.toCharArray()) {
+            if (c == 'A') {
                 a++;
             } else {
                 b++;
