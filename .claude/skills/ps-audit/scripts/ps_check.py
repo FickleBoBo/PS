@@ -1498,6 +1498,13 @@ def r_pystdin(ctx):
     return [(1, "input() 을 쓰는데 input = sys.stdin.readline 이 없음")] if uses and not has else []
 
 
+@rule("py-walrus", "필수", ("py",), "대입 표현식 := 금지 (7장)")
+def r_pywalrus(ctx):
+    if not ctx.tree:
+        return []
+    return [(n.lineno, ":= 대신 대입문을 따로 쓴다") for n in ast.walk(ctx.tree) if isinstance(n, ast.NamedExpr)]
+
+
 @rule("py-format", "필수", ("py",), "f-string 만 (7장)")
 def r_pyformat(ctx):
     res, T = [], ctx.tokens
