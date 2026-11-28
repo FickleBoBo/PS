@@ -24,10 +24,6 @@ int main() {
             }
         }
 
-        if (flag) {
-            cout << "Possible\n";
-        } else {
-            cout << "Impossible\n";
-        }
+        cout << (flag ? "Possible\n" : "Impossible\n");
     }
 }

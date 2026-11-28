@@ -28,11 +28,7 @@ public class Main {
                 }
             }
 
-            if (flag) {
-                bw.write("Possible\n");
-            } else {
-                bw.write("Impossible\n");
-            }
+            bw.write(flag ? "Possible\n" : "Impossible\n");
         }
 
         bw.flush();
