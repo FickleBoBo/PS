@@ -8,4 +8,5 @@ while True:
     if x == -1:
         break
     total += x
+
 print(total)
